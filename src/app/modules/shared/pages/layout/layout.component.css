@@ -1,0 +1,153 @@
+mat-sidenav-content {
+  padding: 16px;
+}
+
+.layout-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+.layout-is-mobile .layout-toolbar {
+  position: fixed;
+  /* Make sure the toolbar will stay on top of the content as it scrolls past. */
+  z-index: 2;
+}
+
+img.app-logo {
+  display: block;
+  width: 120px;
+}
+
+.layout-sidenav-container {
+  /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This
+       causes `<mat-sidenav-content>` to act as our scrolling element for desktop layouts. */
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+}
+
+.layout-is-mobile .layout-sidenav-container {
+  /* When the sidenav is fixed, don't constrain the height of the sidenav container. This allows the
+       `<body>` to be our scrolling element for mobile layouts. */
+  -webkit-box-flex: 1;
+      -ms-flex: 1 0 auto;
+          flex: 1 0 auto;
+}
+
+.mat-sidenav-content {
+  background: #e8f0fb;
+}
+
+.mat-list-icon {
+  margin-right: 16px;
+}
+
+.app-user-container {
+  width: 260px;
+  padding: 8px 16px 16px 16px;
+}
+
+.left-menu.active {
+  background: rgba(3, 18, 41, 0.04);
+}
+
+.sub-menu .mat-list-item {
+  padding-left: 1.5rem;
+}
+
+::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+  -webkit-transform: translateY(-15%) translateX(50%) !important;
+          transform: translateY(-15%) translateX(50%) !important;
+}
+
+::ng-deep .user-dropdown .mat-menu-content > button {
+  border-bottom: 1px solid #f4f4f4;
+}
+
+::ng-deep .user-dropdown .mat-menu-content > button:last-child {
+  border-bottom: none;
+}
+
+.user-info .name {
+  font-size: 16px;
+  font-weight: 400;
+  color: #000;
+  line-height: 20px;
+}
+
+.user-info .role,
+.user-info .email {
+  font-size: 12px;
+  line-height: 16px;
+}
+
+::ng-deep .sidenav {
+  background: #465b88;
+  min-width: 260px;
+  padding-bottom: 90px;
+}
+
+::ng-deep .sidenav .mat-subheader {
+  font-family: "IBM Plex Sans Thai", sans-seri;
+  color: white;
+  margin-top: 14px !important;
+}
+
+::ng-deep .sidenav .mat-list-item-content {
+  font-family: "IBM Plex Sans Thai", sans-seri;
+  color: white;
+}
+
+::ng-deep .sidenav .mat-list-item {
+  width: calc(100% - 44px) !important;
+  margin: 8px 22px;
+  height: 46px !important;
+  border-radius: 4px;
+}
+
+::ng-deep .sidenav .mat-list-item.active {
+  background: #2c3852;
+  -webkit-box-shadow: 0 11px 14px -10px #2c3852;
+          box-shadow: 0 11px 14px -10px #2c3852;
+}
+
+::ng-deep .sidenav .footer {
+  padding: 20px 16px;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  border-top: #aaa 1px solid;
+  font-size: 12px;
+  background: #465b88;
+}
+
+::ng-deep .sidenav .footer .name {
+  color: white;
+}
+
+::ng-deep .sidenav .footer .version {
+  color: #aaa;
+}
+
+::ng-deep .header-border {
+  margin-left: -14px;
+  margin-right: -16px;
+  border-bottom: solid 1px #3332;
+}
+
+::ng-deep .mat-form-field-infix {
+  padding: 0.5em 1em 1em !important;
+  margin-top: 0 !important;
+}
+/*# sourceMappingURL=layout.component.css.map */

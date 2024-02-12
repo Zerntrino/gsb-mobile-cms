@@ -1,0 +1,39 @@
+<div class="flex">
+  <!-- left-menu -->
+  <div class="w-16 h-screen left-bar transition-all" [ngClass]="{ 'w-60': leftMenuFull }" >
+    <div class="my-2"><img class="mx-auto w-16" src="assets/images/logo.png" /></div>
+    <div class="my-2 text-white text-center text-xs line-clamp-1">{{leftMenuFull?"Content Management System":"CMS"}}</div>
+
+    <div class="mt-2 mb-14 relative w-full">
+      <img class="absolute top-0  w-6 cursor-pointer" [ngClass]="{'-left-1': !leftMenuFull, '-right-1 rotate-180': leftMenuFull}" (click)="toggleLeftMenu()" src="assets/icons/menus/show.svg" />
+    </div>
+    
+    <div class="my-4" *ngFor="let group of leftMenus">
+      <div class="text-white mb-2 px-3 text-xs">{{group.title}}</div>
+
+      <div class="space-y-2 flex flex-col">
+        <a class="flex items-center px-3 py-3 cursor-pointer" [ngClass]="{ 'bg-primary': item.active}" *ngFor="let item of group.items">
+          <img class="w-5 h-5 mx-2" [src]="item.icon" />
+          <div><p class=" text-white text-sm line-clamp-1" [ngClass]="{ 'w-0': !leftMenuFull }">{{item.title}}</p></div>
+        </a>
+        
+      </div>
+    </div>
+  </div>
+  
+  <div class="flex-1 content">
+    <!-- navbar -->
+    <div class=" bg-white h-14 shadow-lg flex items-center space-x-3">
+      <div class="flex-1"></div>
+      <div class="text-sm">Administrator</div>
+      <div class="h-7 w-7 rounded-full bg-gray-100"></div>
+      <div class="pr-4"><img class="mx-auto w-5" src="assets/icons/menus/logout.svg" /></div>
+    </div>
+
+    <!-- content -->
+    <div class="px-4 py-2"><router-outlet></router-outlet></div>
+
+    
+  </div>
+
+</div>
