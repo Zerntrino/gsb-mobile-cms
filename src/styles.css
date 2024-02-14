@@ -15,8 +15,17 @@ body {
     background-color: #F6F5F7;
 }
 
-.input:focus {
-    outline: 0px !important;
-    -webkit-appearance: none;
-    box-shadow: none !important;
+@layer components {
+    .input {
+        @apply w-full focus:border-primary border-gray-200 rounded-md placeholder:text-gray-300;
+    }
+    .input:focus {
+        outline: 0px !important;
+        -webkit-appearance: none;
+        box-shadow: none !important;
+    }
+
+    .button {
+        @apply w-full bg-primary text-white text-center font-semibold rounded-md py-2 disabled:bg-opacity-25;
+    }
 }

@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { Error404Component } from './modules/shared/pages/error404/error404.component';
 import { LayoutComponent } from './modules/shared/pages/layout/layout.component';
 import { NgModule } from '@angular/core';
+import { AuthGuard } from './core/guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -12,6 +13,7 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
