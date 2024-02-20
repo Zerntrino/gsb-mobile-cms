@@ -1,11 +1,14 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { AppUserToken } from 'src/app/core/models/app-user.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-layout',
   templateUrl: './layout.component.html',
-  styleUrls: ['./layout.component.scss'],
+  styleUrls: ['./layout.component.css'],
 })
 export class LayoutComponent implements OnDestroy, OnInit {
+  appUser?: AppUserToken;
   leftMenus = [
     {
       title: 'MENU',
@@ -22,8 +25,17 @@ export class LayoutComponent implements OnDestroy, OnInit {
   ];
   leftMenuFull = false;
 
+  constructor(private authService: AuthService) {
+    this.appUser = undefined;
+    this.authService.appUser$.subscribe((appUser) => (this.appUser = appUser));
+  }
+
   toggleLeftMenu(): void {
     this.leftMenuFull = !this.leftMenuFull;
+  }
+
+  logoutClick(): void {
+    this.authService.logout();
   }
 
   ngOnInit(): void {}

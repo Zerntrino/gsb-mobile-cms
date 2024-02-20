@@ -22,8 +22,17 @@ export class LoginComponent implements OnInit {
   ngOnInit(): void {}
 
   onSubmit(): void {
-    const email = this.loginForm.get('email')?.value;
-    const password = this.loginForm.get('password')?.value;
-    console.log('submit', email, password);
+    const email = this.loginForm.get('email')?.value || '';
+    const password = this.loginForm.get('password')?.value || '';
+
+    this.authService.login(email, password).subscribe(
+      (response) => {
+        console.log(this.authService.getRedirectUrl());
+        this.router.navigate([this.authService.getRedirectUrl()]);
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 }
