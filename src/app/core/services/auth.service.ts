@@ -4,17 +4,18 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { catchError, delay, finalize, map, tap } from 'rxjs/operators';
 import { ApiResponse, BaseService } from './base.service';
-import { AppUser, AppUserToken } from '../models/app-user.model';
+import { AppUserToken } from '../models/app-user.model';
+import { Response } from '../models/response.model';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService extends BaseService implements OnDestroy {
   private timer?: Subscription;
-  private appUser = new BehaviorSubject<AppUser>({} as AppUser);
+  private appUser = new BehaviorSubject<AppUserToken>({} as AppUserToken);
   private loginUrl = '/auth';
-  appUser$: Observable<AppUser>;
-  private redirectUrl = '/dashboard';
+  appUser$: Observable<AppUserToken>;
+  private redirectUrl = '/';
 
   getRedirectUrl(): string {
     return this.redirectUrl;
@@ -28,22 +29,18 @@ export class AuthService extends BaseService implements OnDestroy {
     return this.loginUrl;
   }
 
-  get isSuperAdmin(): boolean {
-    return this.appUser.value.app_role.role === 1000;
-  }
-
   private storageEventListener(event: StorageEvent): void {
     if (event.storageArea === localStorage) {
       if (event.key === 'logout-event') {
         this.onLogout('');
       }
       if (event.key === 'login-event') {
-        this.stopTokenTimer();
+        // this.stopTokenTimer();
         this.http
-          .get<ApiResponse<AppUser>>(`${this.apiUrl}/me`)
+          .get<ApiResponse<AppUserToken>>(`${this.apiUrl}/me`)
           .subscribe((response) => {
             if (response.success) {
-              this.appUser.next(response.data as AppUser);
+              this.appUser.next(response.data as AppUserToken);
             }
           });
       }
@@ -61,13 +58,16 @@ export class AuthService extends BaseService implements OnDestroy {
     window.removeEventListener('storage', this.storageEventListener.bind(this));
   }
 
-  login(email: string, password: string): Observable<AppUserToken> {
+  login(email: string, password: string): Observable<Response<AppUserToken>> {
     return this.http
-      .post<AppUserToken>(`${this.apiUrl}/guest/login`, { email, password })
+      .post<Response<AppUserToken>>(`${this.apiUrl}/cms/signin`, {
+        email,
+        password,
+      })
       .pipe(
         map((response) => {
-          if (response.access_token) {
-            this.onLogin(response);
+          if (response.data.token) {
+            this.onLogin(response.data);
           }
           return response;
         })
@@ -76,7 +76,7 @@ export class AuthService extends BaseService implements OnDestroy {
 
   logout(returnUrl?: string): void {
     this.http
-      .post(`${this.apiUrl}/logout`, {})
+      .post(`${this.apiUrl}/cms/signout`, {})
       .pipe(
         finalize(() => {
           this.onLogout(returnUrl);
@@ -86,19 +86,19 @@ export class AuthService extends BaseService implements OnDestroy {
   }
 
   onLogin(token: AppUserToken): void {
-    console.log(token.app_user);
-    this.appUser.next(token.app_user);
-    this.setUserStorage(token.app_user);
-    this.setTokenStorage(token.access_token, token.refresh_token);
-    this.startTokenTimer();
+    console.log(token);
+    this.appUser.next(token);
+    this.setUserStorage(token);
+    this.setTokenStorage(token.token);
+    // this.startTokenTimer();
     localStorage.setItem('login-event', 'login' + Math.random());
   }
 
   onLogout(returnUrl?: string): void {
-    this.appUser.next({} as AppUser);
+    this.appUser.next({} as AppUserToken);
     this.clearUserStorage();
     this.clearTokenStorage();
-    this.stopTokenTimer();
+    // this.stopTokenTimer();
     if (returnUrl) {
       this.router.navigate([this.getLoginUrl()], {
         queryParams: { returnUrl },
@@ -115,39 +115,34 @@ export class AuthService extends BaseService implements OnDestroy {
       this.clearTokenStorage();
     }
     return this.http
-      .post<ApiResponse<AppUserToken>>(`${this.apiUrl}/token`, {
+      .post<ApiResponse<AppUserToken>>(`${this.apiUrl}/cms/token`, {
         refresh_token: refreshToken,
       })
       .pipe(
         map((response) => {
           if (response.success) {
             const userToken = response.data as AppUserToken;
-            this.setTokenStorage(
-              userToken.access_token,
-              userToken.refresh_token
-            );
-            this.startTokenTimer();
+            this.setTokenStorage(userToken.token);
+            // this.startTokenTimer();
           }
           return response;
         })
       );
   }
 
-  get appUserDataStorage(): AppUser {
+  get appUserDataStorage(): AppUserToken {
     return localStorage.getItem('logined_user')
       ? JSON.parse(localStorage.getItem('logined_user') || '')
       : null;
   }
 
-  setUserStorage(appUser: AppUser): void {
+  setUserStorage(appUser: AppUserToken): void {
     localStorage.setItem(
       'logined_user',
       JSON.stringify({
         id: appUser.id,
-        user_no: appUser.user_no,
-        role: appUser.app_role.role,
-        firstname: appUser.firstname,
-        lastname: appUser.lastname,
+        name: appUser.name,
+        imageUrl: appUser.imageUrl,
       })
     );
   }
@@ -156,37 +151,37 @@ export class AuthService extends BaseService implements OnDestroy {
     localStorage.removeItem('logined_user');
   }
 
-  setTokenStorage(accessToken: string, refreshToken: string): void {
-    localStorage.setItem('access_token', accessToken);
-    localStorage.setItem('refresh_token', refreshToken);
+  setTokenStorage(token: string): void {
+    localStorage.setItem('token', token);
+    // localStorage.setItem('refresh_token', refreshToken);
   }
 
   clearTokenStorage(): void {
-    localStorage.removeItem('access_token');
-    localStorage.removeItem('refresh_token');
+    localStorage.removeItem('token');
+    // localStorage.removeItem('refresh_token');
   }
 
-  private getTokenRemainingTime(): number {
-    const accessToken = localStorage.getItem('access_token');
-    if (!accessToken) {
-      return 0;
-    }
-    const jwtToken = JSON.parse(atob(accessToken.split('.')[1]));
-    const expires = new Date(jwtToken.exp * 1000);
-    return expires.getTime() - Date.now();
-  }
+  // private getTokenRemainingTime(): number {
+  //   const accessToken = localStorage.getItem('access_token');
+  //   if (!accessToken) {
+  //     return 0;
+  //   }
+  //   const jwtToken = JSON.parse(atob(accessToken.split('.')[1]));
+  //   const expires = new Date(jwtToken.exp * 1000);
+  //   return expires.getTime() - Date.now();
+  // }
 
-  private startTokenTimer(): void {
-    const timeout = this.getTokenRemainingTime();
-    this.timer = of(true)
-      .pipe(
-        delay(timeout),
-        tap(() => this.refreshToken().subscribe())
-      )
-      .subscribe();
-  }
+  // private startTokenTimer(): void {
+  //   const timeout = this.getTokenRemainingTime();
+  //   this.timer = of(true)
+  //     .pipe(
+  //       delay(timeout),
+  //       tap(() => this.refreshToken().subscribe())
+  //     )
+  //     .subscribe();
+  // }
 
-  private stopTokenTimer(): void {
-    this.timer?.unsubscribe();
-  }
+  // private stopTokenTimer(): void {
+  //   this.timer?.unsubscribe();
+  // }
 }

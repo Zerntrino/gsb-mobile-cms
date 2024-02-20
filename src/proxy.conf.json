@@ -1,0 +1,11 @@
+{
+    "/api/*": {
+        "target": "http://gsb-api.ubakong.com",
+        "secure": false,
+        "pathRewrite": {
+            "^/api": "/api"
+        },
+        "changeOrigin": false,
+        "logLevel": "debug"
+    }
+}

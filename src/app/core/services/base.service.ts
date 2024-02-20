@@ -5,7 +5,7 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class BaseService {
-  protected apiUrl = `${environment.apiUrl}/api/${environment.apiVersion}`;
+  protected apiUrl = `${environment.apiUrl}/api`; // /${environment.apiVersion}
 
   constructor() {}
 

@@ -25,9 +25,10 @@
     <!-- navbar -->
     <div class=" bg-white h-14 shadow-lg flex items-center space-x-3">
       <div class="flex-1"></div>
-      <div class="text-sm">Administrator</div>
-      <div class="h-7 w-7 rounded-full bg-gray-100"></div>
-      <div class="pr-4"><img class="mx-auto w-5" src="assets/icons/menus/logout.svg" /></div>
+      <div class="text-sm">{{appUser?.name}}</div>
+      <img *ngIf="appUser?.imageUrl" class="h-7 w-7 rounded-full bg-gray-100" [src]="appUser?.imageUrl"/>
+      <div *ngIf="!appUser?.imageUrl" class="h-7 w-7 rounded-full bg-gray-100"></div>
+      <div class="pr-4"><img class="mx-auto w-5 cursor-pointer" src="assets/icons/menus/logout.svg" (click)="logoutClick()" /></div>
     </div>
 
     <!-- content -->
