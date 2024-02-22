@@ -86,7 +86,6 @@ export class AuthService extends BaseService implements OnDestroy {
   }
 
   onLogin(token: AppUserToken): void {
-    console.log(token);
     this.appUser.next(token);
     this.setUserStorage(token);
     this.setTokenStorage(token.token);

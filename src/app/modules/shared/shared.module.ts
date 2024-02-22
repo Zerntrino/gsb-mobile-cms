@@ -5,10 +5,18 @@ import { LayoutComponent } from './pages/layout/layout.component';
 import { Error404Component } from './pages/error404/error404.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NavComponent } from './components/nav/nav.component';
 
 @NgModule({
-  declarations: [Error404Component, LayoutComponent],
-  imports: [CommonModule, RouterModule, RouterOutlet, HttpClientModule],
-  exports: [],
+  declarations: [Error404Component, LayoutComponent, NavComponent],
+  imports: [
+    CommonModule,
+    RouterModule,
+    RouterOutlet,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
+  exports: [NavComponent, FormsModule, ReactiveFormsModule],
 })
 export class SharedModule {}

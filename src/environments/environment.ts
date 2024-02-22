@@ -5,7 +5,7 @@
 export const environment = {
   appVersion: require('../../package.json').version,
   production: false,
-  apiUrl: 'http://gsb-api.ubakong.com',
+  apiUrl: 'http://localhost:4200',
   apiVersion: '',
 };
 
