@@ -26,6 +26,21 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'user-management',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/userManagement/user-management.module').then(
+            (m) => m.UserManagementModule
+          ),
+        data: { title: 'Search' },
+      },
+    ],
+  },
+  {
     path: '404-not-found',
     component: Error404Component,
     data: { title: '404' },

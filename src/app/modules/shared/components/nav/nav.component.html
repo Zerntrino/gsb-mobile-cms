@@ -1,0 +1,10 @@
+<div class="relative">
+  <h1 class="text-lg font-semibold px-4 py-2">{{title}}</h1>
+
+  <div class="flex text-sm px-4" *ngIf="items.length">
+    <div class="text-gray-400">{{title}}</div>/
+    <a [routerLink]="item.to || undefined" class="" *ngFor="let item of items">
+      {{item.title}}
+    </a>
+  </div>
+</div>

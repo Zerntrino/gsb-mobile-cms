@@ -3,18 +3,19 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ApiResponse, BaseService, Paginate } from './base.service';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root',
 })
-export class AppUserService extends BaseService {
+export class UserService extends BaseService {
   constructor(public http: HttpClient) {
     super();
   }
 
-  getAppRoles(): Observable<ApiResponse<object[]>> {
-    return this.http.get<ApiResponse<object[]>>(
-      `${this.apiUrl}/AppUser/AppRole/All`
+  getUserProfile(id: string): Observable<ApiResponse<User>> {
+    return this.http.get<ApiResponse<User>>(
+      `${this.apiUrl}/user/${id}/profile`
     );
   }
 }

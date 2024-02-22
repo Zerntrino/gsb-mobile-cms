@@ -1,0 +1,15 @@
+<div class="flex flex-col h-full">
+    <app-nav title="จัดการผู้ใช้บัตร" ></app-nav>
+
+    <div class="flex-1 mx-w my-2 bg-white">
+        <form class="py-16" [formGroup]="searchForm" (submit)="sf.form.valid && onSubmit()" #sf="ngForm">
+            <div class="text-center text-lg">ค้นหาข้อมูลเลขที่บัตรประจำตัวประชาชน</div>
+            <div class="text-center my-4">
+                <input class="input max-w-lg" formControlName="id" required maxlength="13" placeholder="เลขที่บัตรประจำตัวประชาชน"/>
+            </div>
+            <div class="text-center">
+                <button class="mb-6 button max-w-44" type="submit" [disabled]="sf.invalid">ค้นหา</button>
+            </div>
+        </form>
+    </div>
+</div>

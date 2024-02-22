@@ -1,3 +1,11 @@
+export interface LeftMenu {
+  title: string;
+  icon: string;
+  active: boolean;
+  to: string;
+  items: LeftMenu[];
+}
+
 export interface AppUserToken {
   token: string;
   id: number;
