@@ -6,15 +6,16 @@ import { UserService } from 'src/app/core/services/user.service';
 import { NavItem } from 'src/app/modules/shared/components/nav/nav.component';
 
 @Component({
-  selector: 'app-user-management-detail',
-  templateUrl: './detail.component.html',
-  styleUrls: ['./detail.component.css'],
+  selector: 'app-user-management-card-detail',
+  templateUrl: './card-detail.component.html',
+  styleUrls: ['./card-detail.component.css'],
 })
-export class DetailComponent implements OnInit {
+export class CardDetailComponent implements OnInit {
   id: string = '';
   navItems = [
     { title: 'จัดการผู้ใช้บัตร', to: '' },
-    { title: 'ข้อมูลผู้ใช้บัตร', to: '' }
+    { title: 'ข้อมูลผู้ใช้บัตร', to: '' },
+    { title: 'บัตรเครดิต', to: '' },
   ];
 
   constructor(
@@ -24,14 +25,14 @@ export class DetailComponent implements OnInit {
   ) {
     this.id = this.activatedRoute.snapshot.params['id'];
 
-    this.userService.getUserProfile(this.id).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    // this.userService.getUserProfile(this.id).subscribe(
+    //   (response) => {
+    //     console.log(response);
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
   }
 
   ngOnInit(): void {}

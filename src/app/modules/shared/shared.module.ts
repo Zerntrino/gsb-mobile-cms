@@ -6,9 +6,15 @@ import { Error404Component } from './pages/error404/error404.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NavComponent } from './components/nav/nav.component';
+import { TabComponent } from './components/tab/tab.component';
 
 @NgModule({
-  declarations: [Error404Component, LayoutComponent, NavComponent],
+  declarations: [
+    Error404Component,
+    LayoutComponent,
+    NavComponent,
+    TabComponent,
+  ],
   imports: [
     CommonModule,
     RouterModule,
@@ -17,6 +23,6 @@ import { NavComponent } from './components/nav/nav.component';
     FormsModule,
     ReactiveFormsModule,
   ],
-  exports: [NavComponent, FormsModule, ReactiveFormsModule],
+  exports: [NavComponent, TabComponent, FormsModule, ReactiveFormsModule],
 })
 export class SharedModule {}
