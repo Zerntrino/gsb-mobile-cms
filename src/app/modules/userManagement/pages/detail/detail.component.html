@@ -1,36 +1,71 @@
 <div class="flex flex-col h-full">
     <app-nav title="จัดการผู้ใช้บัตร" [items]="navItems"></app-nav>
 
-    <div class="flex-1 mx-w my-2 bg-white px-4 py-4">
+    <div class="flex-1 my-2 bg-white px-4 py-4">
         <div class="font-semibold">ข้อมูลผู้ใช้บัตร</div>
-        <div class="my-4 flex rounded-lg border border-gray-100 px-4 py-2">
-            <div class="w-28">img</div>
-            <div class="flex-1">detail</div>
-            <div class="flex-1">contact</div>
-            <div class="w-20">tel</div>
-            <div class="flex-1">address</div>
+        <div class="my-4 flex rounded-lg border border-gray-100 px-4 py-6 space-x-6">
+            <div class="">
+                <img class="w-20 h-20 rounded-full bg-pink-100 p-4" src="assets/icons/user.svg" />
+            </div>
+            <div class="flex-1">
+                <div class="text-sm text-gray-400">ชื่อ - นามสกุล</div>
+                <div class="font-semibold">บารมี สมาธิปัญญา</div>
+                <div class="h-4"></div>
+                <div class="text-sm text-gray-400">เลขบัตรประจำตัวประชาชน</div>
+                <div class="font-semibold">0-9999-00999-99-8</div>
+            </div>
+            <div class="flex-1">
+                <div class="text-sm text-gray-400">เบอร์โทรศัพท์</div>
+                <div class="font-semibold">084-234-2323</div>
+                <div class="h-4"></div>
+                <div class="text-sm text-gray-400">อีเมล</div>
+                <div class="font-semibold">tanya.hill@example.com</div>
+            </div>
+            <div class="w-20">
+                <img class="w-12 h-12 rounded-full bg-pink-100 p-3" src="assets/icons/tel.svg" />
+            </div>
+            <div class="flex-1">
+                <div class="text-sm text-gray-400">ที่อยู่จัดส่งเอกสาร</div>
+                <div class="font-semibold">50/50 คาซ่าวิลล์ งามวงศ์วาน
+                ถ.งามวงศ์วาน แขวงลาดยาว เขตจตุจักร
+                กรุงเทพฯ 10900</div>
+            </div>
         </div>
 
         <div class="flex items-center my-4">
-            <div class="flex-1">บัตรเครดิต</div>
+            <div class="flex-1 font-semibold">บัตรเครดิต</div>
             <div class="relative">
-                <input class="input" placeholder="ค้นหา: หมายเลขบัตร 4 ตัวหลัง"/>
+                <img class="w-6 h-6 absolute top-2 left-2" src="assets/icons/search.svg" />
+                <input class="input pl-8" placeholder="ค้นหา: หมายเลขบัตร 4 ตัวหลัง"/>
             </div>
         </div>
 
         <div class="space-y-2">
-            <div class="border border-gray-100 rounded-md px-4 py-2 flex items-center space-x-4">
-                <div class="w-20">logo</div>
+            <a [routerLink]="'/user-management/card/'+1" class="border border-gray-100 rounded-md px-8 py-6 flex items-center space-x-6">
+                <div class=""><img class="w-20 shadow-lg" src="assets/icons/cards/visa.svg" /></div>
                 <div class="flex-1">
                     <div class="font-semibold">1234 XXXX XXXX 5678</div>
                     <div class="text-sm">Visa</div>
                 </div>
                 <div class="">
-                    <div class="text-sm text-gray-400">คะแนนสะสม</div>
+                    <div class="text-sm text-gray-400" style="text-align: end;">คะแนนสะสม</div>
                     <div class="font-semibold">9,900 คะแนน</div>
                 </div>
-                <div>></div>
-            </div>
+                <div><img class="w-6" src="assets/icons/next.svg" /></div>
+            </a>
+
+            <a [routerLink]="'/user-management/card/'+1" class="border border-gray-100 rounded-md px-8 py-6 flex items-center space-x-6">
+                <div class=""><img class="w-20 shadow-lg" src="assets/icons/cards/master-card.svg" /></div>
+                <div class="flex-1">
+                    <div class="font-semibold">1234 XXXX XXXX 5678</div>
+                    <div class="text-sm">Visa</div>
+                </div>
+                <div class="">
+                    <div class="text-sm text-gray-400" style="text-align: end;">คะแนนสะสม</div>
+                    <div class="font-semibold">9,900 คะแนน</div>
+                </div>
+                <div><img class="w-6" src="assets/icons/next.svg" /></div>
+            </a>
         </div>
     </div>
 </div>
