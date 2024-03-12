@@ -1,4 +1,11 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  OnDestroy,
+  OnInit,
+  EventEmitter,
+} from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -7,18 +14,14 @@ import { Router } from '@angular/router';
   styleUrls: ['./tab.component.css'],
 })
 export class TabComponent {
-  url?: string;
+  @Input() index = 0;
+  @Input() tabs: string[] = [];
+  @Output() tabChange = new EventEmitter<number>();
 
-  @Input() title!: string;
-  @Input() items: NavItem[] = [];
+  constructor(private router: Router) {}
 
-  constructor(private router: Router) {
-    console.log(this.router.url);
-    console.log(this.title);
+  tabClick(i: number): void {
+    this.index = i;
+    this.tabChange.emit(i);
   }
-}
-
-export interface NavItem {
-  title: string;
-  to: string;
 }

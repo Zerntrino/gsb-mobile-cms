@@ -4771,6 +4771,21 @@ neo-async@^2.6.2:
   resolved "https://registry.npmjs.org/neo-async/-/neo-async-2.6.2.tgz"
   integrity sha512-Yd3UES5mWCSqR+qNT93S3UoYUkqAZ9lLg8a7g9rimsWmYGK8cVToA4/sF3RrshdyV3sAGMXVUmpMYOw+dLpOuw==
 
+ng-select2-component@^10.0.0:
+  version "10.0.0"
+  resolved "https://registry.yarnpkg.com/ng-select2-component/-/ng-select2-component-10.0.0.tgz#a899306d06a45aef134e354de87609195513d870"
+  integrity sha512-LvixM8x2kHzwxmuHdH3k34Sc8SID2ptWOuezAfcT/SyJDuDOXa6zWgjBP309jlmbA5LTFbQIv93dY7KdZsccRw==
+  dependencies:
+    ngx-infinite-scroll "^14.0.0"
+    tslib "^2.3.0"
+
+ngx-infinite-scroll@^14.0.0:
+  version "14.0.1"
+  resolved "https://registry.yarnpkg.com/ngx-infinite-scroll/-/ngx-infinite-scroll-14.0.1.tgz#037abd55c441300651d03bc64a69d3475cce7bf9"
+  integrity sha512-PlGL29d2PxNJTn6qdXs4Es0HlJTZ/ZqOVvFWECWm7mK2fN/q+q62s0iUQ7xRf76NuqoNovXvrjZ1zwLFT6c0Wg==
+  dependencies:
+    tslib "^2.3.0"
+
 nice-napi@^1.0.2:
   version "1.0.2"
   resolved "https://registry.npmjs.org/nice-napi/-/nice-napi-1.0.2.tgz"
