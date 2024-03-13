@@ -9,6 +9,7 @@ import { NavComponent } from './components/nav/nav.component';
 import { TabComponent } from './components/tab/tab.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { Select2Module } from 'ng-select2-component';
+import { PaginationComponent } from './components/pagination/pagination.component';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { Select2Module } from 'ng-select2-component';
     NavComponent,
     TabComponent,
     DropdownComponent,
+    PaginationComponent,
   ],
   imports: [
     CommonModule,
@@ -31,6 +33,7 @@ import { Select2Module } from 'ng-select2-component';
     NavComponent,
     TabComponent,
     DropdownComponent,
+    PaginationComponent,
     Select2Module,
     FormsModule,
     ReactiveFormsModule,

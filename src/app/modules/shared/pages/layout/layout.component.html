@@ -13,8 +13,8 @@
 
       <div class="space-y-2 flex flex-col">
         <a [routerLink]="item.to" class="flex items-center px-3 py-3 cursor-pointer" [ngClass]="{ 'bg-primary': item.active}" *ngFor="let item of group.items">
-          <img class="w-5 h-5 mx-2" [src]="item.icon" />
-          <div><p class=" text-white text-sm line-clamp-1" [ngClass]="{ 'w-0': !leftMenuFull }">{{item.title}}</p></div>
+          <img class="w-6 h-6 mx-2" [src]="item.icon" />
+          <div><p class=" text-white text-sm line-clamp-1 " [ngClass]="{ 'w-0': !leftMenuFull }">{{item.title}}</p></div>
         </a>
         
       </div>

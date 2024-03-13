@@ -7,6 +7,10 @@ import { SharedModule } from './modules/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 
+import dayjs from 'dayjs';
+var buddhistEra = require('dayjs/plugin/buddhistEra');
+dayjs.extend(buddhistEra);
+
 @NgModule({
   declarations: [AppComponent],
   imports: [

@@ -36,7 +36,22 @@ export const routes: Routes = [
           import('./modules/userManagement/user-management.module').then(
             (m) => m.UserManagementModule
           ),
-        data: { title: 'Search' },
+        data: { title: 'User Management' },
+      },
+    ],
+  },
+  {
+    path: 'ad-management',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/adManagement/ad-management.module').then(
+            (m) => m.AdManagementModule
+          ),
+        data: { title: 'Ad Management' },
       },
     ],
   },
