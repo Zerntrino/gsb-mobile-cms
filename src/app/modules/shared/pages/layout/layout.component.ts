@@ -30,17 +30,23 @@ export class LayoutComponent implements OnDestroy, OnInit {
             active: this.url?.startsWith('/user-management'),
           } as LeftMenu,
           {
-            title: 'Banner',
-            icon: 'assets/icons/menus/banner.svg',
-            to: '/banner',
-            active: this.url?.startsWith('/banner'),
+            title: 'Ad Management',
+            icon: 'assets/icons/menus/ad.png',
+            to: '/ad-management',
+            active: this.url?.startsWith('/ad-management'),
           } as LeftMenu,
-          {
-            title: 'Newsletter',
-            icon: 'assets/icons/menus/news.svg',
-            to: '/newslatter',
-            active: this.url?.startsWith('/newslatter'),
-          } as LeftMenu,
+          // {
+          //   title: 'Banner',
+          //   icon: 'assets/icons/menus/banner.svg',
+          //   to: '/banner',
+          //   active: this.url?.startsWith('/banner'),
+          // } as LeftMenu,
+          // {
+          //   title: 'Newsletter',
+          //   icon: 'assets/icons/menus/news.svg',
+          //   to: '/newslatter',
+          //   active: this.url?.startsWith('/newslatter'),
+          // } as LeftMenu,
         ],
       } as LeftMenu,
     ];

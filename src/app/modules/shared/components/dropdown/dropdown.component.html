@@ -1,6 +1,8 @@
-<div class="border border-gray-100 rounded-md pl-4 pr-2 py-2 flex items-center">
-  <div class="flex-1 text-sm">
-    {{placeholder}}
+<div class="relative ">
+  <div class="cursor-pointer" #button (click)="click()">
+    <ng-content select="[button]"></ng-content>
   </div>
-  <img src="assets/icons/down.svg" alt="">
+  <div #dropdown [ngClass]="{'hidden': !show}" class="absolute bottom-0 right-0 bg-white px-4 py-2 rounded-md transform translate-y-full border border-gray-100 shadow-md z-10">
+    <ng-content  select="[dropdown]"></ng-content>
+  </div>
 </div>

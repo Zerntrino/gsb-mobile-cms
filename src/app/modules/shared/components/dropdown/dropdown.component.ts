@@ -5,6 +5,9 @@ import {
   OnDestroy,
   OnInit,
   EventEmitter,
+  Renderer2,
+  ViewChild,
+  ElementRef,
 } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -14,16 +17,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./dropdown.component.css'],
 })
 export class DropdownComponent {
-  @Input() placeholder = '';
+  show = false;
 
-  // @Input() index = 0;
-  // @Input() tabs: string[] = [];
-  // @Output() tabChange = new EventEmitter<number>();
+  @ViewChild('button') button!: ElementRef;
+  @ViewChild('dropdown') dropdown!: ElementRef;
 
-  constructor(private router: Router) {}
+  constructor(private renderer: Renderer2) {
+    this.renderer.listen('window', 'click', (e: Event) => {
+      if (
+        !this.button.nativeElement.contains(e.target) &&
+        !this.dropdown.nativeElement.contains(e.target)
+      ) {
+        this.show = false;
+      }
+    });
+  }
 
-  // tabClick(i: number): void {
-  //   this.index = i;
-  //   this.tabChange.emit(i);
-  // }
+  click(): void {
+    this.show = true;
+  }
 }

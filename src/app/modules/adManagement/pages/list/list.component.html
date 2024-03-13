@@ -1,0 +1,61 @@
+<div class="flex flex-col h-full">
+    <div class="flex items-center my-2">
+        <app-nav title="จัดการโฆษณา" class="flex-1"></app-nav>
+        <button class="button w-32">สร้างโฆษณา</button>
+    </div>
+    
+
+    <div class="flex-1 mx-w my-2 bg-white">
+        <div class="py-4 px-6 flex">
+            <div class="flex-1 flex relative">
+                <img src="assets/icons/search.svg" class="mx-auto w-6 absolute top-2 left-2" alt="">
+                <input class="input max-w-lg pl-10" [(ngModel)]="q" placeholder="ค้นหา: โฆษณา" (ngModelChange)="qChange()" />
+            </div>
+            <div class="flex items-center space-x-2">
+                <div>สถานะ</div>
+                <select2 class="flex w-44" [value]="status" (update)="statusChange($event)" [data]="statusOption" placeholder="สถานะ : ทั้งหมด"></select2>
+            </div>
+        </div>
+
+        <div class="px-6 table w-full">
+            <div class="table-header-group">
+                <div class="table-row">
+                    <div class="table-cell">#</div>
+                    <div class="table-cell text-center">รูปภาพ</div>
+                    <div class="table-cell">ชื่อโฆษณา/รูปภาพ</div>
+                    <div class="table-cell text-center">วันที่สร้าง</div>
+                    <div class="table-cell">วันที่สิ้นสุด</div>
+                    <div class="table-cell">สถานะ</div>
+                    <div class="table-cell w-8">&nbsp;</div>
+                </div>
+            </div>
+            <div class="table-row-group">
+                <div class="table-row" *ngFor="let item of list; let i=index">
+                    <div class="table-cell">{{i+1}}</div>
+                    <div class="table-cell text-center"><img [src]="item.imageUrl" class="w-7 h-7 object-cover bg-gray-100 rounded-md mx-auto" alt=""></div>
+                    <div class="table-cell">{{item.name}}</div>
+                    <div class="table-cell text-center">{{dateFormat(item.startDate)}}</div>
+                    <div class="table-cell">{{dateFormat(item.endDate)}}</div>
+                    <div class="table-cell">
+                        <div class="flex space-x-2 items-center">
+                            <div class="w-2 h-2 rounded-full" [ngClass]="{'bg-green-500': item.isActive, 'bg-gray-500': !item.isActive}"></div>
+                            <div>{{item.isActive?'แสดงผล': 'ไม่แสดงผล'}}</div>
+                        </div>
+                    </div>
+                    <div class="table-cell text-center w-8">
+                        <app-dropdown>
+                            <div button>
+                                <img src="assets/icons/option.svg" class="w-1 mx-auto" alt=""/>
+                            </div>
+                            <div dropdown>
+                                <a [routerLink]="'/ad-management/'+item.id" class="px-6 py-1">แก้ไข</a> 
+                            </div>
+                        </app-dropdown>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <app-pagination [page]="page" [totalPage]="totalPage" (pageSizeChange)="pageSizeChange($event)" (pageChange)="pageChange($event)"></app-pagination>
+    </div>
+</div>
