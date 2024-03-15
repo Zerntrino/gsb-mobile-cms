@@ -12,7 +12,7 @@ export class LayoutComponent implements OnDestroy, OnInit {
   appUser?: AppUserToken;
   url?: string;
   leftMenus: LeftMenu[];
-  leftMenuFull = true;
+  leftMenuFull = false;
 
   constructor(private authService: AuthService, private router: Router) {
     this.appUser = undefined;
