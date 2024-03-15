@@ -11,6 +11,8 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { Select2Module } from 'ng-select2-component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+
 @NgModule({
   declarations: [
     Error404Component,
@@ -28,6 +30,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     Select2Module,
     FormsModule,
     ReactiveFormsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
   exports: [
     NavComponent,
@@ -37,6 +41,8 @@ import { PaginationComponent } from './components/pagination/pagination.componen
     Select2Module,
     FormsModule,
     ReactiveFormsModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule
   ],
 })
 export class SharedModule {}

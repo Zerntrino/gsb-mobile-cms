@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 
 import dayjs from 'dayjs';
+import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
+
 var buddhistEra = require('dayjs/plugin/buddhistEra');
 dayjs.extend(buddhistEra);
 
@@ -20,7 +22,9 @@ dayjs.extend(buddhistEra);
     RouterModule,
     SharedModule,
   ],
-  providers: [],
+  providers: [{
+    provide: OWL_DATE_TIME_LOCALE, useValue: 'th'
+  }],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

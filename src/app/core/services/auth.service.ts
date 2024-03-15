@@ -15,7 +15,7 @@ export class AuthService extends BaseService implements OnDestroy {
   private appUser = new BehaviorSubject<AppUserToken>({} as AppUserToken);
   private loginUrl = '/auth';
   appUser$: Observable<AppUserToken>;
-  private redirectUrl = '/';
+  private redirectUrl = '/user-management';
 
   getRedirectUrl(): string {
     return this.redirectUrl;
