@@ -10,8 +10,11 @@ import { TabComponent } from './components/tab/tab.component';
 import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { Select2Module } from 'ng-select2-component';
 import { PaginationComponent } from './components/pagination/pagination.component';
+import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { ToggleComponent } from './components/toggle/toggle.component';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { DragDropModule } from '@angular/cdk/drag-drop';
 
 @NgModule({
   declarations: [
@@ -21,6 +24,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     TabComponent,
     DropdownComponent,
     PaginationComponent,
+    CheckboxComponent,
+    ToggleComponent,
   ],
   imports: [
     CommonModule,
@@ -31,7 +36,8 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     FormsModule,
     ReactiveFormsModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    DragDropModule,
   ],
   exports: [
     NavComponent,
@@ -42,7 +48,10 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
     FormsModule,
     ReactiveFormsModule,
     OwlDateTimeModule,
-    OwlNativeDateTimeModule
+    OwlNativeDateTimeModule,
+    DragDropModule,
+    CheckboxComponent,
+    ToggleComponent,
   ],
 })
 export class SharedModule {}

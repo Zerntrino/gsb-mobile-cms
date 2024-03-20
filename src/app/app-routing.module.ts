@@ -56,6 +56,21 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'banner-management',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/bannerManagement/banner-management.module').then(
+            (m) => m.BannerManagementModule
+          ),
+        data: { title: 'Banner Management' },
+      },
+    ],
+  },
+  {
     path: '404-not-found',
     component: Error404Component,
     data: { title: '404' },

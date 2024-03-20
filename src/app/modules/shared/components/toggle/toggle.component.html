@@ -1,0 +1,11 @@
+<div class="checkbox-wrapper-22">
+  <label class="switch" [for]="'cbx-' + randomId">
+    <input
+      [id]="'cbx-' + randomId"
+      type="checkbox"
+      [checked]="value == 'on' || value"
+      (change)="change($event)"
+    />
+    <div class="slider round"></div>
+  </label>
+</div>

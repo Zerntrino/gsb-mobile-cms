@@ -1,17 +1,17 @@
 <div class="flex flex-col h-full">
   <div class="flex items-center my-2">
-    <app-nav title="จัดการโฆษณา" [items]="navItems" class="flex-1"></app-nav>
+    <app-nav title="จัดการแบนเนอร์" [items]="navItems" class="flex-1"></app-nav>
     <app-toggle></app-toggle>
   </div>
 
   <div class="flex-1 my-2 py-6 bg-white">
     <div class="flex">
       <div class="w-full max-w-md px-4">
-        <div class="font-semibold my-2">โฆษณา</div>
+        <div class="font-semibold my-2">แบนเนอร์</div>
         <div class="border border-gray-100 rounded-md p-6 space-y-4">
           <div class="">
-            <div class="text-sm">ชื่อโฆษณา</div>
-            <input class="input" placeholder="ชื่อโฆษณา" />
+            <div class="text-sm">ชื่อแบนเนอร์</div>
+            <input class="input" placeholder="ชื่อแบนเนอร์" />
           </div>
           <div class="relative">
             <div class="text-sm">วันที่แสดง</div>
@@ -54,12 +54,12 @@
         </div>
       </div>
       <div class="w-full max-w-md px-4">
-        <div class="font-semibold my-2">รูปภาพโฆษณา</div>
+        <div class="font-semibold my-2">รูปภาพแบนเนอร์</div>
         <div class="border border-gray-100 rounded-md p-6 pb-12">
-          <div class="text-sm">รูปภาพโฆษณา</div>
+          <div class="text-sm">รูปภาพแบนเนอร์</div>
           <div class="px-6">
             <!-- <div
-              class="w-full mt-6 aspect-w-3 aspect-h-4 flex justify-center items-center rounded-md bg-gray-300"
+              class="w-full mt-6 aspect-w-3 aspect-h-1 flex justify-center items-center rounded-md bg-gray-300"
             >
               <img src="assets/icons/img.svg" class="w-11 mx-auto" />
             </div> -->
@@ -71,14 +71,14 @@
                 src="assets/icons/x-circle.svg"
               />
               <div
-                class="w-full mt-6 aspect-w-3 aspect-h-4 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
+                class="w-full mt-6 aspect-w-3 aspect-h-1 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
               >
                 <img class="w-full h-full object-cover" src="/" />
               </div>
             </div>
 
             <div class="my-4 text-center text-gray-400 text-sm">
-              เลือกรูปภาพที่ใช้เป็น Force ads. ( ขนาด 626 x 884 .png )
+              เลือกรูปภาพที่ใช้เป็น Banner ( ขนาด 1035 x 330 .png )
             </div>
             <div class="flex justify-center">
               <button
@@ -97,9 +97,9 @@
   <div
     class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2"
   >
-    <a routerLink="/ad-management"
+    <a routerLink="/banner-management"
       ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
     >
-    <button class="button w-auto px-6">บันทึกและสร้างโฆษณา</button>
+    <button class="button w-auto px-6">บันทึกและสร้างแบนเนอร์</button>
   </div>
 </div>
