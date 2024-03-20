@@ -24,13 +24,16 @@ body {
     }
 
     .button {
-        @apply w-auto bg-primary text-white text-center font-semibold rounded-md py-2 px-6 disabled:bg-opacity-25;
+        @apply w-auto bg-primary text-white text-center rounded-md py-2 px-6 disabled:bg-opacity-25;
     }
     .button-border {
-        @apply w-auto border border-primary text-primary text-center font-semibold rounded-md py-2 px-6 disabled:bg-opacity-25;
+        @apply w-auto border border-primary text-primary text-center rounded-md py-2 px-6 disabled:bg-opacity-25;
     }
     .button-default-border {
-        @apply w-auto border border-gray-500 text-gray-800 text-center font-semibold rounded-md py-2 px-6 disabled:bg-opacity-25;
+        @apply w-auto border border-gray-500 text-gray-800 text-center rounded-md py-2 px-6 disabled:bg-opacity-25;
+    }
+    .button-dark {
+        @apply w-auto bg-gray-950 text-white text-center rounded-md py-2 px-6 disabled:bg-opacity-25;
     }
 
     .table-header-group {

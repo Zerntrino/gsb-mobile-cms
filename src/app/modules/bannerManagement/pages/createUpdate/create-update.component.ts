@@ -6,20 +6,19 @@ import {
   Select2UpdateEvent,
   Select2Value,
 } from 'ng-select2-component';
-import { Ad } from 'src/app/core/models/ad.model';
-import { AdService } from 'src/app/core/services/ad.service';
 import dayjs from 'dayjs';
+import { BannerService } from 'src/app/core/services/banner.service';
 
 @Component({
-  selector: 'app-ad-management-create-update',
+  selector: 'app-banner-management-create-update',
   templateUrl: './create-update.component.html',
   styleUrls: ['./create-update.component.css'],
 })
 export class CreateUpdateComponent implements OnInit {
   id = 'create';
   navItems = [
-    { title: 'จัดการโฆษณา', to: '' },
-    { title: 'สร้างโฆษณา', to: '' },
+    { title: 'จัดการแบนเนอร์', to: '' },
+    { title: 'สร้างแบนเนอร์', to: '' },
   ];
 
   dt1 = '';
@@ -28,10 +27,11 @@ export class CreateUpdateComponent implements OnInit {
   constructor(
     private router: Router,
     activatedRoute: ActivatedRoute,
-    private adService: AdService
+    private bannerService: BannerService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
-    this.navItems[1].title = this.id == 'create' ? 'สร้างโฆษณา' : 'แก้ไขโฆษณา';
+    this.navItems[1].title =
+      this.id == 'create' ? 'สร้างแบนเนอร์' : 'แก้ไขแบนเนอร์';
   }
 
   ngOnInit(): void {

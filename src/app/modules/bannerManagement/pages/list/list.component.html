@@ -1,7 +1,10 @@
 <div class="flex flex-col h-full">
-  <div class="flex items-center my-2">
+  <div class="flex items-center my-2 space-x-4">
     <app-nav title="จัดการโฆษณา" class="flex-1"></app-nav>
-    <a routerLink="/ad-management/create"
+    <a routerLink="/banner-management/highlight"
+      ><button class="button-dark">จัดการไฮไลท์แบนเนอร์</button></a
+    >
+    <a routerLink="/banner-management/create"
       ><button class="button">สร้างโฆษณา</button></a
     >
   </div>
@@ -38,7 +41,7 @@
         <div class="table-row">
           <div class="table-cell">#</div>
           <div class="table-cell text-center">รูปภาพ</div>
-          <div class="table-cell">ชื่อโฆษณา/รูปภาพ</div>
+          <div class="table-cell">ชื่อแบนเนอร์</div>
           <div class="table-cell text-center">วันที่สร้าง</div>
           <div class="table-cell">วันที่สิ้นสุด</div>
           <div class="table-cell">สถานะ</div>
@@ -51,7 +54,7 @@
           <div class="table-cell text-center">
             <img
               [src]="item.imageUrl"
-              class="w-7 h-7 object-cover bg-gray-100 rounded-md mx-auto"
+              class="w-14 h-7 object-cover bg-gray-100 rounded-md mx-auto"
               alt=""
             />
           </div>
@@ -66,10 +69,17 @@
                 class="w-2 h-2 rounded-full"
                 [ngClass]="{
                   'bg-green-500': item.isActive,
-                  'bg-gray-500': !item.isActive
+                  'bg-gray-400': !item.isActive
                 }"
               ></div>
-              <div>{{ item.isActive ? "แสดงผล" : "ไม่แสดงผล" }}</div>
+              <div
+                [ngClass]="{
+                  'text-gray-700': item.isActive,
+                  'text-gray-400': !item.isActive
+                }"
+              >
+                {{ item.isActive ? "แสดงผล" : "ไม่แสดงผล" }}
+              </div>
             </div>
           </div>
           <div class="table-cell text-center w-8">
@@ -78,7 +88,9 @@
                 <img src="assets/icons/option.svg" class="w-1 mx-auto" alt="" />
               </div>
               <div dropdown>
-                <a [routerLink]="'/ad-management/' + item.id" class="px-6 py-1"
+                <a
+                  [routerLink]="'/banner-management/' + item.id"
+                  class="px-6 py-1"
                   >แก้ไข</a
                 >
               </div>

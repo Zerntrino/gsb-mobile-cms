@@ -1,0 +1,13 @@
+<div class="checkbox-wrapper-46 pb-2">
+  <input
+    class="inp-cbx"
+    [id]="'cbx-' + randomId"
+    type="checkbox"
+    [checked]="value == 'on' || value"
+    (change)="change($event)"
+  /><label class="cbx" [for]="'cbx-' + randomId"
+    ><span
+      ><svg width="12px" height="10px" viewbox="0 0 12 10">
+        <polyline points="1.5 6 4.5 9 10.5 1"></polyline></svg></span
+  ></label>
+</div>

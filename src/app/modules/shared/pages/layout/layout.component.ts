@@ -35,12 +35,12 @@ export class LayoutComponent implements OnDestroy, OnInit {
             to: '/ad-management',
             active: this.url?.startsWith('/ad-management'),
           } as LeftMenu,
-          // {
-          //   title: 'Banner',
-          //   icon: 'assets/icons/menus/banner.svg',
-          //   to: '/banner',
-          //   active: this.url?.startsWith('/banner'),
-          // } as LeftMenu,
+          {
+            title: 'Banner',
+            icon: 'assets/icons/menus/banner.svg',
+            to: '/banner-management',
+            active: this.url?.startsWith('/banner-management'),
+          } as LeftMenu,
           // {
           //   title: 'Newsletter',
           //   icon: 'assets/icons/menus/news.svg',
