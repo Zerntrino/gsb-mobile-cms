@@ -20,8 +20,8 @@ export class ListComponent implements OnInit {
   status: Select2Value = '';
   statusOption: Select2Option[] = [
     { value: '', label: 'ทั้งหมด' },
-    { value: '1', label: 'แสดงผล' },
-    { value: '2', label: 'ไม่แสดงผล' },
+    { value: 'true', label: 'แสดงผล' },
+    { value: 'false', label: 'ไม่แสดงผล' },
   ];
   list: Banner[] = [];
   page = 1;

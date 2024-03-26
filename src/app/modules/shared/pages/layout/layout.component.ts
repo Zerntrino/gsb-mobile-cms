@@ -30,7 +30,7 @@ export class LayoutComponent implements OnDestroy, OnInit {
             active: this.url?.startsWith('/user-management'),
           } as LeftMenu,
           {
-            title: 'Ad Management',
+            title: 'Advertisement',
             icon: 'assets/icons/menus/ad.png',
             to: '/ad-management',
             active: this.url?.startsWith('/ad-management'),
@@ -47,6 +47,18 @@ export class LayoutComponent implements OnDestroy, OnInit {
           //   to: '/newslatter',
           //   active: this.url?.startsWith('/newslatter'),
           // } as LeftMenu,
+          
+        ],
+      } as LeftMenu,
+      {
+        title: 'PROMOTION',
+        items: [
+          {
+            title: 'Promotion Management',
+            icon: 'assets/icons/menus/promotion.svg',
+            to: '/promotion-management',
+            active: this.url?.startsWith('/promotion-management'),
+          } as LeftMenu,
         ],
       } as LeftMenu,
     ];

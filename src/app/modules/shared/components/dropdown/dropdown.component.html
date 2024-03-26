@@ -1,8 +1,15 @@
-<div class="relative ">
+<div class="relative">
   <div class="cursor-pointer" #button (click)="click()">
     <ng-content select="[button]"></ng-content>
   </div>
-  <div #dropdown [ngClass]="{'hidden': !show}" class="absolute bottom-0 right-0 bg-white px-4 py-2 rounded-md transform translate-y-full border border-gray-100 shadow-md z-10">
-    <ng-content  select="[dropdown]"></ng-content>
+  <div
+    #dropdown
+    [ngClass]="{ hidden: !show }"
+    [class]="
+      'absolute bottom-0 right-0 bg-white rounded-md transform translate-y-full border border-gray-100 shadow-md z-10 text-left ' +
+      width
+    "
+  >
+    <ng-content select="[dropdown]"></ng-content>
   </div>
 </div>
