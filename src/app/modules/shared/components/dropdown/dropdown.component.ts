@@ -18,7 +18,7 @@ import { Router } from '@angular/router';
 })
 export class DropdownComponent {
   show = false;
-
+  @Input() width = 'w-48';
   @ViewChild('button') button!: ElementRef;
   @ViewChild('dropdown') dropdown!: ElementRef;
 

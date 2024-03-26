@@ -71,6 +71,21 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'promotion-management',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/promotionManagement/promotion-management.module').then(
+            (m) => m.PromotionManagementModule
+          ),
+        data: { title: 'Promotion Management' },
+      },
+    ],
+  },
+  {
     path: '404-not-found',
     component: Error404Component,
     data: { title: '404' },
