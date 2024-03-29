@@ -14,10 +14,10 @@ body {
 }
 
 @layer components {
-    .input {
+    .input, .angular-editor-textarea{
         @apply w-full focus:border-primary border-gray-200 rounded-md placeholder:text-gray-300;
     }
-    .input:focus {
+    .input:focus, .angular-editor-textarea:focus {
         outline: 0px !important;
         -webkit-appearance: none;
         box-shadow: none !important;

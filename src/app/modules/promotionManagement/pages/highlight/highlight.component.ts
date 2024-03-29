@@ -1,42 +1,40 @@
 import { HttpParams } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  Select2Option,
-  Select2UpdateEvent,
-  Select2Value,
-} from 'ng-select2-component';
 import dayjs from 'dayjs';
-import { BannerService } from 'src/app/core/services/banner.service';
-import { Banner } from 'src/app/core/models/banner.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
+import { PromotionService } from 'src/app/core/services/promotion.service';
+import { Promotion } from 'src/app/core/models/promotion.model';
 
 @Component({
-  selector: 'app-banner-management-highlight',
+  selector: 'app-promotion-management-highlight',
   templateUrl: './highlight.component.html',
   styleUrls: ['./highlight.component.css'],
 })
 export class HighlightComponent implements OnInit {
   navItems = [
-    { title: 'จัดการแบนเนอร์', to: '' },
-    { title: 'เลือกไฮไลท์ : แบนเนอร์', to: '' },
+    { title: 'จัดการโปรโมชัน', to: '' },
+    { title: 'เลือกไฮไลท์ : โปรโมชัน', to: '' },
   ];
 
-  list: Banner[] = [];
+  list: Promotion[] = [];
   showSelected = false;
   q = '';
 
-  constructor(private router: Router, private bannerService: BannerService) {}
+  constructor(
+    private router: Router,
+    private promotionService: PromotionService
+  ) {}
 
   ngOnInit(): void {
     this.fetch();
   }
 
   fetch(): void {
-    this.bannerService.getList().subscribe(
+    this.promotionService.getHighlights().subscribe(
       (response) => {
         console.log(response.data);
-        this.list = response.data as Banner[];
+        this.list = response.data as Promotion[];
       },
       (error) => {
         console.log(error);

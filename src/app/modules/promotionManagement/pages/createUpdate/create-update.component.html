@@ -1,17 +1,48 @@
 <div class="flex flex-col h-full">
   <div class="flex items-center my-2">
-    <app-nav title="จัดการโฆษณา" [items]="navItems" class="flex-1"></app-nav>
+    <app-nav title="จัดการโปรโมชัน" [items]="navItems" class="flex-1"></app-nav>
     <app-toggle></app-toggle>
   </div>
 
   <div class="flex-1 my-2 py-6 bg-white">
     <div class="flex">
-      <div class="w-full max-w-md px-4">
-        <div class="font-semibold my-2">โฆษณา</div>
+      <div class="w-full max-w-lg px-4">
+        <div class="font-semibold my-2">โปรโมชัน</div>
         <div class="border border-gray-100 rounded-md p-6 space-y-4">
+          <div>
+            <div class="text-sm">หมวดหมู่</div>
+            <select2
+              class="flex w-full"
+              [value]="category"
+              (update)="categoryChange($event)"
+              [data]="categoryOption"
+              placeholder="เลือกหมวดหมู่"
+            ></select2>
+          </div>
           <div class="">
-            <div class="text-sm">ชื่อโฆษณา</div>
-            <input class="input" placeholder="ชื่อโฆษณา" />
+            <div class="text-sm">ชื่อโปรโมชัน</div>
+            <input class="input" placeholder="ชื่อโปรโมชัน" />
+          </div>
+
+          <div>
+            <div class="text-sm"></div>
+            <div>
+              <angular-editor
+                placeholder="รายละเอียด"
+                minHeight="180"
+                [(ngModel)]="htmlContent"
+                [config]="editorConfig"
+              ></angular-editor>
+            </div>
+          </div>
+
+          <div>
+            <div class="text-sm">ข้อมูลที่เกี่ยวข้อง</div>
+            <app-tag
+              [value]="tags"
+              (valueUpdate)="tagChange($event)"
+              placeholder="ข้อมูลที่เกี่ยวข้อง"
+            ></app-tag>
           </div>
           <div class="relative">
             <div class="text-sm">วันที่แสดง</div>
@@ -43,23 +74,146 @@
             />
             <owl-date-time #dt2 pickerType="calendar"></owl-date-time>
           </div>
-          <div class="relative">
-            <div class="text-sm">ลิงค์ที่เกี่ยวข้อง</div>
-            <img
-              src="assets/icons/link.svg"
-              class="absolute bottom-2 right-2 w-6"
-            />
-            <input class="input" placeholder="https://" />
+          <div class="flex space-x-2">
+            <app-checkbox>ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-checkbox>
           </div>
         </div>
       </div>
-      <div class="w-full max-w-md px-4">
-        <div class="font-semibold my-2">รูปภาพโฆษณา</div>
+
+      <div class="w-full max-w-lg px-4">
+        <div class="font-semibold my-2">กำหนดเงื่อนไข</div>
+        <div class="border border-gray-100 rounded-md p-6 space-y-4">
+          <div>
+            <div class="text-sm">ประเภทโปรโมชัน</div>
+            <select2
+              class="flex w-full"
+              [value]="promotionType"
+              (update)="promotionTypeChange($event)"
+              [data]="promotionTypeOption"
+              placeholder="เลือกหมวดหมู่"
+            ></select2>
+          </div>
+
+          <div>
+            <div class="text-sm">ร้านค้า/แบรนด์</div>
+            <select2
+              class="flex w-full"
+              [value]="brand"
+              (update)="brandChange($event)"
+              [data]="brandOption"
+              placeholder="เลือกร้านค้า/แบรนด์"
+            ></select2>
+          </div>
+
+          <div class="my-2">
+            <div class="text-sm">MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ</div>
+            <app-tag
+              [value]="mccs"
+              (valueUpdate)="mccChange($event)"
+              placeholder="MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ"
+            ></app-tag>
+          </div>
+
+          <div class="border rounded-md border-gray-100 px-4 py-4 space-y-4">
+            <div>
+              <div class="text-sm">ประเภท Code</div>
+              <select2
+                class="flex w-full"
+                [value]="codeType"
+                (update)="codeTypeChange($event)"
+                [data]="codeTypeOption"
+                placeholder="เลือกประเภท Code"
+              ></select2>
+            </div>
+            <div>
+              <div class="text-sm">Prefix code</div>
+              <input class="input" placeholder="Prefix code" />
+            </div>
+            <div class="text-sm text-gray-400">
+              ประกอบด้วย Prefix 5 หลัก (ตัวเลขหรือตัวอักษร)
+            </div>
+          </div>
+
+          <div class="my-2 flex space-x-4">
+            <div class="flex-1">
+              <div class="text-sm">จำกัดสิทธิ์/ตลอดรายการ</div>
+              <input
+                class="input text-right"
+                placeholder="จำกัดสิทธิ์/ตลอดรายการ"
+              />
+            </div>
+            <div class="flex-1">
+              <div class="text-sm">จำกัดสิทธิ์/ต่อเดือน</div>
+              <input
+                class="input text-right"
+                placeholder="จำกัดสิทธิ์/ต่อเดือน"
+              />
+            </div>
+          </div>
+
+          <div class="my-2 flex space-x-4">
+            <div class="flex-1">
+              <div class="text-sm">จำกัดสิทธิ์/บัตร/ต่อเดือน</div>
+              <input
+                class="input text-right"
+                placeholder="จำกัดสิทธิ์/บัตร/ต่อเดือน"
+              />
+            </div>
+            <div class="flex-1">
+              <div class="text-sm">จำกัดสิทธิ์/บัตร/ต่อวัน</div>
+              <input
+                class="input text-right"
+                placeholder="จำกัดสิทธิ์/บัตร/ต่อวัน"
+              />
+            </div>
+          </div>
+          <div class="text-sm text-primary">
+            *หากต้องการระบุค่าไม่จำกัดจำนวน กรุณาใส่ 0*
+          </div>
+
+          <div class="my-2">
+            <div class="mb-2">ประเภทบัตรที่ใช้โปรโมชันได้</div>
+            <div class="flex flex-wrap -mx-1">
+              <div class="p-1 w-full">
+                <div
+                  class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-4"
+                >
+                  <img src="assets/icons/cards/visa.svg" class="w-8" />
+                  <div class="flex-1 text-sm">GSB ทุกประเภท</div>
+                  <app-checkbox></app-checkbox>
+                </div>
+              </div>
+
+              <div class="p-1 w-1/2">
+                <div
+                  class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-4"
+                >
+                  <img src="assets/icons/cards/visa.svg" class="w-8" />
+                  <div class="flex-1 text-sm">GSB Precious</div>
+                  <app-checkbox></app-checkbox>
+                </div>
+              </div>
+              <div class="p-1 w-1/2">
+                <div
+                  class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-4"
+                >
+                  <img src="assets/icons/cards/visa.svg" class="w-8" />
+                  <div class="flex-1 text-sm">GSB TQM Infinity</div>
+                  <app-checkbox></app-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full max-w-lg px-4">
+        <div class="font-semibold my-2">รูปภาพ</div>
         <div class="border border-gray-100 rounded-md p-6 pb-12">
-          <div class="text-sm">รูปภาพโฆษณา</div>
+          <div class="text-sm">รูปภาพหน้าปก</div>
           <div class="px-6">
             <!-- <div
-              class="w-full mt-6 aspect-w-3 aspect-h-4 flex justify-center items-center rounded-md bg-gray-300"
+              class="w-full mt-6 aspect-w-3 aspect-h-2 flex justify-center items-center rounded-md bg-gray-300"
             >
               <img src="assets/icons/img.svg" class="w-11 mx-auto" />
             </div> -->
@@ -71,14 +225,41 @@
                 src="assets/icons/x-circle.svg"
               />
               <div
-                class="w-full mt-6 aspect-w-3 aspect-h-4 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
+                class="w-full mt-6 aspect-w-3 aspect-h-2 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
               >
                 <img class="w-full h-full object-cover" src="/" />
               </div>
             </div>
 
             <div class="my-4 text-center text-gray-400 text-sm">
-              เลือกรูปภาพที่ใช้เป็น Force ads. ( ขนาด 626 x 884 .png )
+              เลือกรูปภาพที่ใช้เป็น Banner ( ขนาด 1179 x 834 .png )
+            </div>
+            <div class="flex justify-center">
+              <button
+                class="button-border text-center flex items-center justify-center space-x-4"
+              >
+                <img src="assets/icons/upload.svg" class="w-6" />
+                <div>อัปโหลดไฟล์รูปภาพ</div>
+              </button>
+            </div>
+
+            <div class="text-sm mt-6">รูปภาพเนื้อหา</div>
+            <div class="flex flex-wrap mt-6">
+              <div class="relative">
+                <img
+                  class="w-16 h-16 absolute top-0 right-0 z-10"
+                  style="right: 0"
+                  src="assets/icons/x-circle.svg"
+                />
+                <div
+                  class="w-32 h-20 flex justify-center items-center rounded-md bg-gray-300"
+                >
+                  <img src="assets/icons/img.svg" class="w-11 mx-auto" />
+                </div>
+              </div>
+            </div>
+            <div class="my-4 text-center text-gray-400 text-sm">
+              เลือกรูปภาพที่ใช้เป็น Banner ( ขนาด 1179 x 834 .png )
             </div>
             <div class="flex justify-center">
               <button
@@ -97,9 +278,9 @@
   <div
     class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2"
   >
-    <a routerLink="/ad-management"
+    <a routerLink="/promotion-management"
       ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
     >
-    <button class="button w-auto px-6">บันทึกและสร้างโฆษณา</button>
+    <button class="button w-auto px-6">บันทึกและสร้างโปรโมชัน</button>
   </div>
 </div>

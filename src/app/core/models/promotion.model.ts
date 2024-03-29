@@ -6,4 +6,5 @@ export interface Promotion {
   startDate: string;
   type: string;
   isActive: boolean;
+  select: boolean;
 }
