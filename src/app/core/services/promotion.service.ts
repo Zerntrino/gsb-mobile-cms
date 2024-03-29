@@ -15,8 +15,18 @@ export class PromotionService extends BaseService {
 
   getList(params?: HttpParams): Observable<ApiResponse<Promotion[]>> {
     console.log(params?.toString());
-    return this.http.get<ApiResponse<Promotion[]>>(`${this.apiUrl}/cms/promotion`, {
-      params: params,
-    });
+    return this.http.get<ApiResponse<Promotion[]>>(
+      `${this.apiUrl}/cms/promotion`,
+      {
+        params: params,
+      }
+    );
+  }
+
+  getHighlights(): Observable<ApiResponse<Promotion[]>> {
+    return this.http.get<ApiResponse<Promotion[]>>(
+      `${this.apiUrl}/cms/promotion/highlight`,
+      {}
+    );
   }
 }

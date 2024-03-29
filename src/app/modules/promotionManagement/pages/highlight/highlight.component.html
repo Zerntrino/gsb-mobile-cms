@@ -1,7 +1,7 @@
 <div class="flex flex-col h-full">
   <div class="flex items-center my-2 space-x-4">
     <app-nav
-      title="จัดการไฮไลท์ : แบนเนอร์"
+      title="จัดการไฮไลท์ : โปรโมชัน"
       [items]="navItems"
       class="flex-1"
     ></app-nav>
@@ -18,11 +18,12 @@
       <div class="table-header-group">
         <div class="table-row">
           <div class="table-cell text-center">ลำดับ</div>
-          <div class="table-cell text-center">รูปภาพ</div>
-          <div class="table-cell">ชื่อแบนเนอร์</div>
-          <div class="table-cell text-center">วันที่สร้าง</div>
+          <div class="table-cell">หมวดหมู่</div>
+          <div class="table-cell">ประเภทโปรโมชัน</div>
+          <div class="table-cell">ชื่อโปรโมชัน</div>
+          <div class="table-cell">วันที่แสดง</div>
           <div class="table-cell">วันที่สิ้นสุด</div>
-          <div class="table-cell">&nbsp;</div>
+          <div class="table-cell">ลบ</div>
         </div>
       </div>
       <div
@@ -39,19 +40,19 @@
           <div class="table-cell text-center">
             <img src="assets/icons/list.svg" class="w-6 mx-auto" alt="" />
           </div>
-          <div class="table-cell text-center">
-            <img
-              [src]="item.imageUrl"
-              class="w-14 h-7 object-cover bg-gray-100 rounded-md mx-auto"
-              alt=""
-            />
+          <div class="table-cell">
+            {{ item.categoryName }}
           </div>
-          <div class="table-cell">{{ item.id }} : {{ item.name }}</div>
-          <div class="table-cell text-center">
+          <div class="table-cell">
+            {{ item.type }}
+          </div>
+          <div class="table-cell">
+            {{ item.name }}
+          </div>
+          <div class="table-cell">
             {{ dateFormat(item.startDate) }}
           </div>
           <div class="table-cell">{{ dateFormat(item.endDate) }}</div>
-
           <div class="table-cell text-center">
             <img src="assets/icons/delete.svg" class="mx-auto" alt="" />
           </div>
@@ -70,7 +71,7 @@
       <div class="flex min-h-full items-center justify-center p-4">
         <div class="w-full max-w-3xl bg-white rounded-md overflow-hidden">
           <div class="py-4 px-6 border-b border-gray-100 font-semibold">
-            จัดการไฮไลท์ : แบนเนอร์
+            จัดการไฮไลท์ : โปรโมชัน
           </div>
           <div class="px-6 py-4">
             <div class="flex-1 flex relative">
@@ -91,9 +92,10 @@
             <div class="table-header-group">
               <div class="table-row">
                 <div class="table-cell text-center">เลือก</div>
-                <div class="table-cell text-center">รูปภาพ</div>
-                <div class="table-cell">ชื่อแบนเนอร์</div>
-                <div class="table-cell text-center">วันที่สร้าง</div>
+                <div class="table-cell">หมวดหมู่</div>
+                <div class="table-cell">ประเภทโปรโมชัน</div>
+                <div class="table-cell">ชื่อโปรโมชัน</div>
+                <div class="table-cell">วันที่แสดง</div>
                 <div class="table-cell">วันที่สิ้นสุด</div>
               </div>
             </div>
@@ -105,15 +107,16 @@
                     (valueUpdate)="item.select = $event"
                   ></app-checkbox>
                 </div>
-                <div class="table-cell text-center">
-                  <img
-                    [src]="item.imageUrl"
-                    class="w-14 h-7 object-cover bg-gray-100 rounded-md mx-auto"
-                    alt=""
-                  />
+                <div class="table-cell">
+                  {{ item.categoryName }}
                 </div>
-                <div class="table-cell">{{ item.name }}</div>
-                <div class="table-cell text-center">
+                <div class="table-cell">
+                  {{ item.type }}
+                </div>
+                <div class="table-cell">
+                  {{ item.name }}
+                </div>
+                <div class="table-cell">
                   {{ dateFormat(item.startDate) }}
                 </div>
                 <div class="table-cell">{{ dateFormat(item.endDate) }}</div>
@@ -144,6 +147,6 @@
     <a routerLink="/banner-management"
       ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
     >
-    <button class="button w-auto px-6">บันทึกไฮไลท์แบนเนอร์</button>
+    <button class="button w-auto px-6">บันทึกไฮไลท์โปรโมชัน</button>
   </div>
 </div>

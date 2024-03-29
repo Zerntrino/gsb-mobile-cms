@@ -16,6 +16,9 @@ import { ToggleComponent } from './components/toggle/toggle.component';
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 
+import { AngularEditorModule } from '@kolkov/angular-editor';
+import { TagComponent } from './components/tag/tag.component';
+
 @NgModule({
   declarations: [
     Error404Component,
@@ -26,6 +29,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     PaginationComponent,
     CheckboxComponent,
     ToggleComponent,
+    TagComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +42,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
     DragDropModule,
+    AngularEditorModule,
   ],
   exports: [
     NavComponent,
@@ -52,6 +57,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
     DragDropModule,
     CheckboxComponent,
     ToggleComponent,
+    TagComponent,
+    AngularEditorModule,
   ],
 })
 export class SharedModule {}
