@@ -4,8 +4,11 @@ WORKDIR /app
 
 COPY . .
 
-RUN npm install --unsafe-perm && npm run build-dev
+RUN yarn install --unsafe-perm && yarn build-prod
 
 FROM nginx:alpine
+EXPOSE 80
 
-COPY --from=builder /app/dist/* /var/www/html/web/
+COPY nginx-dev.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=builder /app/dist/* /usr/share/nginx/html
