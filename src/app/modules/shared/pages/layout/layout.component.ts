@@ -47,7 +47,6 @@ export class LayoutComponent implements OnDestroy, OnInit {
           //   to: '/newslatter',
           //   active: this.url?.startsWith('/newslatter'),
           // } as LeftMenu,
-          
         ],
       } as LeftMenu,
       {
@@ -58,6 +57,12 @@ export class LayoutComponent implements OnDestroy, OnInit {
             icon: 'assets/icons/menus/promotion.svg',
             to: '/promotion-management',
             active: this.url?.startsWith('/promotion-management'),
+          } as LeftMenu,
+          {
+            title: 'Promotion History',
+            icon: 'assets/icons/menus/promotion-history.svg',
+            to: '/promotion-history',
+            active: this.url?.startsWith('/promotion-history'),
           } as LeftMenu,
         ],
       } as LeftMenu,

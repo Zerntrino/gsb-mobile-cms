@@ -8,3 +8,13 @@ export interface Promotion {
   isActive: boolean;
   select: boolean;
 }
+
+export interface PromotionHistory {
+  id: number;
+  cardName: string;
+  cardNumber: string;
+  createdAt: string;
+  name: string;
+  telephone: string;
+  select: boolean;
+}

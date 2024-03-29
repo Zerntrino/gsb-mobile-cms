@@ -78,13 +78,29 @@ export const routes: Routes = [
       {
         path: '',
         loadChildren: () =>
-          import('./modules/promotionManagement/promotion-management.module').then(
-            (m) => m.PromotionManagementModule
-          ),
+          import(
+            './modules/promotionManagement/promotion-management.module'
+          ).then((m) => m.PromotionManagementModule),
         data: { title: 'Promotion Management' },
       },
     ],
   },
+  {
+    path: 'promotion-history',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/promotionHistory/promotion-history.module').then(
+            (m) => m.PromotionHistoryModule
+          ),
+        data: { title: 'Promotion History' },
+      },
+    ],
+  },
+
   {
     path: '404-not-found',
     component: Error404Component,

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { ApiResponse, BaseService, Paginate } from './base.service';
-import { Promotion } from '../models/promotion.model';
+import { Promotion, PromotionHistory } from '../models/promotion.model';
 
 @Injectable({
   providedIn: 'root',
@@ -27,6 +27,12 @@ export class PromotionService extends BaseService {
     return this.http.get<ApiResponse<Promotion[]>>(
       `${this.apiUrl}/cms/promotion/highlight`,
       {}
+    );
+  }
+  getHistory(params?: HttpParams): Observable<ApiResponse<PromotionHistory[]>> {
+    return this.http.get<ApiResponse<PromotionHistory[]>>(
+      `${this.apiUrl}/cms/promotion/history`,
+      { params: params }
     );
   }
 }

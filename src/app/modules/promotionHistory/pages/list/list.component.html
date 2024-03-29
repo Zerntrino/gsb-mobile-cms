@@ -1,0 +1,107 @@
+<div class="flex flex-col h-full">
+  <div class="flex items-center my-2 space-x-4">
+    <div class="flex-1">
+      <app-nav title="ประวัติการใช้โปรโมชัน" class=""></app-nav>
+      <div class="px-4 max-w-sm">
+        <select2
+          class="w-full"
+          [value]="type"
+          (update)="typeChange($event)"
+          [data]="typeOption"
+          placeholder="ประเภท"
+        ></select2>
+      </div>
+    </div>
+
+    <a
+      ><button
+        class="button-yellow flex items-center space-x-4"
+        (click)="exportClick()"
+      >
+        <img src="assets/icons/export.svg" class="w-6" />
+        <div>Export</div>
+      </button></a
+    >
+  </div>
+
+  <div class="flex-1 mx-w my-2 bg-white">
+    <div class="py-4 px-6 flex space-x-4">
+      <div class="flex-1 flex relative">
+        <img
+          src="assets/icons/search.svg"
+          class="mx-auto w-6 absolute top-2 left-2"
+          alt=""
+        />
+        <input
+          class="input max-w-md pl-10"
+          [(ngModel)]="q"
+          placeholder="ค้นหา: ชื่อ, หมายเลขบัตร, โปรโมชัน"
+          (ngModelChange)="qChange()"
+        />
+      </div>
+
+      <div class="relative">
+        <input
+          class="input"
+          [owlDateTime]="date"
+          [owlDateTimeTrigger]="date"
+          placeholder="วันที่: "
+          selectMode="range"
+          (dateTimeInput)="dateChange($event.value)"
+        />
+        <img
+          [owlDateTimeTrigger]="date"
+          src="assets/icons/calendar.svg"
+          class="absolute bottom-2 right-2 w-6 cursor-pointer"
+        />
+        <owl-date-time #date pickerType="calendar"></owl-date-time>
+      </div>
+    </div>
+
+    <div class="px-6 table w-full">
+      <div class="table-header-group">
+        <div class="table-row">
+          <div class="table-cell">
+            <app-checkbox
+              [value]="selectIndex.length >= list.length"
+              (valueUpdate)="selectIndexAllClick($event)"
+            ></app-checkbox>
+          </div>
+          <div class="table-cell">วันที่ใช้โปรโปรโมชัน</div>
+          <div class="table-cell">โปรโมชัน</div>
+          <div class="table-cell">เลขบัตรเครดิต</div>
+          <div class="table-cell">ชื่อ-นามสกุล</div>
+          <div class="table-cell">เบอร์โทร</div>
+        </div>
+      </div>
+      <div class="table-row-group">
+        <div class="table-row" *ngFor="let item of list; let i = index">
+          <div class="table-cell">
+            <app-checkbox
+              [value]="selectIndex.includes(i)"
+              (valueUpdate)="
+                $event
+                  ? selectIndex.push(i)
+                  : (selectIndex = pull(selectIndex, i))
+              "
+            ></app-checkbox>
+          </div>
+          <div class="table-cell">{{ dateFormat(item.createdAt) }}</div>
+          <div class="table-cell">{{ item.name }}</div>
+          <div class="table-cell">{{ item.cardNumber }}</div>
+          <div class="table-cell">
+            {{ item.cardName }}
+          </div>
+          <div class="table-cell">{{ item.telephone }}</div>
+        </div>
+      </div>
+    </div>
+
+    <app-pagination
+      [page]="page"
+      [totalPage]="totalPage"
+      (pageSizeChange)="pageSizeChange($event)"
+      (pageChange)="pageChange($event)"
+    ></app-pagination>
+  </div>
+</div>
