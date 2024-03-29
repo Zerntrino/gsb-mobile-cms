@@ -35,6 +35,10 @@ body {
     .button-dark {
         @apply w-auto bg-gray-950 text-white text-center rounded-md py-2 px-6 disabled:bg-opacity-25;
     }
+    .button-yellow {
+        @apply w-auto text-white text-center rounded-md py-2 px-6 disabled:bg-opacity-25;
+        background-color: #AF7B0A;
+    }
 
     .table-header-group {
         @apply w-full bg-primary text-white;
