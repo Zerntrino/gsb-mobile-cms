@@ -66,6 +66,23 @@ export class LayoutComponent implements OnDestroy, OnInit {
           } as LeftMenu,
         ],
       } as LeftMenu,
+      {
+        title: 'REWARD',
+        items: [
+          {
+            title: 'Reward Management',
+            icon: 'assets/icons/menus/reward.svg',
+            to: '/reward-management',
+            active: this.url?.startsWith('/reward-management'),
+          } as LeftMenu,
+          {
+            title: 'Reward History',
+            icon: 'assets/icons/menus/reward-history.svg',
+            to: '/reward-history',
+            active: this.url?.startsWith('/reward-history'),
+          } as LeftMenu,
+        ],
+      } as LeftMenu,
     ];
   }
 

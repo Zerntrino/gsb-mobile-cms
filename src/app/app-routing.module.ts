@@ -100,7 +100,21 @@ export const routes: Routes = [
       },
     ],
   },
-
+  {
+    path: 'reward-history',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/rewardHistory/reward-history.module').then(
+            (m) => m.RewardHistoryModule
+          ),
+        data: { title: 'Reward History' },
+      },
+    ],
+  },
   {
     path: '404-not-found',
     component: Error404Component,
