@@ -101,6 +101,21 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'reward-management',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/rewardManagement/reward-management.module').then(
+            (m) => m.RewardManagementModule
+          ),
+        data: { title: 'Reward Management' },
+      },
+    ],
+  },
+  {
     path: 'reward-history',
     component: LayoutComponent,
     canActivate: [AuthGuard],
