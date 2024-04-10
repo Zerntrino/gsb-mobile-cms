@@ -1,0 +1,172 @@
+<div class="flex flex-col h-full">
+  <div class="flex items-center my-2 space-x-4">
+    <div class="flex-1">
+      <app-nav title="Installment Plan" [items]="navItems" class=""></app-nav>
+    </div>
+
+    <a
+      ><button class="button" (click)="showType = 'new'">
+        สร้าง Installment Plan
+      </button></a
+    >
+  </div>
+
+  <div class="flex-1 mx-w my-2 bg-white">
+    <div class="py-4 px-6 flex space-x-4">
+      <div class="flex-1 flex relative">
+        <img
+          src="assets/icons/search.svg"
+          class="mx-auto w-6 absolute top-2 left-2"
+          alt=""
+        />
+        <input
+          class="input max-w-md pl-10"
+          [(ngModel)]="q"
+          placeholder="ค้นหา: อัตราดอกเบี้ย"
+          (ngModelChange)="qChange()"
+        />
+      </div>
+
+      <div class="flex items-center space-x-2">
+        <div>สถานะ</div>
+        <select2
+          class="w-44"
+          [value]="status"
+          (update)="statusChange($event)"
+          [data]="statusOption"
+          placeholder="สถานะ"
+        ></select2>
+      </div>
+    </div>
+
+    <div class="px-6 table w-full">
+      <div class="table-header-group">
+        <div class="table-row">
+          <div class="table-cell text-center">#</div>
+          <div class="table-cell">Installment Plan</div>
+          <div class="table-cell">จำนวนเดือน</div>
+          <div class="table-cell">สถานะ</div>
+          <div class="table-cell">&nbsp;</div>
+        </div>
+      </div>
+      <div class="table-row-group">
+        <div class="table-row" *ngFor="let item of list; let i = index">
+          <div class="table-cell text-center">
+            {{ i + 1 }}
+          </div>
+          <div class="table-cell">{{ item.installmentPlan }}</div>
+          <div class="table-cell">{{ item.startDate }} {{ item.endDate }}</div>
+          <div class="table-cell">
+            <div class="flex flex-nowrap space-x-2 items-center">
+              <div
+                class="w-2 h-2 rounded-full"
+                [ngClass]="{
+                  'bg-green-500': item.isActive,
+                  'bg-gray-500': !item.isActive
+                }"
+              ></div>
+              <div>{{ item.isActive ? "แสดงผล" : "ไม่แสดงผล" }}</div>
+            </div>
+          </div>
+          <div class="table-cell text-center w-8">
+            <app-dropdown>
+              <div button>
+                <img src="assets/icons/option.svg" class="w-1 mx-auto" alt="" />
+              </div>
+              <div dropdown class="divide-y divide-gray-100">
+                <a class="flex px-4 py-2">
+                  <div class="flex-1">ดูรายละเอียด</div>
+                  <img src="assets/icons/view.svg" class="w-6" alt="" />
+                </a>
+                <a
+                  [routerLink]="'/reward-management/' + item.id"
+                  class="flex px-4 py-2"
+                >
+                  <div class="flex-1">แก้ไขข้อมูล</div>
+                  <img src="assets/icons/edit.svg" class="w-6" alt="" />
+                </a>
+                <a class="flex px-4 py-2">
+                  <div class="flex-1">ลบข้อมูล</div>
+                  <img src="assets/icons/remove.svg" class="w-6" alt="" />
+                </a>
+              </div>
+            </app-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-pagination
+      [page]="page"
+      [totalPage]="totalPage"
+      (pageSizeChange)="pageSizeChange($event)"
+      (pageChange)="pageChange($event)"
+    ></app-pagination>
+  </div>
+
+  <!-- modal -->
+  <div class="relative z-10 transition-all" [hidden]="showType == 'hide'">
+    <div
+      class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+    ></div>
+
+    <div
+      class="fixed inset-0 z-10 w-screen overflow-y-auto flex items-center justify-center"
+    >
+      <div class="w-full max-w-3xl bg-white rounded-md overflow-hidden">
+        <div class="flex items-center border-b border-gray-100">
+          <div class="flex-1 py-4 px-6 font-semibold">
+            สร้าง Installment Plan
+          </div>
+          <div class="px-4 pt-1 flex space-x-2">
+            <div>สถานะ</div>
+            <app-toggle></app-toggle>
+            <div>แสดงผล</div>
+          </div>
+        </div>
+
+        <div class="px-6 py-4">
+          <div class="text-sm">Installment Plan</div>
+          <input class="input" placeholder="Installment Plan" />
+        </div>
+
+        <div class="px-6 py-2 flex space-x-2">
+          <div class="font-semibold">รายการผ่อนชำระ</div>
+          <div class="text-primary underline">+ เพิ่มรายการ</div>
+        </div>
+
+        <div class="flex px-3">
+          <div class="flex-1 px-2 py-4">
+            <div class="text-sm">อัตราดอกเบี้ย</div>
+            <input class="input" placeholder="อัตราดอกเบี้ย" />
+          </div>
+          <div class="flex-1 px-2 py-4">
+            <div class="text-sm">จำนวนเดือนผ่อน</div>
+            <input class="input" type="number" placeholder="จำนวนเดือนผ่อน" />
+          </div>
+          <div class="flex-1 px-2 py-4">
+            <div class="text-sm">ยอดขั้นต่ำที่สามารถให้ทำรายการผ่อนได้</div>
+            <input
+              class="input"
+              placeholder="ยอดขั้นต่ำที่สามารถให้ทำรายการผ่อนได้"
+            />
+          </div>
+          <div class="self-end px-2 py-4">
+            <img src="assets/icons/remove.svg" class="w-6" alt="" />
+          </div>
+        </div>
+
+        <div
+          class="mt-6 px-4 py-4 flex justify-end space-x-4 border-t border-gray-100"
+        >
+          <button class="button-default-border" (click)="showType = 'hide'">
+            ยกเลิก
+          </button>
+          <button class="button" (click)="confirmClick()">
+            บันทึกและสร้าง
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

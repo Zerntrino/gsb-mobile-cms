@@ -131,6 +131,21 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'installment-plan',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import(
+            './modules/installmentPlanManagement/installment-plan.module'
+          ).then((m) => m.InstallmentPlanModule),
+        data: { title: 'installment-plan' },
+      },
+    ],
+  },
+  {
     path: '404-not-found',
     component: Error404Component,
     data: { title: '404' },
