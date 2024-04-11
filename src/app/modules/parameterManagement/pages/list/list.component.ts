@@ -8,8 +8,8 @@ import {
 } from 'ng-select2-component';
 import dayjs from 'dayjs';
 import { find, get, pull } from 'lodash';
-import { InstallmentPlanService } from 'src/app/core/services/installment-plan.service';
-import { InstallmentPlan } from 'src/app/core/models/installment-plan.model';
+import { ParameterService } from 'src/app/core/services/parameter.service';
+import { Installment } from 'src/app/core/models/parameter.model';
 
 @Component({
   selector: 'app-reward-history-list',
@@ -17,11 +17,6 @@ import { InstallmentPlan } from 'src/app/core/models/installment-plan.model';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
-  navItems = [
-    { title: 'จัดการการผ่อนชำระ', to: '' },
-    { title: 'Installment Plan', to: '' },
-  ];
-
   q = '';
   status: Select2Value = '';
   statusOption: Select2Option[] = [
@@ -31,16 +26,14 @@ export class ListComponent implements OnInit {
     },
   ];
 
-  list: InstallmentPlan[] = [];
+  list: Installment[] = [];
   page = 1;
   pageSize = 10;
   totalPage = 1;
 
-  showType = 'show';
-
   constructor(
     private router: Router,
-    private installmentPlanService: InstallmentPlanService
+    private parameterService: ParameterService
   ) {}
 
   ngOnInit(): void {
@@ -53,10 +46,10 @@ export class ListComponent implements OnInit {
       .append('length', this.pageSize);
     if (this.q) params = params.append('find', this.q);
 
-    this.installmentPlanService.getList(params).subscribe(
+    this.parameterService.getList(params).subscribe(
       (response) => {
         console.log(response.data);
-        this.list = response.data as InstallmentPlan[];
+        this.list = response.data as Installment[];
       },
       (error) => {
         console.log(error);
@@ -90,6 +83,4 @@ export class ListComponent implements OnInit {
   pull(ar: number[], i: number): number[] {
     return pull(ar, i);
   }
-
-  confirmClick(): void {}
 }

@@ -54,8 +54,8 @@
           <div class="table-cell text-center">
             {{ i + 1 }}
           </div>
-          <div class="table-cell">{{ item.installmentPlan }}</div>
-          <div class="table-cell">{{ item.startDate }} {{ item.endDate }}</div>
+          <div class="table-cell">{{ item.name }}</div>
+          <div class="table-cell">{{ item.month }}</div>
           <div class="table-cell">
             <div class="flex flex-nowrap space-x-2 items-center">
               <div
@@ -74,18 +74,15 @@
                 <img src="assets/icons/option.svg" class="w-1 mx-auto" alt="" />
               </div>
               <div dropdown class="divide-y divide-gray-100">
-                <a class="flex px-4 py-2">
+                <a class="flex px-4 py-2 cursor-pointer" (click)="show(item)">
                   <div class="flex-1">ดูรายละเอียด</div>
                   <img src="assets/icons/view.svg" class="w-6" alt="" />
                 </a>
-                <a
-                  [routerLink]="'/reward-management/' + item.id"
-                  class="flex px-4 py-2"
-                >
+                <a class="flex px-4 py-2 cursor-pointer" (click)="edit(item)">
                   <div class="flex-1">แก้ไขข้อมูล</div>
                   <img src="assets/icons/edit.svg" class="w-6" alt="" />
                 </a>
-                <a class="flex px-4 py-2">
+                <a class="flex px-4 py-2 cursor-pointer">
                   <div class="flex-1">ลบข้อมูล</div>
                   <img src="assets/icons/remove.svg" class="w-6" alt="" />
                 </a>

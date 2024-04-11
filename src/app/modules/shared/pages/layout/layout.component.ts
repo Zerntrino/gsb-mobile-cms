@@ -87,10 +87,10 @@ export class LayoutComponent implements OnDestroy, OnInit {
         title: 'SETTING',
         items: [
           {
-            title: 'Installment Plan',
-            icon: 'assets/icons/menus/installment-plan.svg',
-            to: '/installment-plan',
-            active: this.url?.startsWith('/installment-plan'),
+            title: 'Parameter',
+            icon: 'assets/icons/menus/parameter.svg',
+            to: '/parameter',
+            active: this.url?.startsWith('/parameter'),
           } as LeftMenu,
         ],
       } as LeftMenu,
