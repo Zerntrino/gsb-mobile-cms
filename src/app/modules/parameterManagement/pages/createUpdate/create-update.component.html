@@ -1,0 +1,189 @@
+<div class="flex flex-col h-full">
+  <div class="flex items-center my-2">
+    <app-nav
+      title="จัดการการผ่อนชำระ"
+      [items]="navItems"
+      class="flex-1"
+    ></app-nav>
+    <app-toggle></app-toggle>
+  </div>
+
+  <div class="flex-1 my-2 py-6 bg-white">
+    <div class="flex">
+      <div class="w-full max-w-lg px-4">
+        <div class="font-semibold my-2">การผ่อนชำระ</div>
+        <div class="border border-gray-100 rounded-md p-6 space-y-4">
+          <div class="">
+            <div class="text-sm">ชื่อการผ่อนชำระ</div>
+            <input class="input" placeholder="ชื่อการผ่อนชำระ" />
+          </div>
+          <div class="">
+            <div class="text-sm">รายละเอียด</div>
+            <input class="input" placeholder="รายละเอียด" />
+          </div>
+          <div>
+            <div class="text-sm">Installment Plan</div>
+            <select2
+              class="flex w-full"
+              [value]="installmentPlan"
+              (update)="installmentPlanChange($event)"
+              [data]="installmentPlanOption"
+              placeholder="Installment Plan"
+            ></select2>
+          </div>
+
+          <div class="border-t border-gray-100 py-2">
+            <div class="font-semibold text-sm">รายการผ่อนชำระ</div>
+
+            <div class="my-2 flex space-x-4">
+              <div class="flex-1">
+                <div class="text-sm">อัตราดอกเบี้ย</div>
+                <input
+                  class="input text-right"
+                  placeholder="อัตราดอกเบี้ย"
+                  disabled
+                />
+              </div>
+              <div class="flex-1">
+                <div class="text-sm">จำนวนเดือนผ่อน</div>
+                <input
+                  class="input text-right"
+                  placeholder="จำนวนเดือนผ่อน"
+                  disabled
+                />
+              </div>
+              <div class="flex-1">
+                <div class="text-sm">ยอดขั้นต่ำ</div>
+                <input
+                  class="input text-right"
+                  placeholder="ยอดขั้นต่ำ"
+                  disabled
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full max-w-lg px-4">
+        <div class="font-semibold my-2">กำหนดเงื่อนไข</div>
+        <div class="border border-gray-100 rounded-md p-6 space-y-4">
+          <div class="my-2">
+            <div class="text-sm">MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ</div>
+            <app-tag
+              [value]="mccs"
+              (valueUpdate)="mccChange($event)"
+              placeholder="MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ"
+            ></app-tag>
+          </div>
+
+          <div class="relative">
+            <div class="text-sm">วันที่แสดง</div>
+            <input
+              class="input"
+              [owlDateTime]="dt1"
+              [owlDateTimeTrigger]="dt1"
+              placeholder="วว/ดด/ปปปป"
+            />
+            <img
+              [owlDateTimeTrigger]="dt1"
+              src="assets/icons/calendar.svg"
+              class="absolute bottom-2 right-2 w-6 cursor-pointer"
+            />
+            <owl-date-time #dt1 pickerType="calendar"></owl-date-time>
+          </div>
+          <div class="relative">
+            <div class="text-sm">วันที่สิ้นสุด</div>
+            <input
+              class="input"
+              [owlDateTime]="dt2"
+              [owlDateTimeTrigger]="dt2"
+              placeholder="วว/ดด/ปปปป"
+            />
+            <img
+              [owlDateTimeTrigger]="dt2"
+              src="assets/icons/calendar.svg"
+              class="absolute bottom-2 right-2 w-6 cursor-pointer"
+            />
+            <owl-date-time #dt2 pickerType="calendar"></owl-date-time>
+          </div>
+
+          <div class="my-2">
+            <div class="mb-2">ประเภทบัตรที่ผ่อนชำระได้</div>
+            <div class="flex flex-wrap -mx-1">
+              <div class="p-1 w-full">
+                <div
+                  class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-4"
+                >
+                  <img src="assets/icons/cards/visa.svg" class="w-8" />
+                  <div class="flex-1 text-sm">GSB ทุกประเภท</div>
+                  <app-checkbox></app-checkbox>
+                </div>
+              </div>
+
+              <div class="p-1 w-1/2">
+                <div
+                  class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-4"
+                >
+                  <img src="assets/icons/cards/visa.svg" class="w-8" />
+                  <div class="flex-1 text-sm">GSB Precious</div>
+                  <app-checkbox></app-checkbox>
+                </div>
+              </div>
+              <div class="p-1 w-1/2">
+                <div
+                  class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-4"
+                >
+                  <img src="assets/icons/cards/visa.svg" class="w-8" />
+                  <div class="flex-1 text-sm">GSB TQM Infinity</div>
+                  <app-checkbox></app-checkbox>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full max-w-lg px-4">
+        <div class="font-semibold my-2">รายการยอดขั้นต่ำ</div>
+        <div class="border border-gray-100 rounded-md p-6 space-y-4">
+          <div class="text-sm">รายการยอดขั้นต่ำที่สามารถให้ทำรายการผ่อนได้</div>
+
+          <div class="px-6 table w-full">
+            <div class="table-header-group">
+              <div class="table-row">
+                <div class="table-cell py-1 text-center">#</div>
+                <div class="table-cell py-1">ประเภทบัตร</div>
+                <div class="table-cell py-1 text-right leading-none">
+                  ยอดใช้จ่ายขั้นต่ำ
+                  <div class="text-sm font-light">(ต่อเซลล์สลิป)</div>
+                </div>
+              </div>
+            </div>
+            <div class="table-row-group">
+              <div class="table-row">
+                <div class="table-cell text-center">1</div>
+                <div class="table-cell">GSB Precious</div>
+                <div class="table-cell text-right font-semibold">3,000</div>
+              </div>
+              <div class="table-row">
+                <div class="table-cell text-center">1</div>
+                <div class="table-cell">GSB Precious</div>
+                <div class="table-cell text-right font-semibold">3,000</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2"
+  >
+    <a routerLink="/parameter"
+      ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
+    >
+    <button class="button w-auto px-6">บันทึกและสร้างพารามิเตอร์</button>
+  </div>
+</div>

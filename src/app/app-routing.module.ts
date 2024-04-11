@@ -131,17 +131,17 @@ export const routes: Routes = [
     ],
   },
   {
-    path: 'installment-plan',
+    path: 'parameter',
     component: LayoutComponent,
     canActivate: [AuthGuard],
     children: [
       {
         path: '',
         loadChildren: () =>
-          import(
-            './modules/installmentPlanManagement/installment-plan.module'
-          ).then((m) => m.InstallmentPlanModule),
-        data: { title: 'installment-plan' },
+          import('./modules/parameterManagement/parameter.module').then(
+            (m) => m.ParameterModule
+          ),
+        data: { title: 'parameter' },
       },
     ],
   },
