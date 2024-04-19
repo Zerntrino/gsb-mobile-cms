@@ -25,6 +25,17 @@ export class ParameterService extends BaseService {
       }
     );
   }
+  get(id: string): Observable<ApiResponse<Installment>> {
+    return this.http.get<ApiResponse<Installment>>(
+      `${this.apiUrl}/cms/installment/${id}`
+    );
+  }
+  create(object: object): Observable<ApiResponse<Installment>> {
+    return this.http.post<ApiResponse<Installment>>(
+      `${this.apiUrl}/cms/installment/management`,
+      object
+    );
+  }
 
   getInstallmentPlanList(
     params?: HttpParams
@@ -51,6 +62,15 @@ export class ParameterService extends BaseService {
       {
         params: params,
       }
+    );
+  }
+  updateInstallmentMCC(
+    id: number,
+    object: object
+  ): Observable<ApiResponse<ParameterMCC>> {
+    return this.http.put<ApiResponse<ParameterMCC>>(
+      `${this.apiUrl}/cms/installment/mcc/${id}`,
+      object
     );
   }
 

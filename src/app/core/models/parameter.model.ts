@@ -2,6 +2,9 @@ export interface Installment {
   id: number;
   installmentPlan: string;
   name: string;
+  description: string;
+  planCode: string;
+  mccCode: string[];
   isActive: boolean;
   startDate: string;
   endDate: string;

@@ -67,7 +67,7 @@
             <div class="table-cell">
               <button
                 class="button-dark text-sm w-20 px-3 py-2"
-                (click)="showType = 'show'"
+                (click)="show(item)"
               >
                 + MCC
               </button>
@@ -76,6 +76,7 @@
         </div>
       </div>
     </div>
+
     <div *ngIf="tab == 1">
       <div class="pb-4 px-6 flex space-x-4">
         <div class="flex-1 flex relative"></div>
@@ -169,11 +170,11 @@
 
         <div class="px-6 py-4">
           <div class="mb-4 font-semibold">
-            ประเภทบัตร : <span class="text-primary">GSB Precious</span>
+            ประเภทบัตร : <span class="text-primary">{{ mcc.cardName }}</span>
           </div>
 
           <div class="flex relative">
-            <img
+            <!-- <img
               src="assets/icons/search.svg"
               class="mx-auto w-6 absolute top-2 left-2"
               alt=""
@@ -183,7 +184,15 @@
               [(ngModel)]="qAddMcc"
               placeholder="ค้นหา: MCC"
               (ngModelChange)="qAddMccChange()"
-            />
+            /> -->
+            <select2
+              class="w-full"
+              [value]="addMcc"
+              (update)="addMccChange($event)"
+              [data]="addMccOption"
+              placeholder="ค้นหา: MCC"
+              [resettable]="true"
+            ></select2>
           </div>
         </div>
 
@@ -196,16 +205,24 @@
             </div>
           </div>
           <div class="table-row-group">
-            <div class="table-row" *ngFor="let item of mccs; let i = index">
+            <div
+              class="table-row"
+              *ngFor="let item of mcc.mccCode; let i = index"
+            >
               <div class="table-cell text-center">
                 {{ i + 1 }}
               </div>
               <div class="table-cell">
-                <b>{{ item.code }}</b
-                ><span class="pl-2">{{ item.name }}</span>
+                <span class="pl-2">{{ item }}</span>
               </div>
               <div class="table-cell">
-                <img src="assets/icons/remove.svg" class="w-6" alt="" />
+                <img
+                  src="assets/icons/remove.svg"
+                  class="w-6"
+                  alt=""
+                  class="cursor-pointer"
+                  (click)="remove(item)"
+                />
               </div>
             </div>
           </div>
@@ -217,7 +234,7 @@
           <button class="button-default-border" (click)="showType = 'hide'">
             ยกเลิก
           </button>
-          <button class="button" (click)="confirmClick()">บันทึก</button>
+          <button class="button" (click)="confirm()">บันทึก</button>
         </div>
       </div>
     </div>
@@ -229,7 +246,7 @@
     <a routerLink="/parameter"
       ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
     >
-    <button class="button w-auto px-6">
+    <button class="button w-auto px-6" (click)="save()">
       {{ tab == 0 ? "บันทึก MCC" : "บันทึกยอดใช้จ่ายขั้นต่ำ" }}
     </button>
   </div>
