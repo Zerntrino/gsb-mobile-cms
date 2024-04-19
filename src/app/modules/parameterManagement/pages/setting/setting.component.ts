@@ -49,6 +49,9 @@ export class ParameterSettingComponent implements OnInit {
       label: 'ทั้งหมด',
     },
   ];
+  mcc: ParameterMCC = {} as ParameterMCC;
+  addMcc: Select2Value = '';
+  addMccOption: Select2Option[] = [];
 
   mccs: MCC[] = [];
   listMcc: ParameterMCC[] = [];
@@ -64,8 +67,13 @@ export class ParameterSettingComponent implements OnInit {
   ngOnInit(): void {
     this.parameterService.getMCCList().subscribe(
       (response) => {
-        console.log(response.data);
         this.mccs = response.data as MCC[];
+        this.addMccOption = this.mccs.map((item) => {
+          return {
+            value: item.code,
+            label: `${item.code} : ${item.name}`,
+          } as Select2Option;
+        });
       },
       (error) => {
         console.log(error);
@@ -122,7 +130,15 @@ export class ParameterSettingComponent implements OnInit {
     }
   }
 
-  qAddMccChange(): void {}
+  addMccChange(e: Select2UpdateEvent): void {
+    if (e.value && this.addMcc != e.value) {
+      this.mcc.mccCode?.push(
+        `${this.addMccOption.find((i) => i.value == e.value)?.label}`
+      );
+
+      e.component.value = '';
+    }
+  }
 
   dateFormat(d: string): string {
     const date = dayjs(d);
@@ -132,13 +148,24 @@ export class ParameterSettingComponent implements OnInit {
     return pull(ar, i);
   }
 
-  show(d: InstallmentPlan): void {
+  show(d: ParameterMCC): void {
+    this.mcc = JSON.parse(JSON.stringify(d));
     this.showType = 'show';
   }
-  edit(d: InstallmentPlan): void {
-    this.showType = 'show';
+  remove(item: string): void {
+    this.mcc.mccCode = this.mcc.mccCode.filter((i) => i != item);
   }
-  confirmClick(): void {}
+  confirm(): void {
+    const index = this.listMcc.findIndex((i) => i.id == this.mcc.id);
+    this.listMcc[index] = this.mcc;
+    this.showType = 'hide';
+  }
+
+  save(): void {
+    this.parameterService.updateInstallmentMCC(this.mcc?.id || 0, {
+      mccCode: this.mcc,
+    });
+  }
 
   editMinimum(i: number, item: ParameterMinimum): void {
     item.isEditing = true;

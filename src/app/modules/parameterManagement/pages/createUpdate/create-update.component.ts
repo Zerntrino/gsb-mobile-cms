@@ -10,6 +10,11 @@ import { Ad } from 'src/app/core/models/ad.model';
 import { AdService } from 'src/app/core/services/ad.service';
 import dayjs from 'dayjs';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { CardService } from 'src/app/core/services/card.service';
+import { Card } from 'src/app/core/models/card.model';
+import { Installment } from 'src/app/core/models/parameter.model';
+import { ParameterService } from 'src/app/core/services/parameter.service';
+import { FormControl, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-parameter-management-create-update',
@@ -30,8 +35,18 @@ export class CreateUpdateComponent implements OnInit {
   dt2 = '';
 
   mccs: string[] = [];
+  cards: Card[] = [];
+  dataForm = new FormGroup({
+    name: new FormControl(''),
+    description: new FormControl(''),
+  });
 
-  constructor(private router: Router, activatedRoute: ActivatedRoute) {
+  constructor(
+    private router: Router,
+    activatedRoute: ActivatedRoute,
+    private parameterService: ParameterService,
+    private cardService: CardService
+  ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.navItems[1].title =
       this.id == 'create' ? 'สร้างพารามิเตอร์' : 'แก้ไขพารามิเตอร์';
@@ -39,9 +54,44 @@ export class CreateUpdateComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetch();
+    this.fetchCards();
   }
 
-  fetch(): void {}
+  fetch(): void {
+    if (this.id != 'create') {
+      this.parameterService.get(this.id).subscribe(
+        (response) => {
+          const data = response.data;
+          this.dataForm.get('name')?.setValue(data?.name || '');
+        },
+        (error) => {}
+      );
+    }
+  }
+
+  fetchCards(): void {
+    let params = new HttpParams();
+    this.cardService.getList(params).subscribe(
+      (response) => {
+        this.cards = response.data as Card[];
+      },
+      (error) => {}
+    );
+  }
+
+  onSubmit(): void {
+    this.parameterService
+      .create({
+        name: this.dataForm.get('name')?.value,
+        description: this.dataForm.get('description')?.value,
+      })
+      .subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {}
+      );
+  }
 
   dateFormat(d: string): string {
     const date = dayjs(d);
