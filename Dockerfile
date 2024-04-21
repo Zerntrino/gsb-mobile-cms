@@ -11,4 +11,4 @@ EXPOSE 80
 
 COPY nginx-dev.conf /etc/nginx/conf.d/default.conf
 
-COPY --from=builder /app/dist/* /usr/share/nginx/html
+COPY --from=builder /app/dist/* /etc/nginx/html
