@@ -8,6 +8,7 @@
     -webkit-user-select: none;
     user-select: none;
     cursor: pointer;
+    width: auto;
 }
 
 .checkbox-wrapper-46 .cbx span {

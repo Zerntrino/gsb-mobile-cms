@@ -71,6 +71,22 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'newsletter-management',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import(
+            './modules/newsletterManagement/newsletter-management.module'
+          ).then((m) => m.NewsletterManagementModule),
+        data: { title: 'Newsletter Management' },
+      },
+    ],
+  },
+
+  {
     path: 'promotion-management',
     component: LayoutComponent,
     canActivate: [AuthGuard],

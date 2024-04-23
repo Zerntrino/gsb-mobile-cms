@@ -1,0 +1,95 @@
+<div class="flex flex-col h-full">
+  <div class="flex items-center my-2 space-x-4">
+    <app-nav title="จัดการการแจ้งเตือน" class="flex-1"></app-nav>
+
+    <a routerLink="/newsletter-management/create"
+      ><button class="button">สร้างการแจ้งเตือน</button></a
+    >
+  </div>
+
+  <div class="flex-1 mx-w my-2 bg-white">
+    <div class="py-4 px-6 flex">
+      <div class="flex-1 flex relative">
+        <img
+          src="assets/icons/search.svg"
+          class="mx-auto w-6 absolute top-2 left-2"
+          alt=""
+        />
+        <input
+          class="input max-w-lg pl-10"
+          [(ngModel)]="q"
+          placeholder="ค้นหา: หัวข้อการแจ้งเตือน"
+          (ngModelChange)="qChange()"
+        />
+      </div>
+      <div class="relative">
+        <input
+          class="input"
+          [owlDateTime]="date"
+          [owlDateTimeTrigger]="date"
+          placeholder="วันที่: "
+          selectMode="range"
+          (dateTimeInput)="dateChange($event.value)"
+        />
+        <img
+          [owlDateTimeTrigger]="date"
+          src="assets/icons/calendar.svg"
+          class="absolute bottom-2 right-2 w-6 cursor-pointer"
+        />
+        <owl-date-time #date pickerType="calendar"></owl-date-time>
+      </div>
+    </div>
+
+    <div class="px-6 table w-full">
+      <div class="table-header-group">
+        <div class="table-row">
+          <div class="table-cell">#</div>
+          <div class="table-cell">หัวข้อการแจ้งเตือน</div>
+          <div class="table-cell">วันที่แสดง</div>
+          <div class="table-cell">เงื่อนไข</div>
+          <div class="table-cell w-8">&nbsp;</div>
+        </div>
+      </div>
+      <div class="table-row-group">
+        <div class="table-row" *ngFor="let item of list; let i = index">
+          <div class="table-cell">{{ i + 1 }}</div>
+
+          <div class="table-cell">
+            {{ item.name }}
+          </div>
+          <div class="table-cell">
+            {{ dateFormat(item.startDate) }}
+          </div>
+          <div class="table-cell"></div>
+          <div class="table-cell text-center w-8">
+            <app-dropdown>
+              <div button>
+                <img src="assets/icons/option.svg" class="w-1 mx-auto" alt="" />
+              </div>
+              <div dropdown>
+                <a
+                  class="flex px-4 py-2"
+                  [routerLink]="'/newsletter-management/' + item.id"
+                >
+                  <div class="flex-1">แก้ไขข้อมูล</div>
+                  <img src="assets/icons/edit.svg" class="w-6" alt="" />
+                </a>
+                <a class="flex px-4 py-2">
+                  <div class="flex-1">ลบข้อมูล</div>
+                  <img src="assets/icons/remove.svg" class="w-6" alt="" />
+                </a>
+              </div>
+            </app-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-pagination
+      [page]="page"
+      [totalPage]="totalPage"
+      (pageSizeChange)="pageSizeChange($event)"
+      (pageChange)="pageChange($event)"
+    ></app-pagination>
+  </div>
+</div>

@@ -41,12 +41,12 @@ export class LayoutComponent implements OnDestroy, OnInit {
             to: '/banner-management',
             active: this.url?.startsWith('/banner-management'),
           } as LeftMenu,
-          // {
-          //   title: 'Newsletter',
-          //   icon: 'assets/icons/menus/news.svg',
-          //   to: '/newslatter',
-          //   active: this.url?.startsWith('/newslatter'),
-          // } as LeftMenu,
+          {
+            title: 'Newsletter',
+            icon: 'assets/icons/menus/news.svg',
+            to: '/newsletter-management',
+            active: this.url?.startsWith('/newsletter-management'),
+          } as LeftMenu,
         ],
       } as LeftMenu,
       {
