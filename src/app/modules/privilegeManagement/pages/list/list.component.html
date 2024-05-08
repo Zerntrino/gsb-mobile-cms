@@ -1,0 +1,155 @@
+<div class="flex flex-col h-full">
+  <div class="flex items-center my-2">
+    <app-nav title="จัดการสิทธิพิเศษ" class="flex-1"></app-nav>
+  </div>
+
+  <form
+    [formGroup]="dataForm"
+    (submit)="df.form.valid && onSubmit()"
+    #df="ngForm"
+    class="flex-1 flex flex-col"
+  >
+    <div class="flex-1 my-2 py-6 bg-white">
+      <div class="flex">
+        <div class="w-full max-w-lg px-4">
+          <div class="font-semibold my-2">ประเภทบัตร</div>
+          <div class="flex flex-wrap">
+            <div
+              class="m-1 p-0.5 border-2 rounded-lg cursor-pointer"
+              *ngFor="let card of cards; let i = index"
+              (click)="selectCard(card)"
+              [ngClass]="{
+                'border-primary': id == card.id,
+                'border-white': id != card.id
+              }"
+            >
+              <img
+                [src]="card.imageUrl || 'assets/icons/cards/visa.svg'"
+                class="w-40 shadow-md"
+                alt=""
+              />
+            </div>
+
+            <div
+              class="m-1 border-2 rounded-lg border-dashed bg-opacity-10 w-40 h-28 cursor-pointer py-5"
+              [ngClass]="{
+                'border-primary bg-primary': id == 0,
+                'border-gray-300': id != 0
+              }"
+              (click)="selectCard()"
+            >
+              <div>
+                <img src="assets/icons/add-card.svg" alt="" class="mx-auto" />
+              </div>
+              <div class="text-center text-primary">เพิ่มประเภทบัตร</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full max-w-lg px-4">
+          <div class="font-semibold my-2">สิทธิพิเศษ</div>
+          <div
+            class="border border-gray-100 rounded-md px-6 pt-6 pb-12 space-y-4"
+          >
+            <div class="">
+              <div class="text-sm">ชื่อบัตร</div>
+              <input
+                class="input"
+                placeholder="ชื่อบัตร"
+                name="name"
+                formControlName="name"
+              />
+            </div>
+
+            <div>
+              <div class="text-sm">ประเภทบัตร</div>
+              <select2
+                class="flex w-full"
+                [value]="type"
+                (update)="typeChange($event)"
+                [data]="typeOption"
+                placeholder="ประเภทบัตร"
+              ></select2>
+            </div>
+
+            <div>
+              <div class="text-sm">รายละเอียด</div>
+              <div>
+                <angular-editor
+                  placeholder="รายละเอียด"
+                  minHeight="180"
+                  [(ngModel)]="htmlContent"
+                  [config]="editorConfig"
+                ></angular-editor>
+              </div>
+            </div>
+
+            <div class="my-2">
+              <div class="text-sm">ข้อมูลที่เกี่ยวข้อง</div>
+              <app-tag
+                [value]="tags"
+                (valueUpdate)="tagsChange($event)"
+                placeholder="ข้อมูลที่เกี่ยวข้อง"
+              ></app-tag>
+            </div>
+          </div>
+        </div>
+
+        <div class="w-full max-w-lg px-4">
+          <div class="font-semibold my-2">รูปภาพ</div>
+          <div
+            class="border border-gray-100 rounded-md px-6 pt-6 pb-12 space-y-4"
+          >
+            <div class="text-sm">รูปภาพบัตร</div>
+            <div class="px-6">
+              <div
+                class="w-full mt-6 aspect-w-3 aspect-h-2 flex justify-center items-center rounded-md bg-gray-300"
+              >
+                <img src="assets/icons/img.svg" class="w-11 mx-auto" />
+              </div>
+
+              <!-- <div class="relative">
+                <img
+                  class="w-16 h-16 absolute top-0 right-0 z-10"
+                  style="right: 0"
+                  src="assets/icons/x-circle.svg"
+                />
+                <div
+                  class="w-full mt-6 aspect-w-3 aspect-h-2 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
+                >
+                  <img
+                    class="w-full h-full object-cover"
+                    src="assets/icons/cards/visa.svg"
+                  />
+                </div>
+              </div> -->
+
+              <div class="my-4 text-center text-gray-400 text-sm">
+                เลือกรูปภาพที่ใช้เป็น Card ( ขนาด 492 x 300 .png )
+              </div>
+              <div class="flex justify-center">
+                <button
+                  class="button-border text-center flex items-center justify-center space-x-4"
+                >
+                  <img src="assets/icons/upload.svg" class="w-6" />
+                  <div>อัปโหลดไฟล์รูปภาพ</div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2"
+    >
+      <a routerLink=""
+        ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
+      >
+      <button type="submit" class="button w-auto px-6">
+        บันทึกและสร้างสิทธิพิเศษ
+      </button>
+    </div>
+  </form>
+</div>

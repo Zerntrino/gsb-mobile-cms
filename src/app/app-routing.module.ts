@@ -147,6 +147,21 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'privilege',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/privilegeManagement/privilege.module').then(
+            (m) => m.PrivilegeModule
+          ),
+        data: { title: 'privilege' },
+      },
+    ],
+  },
+  {
     path: 'parameter',
     component: LayoutComponent,
     canActivate: [AuthGuard],
