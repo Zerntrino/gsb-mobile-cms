@@ -6,6 +6,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './modules/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
+import { CoreModule } from './core/core.module';
 
 import dayjs from 'dayjs';
 import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
@@ -21,10 +22,14 @@ dayjs.extend(buddhistEra);
     AppRoutingModule,
     RouterModule,
     SharedModule,
+    CoreModule,
   ],
-  providers: [{
-    provide: OWL_DATE_TIME_LOCALE, useValue: 'th'
-  }],
+  providers: [
+    {
+      provide: OWL_DATE_TIME_LOCALE,
+      useValue: 'th',
+    },
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

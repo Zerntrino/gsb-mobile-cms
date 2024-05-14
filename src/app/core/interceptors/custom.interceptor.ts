@@ -25,8 +25,10 @@ export class CustomInterceptor implements HttpInterceptor {
     const spinnerSubscription: Subscription =
       this.spinnerService.spinner$.subscribe();
     // add JWT auth header if a user is logged in for API requests
-    const accessToken = localStorage.getItem('access_token');
+    const accessToken = localStorage.getItem('token');
     const isApiUrl = request.url.startsWith(environment.apiUrl);
+    console.log(accessToken, isApiUrl);
+
     if (accessToken && isApiUrl) {
       request = request.clone({
         setHeaders: { Authorization: `Bearer ${accessToken}` },
