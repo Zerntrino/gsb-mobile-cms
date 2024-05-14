@@ -32,7 +32,7 @@ export class SpinnerService {
           .centerVertically(),
         hasBackdrop: true,
       });
-      console.log(this.overlayRef);
+      // console.log(this.overlayRef);
       //   this.overlayRef.attach(new ComponentPortal(SpinnerDialogComponent));
     });
   }
