@@ -19,4 +19,18 @@ export class AdService extends BaseService {
       params: params,
     });
   }
+
+  get(id: string): Observable<ApiResponse<Ad>> {
+    return this.http.get<ApiResponse<Ad>>(
+      `${this.apiUrl}/cms/advertise/${id}`,
+      {}
+    );
+  }
+
+  create(object: object): Observable<ApiResponse<Ad>> {
+    return this.http.post<ApiResponse<Ad>>(
+      `${this.apiUrl}/cms/advertise`,
+      object
+    );
+  }
 }
