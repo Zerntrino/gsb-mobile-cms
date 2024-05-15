@@ -32,7 +32,7 @@ export class ListComponent implements OnInit {
   fetch(): void {
     let params = new HttpParams()
       .append('page', this.page)
-      .append('length', this.pageSize);
+      .append('pageSize', this.pageSize);
     if (this.q) params = params.append('find', this.q);
     if (this.date[0] && this.date[1]) {
       params = params.append('startDate', this.date[0]);
