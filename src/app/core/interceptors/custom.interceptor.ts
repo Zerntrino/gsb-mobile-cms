@@ -27,7 +27,7 @@ export class CustomInterceptor implements HttpInterceptor {
     // add JWT auth header if a user is logged in for API requests
     const accessToken = localStorage.getItem('token');
     const isApiUrl = request.url.startsWith(environment.apiUrl);
-    console.log(accessToken, isApiUrl);
+    // console.log(accessToken, isApiUrl);
 
     if (accessToken && isApiUrl) {
       request = request.clone({

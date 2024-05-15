@@ -21,3 +21,7 @@ export enum UserPermission {
 export interface AppUserPermission {
   menu: UserPermission[];
 }
+
+interface HTMLInputEvent extends Event {
+  target: HTMLInputElement & EventTarget;
+}

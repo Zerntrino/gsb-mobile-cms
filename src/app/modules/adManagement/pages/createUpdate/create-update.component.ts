@@ -9,6 +9,8 @@ import {
 import { Ad } from 'src/app/core/models/ad.model';
 import { AdService } from 'src/app/core/services/ad.service';
 import dayjs from 'dayjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-ad-management-create-update',
@@ -22,13 +24,20 @@ export class CreateUpdateComponent implements OnInit {
     { title: 'สร้างโฆษณา', to: '' },
   ];
 
-  dt1 = '';
-  dt2 = '';
+  submitForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    startDate: new FormControl('', [Validators.required]),
+    endDate: new FormControl('', [Validators.required]),
+    linkUrl: new FormControl('', [Validators.required]),
+    isActive: new FormControl(true),
+    imageBase64: new FormControl(''),
+  });
 
   constructor(
     private router: Router,
     activatedRoute: ActivatedRoute,
-    private adService: AdService
+    private adService: AdService,
+    private toastService: ToastService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.navItems[1].title = this.id == 'create' ? 'สร้างโฆษณา' : 'แก้ไขโฆษณา';
@@ -39,19 +48,47 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   fetch(): void {
-    // this.adService.getList(params).subscribe(
-    //   (response) => {
-    //     console.log(response.data);
-    //     this.list = response.data as Ad[];
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
+    if (this.id != 'create') {
+      this.adService.get(this.id).subscribe(
+        (response) => {
+          const res = response.data as Ad;
+          this.submitForm.setValue(res);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   dateFormat(d: string): string {
     const date = dayjs(d);
     return date.locale('th-th').format('DD/MM/BBBB');
+  }
+
+  inputFileChange(event: Event): void {
+    const files = (event.target as HTMLInputElement).files;
+    const file = files?.item(0);
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.submitForm
+          .get('imageBase64')
+          ?.setValue(reader.result?.toString() || '');
+      };
+    }
+  }
+
+  onSubmit(): void {
+    this.adService.create(this.submitForm.getRawValue()).subscribe(
+      (response) => {
+        this.router.navigate(['/ad-management']);
+      },
+      (error) => {
+        console.log(error);
+        this.toastService.add('error', error);
+      }
+    );
   }
 }

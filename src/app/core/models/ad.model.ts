@@ -1,8 +1,9 @@
 export interface Ad {
-  id: number;
-  imageUrl: string;
-  isActive: boolean;
+  id?: number;
   name: string;
-  endDate: string;
   startDate: string;
+  endDate: string;
+  linkUrl: string;
+  isActive: boolean;
+  imageBase64: string;
 }
