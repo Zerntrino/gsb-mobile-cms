@@ -43,7 +43,7 @@ export class ListComponent implements OnInit {
   fetch(): void {
     let params = new HttpParams()
       .append('page', this.page)
-      .append('length', this.pageSize);
+      .append('pageSize', this.pageSize);
     if (this.q) params = params.append('find', this.q);
 
     this.parameterService.getList(params).subscribe(
