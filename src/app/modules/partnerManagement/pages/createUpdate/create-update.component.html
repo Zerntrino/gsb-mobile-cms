@@ -1,0 +1,122 @@
+<div class="h-full">
+  <form
+    [formGroup]="submitForm"
+    (submit)="sf.form.valid && onSubmit()"
+    #sf="ngForm"
+    class="flex flex-col h-full"
+  >
+    <div class="flex items-center my-2">
+      <app-nav
+        title="จัดการพาร์ทเนอร์"
+        [items]="navItems"
+        class="flex-1"
+      ></app-nav>
+      <app-toggle
+        [value]="submitForm.get('isActive')?.value || false"
+        (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
+      ></app-toggle>
+    </div>
+
+    <div class="flex-1 my-2 py-6 bg-white">
+      <div class="flex">
+        <div class="w-full max-w-md px-4">
+          <div class="font-semibold my-2">พาร์ทเนอร์</div>
+          <div class="border border-gray-100 rounded-md p-6 space-y-4">
+            <div class="">
+              <div class="text-sm">ชื่อพาร์ทเนอร์/ร้านค้า</div>
+              <input
+                class="input"
+                name="name"
+                formControlName="name"
+                required
+                placeholder="ชื่อพาร์ทเนอร์/ร้านค้า"
+              />
+            </div>
+
+            <div>
+              <div class="text-sm">รายละเอียด</div>
+              <div>
+                <angular-editor
+                  placeholder="รายละเอียด"
+                  minHeight="180"
+                  [(ngModel)]="htmlContent"
+                  [config]="editorConfig"
+                ></angular-editor>
+              </div>
+            </div>
+
+            <div>
+              <div class="text-sm">ข้อมูลที่เกี่ยวข้อง</div>
+              <app-tag
+                [value]="tags"
+                (valueUpdate)="tagChange($event)"
+                placeholder="ข้อมูลที่เกี่ยวข้อง"
+              ></app-tag>
+            </div>
+          </div>
+        </div>
+        <div class="w-full max-w-md px-4">
+          <div class="font-semibold my-2">รูปภาพโลโก้</div>
+          <div class="border border-gray-100 rounded-md p-6 pb-12">
+            <div class="text-sm">รูปภาพโลโก้</div>
+            <div class="px-6">
+              <div
+                *ngIf="!submitForm.get('imageBase64')?.value"
+                class="w-44 h-44 mt-6 mx-auto flex justify-center items-center rounded-full bg-primary bg-opacity-15 border border-dashed border-primary"
+              >
+                <img src="assets/icons/img.svg" class="w-11 mx-auto" />
+              </div>
+
+              <div
+                *ngIf="submitForm.get('imageBase64')?.value"
+                class="relative"
+              >
+                <div
+                  class="w-44 h-44 mt-6 mx-auto flex justify-center items-center rounded-full bg-primary bg-opacity-15 border border-dashed border-primary overflow-hidden"
+                >
+                  <img
+                    class="w-full h-full object-cover"
+                    [src]="submitForm.get('imageBase64')?.value"
+                  />
+                </div>
+              </div>
+
+              <input
+                type="file"
+                class="hidden"
+                accept="application/image"
+                #inputImage
+                (change)="inputFileChange($event)"
+              />
+
+              <div class="my-4 text-center text-gray-400 text-sm">
+                เลือกรูปภาพที่ใช้เป็น Logo ( ขนาด 288 x 288 .png )
+              </div>
+              <div class="flex justify-center">
+                <button
+                  (click)="inputImage.click()"
+                  class="button-border text-center flex items-center justify-center space-x-4"
+                  type="button"
+                >
+                  <img src="assets/icons/upload.svg" class="w-6" />
+                  <div>อัปโหลดไฟล์รูปภาพ</div>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div
+      class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2"
+    >
+      <a routerLink="/ad-management"
+        ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
+      >
+      <button class="button w-auto px-6" type="submit" [disabled]="sf.invalid">
+        บันทึกและสร้างโฆษณา
+      </button>
+    </div>
+  </form>
+</div>

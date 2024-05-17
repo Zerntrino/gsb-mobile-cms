@@ -147,6 +147,36 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'category-management',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import(
+            './modules/categoryManagement/category-management.module'
+          ).then((m) => m.CategoryManagementModule),
+        data: { title: 'Category' },
+      },
+    ],
+  },
+  {
+    path: 'partner-management',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/partnerManagement/partner-management.module').then(
+            (m) => m.PartnerManagementModule
+          ),
+        data: { title: 'Partner' },
+      },
+    ],
+  },
+  {
     path: 'privilege',
     component: LayoutComponent,
     canActivate: [AuthGuard],
@@ -157,7 +187,7 @@ export const routes: Routes = [
           import('./modules/privilegeManagement/privilege.module').then(
             (m) => m.PrivilegeModule
           ),
-        data: { title: 'privilege' },
+        data: { title: 'Privilege' },
       },
     ],
   },

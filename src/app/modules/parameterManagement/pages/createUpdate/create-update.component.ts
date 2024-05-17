@@ -9,7 +9,6 @@ import {
 import { Ad } from 'src/app/core/models/ad.model';
 import { AdService } from 'src/app/core/services/ad.service';
 import dayjs from 'dayjs';
-import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { CardService } from 'src/app/core/services/card.service';
 import { Card } from 'src/app/core/models/card.model';
 import { Installment } from 'src/app/core/models/parameter.model';

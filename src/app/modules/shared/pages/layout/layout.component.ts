@@ -87,6 +87,18 @@ export class LayoutComponent implements OnDestroy, OnInit {
         title: 'SETTING',
         items: [
           {
+            title: 'Category',
+            icon: 'assets/icons/menus/category.svg',
+            to: '/category-management',
+            active: this.url?.startsWith('/category-management'),
+          } as LeftMenu,
+          {
+            title: 'Partner',
+            icon: 'assets/icons/menus/partner.svg',
+            to: '/partner-management',
+            active: this.url?.startsWith('/partner-management'),
+          } as LeftMenu,
+          {
             title: 'Privilege',
             icon: 'assets/icons/menus/privilege.png',
             to: '/privilege',

@@ -9,6 +9,7 @@ import {
 import dayjs from 'dayjs';
 import { BannerService } from 'src/app/core/services/banner.service';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 @Component({
   selector: 'app-banner-management-create-update',
@@ -26,39 +27,13 @@ export class CreateUpdateComponent implements OnInit {
   dt2 = '';
 
   htmlContent = '';
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    toolbarHiddenButtons: [
-      [
-        'subscript',
-        'superscript',
-        'indent',
-        'outdent',
-        'insertUnorderedList',
-        'insertOrderedList',
-        'heading',
-        'fontName',
-      ],
-      [
-        'fontSize',
-        'textColor',
-        'backgroundColor',
-        'customClasses',
-        // 'link',
-        'unlink',
-        // 'insertImage',
-        'insertVideo',
-        'insertHorizontalRule',
-        'removeFormat',
-        'toggleEditorMode',
-      ],
-    ],
-  };
+  editorConfig = this.utilsService.editorConfig;
 
   constructor(
     private router: Router,
     activatedRoute: ActivatedRoute,
-    private bannerService: BannerService
+    private bannerService: BannerService,
+    private utilsService: UtilsService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.navItems[1].title =

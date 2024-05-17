@@ -10,6 +10,7 @@ import { Ad } from 'src/app/core/models/ad.model';
 import { AdService } from 'src/app/core/services/ad.service';
 import dayjs from 'dayjs';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 @Component({
   selector: 'app-promotion-management-create-update',
@@ -32,34 +33,7 @@ export class CreateUpdateComponent implements OnInit {
   tags: string[] = ['ชอปปิง', 'ร้านอาหาร', 'ท่องเที่ยว'];
 
   htmlContent = '';
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    toolbarHiddenButtons: [
-      [
-        'subscript',
-        'superscript',
-        'indent',
-        'outdent',
-        'insertUnorderedList',
-        'insertOrderedList',
-        'heading',
-        'fontName',
-      ],
-      [
-        'fontSize',
-        'textColor',
-        'backgroundColor',
-        'customClasses',
-        // 'link',
-        'unlink',
-        // 'insertImage',
-        'insertVideo',
-        'insertHorizontalRule',
-        'removeFormat',
-        'toggleEditorMode',
-      ],
-    ],
-  };
+  editorConfig = this.utilsService.editorConfig;
 
   dt1 = '';
   dt2 = '';
@@ -84,7 +58,8 @@ export class CreateUpdateComponent implements OnInit {
   constructor(
     private router: Router,
     activatedRoute: ActivatedRoute,
-    private adService: AdService
+    private adService: AdService,
+    private utilsService: UtilsService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.navItems[1].title =

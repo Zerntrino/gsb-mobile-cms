@@ -1,8 +1,8 @@
 <div class="flex flex-col h-full">
   <div class="flex items-center my-2">
-    <app-nav title="จัดการโฆษณา" class="flex-1"></app-nav>
-    <a routerLink="/ad-management/create"
-      ><button class="button">สร้างโฆษณา</button></a
+    <app-nav title="จัดการพาร์ทเนอร์" class="flex-1"></app-nav>
+    <a routerLink="/partner-management/create"
+      ><button class="button">สร้างพาร์ทเนอร์</button></a
     >
   </div>
 
@@ -17,7 +17,7 @@
         <input
           class="input max-w-lg pl-10"
           [(ngModel)]="q"
-          placeholder="ค้นหา: โฆษณา"
+          placeholder="ค้นหา: พาร์ทเนอร์"
           (ngModelChange)="qChange()"
         />
       </div>
@@ -37,10 +37,9 @@
       <div class="table-header-group">
         <div class="table-row">
           <div class="table-cell">#</div>
-          <div class="table-cell text-center">รูปภาพ</div>
-          <div class="table-cell">ชื่อโฆษณา/รูปภาพ</div>
+          <div class="table-cell text-center">โลโก้</div>
+          <div class="table-cell">พาร์ทเนอร์</div>
           <div class="table-cell text-center">วันที่สร้าง</div>
-          <div class="table-cell">วันที่สิ้นสุด</div>
           <div class="table-cell">สถานะ</div>
           <div class="table-cell w-8">&nbsp;</div>
         </div>
@@ -57,9 +56,8 @@
           </div>
           <div class="table-cell">{{ item.name }}</div>
           <div class="table-cell text-center">
-            {{ dateFormat(item.startDate) }}
+            {{ dateFormat(item.createdAt) }}
           </div>
-          <div class="table-cell">{{ dateFormat(item.endDate) }}</div>
           <div class="table-cell">
             <div class="flex space-x-2 items-center">
               <div
@@ -79,7 +77,7 @@
               </div>
               <div dropdown>
                 <a
-                  [routerLink]="'/ad-management/' + item.id"
+                  [routerLink]="'/partner-management/' + item.id"
                   class="flex px-4 py-2"
                 >
                   <div class="flex-1">แก้ไขข้อมูล</div>
