@@ -15,6 +15,7 @@ import { Card } from 'src/app/core/models/card.model';
 import { Installment } from 'src/app/core/models/parameter.model';
 import { ParameterService } from 'src/app/core/services/parameter.service';
 import { FormControl, FormGroup } from '@angular/forms';
+import { UtilsService } from 'src/app/core/services/utils.service';
 
 @Component({
   selector: 'app-privilege-management-list',
@@ -30,34 +31,7 @@ export class ListComponent implements OnInit {
   typeOption: Select2Option[] = [];
 
   htmlContent = '';
-  editorConfig: AngularEditorConfig = {
-    editable: true,
-    toolbarHiddenButtons: [
-      [
-        'subscript',
-        'superscript',
-        'indent',
-        'outdent',
-        'insertUnorderedList',
-        'insertOrderedList',
-        'heading',
-        'fontName',
-      ],
-      [
-        'fontSize',
-        'textColor',
-        'backgroundColor',
-        'customClasses',
-        // 'link',
-        'unlink',
-        // 'insertImage',
-        'insertVideo',
-        'insertHorizontalRule',
-        'removeFormat',
-        'toggleEditorMode',
-      ],
-    ],
-  };
+  editorConfig = this.utilsService.editorConfig;
 
   tags: string[] = [];
 
@@ -70,7 +44,8 @@ export class ListComponent implements OnInit {
     private router: Router,
     activatedRoute: ActivatedRoute,
     private parameterService: ParameterService,
-    private cardService: CardService
+    private cardService: CardService,
+    private utilsService: UtilsService
   ) {}
 
   ngOnInit(): void {

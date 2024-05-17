@@ -6,4 +6,5 @@ export interface Ad {
   linkUrl: string;
   isActive: boolean;
   imageBase64: string;
+  imageUrl: string;
 }
