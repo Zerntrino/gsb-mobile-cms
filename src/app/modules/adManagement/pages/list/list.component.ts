@@ -9,6 +9,7 @@ import {
 import { Ad } from 'src/app/core/models/ad.model';
 import { AdService } from 'src/app/core/services/ad.service';
 import dayjs from 'dayjs';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-ad-management-list',
@@ -28,7 +29,13 @@ export class ListComponent implements OnInit {
   pageSize = 10;
   totalPage = 1;
 
-  constructor(private router: Router, private adService: AdService) {}
+  deleteId = 0;
+
+  constructor(
+    private router: Router,
+    private adService: AdService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.fetch();
@@ -73,5 +80,20 @@ export class ListComponent implements OnInit {
   dateFormat(d: string): string {
     const date = dayjs(d);
     return date.locale('th-th').format('DD/MM/BBBB');
+  }
+
+  deleteClick(id: number | undefined) {
+    this.deleteId = id || 0;
+  }
+  deleteConfirm(id: number) {
+    this.adService.delete(id).subscribe(
+      (response) => {
+        this.router.navigate(['/ad-management']);
+      },
+      (error) => {
+        console.log(error);
+        this.toastService.add('error', error);
+      }
+    );
   }
 }

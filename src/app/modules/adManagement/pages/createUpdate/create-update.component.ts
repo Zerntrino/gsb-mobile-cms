@@ -30,8 +30,9 @@ export class CreateUpdateComponent implements OnInit {
     endDate: new FormControl('', [Validators.required]),
     linkUrl: new FormControl('', [Validators.required]),
     isActive: new FormControl(true),
-    imageBase64: new FormControl(''),
+    imageUrl: new FormControl(''),
   });
+  imageBase64 = '';
 
   constructor(
     private router: Router,
@@ -52,7 +53,14 @@ export class CreateUpdateComponent implements OnInit {
       this.adService.get(this.id).subscribe(
         (response) => {
           const res = response.data as Ad;
-          this.submitForm.setValue(res);
+          this.submitForm.setValue({
+            name: res.name,
+            startDate: res.startDate,
+            endDate: res.endDate,
+            linkUrl: res.linkUrl,
+            isActive: res.isActive,
+            imageUrl: res.imageUrl,
+          });
         },
         (error) => {
           console.log(error);
@@ -73,22 +81,43 @@ export class CreateUpdateComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.submitForm
-          .get('imageBase64')
-          ?.setValue(reader.result?.toString() || '');
+        this.imageBase64 = reader.result?.toString() || '';
       };
     }
   }
 
-  onSubmit(): void {
-    this.adService.create(this.submitForm.getRawValue()).subscribe(
-      (response) => {
-        this.router.navigate(['/ad-management']);
-      },
-      (error) => {
-        console.log(error);
-        this.toastService.add('error', error);
-      }
-    );
+  async onSubmit() {
+    if (this.imageBase64) {
+      const upload = await this.adService
+        .upload({
+          imageBase64: this.imageBase64,
+        })
+        .toPromise();
+      this.submitForm.get('imageUrl')?.setValue(upload?.data || '');
+    }
+
+    if (this.id == 'create') {
+      this.adService.create(this.submitForm.getRawValue()).subscribe(
+        (response) => {
+          this.router.navigate(['/ad-management']);
+        },
+        (error) => {
+          console.log(error);
+          this.toastService.add('error', error);
+        }
+      );
+    } else {
+      this.adService
+        .update(parseInt(this.id), this.submitForm.getRawValue())
+        .subscribe(
+          (response) => {
+            this.router.navigate(['/ad-management']);
+          },
+          (error) => {
+            console.log(error);
+            this.toastService.add('error', error);
+          }
+        );
+    }
   }
 }

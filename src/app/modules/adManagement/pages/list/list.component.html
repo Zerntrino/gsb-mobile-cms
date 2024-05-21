@@ -75,7 +75,7 @@
           <div class="table-cell text-center w-8">
             <app-dropdown>
               <div button>
-                <img src="assets/icons/option.svg" class="w-1 mx-auto" alt="" />
+                <img src="assets/icons/option.svg" class="w-4 mx-auto" alt="" />
               </div>
               <div dropdown>
                 <a
@@ -85,7 +85,10 @@
                   <div class="flex-1">แก้ไขข้อมูล</div>
                   <img src="assets/icons/edit.svg" class="w-6" alt="" />
                 </a>
-                <a class="flex px-4 py-2">
+                <a
+                  class="flex px-4 py-2 cursor-pointer"
+                  (click)="deleteClick(item.id)"
+                >
                   <div class="flex-1">ลบข้อมูล</div>
                   <img src="assets/icons/remove.svg" class="w-6" alt="" />
                 </a>
@@ -103,4 +106,11 @@
       (pageChange)="pageChange($event)"
     ></app-pagination>
   </div>
+
+  <app-confirm
+    [(show)]="deleteId"
+    (confirm)="deleteConfirm(deleteId)"
+    title="ยืนยัน"
+    description="คุณแน่ใจที่จะลบข้อมูล ใช่หรือไม่ ?"
+  ></app-confirm>
 </div>

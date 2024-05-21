@@ -7,7 +7,7 @@
     ></app-nav>
 
     <a
-      ><button class="button" (click)="showSelected = true">
+      ><button class="button" (click)="showSelectClick()">
         เลือกรายการ
       </button></a
     >
@@ -37,7 +37,11 @@
           cdkDragLockAxis="y"
         >
           <div class="table-cell text-center">
-            <img src="assets/icons/list.svg" class="w-6 mx-auto" alt="" />
+            <img
+              src="assets/icons/list.svg"
+              class="w-6 mx-auto cursor-pointer"
+              alt=""
+            />
           </div>
           <div class="table-cell text-center">
             <img
@@ -46,14 +50,19 @@
               alt=""
             />
           </div>
-          <div class="table-cell">{{ item.id }} : {{ item.name }}</div>
+          <div class="table-cell">{{ item.name }}</div>
           <div class="table-cell text-center">
             {{ dateFormat(item.startDate) }}
           </div>
           <div class="table-cell">{{ dateFormat(item.endDate) }}</div>
 
           <div class="table-cell text-center">
-            <img src="assets/icons/delete.svg" class="mx-auto" alt="" />
+            <img
+              src="assets/icons/delete.svg"
+              class="mx-auto cursor-pointer"
+              (click)="removeClick(item.id)"
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -98,7 +107,7 @@
               </div>
             </div>
             <div class="table-row-group">
-              <div class="table-row" *ngFor="let item of list; let i = index">
+              <div class="table-row" *ngFor="let item of all; let i = index">
                 <div class="table-cell text-center">
                   <app-checkbox
                     [value]="item.select"
@@ -144,6 +153,8 @@
     <a routerLink="/banner-management"
       ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
     >
-    <button class="button w-auto px-6">บันทึกไฮไลท์แบนเนอร์</button>
+    <button class="button w-auto px-6" (click)="confirmClick()">
+      บันทึกไฮไลท์แบนเนอร์
+    </button>
   </div>
 </div>

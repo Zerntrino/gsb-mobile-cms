@@ -18,6 +18,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { TagComponent } from './components/tag/tag.component';
+import { ConfirmComponent } from './components/confirm/confirm.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { TagComponent } from './components/tag/tag.component';
     CheckboxComponent,
     ToggleComponent,
     TagComponent,
+    ConfirmComponent,
   ],
   imports: [
     CommonModule,
@@ -58,6 +60,7 @@ import { TagComponent } from './components/tag/tag.component';
     CheckboxComponent,
     ToggleComponent,
     TagComponent,
+    ConfirmComponent,
     AngularEditorModule,
   ],
 })
