@@ -11,10 +11,16 @@
         [items]="navItems"
         class="flex-1"
       ></app-nav>
-      <app-toggle
-        [value]="submitForm.get('isActive')?.value || false"
-        (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
-      ></app-toggle>
+      <div class="flex items-center space-x-2 text-sm">
+        <div>สถานะ</div>
+        <app-toggle
+          [value]="submitForm.get('isActive')?.value || false"
+          (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
+        ></app-toggle>
+        <div>
+          {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
+        </div>
+      </div>
     </div>
 
     <div class="flex-1 my-2 py-6 bg-white">
@@ -146,7 +152,7 @@
       <a routerLink="/banner-management"
         ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
       >
-      <button class="button w-auto px-6">
+      <button class="button w-auto px-6" [disabled]="!submitForm.valid">
         {{ id == "create" ? "สร้างแบนเนอร์" : "บันทึกแบนเนอร์" }}
       </button>
     </div>
