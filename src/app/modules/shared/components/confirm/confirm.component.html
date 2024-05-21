@@ -1,0 +1,31 @@
+<div>
+  <!-- modal -->
+  <div class="relative z-10 transition-all" [hidden]="!show">
+    <div
+      class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+    ></div>
+
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex min-h-full items-center justify-center p-4">
+        <div class="w-full max-w-lg bg-white rounded-md overflow-hidden">
+          <div class="py-4 px-6 border-b border-gray-100 font-semibold">
+            {{ title }}
+          </div>
+
+          <div class="px-6 py-4">
+            {{ description }}
+          </div>
+
+          <div
+            class="px-4 py-4 flex justify-end space-x-4 border-t border-gray-100"
+          >
+            <button class="button-default-border" (click)="hideClick()">
+              ยกเลิก
+            </button>
+            <button class="button" (click)="confirmClick()">ยืนยัน</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

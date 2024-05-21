@@ -83,28 +83,28 @@
             <div class="text-sm">รูปภาพโฆษณา</div>
             <div class="px-6">
               <div
-                *ngIf="!submitForm.get('imageBase64')?.value"
+                *ngIf="!(imageBase64 || submitForm.get('imageUrl')?.value)"
                 class="w-full mt-6 aspect-w-3 aspect-h-4 flex justify-center items-center rounded-md bg-gray-300"
               >
                 <img src="assets/icons/img.svg" class="w-11 mx-auto" />
               </div>
 
               <div
-                *ngIf="submitForm.get('imageBase64')?.value"
+                *ngIf="imageBase64 || submitForm.get('imageUrl')?.value"
                 class="relative"
               >
                 <img
                   class="w-16 h-16 absolute top-0 right-0 z-10 cursor-pointer"
                   style="right: 0"
                   src="assets/icons/x-circle.svg"
-                  (click)="submitForm.get('imageBase64')?.setValue('')"
+                  (click)="submitForm.get('imageUrl')?.setValue('')"
                 />
                 <div
                   class="w-full mt-6 aspect-w-3 aspect-h-4 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
                 >
                   <img
                     class="w-full h-full object-cover"
-                    [src]="submitForm.get('imageBase64')?.value"
+                    [src]="imageBase64 || submitForm.get('imageUrl')?.value"
                   />
                 </div>
               </div>
@@ -143,7 +143,7 @@
         ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
       >
       <button class="button w-auto px-6" type="submit" [disabled]="sf.invalid">
-        บันทึกและสร้างโฆษณา
+        {{ id == "create" ? "สร้างโฆษณา" : "บันทึกโฆษณา" }}
       </button>
     </div>
   </form>

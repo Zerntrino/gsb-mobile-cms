@@ -8,6 +8,9 @@ import {
 } from 'ng-select2-component';
 import dayjs from 'dayjs';
 import { BannerService } from 'src/app/core/services/banner.service';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Banner } from 'src/app/core/models/banner.model';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-banner-management-create-update',
@@ -21,13 +24,21 @@ export class CreateUpdateComponent implements OnInit {
     { title: 'สร้างแบนเนอร์', to: '' },
   ];
 
-  dt1 = '';
-  dt2 = '';
+  submitForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    startDate: new FormControl('', [Validators.required]),
+    endDate: new FormControl('', [Validators.required]),
+    linkUrl: new FormControl('', [Validators.required]),
+    isActive: new FormControl(true),
+    imageUrl: new FormControl(''),
+  });
+  imageBase64 = '';
 
   constructor(
     private router: Router,
     activatedRoute: ActivatedRoute,
-    private bannerService: BannerService
+    private bannerService: BannerService,
+    private toastService: ToastService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.navItems[1].title =
@@ -39,19 +50,75 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   fetch(): void {
-    // this.adService.getList(params).subscribe(
-    //   (response) => {
-    //     console.log(response.data);
-    //     this.list = response.data as Ad[];
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
+    if (this.id != 'create') {
+      this.bannerService.get(this.id).subscribe(
+        (response) => {
+          const res = response.data as Banner;
+          this.submitForm.setValue({
+            name: res.name,
+            startDate: res.startDate,
+            endDate: res.endDate,
+            linkUrl: res.linkUrl,
+            isActive: res.isActive,
+            imageUrl: res.imageUrl,
+          });
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   dateFormat(d: string): string {
     const date = dayjs(d);
     return date.locale('th-th').format('DD/MM/BBBB');
+  }
+
+  inputFileChange(event: Event): void {
+    const files = (event.target as HTMLInputElement).files;
+    const file = files?.item(0);
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageBase64 = reader.result?.toString() || '';
+      };
+    }
+  }
+
+  async onSubmit() {
+    if (this.imageBase64) {
+      const upload = await this.bannerService
+        .upload({
+          imageBase64: this.imageBase64,
+        })
+        .toPromise();
+      this.submitForm.get('imageUrl')?.setValue(upload?.data || '');
+    }
+
+    if (this.id == 'create') {
+      this.bannerService.create(this.submitForm.getRawValue()).subscribe(
+        (response) => {
+          this.router.navigate(['/banner-management']);
+        },
+        (error) => {
+          console.log(error);
+          this.toastService.add('error', error);
+        }
+      );
+    } else {
+      this.bannerService
+        .update(parseInt(this.id), this.submitForm.getRawValue())
+        .subscribe(
+          (response) => {
+            this.router.navigate(['/banner-management']);
+          },
+          (error) => {
+            console.log(error);
+            this.toastService.add('error', error);
+          }
+        );
+    }
   }
 }

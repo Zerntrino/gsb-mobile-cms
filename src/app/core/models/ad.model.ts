@@ -5,6 +5,5 @@ export interface Ad {
   endDate: string;
   linkUrl: string;
   isActive: boolean;
-  imageBase64: string;
   imageUrl: string;
 }

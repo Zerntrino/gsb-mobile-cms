@@ -1,105 +1,154 @@
-<div class="flex flex-col h-full">
-  <div class="flex items-center my-2">
-    <app-nav title="จัดการแบนเนอร์" [items]="navItems" class="flex-1"></app-nav>
-    <app-toggle></app-toggle>
-  </div>
+<div class="h-full">
+  <form
+    [formGroup]="submitForm"
+    (submit)="sf.form.valid && onSubmit()"
+    #sf="ngForm"
+    class="flex flex-col h-full"
+  >
+    <div class="flex items-center my-2">
+      <app-nav
+        title="จัดการแบนเนอร์"
+        [items]="navItems"
+        class="flex-1"
+      ></app-nav>
+      <app-toggle
+        [value]="submitForm.get('isActive')?.value || false"
+        (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
+      ></app-toggle>
+    </div>
 
-  <div class="flex-1 my-2 py-6 bg-white">
-    <div class="flex">
-      <div class="w-full max-w-md px-4">
-        <div class="font-semibold my-2">แบนเนอร์</div>
-        <div class="border border-gray-100 rounded-md p-6 space-y-4">
-          <div class="">
-            <div class="text-sm">ชื่อแบนเนอร์</div>
-            <input class="input" placeholder="ชื่อแบนเนอร์" />
-          </div>
-          <div class="relative">
-            <div class="text-sm">วันที่แสดง</div>
-            <input
-              class="input"
-              [owlDateTime]="dt1"
-              [owlDateTimeTrigger]="dt1"
-              placeholder="วว/ดด/ปปปป"
-            />
-            <img
-              [owlDateTimeTrigger]="dt1"
-              src="assets/icons/calendar.svg"
-              class="absolute bottom-2 right-2 w-6 cursor-pointer"
-            />
-            <owl-date-time #dt1 pickerType="calendar"></owl-date-time>
-          </div>
-          <div class="relative">
-            <div class="text-sm">วันที่สิ้นสุด</div>
-            <input
-              class="input"
-              [owlDateTime]="dt2"
-              [owlDateTimeTrigger]="dt2"
-              placeholder="วว/ดด/ปปปป"
-            />
-            <img
-              [owlDateTimeTrigger]="dt2"
-              src="assets/icons/calendar.svg"
-              class="absolute bottom-2 right-2 w-6 cursor-pointer"
-            />
-            <owl-date-time #dt2 pickerType="calendar"></owl-date-time>
-          </div>
-          <div class="relative">
-            <div class="text-sm">ลิงค์ที่เกี่ยวข้อง</div>
-            <img
-              src="assets/icons/link.svg"
-              class="absolute bottom-2 right-2 w-6"
-            />
-            <input class="input" placeholder="https://" />
+    <div class="flex-1 my-2 py-6 bg-white">
+      <div class="flex">
+        <div class="w-full max-w-md px-4">
+          <div class="font-semibold my-2">แบนเนอร์</div>
+          <div class="border border-gray-100 rounded-md p-6 space-y-4">
+            <div class="">
+              <div class="text-sm">ชื่อแบนเนอร์</div>
+              <input
+                class="input"
+                name="name"
+                formControlName="name"
+                required
+                placeholder="ชื่อแบนเนอร์"
+              />
+            </div>
+            <div class="relative">
+              <div class="text-sm">วันที่แสดง</div>
+              <input
+                class="input"
+                [owlDateTime]="startDate"
+                [owlDateTimeTrigger]="startDate"
+                name="startDate"
+                formControlName="startDate"
+                placeholder="วว/ดด/ปปปป"
+              />
+              <img
+                [owlDateTimeTrigger]="startDate"
+                src="assets/icons/calendar.svg"
+                class="absolute bottom-2 right-2 w-6 cursor-pointer"
+              />
+              <owl-date-time #startDate pickerType="calendar"></owl-date-time>
+            </div>
+            <div class="relative">
+              <div class="text-sm">วันที่สิ้นสุด</div>
+              <input
+                class="input"
+                [owlDateTime]="endDate"
+                [owlDateTimeTrigger]="endDate"
+                name="endDate"
+                formControlName="endDate"
+                placeholder="วว/ดด/ปปปป"
+              />
+              <img
+                [owlDateTimeTrigger]="endDate"
+                src="assets/icons/calendar.svg"
+                class="absolute bottom-2 right-2 w-6 cursor-pointer"
+              />
+              <owl-date-time #endDate pickerType="calendar"></owl-date-time>
+            </div>
+            <div class="relative">
+              <div class="text-sm">ลิงค์ที่เกี่ยวข้อง</div>
+              <img
+                src="assets/icons/link.svg"
+                class="absolute bottom-2 right-2 w-6"
+              />
+              <input
+                class="input"
+                name="linkUrl"
+                formControlName="linkUrl"
+                placeholder="https://"
+              />
+            </div>
           </div>
         </div>
-      </div>
-      <div class="w-full max-w-md px-4">
-        <div class="font-semibold my-2">รูปภาพแบนเนอร์</div>
-        <div class="border border-gray-100 rounded-md p-6 pb-12">
-          <div class="text-sm">รูปภาพแบนเนอร์</div>
-          <div class="px-6">
-            <!-- <div
-              class="w-full mt-6 aspect-w-3 aspect-h-1 flex justify-center items-center rounded-md bg-gray-300"
-            >
-              <img src="assets/icons/img.svg" class="w-11 mx-auto" />
-            </div> -->
-
-            <div class="relative">
-              <img
-                class="w-16 h-16 absolute top-0 right-0 z-10"
-                style="right: 0"
-                src="assets/icons/x-circle.svg"
-              />
+        <div class="w-full max-w-md px-4">
+          <div class="font-semibold my-2">รูปภาพแบนเนอร์</div>
+          <div class="border border-gray-100 rounded-md p-6 pb-12">
+            <div class="text-sm">รูปภาพแบนเนอร์</div>
+            <div class="px-6">
               <div
-                class="w-full mt-6 aspect-w-3 aspect-h-1 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
+                *ngIf="!(imageBase64 || submitForm.get('imageUrl')?.value)"
+                class="w-full mt-6 aspect-w-3 aspect-h-1 flex justify-center items-center rounded-md bg-gray-300"
               >
-                <img class="w-full h-full object-cover" src="/" />
+                <img src="assets/icons/img.svg" class="w-11 mx-auto" />
               </div>
-            </div>
 
-            <div class="my-4 text-center text-gray-400 text-sm">
-              เลือกรูปภาพที่ใช้เป็น Banner ( ขนาด 1035 x 330 .png )
-            </div>
-            <div class="flex justify-center">
-              <button
-                class="button-border text-center flex items-center justify-center space-x-4"
+              <div
+                *ngIf="imageBase64 || submitForm.get('imageUrl')?.value"
+                class="relative"
               >
-                <img src="assets/icons/upload.svg" class="w-6" />
-                <div>อัปโหลดไฟล์รูปภาพ</div>
-              </button>
+                <img
+                  class="w-16 h-16 absolute top-0 right-0 z-10"
+                  style="right: 0"
+                  src="assets/icons/x-circle.svg"
+                  (click)="submitForm.get('imageUrl')?.setValue('')"
+                />
+                <div
+                  class="w-full mt-6 aspect-w-3 aspect-h-1 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
+                >
+                  <img
+                    class="w-full h-full object-cover"
+                    [src]="imageBase64 || submitForm.get('imageUrl')?.value"
+                  />
+                </div>
+              </div>
+
+              <input
+                type="file"
+                class="hidden"
+                accept="application/image"
+                #inputImage
+                (change)="inputFileChange($event)"
+              />
+
+              <div class="my-4 text-center text-gray-400 text-sm">
+                เลือกรูปภาพที่ใช้เป็น Banner ( ขนาด 1035 x 330 .png )
+              </div>
+              <div class="flex justify-center">
+                <button
+                  (click)="inputImage.click()"
+                  type="button"
+                  class="button-border text-center flex items-center justify-center space-x-4"
+                >
+                  <img src="assets/icons/upload.svg" class="w-6" />
+                  <div>อัปโหลดไฟล์รูปภาพ</div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div
-    class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2"
-  >
-    <a routerLink="/banner-management"
-      ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
+    <div
+      class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2"
     >
-    <button class="button w-auto px-6">บันทึกและสร้างแบนเนอร์</button>
-  </div>
+      <a routerLink="/banner-management"
+        ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
+      >
+      <button class="button w-auto px-6">
+        {{ id == "create" ? "สร้างแบนเนอร์" : "บันทึกแบนเนอร์" }}
+      </button>
+    </div>
+  </form>
 </div>

@@ -5,6 +5,7 @@ export interface Banner {
   name: string;
   endDate: string;
   startDate: string;
+  linkUrl: string;
 
   select?: boolean;
 }

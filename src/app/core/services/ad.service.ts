@@ -33,4 +33,22 @@ export class AdService extends BaseService {
       object
     );
   }
+  update(id: number, object: object): Observable<ApiResponse<Ad>> {
+    return this.http.put<ApiResponse<Ad>>(
+      `${this.apiUrl}/cms/advertise/${id}`,
+      object
+    );
+  }
+  delete(id: number): Observable<ApiResponse<Ad>> {
+    return this.http.delete<ApiResponse<Ad>>(
+      `${this.apiUrl}/cms/advertise/${id}`
+    );
+  }
+
+  upload(object: object): Observable<ApiResponse<string>> {
+    return this.http.post<ApiResponse<string>>(
+      `${this.apiUrl}/upload/advertise`,
+      object
+    );
+  }
 }

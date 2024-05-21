@@ -23,8 +23,8 @@ import { UtilsService } from 'src/app/core/services/utils.service';
 export class CreateUpdateComponent implements OnInit {
   id = 'create';
   navItems = [
-    { title: 'จัดการโฆษณา', to: '' },
-    { title: 'สร้างโฆษณา', to: '' },
+    { title: 'จัดการพาร์ทเนอร์', to: '' },
+    { title: 'สร้างพาร์ทเนอร์', to: '' },
   ];
 
   submitForm = new FormGroup({
@@ -46,7 +46,8 @@ export class CreateUpdateComponent implements OnInit {
     private utilsService: UtilsService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
-    this.navItems[1].title = this.id == 'create' ? 'สร้างโฆษณา' : 'แก้ไขโฆษณา';
+    this.navItems[1].title =
+      this.id == 'create' ? 'สร้างพาร์ทเนอร์' : 'แก้ไขพาร์ทเนอร์';
   }
 
   ngOnInit(): void {
@@ -58,7 +59,12 @@ export class CreateUpdateComponent implements OnInit {
       this.partnerService.get(this.id).subscribe(
         (response) => {
           const res = response.data as Partner;
-          this.submitForm.setValue(res);
+          console.log(res);
+          this.submitForm.setValue({
+            name: res.name,
+            isActive: res.isActive,
+            imageBase64: res.imageUrl,
+          });
         },
         (error) => {
           console.log(error);
