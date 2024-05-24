@@ -16,7 +16,6 @@ export class CardService extends BaseService {
   }
 
   getList(params?: HttpParams): Observable<ApiResponse<Card[]>> {
-    console.log(params?.toString());
     return this.http.get<ApiResponse<Card[]>>(`${this.apiUrl}/cms/card`, {
       params: params,
     });

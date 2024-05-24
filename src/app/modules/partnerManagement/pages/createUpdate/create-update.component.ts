@@ -24,19 +24,19 @@ export class CreateUpdateComponent implements OnInit {
   id = 'create';
   navItems = [
     { title: 'จัดการพาร์ทเนอร์', to: '' },
-    { title: 'สร้างพาร์ทเนอร์', to: '' },
+    { title: 'เพิ่มพาร์ทเนอร์', to: '' },
   ];
 
   submitForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
+    description: new FormControl(''),
     isActive: new FormControl(true),
-    imageBase64: new FormControl(''),
+    imageUrl: new FormControl(''),
+    aboutIt: new FormControl<string[]>([]),
   });
+  imageBase64 = '';
 
-  htmlContent = '';
   editorConfig = this.utilsService.editorConfig;
-
-  tags: string[] = ['ชอปปิง', 'ร้านอาหาร', 'ท่องเที่ยว'];
 
   constructor(
     private router: Router,
@@ -47,7 +47,7 @@ export class CreateUpdateComponent implements OnInit {
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.navItems[1].title =
-      this.id == 'create' ? 'สร้างพาร์ทเนอร์' : 'แก้ไขพาร์ทเนอร์';
+      this.id == 'create' ? 'เพิ่มพาร์ทเนอร์' : 'แก้ไขพาร์ทเนอร์';
   }
 
   ngOnInit(): void {
@@ -62,19 +62,22 @@ export class CreateUpdateComponent implements OnInit {
           console.log(res);
           this.submitForm.setValue({
             name: res.name,
+            description: res.description,
             isActive: res.isActive,
-            imageBase64: res.imageUrl,
+            imageUrl: res.imageUrl,
+            aboutIt: res.aboutIt,
           });
         },
         (error) => {
           console.log(error);
         }
       );
+    } else {
     }
   }
 
   tagChange(e: string[]): void {
-    this.tags = e;
+    this.submitForm.get('aboutIt')?.setValue(e);
   }
   dateFormat(d: string): string {
     const date = dayjs(d);
@@ -88,22 +91,43 @@ export class CreateUpdateComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.submitForm
-          .get('imageBase64')
-          ?.setValue(reader.result?.toString() || '');
+        this.imageBase64 = reader.result?.toString() || '';
       };
     }
   }
 
-  onSubmit(): void {
-    this.partnerService.create(this.submitForm.getRawValue()).subscribe(
-      (response) => {
-        this.router.navigate(['/partner-management']);
-      },
-      (error) => {
-        console.log(error);
-        this.toastService.add('error', error);
-      }
-    );
+  async onSubmit() {
+    if (this.imageBase64) {
+      const upload = await this.partnerService
+        .upload({
+          imageBase64: this.imageBase64,
+        })
+        .toPromise();
+      this.submitForm.get('imageUrl')?.setValue(upload?.data || '');
+    }
+
+    if (this.id == 'create') {
+      this.partnerService.create(this.submitForm.getRawValue()).subscribe(
+        (response) => {
+          this.router.navigate(['/partner-management']);
+        },
+        (error) => {
+          console.log(error);
+          this.toastService.add('error', error);
+        }
+      );
+    } else {
+      this.partnerService
+        .update(parseInt(this.id), this.submitForm.getRawValue())
+        .subscribe(
+          (response) => {
+            this.router.navigate(['/partner-management']);
+          },
+          (error) => {
+            console.log(error);
+            this.toastService.add('error', error);
+          }
+        );
+    }
   }
 }

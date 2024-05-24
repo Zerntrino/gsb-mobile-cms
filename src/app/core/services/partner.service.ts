@@ -33,4 +33,23 @@ export class PartnerService extends BaseService {
       object
     );
   }
+
+  update(id: number, object: object): Observable<ApiResponse<Partner>> {
+    return this.http.put<ApiResponse<Partner>>(
+      `${this.apiUrl}/cms/partner/${id}`,
+      object
+    );
+  }
+  delete(id: number): Observable<ApiResponse<Partner>> {
+    return this.http.delete<ApiResponse<Partner>>(
+      `${this.apiUrl}/cms/partner/${id}`
+    );
+  }
+
+  upload(object: object): Observable<ApiResponse<string>> {
+    return this.http.post<ApiResponse<string>>(
+      `${this.apiUrl}/upload/partner`,
+      object
+    );
+  }
 }

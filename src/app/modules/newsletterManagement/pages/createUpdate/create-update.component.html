@@ -1,88 +1,146 @@
-<div class="flex flex-col h-full">
-  <div class="flex items-center my-2">
-    <app-nav
-      title="จัดการการแจ้งเตือน"
-      [items]="navItems"
-      class="flex-1"
-    ></app-nav>
-    <app-toggle></app-toggle>
-  </div>
+<div class="h-full">
+  <form
+    [formGroup]="submitForm"
+    (submit)="sf.form.valid && onSubmit()"
+    #sf="ngForm"
+    class="flex flex-col h-full"
+  >
+    <div class="flex items-center my-2">
+      <app-nav
+        title="จัดการการแจ้งเตือน"
+        [items]="navItems"
+        class="flex-1"
+      ></app-nav>
+      <div class="flex items-center space-x-2 text-sm">
+        <div>สถานะ</div>
+        <app-toggle
+          [value]="submitForm.get('isActive')?.value || false"
+          (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
+        ></app-toggle>
+        <div>
+          {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
+        </div>
+      </div>
+    </div>
 
-  <div class="flex-1 my-2 py-6 bg-white">
-    <div class="flex">
-      <div class="w-full max-w-md px-4">
-        <div class="font-semibold my-2">หัวข้อการแจ้งเตือน</div>
-        <div class="border border-gray-100 rounded-md p-6 space-y-4">
-          <div class="">
-            <div class="text-sm">หัวข้อ</div>
-            <input class="input" placeholder="หัวข้อ" />
-          </div>
+    <div class="flex-1 my-2 py-6 bg-white">
+      <div class="flex">
+        <div class="w-full max-w-md px-4">
+          <div class="font-semibold my-2">หัวข้อการแจ้งเตือน</div>
+          <div class="border border-gray-100 rounded-md p-6 space-y-4">
+            <div class="">
+              <div class="text-sm">หัวข้อ</div>
+              <input
+                class="input"
+                name="subject"
+                formControlName="subject"
+                required
+                placeholder="หัวข้อ"
+              />
+            </div>
 
-          <div>
-            <div class="text-sm">รายละเอียด</div>
             <div>
-              <angular-editor
-                placeholder="รายละเอียด"
-                minHeight="180"
-                [(ngModel)]="htmlContent"
-                [config]="editorConfig"
-              ></angular-editor>
+              <div class="text-sm">รายละเอียด</div>
+              <div>
+                <angular-editor
+                  placeholder="รายละเอียด"
+                  minHeight="180"
+                  name="description"
+                  formControlName="description"
+                  [config]="editorConfig"
+                ></angular-editor>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-      <div class="w-full max-w-md px-4">
-        <div class="font-semibold my-2">กำหนดเงื่อนไข และการแสดงผล</div>
-        <div class="border border-gray-100 rounded-md p-6 pb-12">
-          <div class="relative">
-            <div class="text-sm">วันที่แสดง</div>
-            <input
-              class="input"
-              [owlDateTime]="dt1"
-              [owlDateTimeTrigger]="dt1"
-              placeholder="วว/ดด/ปปปป"
-            />
-            <img
-              [owlDateTimeTrigger]="dt1"
-              src="assets/icons/calendar.svg"
-              class="absolute bottom-2 right-2 w-6 cursor-pointer"
-            />
-            <owl-date-time #dt1 pickerType="calendar"></owl-date-time>
-          </div>
+        <div class="w-full max-w-md px-4">
+          <div class="font-semibold my-2">กำหนดเงื่อนไข และการแสดงผล</div>
+          <div class="border border-gray-100 rounded-md p-6 pb-12">
+            <div class="relative">
+              <div class="text-sm">วันที่แสดง</div>
+              <input
+                class="input"
+                [owlDateTime]="date"
+                [owlDateTimeTrigger]="date"
+                name="sendNotificationDate"
+                formControlName="sendNotificationDate"
+                placeholder="วว/ดด/ปปปป"
+              />
+              <img
+                [owlDateTimeTrigger]="date"
+                src="assets/icons/calendar.svg"
+                class="absolute bottom-2 right-2 w-6 cursor-pointer"
+              />
+              <owl-date-time #date pickerType="calendar"></owl-date-time>
+            </div>
 
-          <div class="my-2">
-            <app-checkbox>ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-checkbox>
-          </div>
-
-          <div class="relative">
-            <div class="text-sm">ลิงค์ที่เกี่ยวข้อง</div>
-            <input class="input" placeholder="https://" />
-            <img
-              src="assets/icons/link.svg"
-              class="absolute bottom-2 right-2 w-6 cursor-pointer"
-            />
-          </div>
-
-          <div class="my-4">
-            <div class="font-semibold">เงื่อนไขในการใช้</div>
-            <div class="space-y-2">
-              <app-checkbox>ส่งข่าวสารให้กับสมาชิกทุกคน</app-checkbox>
+            <div class="my-2">
               <app-checkbox
-                >ส่งข่าวสารเฉพาะสมาชิกบัตร GSB Precious</app-checkbox
+                [value]="submitForm.get('isSendNotification')?.value || false"
+                (valueUpdate)="
+                  submitForm.get('isSendNotification')?.setValue($event)
+                "
+                >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-checkbox
               >
+            </div>
+
+            <div class="relative">
+              <div class="text-sm">ลิงค์ที่เกี่ยวข้อง</div>
+              <input
+                class="input"
+                placeholder="https://"
+                name="linkUrl"
+                formControlName="linkUrl"
+              />
+              <img
+                src="assets/icons/link.svg"
+                class="absolute bottom-2 right-2 w-6 cursor-pointer"
+              />
+            </div>
+
+            <div class="my-4">
+              <div class="font-semibold">เงื่อนไขในการใช้</div>
+              <div class="space-y-2">
+                <app-checkbox
+                  [value]="
+                    submitForm.get('conditionId')?.value?.length ==
+                    cardIds.length
+                  "
+                  (valueUpdate)="
+                    submitForm
+                      .get('conditionId')
+                      ?.setValue($event ? cardIds : [])
+                  "
+                  >ส่งข่าวสารให้กับสมาชิกทุกคน</app-checkbox
+                >
+                <app-checkbox
+                  *ngFor="let card of cards"
+                  [value]="
+                    submitForm.get('conditionId')?.value?.includes(card.id)
+                  "
+                  (valueUpdate)="updateCondition($event, card.id)"
+                  >ส่งข่าวสารเฉพาะสมาชิกบัตร {{ card.name }}</app-checkbox
+                >
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <div
-    class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2"
-  >
-    <a routerLink="/newsletter-management"
-      ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
+    <div
+      class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2"
     >
-    <button class="button w-auto px-6">บันทึกและสร้างการแจ้งเตือน</button>
-  </div>
+      <a routerLink="/newsletter-management"
+        ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
+      >
+      <button
+        type="submit"
+        class="button w-auto px-6"
+        [disabled]="!submitForm.valid"
+      >
+        {{ id == "create" ? "สร้างการแจ้งเตือน" : "บันทึกการแจ้งเตือน" }}
+      </button>
+    </div>
+  </form>
 </div>
