@@ -9,6 +9,7 @@ import {
 import dayjs from 'dayjs';
 import { PartnerService } from 'src/app/core/services/partner.service';
 import { Partner } from 'src/app/core/models/partner.model';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-partner-management-list',
@@ -28,7 +29,13 @@ export class ListComponent implements OnInit {
   pageSize = 10;
   totalPage = 1;
 
-  constructor(private router: Router, private partnerService: PartnerService) {}
+  deleteId = 0;
+
+  constructor(
+    private router: Router,
+    private partnerService: PartnerService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.fetch();
@@ -73,5 +80,20 @@ export class ListComponent implements OnInit {
   dateFormat(d: string): string {
     const date = dayjs(d);
     return date.locale('th-th').format('DD/MM/BBBB');
+  }
+
+  deleteClick(id: number | undefined) {
+    this.deleteId = id || 0;
+  }
+  deleteConfirm(id: number) {
+    this.partnerService.delete(id).subscribe(
+      (response) => {
+        this.fetch();
+      },
+      (error) => {
+        console.log(error);
+        this.toastService.add('error', error);
+      }
+    );
   }
 }

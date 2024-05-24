@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Category } from 'src/app/core/models/category.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-category-management-list',
@@ -29,15 +30,21 @@ export class ListComponent implements OnInit {
   pageSize = 10;
   totalPage = 1;
 
-  showDetail = '';
+  deleteId = 0;
+
+  showDetail = -1;
   createUpdateForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    imageBase64: new FormControl('', [Validators.required]),
+    iconImageUrl: new FormControl(''),
+    isActive: new FormControl(true),
   });
+
+  iconImageBase64 = '';
 
   constructor(
     private router: Router,
-    private categoryService: CategoryService
+    private categoryService: CategoryService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -92,17 +99,75 @@ export class ListComponent implements OnInit {
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.createUpdateForm
-          .get('imageBase64')
-          ?.setValue(reader.result?.toString() || '');
+        this.iconImageBase64 = reader.result?.toString() || '';
       };
     }
   }
 
   createClick(): void {
-    this.showDetail = 'create';
+    this.showDetail = 0;
   }
-  onCreateUpdateSubmit(): void {
-    this.showDetail = '';
+  showDetailClick(item: Category) {
+    this.createUpdateForm.setValue({
+      name: item.name,
+      iconImageUrl: item.iconImageUrl,
+      isActive: item.isActive,
+    });
+    this.showDetail = item.id || 0;
+  }
+
+  async onCreateUpdateSubmit() {
+    if (this.iconImageBase64) {
+      const upload = await this.categoryService
+        .upload({
+          imageBase64: this.iconImageBase64,
+        })
+        .toPromise();
+
+      this.createUpdateForm.get('iconImageUrl')?.setValue(upload?.data || '');
+    }
+
+    if (this.showDetail == 0) {
+      this.categoryService
+        .create(this.createUpdateForm.getRawValue())
+        .subscribe(
+          (response) => {
+            this.fetch();
+          },
+          (error) => {
+            console.log(error);
+            this.toastService.add('error', error);
+          }
+        );
+    } else {
+      this.categoryService
+        .update(this.showDetail, this.createUpdateForm.getRawValue())
+        .subscribe(
+          (response) => {
+            this.fetch();
+          },
+          (error) => {
+            console.log(error);
+            this.toastService.add('error', error);
+          }
+        );
+    }
+
+    this.showDetail = -1;
+  }
+
+  deleteClick(id: number | undefined) {
+    this.deleteId = id || 0;
+  }
+  deleteConfirm(id: number) {
+    this.categoryService.delete(id).subscribe(
+      (response) => {
+        this.fetch();
+      },
+      (error) => {
+        console.log(error);
+        this.toastService.add('error', error);
+      }
+    );
   }
 }

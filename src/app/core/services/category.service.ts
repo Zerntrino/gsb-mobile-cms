@@ -36,4 +36,22 @@ export class CategoryService extends BaseService {
       object
     );
   }
+  update(id: number, object: object): Observable<ApiResponse<Category>> {
+    return this.http.put<ApiResponse<Category>>(
+      `${this.apiUrl}/cms/category/${id}`,
+      object
+    );
+  }
+  delete(id: number): Observable<ApiResponse<Category>> {
+    return this.http.delete<ApiResponse<Category>>(
+      `${this.apiUrl}/cms/category/${id}`
+    );
+  }
+
+  upload(object: object): Observable<ApiResponse<string>> {
+    return this.http.post<ApiResponse<string>>(
+      `${this.apiUrl}/upload/category`,
+      object
+    );
+  }
 }

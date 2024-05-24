@@ -9,6 +9,9 @@ import {
 import dayjs from 'dayjs';
 import { BannerService } from 'src/app/core/services/banner.service';
 import { Banner } from 'src/app/core/models/banner.model';
+import { ToastService } from 'src/app/core/services/toast.service';
+import { NewsLetterService } from 'src/app/core/services/newsletter.service';
+import { NewsLetter } from 'src/app/core/models/newsletter.model';
 
 @Component({
   selector: 'app-banner-management-list',
@@ -18,12 +21,18 @@ import { Banner } from 'src/app/core/models/banner.model';
 export class ListComponent implements OnInit {
   q = '';
   date = ['', ''];
-  list: Banner[] = [];
+  list: NewsLetter[] = [];
   page = 1;
   pageSize = 10;
   totalPage = 1;
 
-  constructor(private router: Router, private bannerService: BannerService) {}
+  deleteId = 0;
+
+  constructor(
+    private router: Router,
+    private newsletterService: NewsLetterService,
+    private toastService: ToastService
+  ) {}
 
   ngOnInit(): void {
     this.fetch();
@@ -35,14 +44,17 @@ export class ListComponent implements OnInit {
       .append('pageSize', this.pageSize);
     if (this.q) params = params.append('find', this.q);
     if (this.date[0] && this.date[1]) {
-      params = params.append('startDate', this.date[0]);
-      params = params.append('endDate', this.date[0]);
+      params = params.append(
+        'date',
+        dayjs(this.date[0]).format('YYYY-MM-DDT00:00:00')
+      );
+      // params = params.append('endDate', dayjs(this.date[1]).format('YYYY-MM-DDT00:00:00'));
     }
 
-    this.bannerService.getList(params).subscribe(
+    this.newsletterService.getList(params).subscribe(
       (response) => {
         console.log(response.data);
-        this.list = response.data as Banner[];
+        this.list = response.data as NewsLetter[];
       },
       (error) => {
         console.log(error);
@@ -55,6 +67,7 @@ export class ListComponent implements OnInit {
   }
   dateChange(e: string[]): void {
     this.date = e;
+    this.fetch();
   }
   pageChange(p: number): void {
     this.page = p;
@@ -68,5 +81,20 @@ export class ListComponent implements OnInit {
   dateFormat(d: string): string {
     const date = dayjs(d);
     return date.locale('th-th').format('DD/MM/BBBB');
+  }
+
+  deleteClick(id: number | undefined) {
+    this.deleteId = id || 0;
+  }
+  deleteConfirm(id: number) {
+    this.newsletterService.delete(id).subscribe(
+      (response) => {
+        this.router.navigate(['/newsletter-management']);
+      },
+      (error) => {
+        console.log(error);
+        this.toastService.add('error', error);
+      }
+    );
   }
 }
