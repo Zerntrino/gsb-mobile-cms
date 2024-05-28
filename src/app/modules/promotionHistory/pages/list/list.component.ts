@@ -52,8 +52,9 @@ export class ListComponent implements OnInit {
 
     if (this.type) params = params.append('type', this.type as string);
     if (this.date[0] && this.date[1]) {
-      params = params.append('startDate', this.date[0]);
-      params = params.append('endDate', this.date[0]);
+      params = params
+        .append('startDate', dayjs(this.date[0]).format('YYYY-MM-DDT00:00:00'))
+        .append('endDate', dayjs(this.date[1]).format('YYYY-MM-DDT00:00:00'));
     }
 
     this.promotionService.getHistory(params).subscribe(

@@ -59,7 +59,7 @@
                   class="bg-pink-100 px-2 py-1 rounded-md m-1"
                   *ngFor="let code of item.mccCode"
                 >
-                  {{ code }}
+                  {{ getMccName(code) }}
                 </div>
               </div>
             </div>
@@ -119,7 +119,7 @@
                   class="input max-w-sm text-right ml-auto"
                   placeholder="ยอดใช้จ่ายขั้นต่ำ"
                   [disabled]="!item.isEditing"
-                  [ngModel]="item.minimumAmount"
+                  [(ngModel)]="item.minimumAmount"
                 />
               </div>
             </div>
@@ -127,21 +127,24 @@
               <div class="space-x-2 justify-end flex">
                 <button
                   *ngIf="!item.isEditing"
-                  (click)="editMinimum(i, item)"
+                  (click)="editMinimum(item)"
                   class="button-border text-sm w-20 px-3 py-2"
                 >
                   แก้ไข
                 </button>
                 <button
                   *ngIf="item.isEditing"
-                  (click)="item.isEditing = false"
+                  (click)="
+                    item.minimumAmount = item.oldMinimumAmount || 0;
+                    item.isEditing = false
+                  "
                   class="button-default-border text-sm w-20 px-3 py-2"
                 >
                   ยกเลิก
                 </button>
                 <button
                   *ngIf="item.isEditing"
-                  (click)="editedMinimum(i, item)"
+                  (click)="item.isEditing = false"
                   class="button text-sm w-20 px-3 py-2"
                 >
                   บันทึก
@@ -189,7 +192,7 @@
               class="w-full"
               [value]="addMcc"
               (update)="addMccChange($event)"
-              [data]="addMccOption"
+              [data]="currentAddMccOption"
               placeholder="ค้นหา: MCC"
               [resettable]="true"
             ></select2>
@@ -213,7 +216,7 @@
                 {{ i + 1 }}
               </div>
               <div class="table-cell">
-                <span class="pl-2">{{ item }}</span>
+                <span class="pl-2">{{ getMccName(item) }}</span>
               </div>
               <div class="table-cell">
                 <img

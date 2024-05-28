@@ -14,8 +14,9 @@ import { CardService } from 'src/app/core/services/card.service';
 import { Card } from 'src/app/core/models/card.model';
 import { Installment } from 'src/app/core/models/parameter.model';
 import { ParameterService } from 'src/app/core/services/parameter.service';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtilsService } from 'src/app/core/services/utils.service';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-privilege-management-list',
@@ -27,25 +28,29 @@ export class ListComponent implements OnInit {
 
   cards: Card[] = [];
 
-  type: Select2Value = '';
-  typeOption: Select2Option[] = [];
+  typeOption: Select2Option[] = [
+    { value: '', label: 'กรุณาเลือก', disabled: true },
+    { value: 'Visa', label: 'Visa' },
+    { value: 'Master Card', label: 'Master Card' },
+  ];
 
-  htmlContent = '';
-  editorConfig = this.utilsService.editorConfig;
-
-  tags: string[] = [];
-
-  dataForm = new FormGroup({
-    name: new FormControl(''),
-    // description: new FormControl(''),
+  submitForm = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    description: new FormControl(''),
+    type: new FormControl<Select2Value>('Visa', [Validators.required]),
+    tags: new FormControl<string[]>([]),
+    imageUrl: new FormControl(''),
   });
+  imageBase64 = '';
+
+  editorConfig = this.utilsService.editorConfig;
 
   constructor(
     private router: Router,
     activatedRoute: ActivatedRoute,
-    private parameterService: ParameterService,
     private cardService: CardService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -64,33 +69,66 @@ export class ListComponent implements OnInit {
 
   selectCard(card?: Card): void {
     this.id = card?.id || 0;
+    this.submitForm.setValue({
+      name: card?.name || '',
+      description: card?.description || '',
+      type: card?.type || '',
+      tags: card?.tags || [],
+      imageUrl: card?.imageUrl || '',
+    });
+    this.imageBase64 = '';
   }
 
-  onSubmit(): void {
-    this.parameterService
-      .create({
-        name: this.dataForm.get('name')?.value,
-        description: this.dataForm.get('description')?.value,
-      })
-      .subscribe(
+  async onSubmit() {
+    if (this.imageBase64) {
+      const upload = await this.cardService
+        .upload({
+          imageBase64: this.imageBase64,
+        })
+        .toPromise();
+      this.submitForm.get('imageUrl')?.setValue(upload?.data || '');
+    }
+
+    if (this.id == 0) {
+      this.cardService.create(this.submitForm.getRawValue()).subscribe(
         (response) => {
-          console.log(response);
+          this.router.navigate(['/privilege']);
         },
-        (error) => {}
+        (error) => {
+          console.log(error);
+          this.toastService.add('error', error);
+        }
       );
+    } else {
+      this.cardService.update(this.id, this.submitForm.getRawValue()).subscribe(
+        (response) => {
+          this.router.navigate(['/privilege']);
+        },
+        (error) => {
+          console.log(error);
+          this.toastService.add('error', error);
+        }
+      );
+    }
+  }
+
+  inputFileChange(event: Event): void {
+    const files = (event.target as HTMLInputElement).files;
+    const file = files?.item(0);
+    if (file) {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => {
+        this.imageBase64 = reader.result?.toString() || '';
+      };
+    }
   }
 
   dateFormat(d: string): string {
     const date = dayjs(d);
     return date.locale('th-th').format('DD/MM/BBBB');
   }
-
-  typeChange(e: Select2UpdateEvent): void {
-    if (this.type != e.value) {
-      this.type = e.value;
-    }
-  }
   tagsChange(e: string[]): void {
-    this.tags = e;
+    this.submitForm.get('tags')?.setValue(e);
   }
 }

@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import { find, get, pull } from 'lodash';
 import { ParameterService } from 'src/app/core/services/parameter.service';
 import { Installment } from 'src/app/core/models/parameter.model';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-reward-history-list',
@@ -20,10 +21,9 @@ export class ListComponent implements OnInit {
   q = '';
   status: Select2Value = '';
   statusOption: Select2Option[] = [
-    {
-      value: '',
-      label: 'ทั้งหมด',
-    },
+    { value: '', label: 'ทั้งหมด' },
+    { value: 'true', label: 'แสดงผล' },
+    { value: 'false', label: 'ไม่แสดงผล' },
   ];
 
   list: Installment[] = [];
@@ -31,9 +31,12 @@ export class ListComponent implements OnInit {
   pageSize = 10;
   totalPage = 1;
 
+  deleteId = 0;
+
   constructor(
     private router: Router,
-    private parameterService: ParameterService
+    private parameterService: ParameterService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -45,6 +48,7 @@ export class ListComponent implements OnInit {
       .append('page', this.page)
       .append('pageSize', this.pageSize);
     if (this.q) params = params.append('find', this.q);
+    if (this.status) params = params.append('status', this.status as string);
 
     this.parameterService.getList(params).subscribe(
       (response) => {
@@ -82,5 +86,20 @@ export class ListComponent implements OnInit {
   }
   pull(ar: number[], i: number): number[] {
     return pull(ar, i);
+  }
+
+  deleteClick(id: number | undefined) {
+    this.deleteId = id || 0;
+  }
+  deleteConfirm(id: number) {
+    this.parameterService.delete(id).subscribe(
+      (response) => {
+        this.router.navigate(['/parameter']);
+      },
+      (error) => {
+        console.log(error);
+        this.toastService.add('error', error);
+      }
+    );
   }
 }

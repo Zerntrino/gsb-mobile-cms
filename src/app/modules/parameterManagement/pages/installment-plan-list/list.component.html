@@ -5,7 +5,7 @@
     </div>
 
     <a
-      ><button class="button" (click)="showType = 'new'">
+      ><button class="button" (click)="createPlanClick()">
         สร้าง Installment Plan
       </button></a
     >
@@ -74,15 +74,17 @@
                 <img src="assets/icons/option.svg" class="w-1 mx-auto" alt="" />
               </div>
               <div dropdown class="divide-y divide-gray-100">
-                <a class="flex px-4 py-2 cursor-pointer" (click)="show(item)">
-                  <div class="flex-1">ดูรายละเอียด</div>
-                  <img src="assets/icons/view.svg" class="w-6" alt="" />
-                </a>
-                <a class="flex px-4 py-2 cursor-pointer" (click)="edit(item)">
+                <a
+                  class="flex px-4 py-2 cursor-pointer"
+                  (click)="editClick(item)"
+                >
                   <div class="flex-1">แก้ไขข้อมูล</div>
                   <img src="assets/icons/edit.svg" class="w-6" alt="" />
                 </a>
-                <a class="flex px-4 py-2 cursor-pointer">
+                <a
+                  class="flex px-4 py-2 cursor-pointer"
+                  (click)="deleteClick(item.id)"
+                >
                   <div class="flex-1">ลบข้อมูล</div>
                   <img src="assets/icons/remove.svg" class="w-6" alt="" />
                 </a>
@@ -117,39 +119,69 @@
           </div>
           <div class="px-4 pt-1 flex space-x-2">
             <div>สถานะ</div>
-            <app-toggle></app-toggle>
+            <app-toggle
+              [value]="plan.isActive"
+              (valueUpdate)="plan.isActive = $event"
+            ></app-toggle>
             <div>แสดงผล</div>
           </div>
         </div>
 
         <div class="px-6 py-4">
           <div class="text-sm">Installment Plan</div>
-          <input class="input" placeholder="Installment Plan" />
+          <input
+            class="input"
+            placeholder="Installment Plan"
+            [(ngModel)]="plan.name"
+          />
         </div>
 
         <div class="px-6 py-2 flex space-x-2">
           <div class="font-semibold">รายการผ่อนชำระ</div>
-          <div class="text-primary underline">+ เพิ่มรายการ</div>
+          <div
+            class="text-primary underline cursor-pointer"
+            (click)="addPlan()"
+          >
+            + เพิ่มรายการ
+          </div>
         </div>
 
-        <div class="flex px-3">
-          <div class="flex-1 px-2 py-4">
+        <div
+          class="flex px-3"
+          *ngFor="let plan of plan.planInstallment; let i = index"
+        >
+          <div class="flex-1 px-2 py-2">
             <div class="text-sm">อัตราดอกเบี้ย</div>
-            <input class="input" placeholder="อัตราดอกเบี้ย" />
+            <input
+              class="input"
+              placeholder="อัตราดอกเบี้ย"
+              [(ngModel)]="plan.interestRate"
+            />
           </div>
-          <div class="flex-1 px-2 py-4">
+          <div class="flex-1 px-2 py-2">
             <div class="text-sm">จำนวนเดือนผ่อน</div>
-            <input class="input" type="number" placeholder="จำนวนเดือนผ่อน" />
+            <input
+              class="input"
+              type="number"
+              placeholder="จำนวนเดือนผ่อน"
+              [(ngModel)]="plan.month"
+            />
           </div>
-          <div class="flex-1 px-2 py-4">
+          <div class="flex-1 px-2 py-2">
             <div class="text-sm">ยอดขั้นต่ำที่สามารถให้ทำรายการผ่อนได้</div>
             <input
               class="input"
               placeholder="ยอดขั้นต่ำที่สามารถให้ทำรายการผ่อนได้"
+              [(ngModel)]="plan.expensesMinimumInstallment"
             />
           </div>
-          <div class="self-end px-2 py-4">
-            <img src="assets/icons/remove.svg" class="w-6" alt="" />
+          <div class="px-2 py-2">
+            <img
+              src="assets/icons/remove.svg"
+              class="w-6 cursor-pointer mt-8"
+              alt=""
+              (click)="removePlan(i)"
+            />
           </div>
         </div>
 
@@ -166,4 +198,11 @@
       </div>
     </div>
   </div>
+
+  <app-confirm
+    [(show)]="deleteId"
+    (confirm)="deleteConfirm(deleteId)"
+    title="ยืนยัน"
+    description="คุณแน่ใจที่จะลบข้อมูล ใช่หรือไม่ ?"
+  ></app-confirm>
 </div>

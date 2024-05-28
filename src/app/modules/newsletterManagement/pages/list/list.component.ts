@@ -44,11 +44,9 @@ export class ListComponent implements OnInit {
       .append('pageSize', this.pageSize);
     if (this.q) params = params.append('find', this.q);
     if (this.date[0] && this.date[1]) {
-      params = params.append(
-        'date',
-        dayjs(this.date[0]).format('YYYY-MM-DDT00:00:00')
-      );
-      // params = params.append('endDate', dayjs(this.date[1]).format('YYYY-MM-DDT00:00:00'));
+      params = params
+        .append('startDate', dayjs(this.date[0]).format('YYYY-MM-DDT00:00:00'))
+        .append('endDate', dayjs(this.date[1]).format('YYYY-MM-DDT00:00:00'));
     }
 
     this.newsletterService.getList(params).subscribe(

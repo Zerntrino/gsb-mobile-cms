@@ -9,7 +9,8 @@ import {
 import dayjs from 'dayjs';
 import { find, get, pull } from 'lodash';
 import { ParameterService } from 'src/app/core/services/parameter.service';
-import { InstallmentPlan } from 'src/app/core/models/parameter.model';
+import { InstallmentPlan, Plan } from 'src/app/core/models/parameter.model';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-installment-plan-list',
@@ -25,10 +26,9 @@ export class InstallmentPlanListComponent implements OnInit {
   q = '';
   status: Select2Value = '';
   statusOption: Select2Option[] = [
-    {
-      value: '',
-      label: 'ทั้งหมด',
-    },
+    { value: '', label: 'ทั้งหมด' },
+    { value: 'true', label: 'แสดงผล' },
+    { value: 'false', label: 'ไม่แสดงผล' },
   ];
 
   list: InstallmentPlan[] = [];
@@ -36,11 +36,16 @@ export class InstallmentPlanListComponent implements OnInit {
   pageSize = 10;
   totalPage = 1;
 
+  deleteId = 0;
+
+  plan = {} as InstallmentPlan;
+
   showType = 'hide';
 
   constructor(
     private router: Router,
-    private parameterService: ParameterService
+    private parameterService: ParameterService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +57,7 @@ export class InstallmentPlanListComponent implements OnInit {
       .append('page', this.page)
       .append('pageSize', this.pageSize);
     if (this.q) params = params.append('find', this.q);
+    if (this.status) params = params.append('status', this.status as string);
 
     this.parameterService.getInstallmentPlanList(params).subscribe(
       (response) => {
@@ -91,11 +97,61 @@ export class InstallmentPlanListComponent implements OnInit {
     return pull(ar, i);
   }
 
-  show(d: InstallmentPlan): void {
+  createPlanClick(d?: InstallmentPlan): void {
     this.showType = 'show';
+    this.plan = JSON.parse(
+      JSON.stringify(
+        d || {
+          planInstallment: [],
+        }
+      )
+    );
   }
-  edit(d: InstallmentPlan): void {
+  editClick(d: InstallmentPlan): void {
     this.showType = 'show';
+    this.parameterService.getInstallmentPlan(d.id).subscribe(
+      (response) => {
+        this.plan = response.data as InstallmentPlan; // JSON.parse(JSON.stringify(d || { planInstallment: [] }));
+      },
+      (error) => {
+        console.log(error);
+        this.toastService.add('error', error);
+      }
+    );
   }
-  confirmClick(): void {}
+  addPlan() {
+    this.plan.planInstallment.push({} as Plan);
+  }
+  removePlan(i: number) {
+    this.plan.planInstallment = this.plan.planInstallment.filter(
+      (d, index) => index != i
+    );
+  }
+  confirmClick(): void {
+    this.parameterService.createInstallmentPlan(this.plan).subscribe(
+      (response) => {
+        this.showType = 'hide';
+        this.fetch();
+      },
+      (error) => {
+        console.log(error);
+        this.toastService.add('error', error);
+      }
+    );
+  }
+
+  deleteClick(id: number | undefined) {
+    this.deleteId = id || 0;
+  }
+  deleteConfirm(id: number) {
+    this.parameterService.deleteInstallmentPlan(id).subscribe(
+      (response) => {
+        this.fetch();
+      },
+      (error) => {
+        console.log(error);
+        this.toastService.add('error', error);
+      }
+    );
+  }
 }

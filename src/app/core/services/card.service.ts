@@ -20,4 +20,31 @@ export class CardService extends BaseService {
       params: params,
     });
   }
+
+  get(id: string): Observable<ApiResponse<Card>> {
+    return this.http.get<ApiResponse<Card>>(
+      `${this.apiUrl}/cms/card/${id}`,
+      {}
+    );
+  }
+
+  create(object: object): Observable<ApiResponse<Card>> {
+    return this.http.post<ApiResponse<Card>>(`${this.apiUrl}/cms/card`, object);
+  }
+  update(id: number, object: object): Observable<ApiResponse<Card>> {
+    return this.http.put<ApiResponse<Card>>(
+      `${this.apiUrl}/cms/card/${id}`,
+      object
+    );
+  }
+  delete(id: number): Observable<ApiResponse<Card>> {
+    return this.http.delete<ApiResponse<Card>>(`${this.apiUrl}/cms/card/${id}`);
+  }
+
+  upload(object: object): Observable<ApiResponse<string>> {
+    return this.http.post<ApiResponse<string>>(
+      `${this.apiUrl}/upload/card`,
+      object
+    );
+  }
 }
