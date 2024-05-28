@@ -15,6 +15,7 @@ import {
   ParameterMCC,
   ParameterMinimum,
 } from 'src/app/core/models/parameter.model';
+import { ToastService } from 'src/app/core/services/toast.service';
 
 @Component({
   selector: 'app-parameter-setting',
@@ -37,21 +38,20 @@ export class ParameterSettingComponent implements OnInit {
   qAddMcc = '';
   statusMcc: Select2Value = '';
   statusMccOption: Select2Option[] = [
-    {
-      value: '',
-      label: 'ทั้งหมด',
-    },
+    { value: '', label: 'ทั้งหมด' },
+    { value: 'true', label: 'แสดงผล' },
+    { value: 'false', label: 'ไม่แสดงผล' },
   ];
   statusMinimum: Select2Value = '';
   statusMinimumOption: Select2Option[] = [
-    {
-      value: '',
-      label: 'ทั้งหมด',
-    },
+    { value: '', label: 'ทั้งหมด' },
+    { value: 'true', label: 'แสดงผล' },
+    { value: 'false', label: 'ไม่แสดงผล' },
   ];
   mcc: ParameterMCC = {} as ParameterMCC;
   addMcc: Select2Value = '';
   addMccOption: Select2Option[] = [];
+  currentAddMccOption: Select2Option[] = [];
 
   mccs: MCC[] = [];
   listMcc: ParameterMCC[] = [];
@@ -61,7 +61,8 @@ export class ParameterSettingComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private parameterService: ParameterService
+    private parameterService: ParameterService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
@@ -90,7 +91,10 @@ export class ParameterSettingComponent implements OnInit {
       params = params.append('status', this.statusMcc.toString());
     this.parameterService.getInstallmentMCCList(params).subscribe(
       (response) => {
-        this.listMcc = response.data as ParameterMCC[];
+        this.listMcc = (response.data as ParameterMCC[]).map((e) => {
+          e.mccCode = e.mccCode.map((i) => i.split(':').at(0)?.trim() || '');
+          return e;
+        });
       },
       (error) => {
         console.log(error);
@@ -132,9 +136,7 @@ export class ParameterSettingComponent implements OnInit {
 
   addMccChange(e: Select2UpdateEvent): void {
     if (e.value && this.addMcc != e.value) {
-      this.mcc.mccCode?.push(
-        `${this.addMccOption.find((i) => i.value == e.value)?.label}`
-      );
+      this.mcc.mccCode?.push(e.value as string);
 
       e.component.value = '';
     }
@@ -148,8 +150,15 @@ export class ParameterSettingComponent implements OnInit {
     return pull(ar, i);
   }
 
+  getMccName(a: string): string {
+    return this.addMccOption.find((m) => m.value == a)?.label || '';
+  }
   show(d: ParameterMCC): void {
     this.mcc = JSON.parse(JSON.stringify(d));
+    console.log(this.mcc.mccCode);
+    this.currentAddMccOption = this.addMccOption.filter(
+      (m) => !this.mcc.mccCode.includes(m.value as string)
+    );
     this.showType = 'show';
   }
   remove(item: string): void {
@@ -161,20 +170,51 @@ export class ParameterSettingComponent implements OnInit {
     this.showType = 'hide';
   }
 
-  save(): void {
-    this.parameterService.updateInstallmentMCC(this.mcc?.id || 0, {
-      mccCode: this.mcc,
-    });
+  async save() {
+    if (this.tab == 0) {
+      await this.listMcc.forEach(async (item) => {
+        console.log(item);
+        this.updateInstallmentMCC(item);
+      });
+
+      this.toastService.add(
+        'success',
+        'บันทึก ตั้งค่า MCC (ห้ามผ่อนชำระ) เรียบร้อยแล้ว'
+      );
+    } else {
+      await this.listMinimum.forEach((item) => {
+        this.updateMinimum(item);
+      });
+
+      this.toastService.add(
+        'success',
+        'บันทึก ตั้งค่ายอดใช้จ่ายขั้นต่ำ (ต่อเซลล์สลิป) เรียบร้อยแล้ว'
+      );
+    }
   }
 
-  editMinimum(i: number, item: ParameterMinimum): void {
+  async updateInstallmentMCC(item: ParameterMCC) {
+    await this.parameterService
+      .updateInstallmentMCC(item.id, { mccCode: item.mccCode })
+      .subscribe(
+        (response) => {
+          console.log(response);
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+  }
+
+  editMinimum(item: ParameterMinimum): void {
     item.isEditing = true;
+    item.oldMinimumAmount = item.minimumAmount;
   }
 
-  editedMinimum(i: number, item: ParameterMinimum): void {
+  async updateMinimum(item: ParameterMinimum) {
     item.isEditing = false;
 
-    this.parameterService
+    await this.parameterService
       .updateInstallmentMinimum(item.id, item.minimumAmount)
       .subscribe(
         (response) => {

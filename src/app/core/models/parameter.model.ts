@@ -6,6 +6,7 @@ export interface Installment {
   planCode: string;
   mccCode: string[];
   isActive: boolean;
+  cardId: number[];
   startDate: string;
   endDate: string;
 }
@@ -15,6 +16,12 @@ export interface InstallmentPlan {
   month: string;
   name: string;
   isActive: boolean;
+  planInstallment: Plan[];
+}
+export interface Plan {
+  interestRate: number;
+  month: number;
+  expensesMinimumInstallment: number;
 }
 
 export interface MCC {
@@ -33,6 +40,7 @@ export interface ParameterMinimum {
   id: number;
   cardName: string;
   minimumAmount: number;
+  oldMinimumAmount?: number;
   isEditing: boolean;
 }
 

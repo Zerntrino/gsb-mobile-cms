@@ -36,6 +36,17 @@ export class ParameterService extends BaseService {
       object
     );
   }
+  update(id: number, object: object): Observable<ApiResponse<Installment>> {
+    return this.http.put<ApiResponse<Installment>>(
+      `${this.apiUrl}/cms/installment/${id}`,
+      object
+    );
+  }
+  delete(id: number): Observable<ApiResponse<Installment>> {
+    return this.http.delete<ApiResponse<Installment>>(
+      `${this.apiUrl}/cms/installment/${id}`
+    );
+  }
 
   getInstallmentPlanList(
     params?: HttpParams
@@ -45,6 +56,24 @@ export class ParameterService extends BaseService {
       {
         params: params,
       }
+    );
+  }
+  getInstallmentPlan(id: number): Observable<ApiResponse<InstallmentPlan>> {
+    return this.http.get<ApiResponse<InstallmentPlan>>(
+      `${this.apiUrl}/cms/installment/plan/${id}`
+    );
+  }
+  deleteInstallmentPlan(id: number): Observable<ApiResponse<InstallmentPlan>> {
+    return this.http.delete<ApiResponse<InstallmentPlan>>(
+      `${this.apiUrl}/cms/installment/plan/${id}`
+    );
+  }
+  createInstallmentPlan(
+    object: object
+  ): Observable<ApiResponse<InstallmentPlan>> {
+    return this.http.post<ApiResponse<InstallmentPlan>>(
+      `${this.apiUrl}/cms/installment/plan`,
+      object
     );
   }
 

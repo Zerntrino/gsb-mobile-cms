@@ -4,9 +4,9 @@
   </div>
 
   <form
-    [formGroup]="dataForm"
-    (submit)="df.form.valid && onSubmit()"
-    #df="ngForm"
+    [formGroup]="submitForm"
+    (submit)="sf.form.valid && onSubmit()"
+    #sf="ngForm"
     class="flex-1 flex flex-col"
   >
     <div class="flex-1 my-2 py-6 bg-white">
@@ -23,11 +23,7 @@
                 'border-white': id != card.id
               }"
             >
-              <img
-                [src]="card.imageUrl || 'assets/icons/cards/visa.svg'"
-                class="w-40 shadow-md"
-                alt=""
-              />
+              <img [src]="card.imageUrl" class="w-40 shadow-md" alt="" />
             </div>
 
             <div
@@ -65,8 +61,8 @@
               <div class="text-sm">ประเภทบัตร</div>
               <select2
                 class="flex w-full"
-                [value]="type"
-                (update)="typeChange($event)"
+                [value]="submitForm.get('type')?.value || ''"
+                (update)="submitForm.get('type')?.setValue($event.value)"
                 [data]="typeOption"
                 placeholder="ประเภทบัตร"
               ></select2>
@@ -78,7 +74,8 @@
                 <angular-editor
                   placeholder="รายละเอียด"
                   minHeight="180"
-                  [(ngModel)]="htmlContent"
+                  name="description"
+                  formControlName="description"
                   [config]="editorConfig"
                 ></angular-editor>
               </div>
@@ -87,7 +84,7 @@
             <div class="my-2">
               <div class="text-sm">ข้อมูลที่เกี่ยวข้อง</div>
               <app-tag
-                [value]="tags"
+                [value]="submitForm.get('tags')?.value || []"
                 (valueUpdate)="tagsChange($event)"
                 placeholder="ข้อมูลที่เกี่ยวข้อง"
               ></app-tag>
@@ -103,12 +100,20 @@
             <div class="text-sm">รูปภาพบัตร</div>
             <div class="px-6">
               <div
+                *ngIf="!(imageBase64 || submitForm.get('imageUrl')?.value)"
                 class="w-full mt-6 aspect-w-3 aspect-h-2 flex justify-center items-center rounded-md bg-gray-300"
               >
-                <img src="assets/icons/img.svg" class="w-11 mx-auto" />
+                <img
+                  src="assets/icons/img.svg"
+                  class="w-11 mx-auto cursor-pointer"
+                  (click)="submitForm.get('imageUrl')?.setValue('')"
+                />
               </div>
 
-              <!-- <div class="relative">
+              <div
+                *ngIf="imageBase64 || submitForm.get('imageUrl')?.value"
+                class="relative"
+              >
                 <img
                   class="w-16 h-16 absolute top-0 right-0 z-10"
                   style="right: 0"
@@ -119,16 +124,26 @@
                 >
                   <img
                     class="w-full h-full object-cover"
-                    src="assets/icons/cards/visa.svg"
+                    [src]="imageBase64 || submitForm.get('imageUrl')?.value"
                   />
                 </div>
-              </div> -->
+              </div>
+
+              <input
+                type="file"
+                class="hidden"
+                accept="application/image"
+                #inputImage
+                (change)="inputFileChange($event)"
+              />
 
               <div class="my-4 text-center text-gray-400 text-sm">
                 เลือกรูปภาพที่ใช้เป็น Card ( ขนาด 492 x 300 .png )
               </div>
               <div class="flex justify-center">
                 <button
+                  type="button"
+                  (click)="inputImage.click()"
                   class="button-border text-center flex items-center justify-center space-x-4"
                 >
                   <img src="assets/icons/upload.svg" class="w-6" />
@@ -148,7 +163,7 @@
         ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
       >
       <button type="submit" class="button w-auto px-6">
-        บันทึกและสร้างสิทธิพิเศษ
+        {{ id == 0 ? "สร้างสิทธิพิเศษ" : "บันทึกสิทธิพิเศษ" }}
       </button>
     </div>
   </form>
