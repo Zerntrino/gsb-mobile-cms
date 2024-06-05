@@ -10,6 +10,8 @@ import {
   Select2UpdateEvent,
   Select2Value,
 } from 'ng-select2-component';
+import { Reward } from 'src/app/core/models/reward.model';
+import { RewardService } from 'src/app/core/services/reward.service';
 
 @Component({
   selector: 'app-reward-management-highlight',
@@ -33,24 +35,21 @@ export class HighlightComponent implements OnInit {
     },
   ];
 
-  list: Promotion[] = [];
+  list: Reward[] = [];
   showSelected = false;
   q = '';
 
-  constructor(
-    private router: Router,
-    private promotionService: PromotionService
-  ) {}
+  constructor(private router: Router, private rewardService: RewardService) {}
 
   ngOnInit(): void {
     this.fetch();
   }
 
   fetch(): void {
-    this.promotionService.getHighlights().subscribe(
+    this.rewardService.getHighlights().subscribe(
       (response) => {
         console.log(response.data);
-        this.list = response.data as Promotion[];
+        this.list = response.data as Reward[];
       },
       (error) => {
         console.log(error);

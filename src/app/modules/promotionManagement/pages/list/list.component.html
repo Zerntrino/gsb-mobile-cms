@@ -20,7 +20,7 @@
         <input
           class="input max-w-md pl-10"
           [(ngModel)]="q"
-          placeholder="ค้นหา: ขื่อโปรโมชัน"
+          placeholder="ค้นหา: ชื่อโปรโมชัน"
           (ngModelChange)="qChange()"
         />
       </div>
@@ -72,8 +72,8 @@
       <div class="table-row-group">
         <div class="table-row" *ngFor="let item of list; let i = index">
           <div class="table-cell">{{ i + 1 }}</div>
-          <div class="table-cell">{{ item.categoryName }}</div>
-          <div class="table-cell">{{ item.type }}</div>
+          <div class="table-cell">{{ item.category_name }}</div>
+          <div class="table-cell">{{ item.type_name }}</div>
           <div class="table-cell">{{ item.name }}</div>
           <div class="table-cell">
             {{ dateFormat(item.startDate) }}
@@ -108,7 +108,10 @@
                   <div class="flex-1">แก้ไขข้อมูล</div>
                   <img src="assets/icons/edit.svg" class="w-6" alt="" />
                 </a>
-                <a class="flex px-4 py-2">
+                <a
+                  class="flex px-4 py-2 cursor-pointer"
+                  (click)="deleteClick(item.id)"
+                >
                   <div class="flex-1">ลบข้อมูล</div>
                   <img src="assets/icons/remove.svg" class="w-6" alt="" />
                 </a>
@@ -125,5 +128,12 @@
       (pageSizeChange)="pageSizeChange($event)"
       (pageChange)="pageChange($event)"
     ></app-pagination>
+
+    <app-confirm
+      [(show)]="deleteId"
+      (confirm)="deleteConfirm(deleteId)"
+      title="ยืนยัน"
+      description="คุณแน่ใจที่จะลบข้อมูล ใช่หรือไม่ ?"
+    ></app-confirm>
   </div>
 </div>

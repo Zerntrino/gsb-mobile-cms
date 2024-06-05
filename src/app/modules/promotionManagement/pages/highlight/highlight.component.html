@@ -6,11 +6,20 @@
       class="flex-1"
     ></app-nav>
 
-    <a
-      ><button class="button" (click)="showSelected = true">
-        เลือกรายการ
-      </button></a
-    >
+    <a><button class="button" (click)="show()">เลือกรายการ</button></a>
+  </div>
+  <div class="px-4">
+    <div class="flex items-center space-x-2">
+      <div class="font-semibold">ประเภทบัตร :</div>
+
+      <select2
+        class="flex w-44"
+        [value]="card"
+        (update)="cardChange($event)"
+        [data]="cardOption"
+        placeholder="ประเภทบัตร"
+      ></select2>
+    </div>
   </div>
 
   <div class="flex-1 mx-w my-2 bg-white">
@@ -44,7 +53,7 @@
             {{ item.categoryName }}
           </div>
           <div class="table-cell">
-            {{ item.type }}
+            {{ item.typeName }}
           </div>
           <div class="table-cell">
             {{ item.name }}
@@ -54,7 +63,12 @@
           </div>
           <div class="table-cell">{{ dateFormat(item.endDate) }}</div>
           <div class="table-cell text-center">
-            <img src="assets/icons/delete.svg" class="mx-auto" alt="" />
+            <img
+              src="assets/icons/delete.svg"
+              class="mx-auto cursor-pointer"
+              (click)="delete(i)"
+              alt=""
+            />
           </div>
         </div>
       </div>
@@ -100,7 +114,10 @@
               </div>
             </div>
             <div class="table-row-group">
-              <div class="table-row" *ngFor="let item of list; let i = index">
+              <div
+                class="table-row"
+                *ngFor="let item of promotions; let i = index"
+              >
                 <div class="table-cell text-center">
                   <app-checkbox
                     [value]="item.select"
@@ -108,10 +125,10 @@
                   ></app-checkbox>
                 </div>
                 <div class="table-cell">
-                  {{ item.categoryName }}
+                  {{ item.category_name }}
                 </div>
                 <div class="table-cell">
-                  {{ item.type }}
+                  {{ item.type_name }}
                 </div>
                 <div class="table-cell">
                   {{ item.name }}
@@ -147,6 +164,8 @@
     <a routerLink="/banner-management"
       ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
     >
-    <button class="button w-auto px-6">บันทึกไฮไลท์โปรโมชัน</button>
+    <button class="button w-auto px-6" (click)="submitClick()">
+      บันทึกไฮไลท์โปรโมชัน
+    </button>
   </div>
 </div>

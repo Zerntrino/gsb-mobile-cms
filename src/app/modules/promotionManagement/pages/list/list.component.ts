@@ -9,6 +9,9 @@ import {
 import dayjs from 'dayjs';
 import { PromotionService } from 'src/app/core/services/promotion.service';
 import { Promotion } from 'src/app/core/models/promotion.model';
+import { ToastService } from 'src/app/core/services/toast.service';
+import { CategoryService } from 'src/app/core/services/category.service';
+import { Category } from 'src/app/core/models/category.model';
 
 @Component({
   selector: 'app-ad-management-list',
@@ -18,20 +21,21 @@ import { Promotion } from 'src/app/core/models/promotion.model';
 export class ListComponent implements OnInit {
   q = '';
   category: Select2Value = '';
-  categoryOption: Select2Option[] = [
-    { value: '', label: 'ทั้งหมด' },
-    { value: 'ชอปปิง', label: 'ชอปปิง' },
-    { value: 'ร้านอาหาร', label: 'ร้านอาหาร' },
-    { value: 'ท่องเที่ยว', label: 'ท่องเที่ยว' },
-  ];
+  categoryOption: Select2Option[] = [];
   type: Select2Value = '';
   typeOption: Select2Option[] = [
     { value: '', label: 'ทั้งหมด' },
-    { value: 'ไม่ลงทะเบียนรับสิทธิ์', label: 'ไม่ลงทะเบียนรับสิทธิ์' },
-    { value: 'ลงทะเบียนรับสิทธิ์', label: 'ลงทะเบียนรับสิทธิ์' },
     {
-      value: 'ลงทะเบียนรับสิทธิ์(แสดงโค้ด)',
-      label: 'ลงทะเบียนรับสิทธิ์(แสดงโค้ด)',
+      value: 'โปรโมชั่นไม่ลงทะเบียนรับสิทธิ์',
+      label: 'โปรโมชั่นไม่ลงทะเบียนรับสิทธิ์',
+    },
+    {
+      value: 'โปรโมชั่นลงทะเบียนรับสิทธิ์',
+      label: 'โปรโมชั่นลงทะเบียนรับสิทธิ์',
+    },
+    {
+      value: 'โปรโมชั่นลงทะเบียนรับสิทธิ์ (แสดงโค้ด)',
+      label: 'โปรโมชั่นลงทะเบียนรับสิทธิ์ (แสดงโค้ด)',
     },
   ];
   status: Select2Value = '';
@@ -41,17 +45,23 @@ export class ListComponent implements OnInit {
     { value: 'false', label: 'ไม่แสดงผล' },
   ];
   list: Promotion[] = [];
+  categories: Category[] = [];
   page = 1;
   pageSize = 10;
   totalPage = 1;
 
+  deleteId = 0;
+
   constructor(
     private router: Router,
-    private promotionService: PromotionService
+    private promotionService: PromotionService,
+    private categoryService: CategoryService,
+    private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
     this.fetch();
+    this.fetchCategory();
   }
 
   fetch(): void {
@@ -68,6 +78,24 @@ export class ListComponent implements OnInit {
       (response) => {
         console.log(response.data);
         this.list = response.data as Promotion[];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  fetchCategory(): void {
+    let params = new HttpParams().append('page', 1).append('pageSize', 100);
+    this.categoryService.getList(params).subscribe(
+      (response) => {
+        this.categories = response.data as Category[];
+        this.categoryOption.push({ value: '', label: 'ทั้งหมด' });
+        this.categoryOption = this.categoryOption.concat(
+          this.categories.map((c) => {
+            return { value: c.name, label: c.name } as Select2Option;
+          })
+        );
       },
       (error) => {
         console.log(error);
@@ -108,5 +136,21 @@ export class ListComponent implements OnInit {
   dateFormat(d: string): string {
     const date = dayjs(d);
     return date.locale('th-th').format('DD/MM/BBBB');
+  }
+
+  deleteClick(id: number | undefined) {
+    this.deleteId = id || 0;
+  }
+  deleteConfirm(id: number) {
+    this.promotionService.delete(id).subscribe(
+      (response) => {
+        // this.router.navigate(['/promotion-management']);
+        this.fetch();
+      },
+      (error) => {
+        console.log(error);
+        this.toastService.add('error', error);
+      }
+    );
   }
 }

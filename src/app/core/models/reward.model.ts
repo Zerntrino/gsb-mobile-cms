@@ -1,7 +1,7 @@
 export interface Reward {
   id: number;
   name: string;
-  categoryName: string;
+  category_name: string;
   endDate: string;
   startDate: string;
   type: string;

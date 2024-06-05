@@ -9,6 +9,8 @@ import {
 import dayjs from 'dayjs';
 import { PromotionService } from 'src/app/core/services/promotion.service';
 import { Promotion } from 'src/app/core/models/promotion.model';
+import { Reward } from 'src/app/core/models/reward.model';
+import { RewardService } from 'src/app/core/services/reward.service';
 
 @Component({
   selector: 'app-reward-management-list',
@@ -40,15 +42,12 @@ export class ListComponent implements OnInit {
     { value: 'true', label: 'แสดงผล' },
     { value: 'false', label: 'ไม่แสดงผล' },
   ];
-  list: Promotion[] = [];
+  list: Reward[] = [];
   page = 1;
   pageSize = 10;
   totalPage = 1;
 
-  constructor(
-    private router: Router,
-    private promotionService: PromotionService
-  ) {}
+  constructor(private router: Router, private rewardService: RewardService) {}
 
   ngOnInit(): void {
     this.fetch();
@@ -60,14 +59,14 @@ export class ListComponent implements OnInit {
       .append('pageSize', this.pageSize);
     if (this.q) params = params.append('find', this.q);
     if (this.category)
-      params = params.append('categoryName', this.category as string);
+      params = params.append('category_name', this.category as string);
     if (this.type) params = params.append('type', this.type as string);
     if (this.status) params = params.append('status', this.status as string);
 
-    this.promotionService.getList(params).subscribe(
+    this.rewardService.getList(params).subscribe(
       (response) => {
         console.log(response.data);
-        this.list = response.data as Promotion[];
+        this.list = response.data as Reward[];
       },
       (error) => {
         console.log(error);
