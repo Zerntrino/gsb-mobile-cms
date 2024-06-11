@@ -6,30 +6,30 @@
       class="flex-1"
     ></app-nav>
 
-    <a
-      ><button class="button" (click)="showSelected = true">
-        เลือกรายการ
-      </button></a
-    >
+    <a><button class="button" (click)="show()">เลือกรายการ</button></a>
   </div>
 
   <div class="flex space-x-2 items-center">
     <div class="font-semibold pl-4">ประเภทบัตร :</div>
     <div class="px-4 max-w-sm">
       <select2
-        class="w-full"
-        [value]="type"
-        (update)="typeChange($event)"
-        [data]="typeOption"
-        placeholder="ประเภท"
+        class="flex w-44"
+        [value]="card"
+        (update)="cardChange($event)"
+        [data]="cardOption"
+        placeholder="ประเภทบัตร"
       ></select2>
     </div>
   </div>
 
   <div class="flex-1 mx-w my-2 bg-white">
-    <div class="text-lg font-semibold px-4 pt-6">
-      จัดการไฮไลท์บัตร <span class="text-primary">GSB Precious</span>
-    </div>
+    <!-- <div class="text-lg font-semibold px-4 pt-6">
+      จัดการไฮไลท์บัตร
+      <span
+        class="text-primary"
+        ></span
+      >
+    </div> -->
     <div class="px-6 table w-full my-6">
       <div class="table-header-group">
         <div class="table-row">
@@ -57,10 +57,10 @@
             <img src="assets/icons/list.svg" class="w-6 mx-auto" alt="" />
           </div>
           <div class="table-cell">
-            {{ item.category_name }}
+            {{ item.categoryName }}
           </div>
           <div class="table-cell">
-            {{ item.type }}
+            {{ item.typeName }}
           </div>
           <div class="table-cell">
             {{ item.name }}
@@ -116,7 +116,10 @@
               </div>
             </div>
             <div class="table-row-group">
-              <div class="table-row" *ngFor="let item of list; let i = index">
+              <div
+                class="table-row"
+                *ngFor="let item of rewards; let i = index"
+              >
                 <div class="table-cell text-center">
                   <app-checkbox
                     [value]="item.select"
@@ -124,10 +127,10 @@
                   ></app-checkbox>
                 </div>
                 <div class="table-cell">
-                  {{ item.category_name }}
+                  {{ item.categoryName }}
                 </div>
                 <div class="table-cell">
-                  {{ item.type }}
+                  {{ item.typeName }}
                 </div>
                 <div class="table-cell">
                   {{ item.name }}
@@ -163,6 +166,8 @@
     <a routerLink="/reward-management"
       ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
     >
-    <button class="button w-auto px-6">บันทึกไฮไลท์รีวอร์ด</button>
+    <button class="button w-auto px-6" (click)="submitClick()">
+      บันทึกไฮไลท์รีวอร์ด
+    </button>
   </div>
 </div>
