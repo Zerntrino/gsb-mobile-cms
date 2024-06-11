@@ -64,9 +64,7 @@ export class CreateUpdateComponent implements OnInit {
   imageBase64: string[] = [];
 
   categoryOption: Select2Option[] = [];
-  tags: string[] = ['ชอปปิง', 'ร้านอาหาร', 'ท่องเที่ยว'];
 
-  htmlContent = '';
   editorConfig = this.utilsService.editorConfig;
 
   promotionType: Select2Value = '';
@@ -305,7 +303,7 @@ export class CreateUpdateComponent implements OnInit {
     if (this.coverImageBase64) {
       const upload = await this.promotionService
         .upload({
-          imageBase64: this.imageBase64,
+          imageBase64: this.coverImageBase64,
         })
         .toPromise();
       this.submitForm.get('coverImageUrl')?.setValue(upload?.data || '');
