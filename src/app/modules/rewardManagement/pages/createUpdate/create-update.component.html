@@ -39,18 +39,18 @@
               ></select2>
             </div>
             <div class="">
-              <div class="text-sm">ชื่อรีวอร์ด</div>
+              <div class="text-sm">หัวข้อ</div>
               <input
                 class="input"
                 name="name"
                 formControlName="name"
                 required
-                placeholder="ชื่อรีวอร์ด"
+                placeholder="หัวข้อ"
               />
             </div>
 
             <div>
-              <div class="text-sm"></div>
+              <div class="text-sm">รายละเอียด</div>
               <div>
                 <angular-editor
                   placeholder="รายละเอียด"
@@ -286,7 +286,7 @@
               <div class="flex flex-wrap -mx-1">
                 <div class="p-1 w-full">
                   <div
-                    class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-4"
+                    class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-2"
                   >
                     <img src="assets/icons/cards/visa.svg" class="w-8" />
                     <div class="flex-1 text-sm">GSB ทุกประเภท</div>
@@ -306,10 +306,10 @@
 
                 <div class="p-1 w-1/2" *ngFor="let card of cards">
                   <div
-                    class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-4"
+                    class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-2"
                   >
                     <img [src]="card.imageUrl" class="w-8" />
-                    <div class="flex-1 text-sm">{{ card.name }}</div>
+                    <div class="flex-1 text-sm truncate">{{ card.name }}</div>
                     <app-checkbox
                       [value]="
                         submitForm.get('cardId')?.value?.includes(card.id)
