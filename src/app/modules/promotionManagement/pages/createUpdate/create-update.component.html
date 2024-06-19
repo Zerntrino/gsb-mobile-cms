@@ -16,6 +16,7 @@
         <app-toggle
           [value]="submitForm.get('isActive')?.value || false"
           (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
+          [disabled]="mode == 'view'"
         ></app-toggle>
         <div>
           {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
@@ -36,6 +37,7 @@
                 (update)="categoryChange($event)"
                 [data]="categoryOption"
                 placeholder="เลือกหมวดหมู่"
+                [disabled]="mode == 'view'"
               ></select2>
             </div>
             <div class="">
@@ -50,7 +52,7 @@
             </div>
 
             <div>
-              <div class="text-sm"></div>
+              <div class="text-sm">รายละเอียด</div>
               <div>
                 <angular-editor
                   placeholder="รายละเอียด"
@@ -69,6 +71,7 @@
                 (valueUpdate)="tagChange($event)"
                 (valueUpdate)="tagChange($event)"
                 placeholder="ข้อมูลที่เกี่ยวข้อง"
+                [disabled]="mode == 'view'"
               ></app-tag>
             </div>
             <div class="relative">
@@ -111,6 +114,7 @@
                 (valueUpdate)="
                   submitForm.get('isNotification')?.setValue($event)
                 "
+                [disabled]="mode == 'view'"
                 >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-checkbox
               >
             </div>
@@ -128,6 +132,7 @@
                 (update)="promotionTypeChange($event)"
                 [data]="promotionTypeOption"
                 placeholder="เลือกหมวดหมู่"
+                [disabled]="mode == 'view'"
               ></select2>
             </div>
 
@@ -139,6 +144,7 @@
                 (update)="shopChange($event)"
                 [data]="shopOption"
                 placeholder="เลือกร้านค้า/แบรนด์"
+                [disabled]="mode == 'view'"
               ></select2>
             </div>
 
@@ -158,6 +164,7 @@
                 multiple="true"
                 (update)="mccChange($event)"
                 placeholder="MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ"
+                [disabled]="mode == 'view'"
               ></select2>
             </div>
 
@@ -170,6 +177,7 @@
                   (update)="generateTypeChange($event)"
                   [data]="codeTypeOption"
                   placeholder="เลือกประเภท Code"
+                  [disabled]="mode == 'view'"
                 ></select2>
               </div>
               <div>
@@ -250,6 +258,7 @@
                           .get('cardId')
                           ?.setValue($event ? cardIds : [])
                       "
+                      [disabled]="mode == 'view'"
                     ></app-checkbox>
                   </div>
                 </div>
@@ -265,6 +274,7 @@
                         submitForm.get('cardId')?.value?.includes(card.id)
                       "
                       (valueUpdate)="updateCard($event, card.id)"
+                      [disabled]="mode == 'view'"
                     ></app-checkbox>
                   </div>
                 </div>
@@ -331,6 +341,7 @@
                   class="button-border text-center flex items-center justify-center space-x-4"
                   type="button"
                   (click)="inputImage.click()"
+                  [disabled]="mode == 'view'"
                 >
                   <img src="assets/icons/upload.svg" class="w-6" />
                   <div>อัปโหลดไฟล์รูปภาพ</div>
@@ -386,6 +397,7 @@
                   class="button-border text-center flex items-center justify-center space-x-4"
                   type="button"
                   (click)="inputImage2.click()"
+                  [disabled]="mode == 'view'"
                 >
                   <img src="assets/icons/upload.svg" class="w-6" />
                   <div>อัปโหลดไฟล์รูปภาพ</div>
@@ -406,6 +418,15 @@
         </button></a
       >
       <button
+        *ngIf="mode == 'view'"
+        class="button-dark w-auto px-6"
+        type="button"
+        (click)="edit()"
+      >
+        แก้ไข
+      </button>
+      <button
+        *ngIf="mode == 'edit'"
         class="button w-auto px-6"
         type="submit"
         [disabled]="!submitForm.valid"

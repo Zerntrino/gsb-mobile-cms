@@ -6,6 +6,7 @@ import {
   Input,
   EventEmitter,
   Output,
+  SimpleChanges,
 } from '@angular/core';
 import {
   FormGroup,
@@ -25,19 +26,28 @@ export class TagComponent implements OnInit {
   @Input() value: string[] = [];
   @Output() valueUpdate = new EventEmitter<string[]>();
   @Input() placeholder = '';
+  @Input() disabled: boolean = false;
+
   form: FormGroup = new FormGroup({
-    tag: new FormControl(''),
+    tag: new FormControl('', []),
   });
 
   constructor(private fb: FormBuilder) {}
 
   ngOnInit() {}
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (this.disabled) this.form.disable();
+    else this.form.enable();
+  }
+
   focusTagInput(): void {
     this.tagInputRef.nativeElement.focus();
   }
 
   onKeyUp(event: KeyboardEvent): void {
+    if (this.disabled) return;
+
     const inputValue: string = this.form.get('tag')?.value;
     if (event.code === 'Backspace' && !inputValue) {
       this.removeTag();
@@ -51,6 +61,8 @@ export class TagComponent implements OnInit {
   }
 
   addTag(tag: string): void {
+    if (this.disabled) return;
+
     if (tag[tag.length - 1] === ',' || tag[tag.length - 1] === ' ') {
       tag = tag.slice(0, -1);
     }
@@ -61,6 +73,8 @@ export class TagComponent implements OnInit {
   }
 
   removeTag(tag?: string): void {
+    if (this.disabled) return;
+
     if (!!tag) {
       pull(this.value, tag);
     } else {
