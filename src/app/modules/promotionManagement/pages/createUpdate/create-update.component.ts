@@ -35,6 +35,7 @@ export class CreateUpdateComponent implements OnInit {
     { title: 'จัดการโปรโมชัน', to: '' },
     { title: 'สร้างโปรโมชัน', to: '' },
   ];
+  mode = 'edit';
 
   submitForm = new FormGroup({
     categorId: new FormControl(0),
@@ -65,7 +66,9 @@ export class CreateUpdateComponent implements OnInit {
 
   categoryOption: Select2Option[] = [];
 
-  editorConfig = this.utilsService.editorConfig;
+  editorConfig = {
+    ...this.utilsService.editorConfig,
+  };
 
   promotionType: Select2Value = '';
   promotionTypeOption: Select2Option[] = [
@@ -112,6 +115,14 @@ export class CreateUpdateComponent implements OnInit {
     this.id = activatedRoute.snapshot.params['id'];
     this.navItems[1].title =
       this.id == 'create' ? 'สร้างโปรโมชัน' : 'แก้ไขโปรโมชัน';
+
+    activatedRoute.queryParams.subscribe((params) => {
+      if (params['mode'] == 'view') {
+        this.mode = 'view';
+        this.submitForm.disable();
+        this.editorConfig.editable = false;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -127,7 +138,6 @@ export class CreateUpdateComponent implements OnInit {
       this.promotionService.get(this.id).subscribe(
         (response) => {
           const res = response.data as Promotion;
-          console.log(res);
           this.submitForm.setValue({
             categorId: res.category_id,
             isActive: res.is_active,
@@ -347,5 +357,11 @@ export class CreateUpdateComponent implements OnInit {
           }
         );
     }
+  }
+
+  edit() {
+    this.mode = 'edit';
+    this.submitForm.enable();
+    this.editorConfig.editable = true;
   }
 }

@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 })
 export class ToggleComponent {
   @Input() value: boolean | undefined | string = false;
+  @Input() disabled: boolean = false;
   @Output() valueUpdate = new EventEmitter<boolean>();
   randomId = Math.random().toString(36).slice(2, 7);
 

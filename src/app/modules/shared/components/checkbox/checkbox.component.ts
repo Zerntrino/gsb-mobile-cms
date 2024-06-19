@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class CheckboxComponent {
   @Input() value: boolean | undefined | string = false;
   @Output() valueUpdate = new EventEmitter<boolean>();
+  @Input() disabled: boolean = false;
   randomId = Math.random().toString(36).slice(2, 7);
 
   constructor(private router: Router) {}

@@ -35,6 +35,7 @@ export class CreateUpdateComponent implements OnInit {
     { title: 'จัดการรีวอร์ด', to: '' },
     { title: 'สร้างรีวอร์ด', to: '' },
   ];
+  mode = 'edit';
 
   submitForm = new FormGroup({
     categorId: new FormControl(0),
@@ -124,6 +125,14 @@ export class CreateUpdateComponent implements OnInit {
     this.id = activatedRoute.snapshot.params['id'];
     this.navItems[1].title =
       this.id == 'create' ? 'สร้างรีวอร์ด' : 'แก้ไขรีวอร์ด';
+
+    activatedRoute.queryParams.subscribe((params) => {
+      if (params['mode'] == 'view') {
+        this.mode = 'view';
+        this.submitForm.disable();
+        this.editorConfig.editable = false;
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -139,7 +148,6 @@ export class CreateUpdateComponent implements OnInit {
       this.rewardService.get(this.id).subscribe(
         (response) => {
           const res = response.data as Reward;
-          console.log(res);
           this.submitForm.setValue({
             categorId: res.categoryId,
             isActive: res.isActive,
@@ -370,5 +378,11 @@ export class CreateUpdateComponent implements OnInit {
           }
         );
     }
+  }
+
+  edit() {
+    this.mode = 'edit';
+    this.submitForm.enable();
+    this.editorConfig.editable = true;
   }
 }

@@ -5,6 +5,7 @@
       type="checkbox"
       [checked]="value == 'on' || value"
       (change)="change($event)"
+      [disabled]="disabled"
     />
     <div class="slider round"></div>
   </label>
