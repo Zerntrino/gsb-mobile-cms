@@ -104,3 +104,7 @@
 .select2-results__option {
     padding: 4px 16px !important;
 }
+
+.select-text-primary .select2-selection__rendered span {
+    @apply text-primary;
+}

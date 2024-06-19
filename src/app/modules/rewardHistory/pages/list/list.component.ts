@@ -17,21 +17,32 @@ import { RewardHistory } from 'src/app/core/models/reward.model';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
-  type: Select2Value = 'GSB Reward Point แลก Cashback';
+  type: Select2Value = 1;
   typeOption: Select2Option[] = [
     {
-      value: 'GSB Reward Point แลก Cashback',
-      label: 'GSB Reward Point แลก Cashback',
+      value: 1,
+      label: 'ใช้ Point แลก Cashback',
+    },
+    {
+      value: 2,
+      label: 'ใช้ Point แลก ของ',
+    },
+    {
+      value: 3,
+      label: 'ใช้ Point แลก Point',
+    },
+    {
+      value: 4,
+      label: 'ใช้ Point แลก Code',
     },
   ];
 
   q = '';
   status: Select2Value = '';
   statusOption: Select2Option[] = [
-    {
-      value: '',
-      label: 'ทั้งหมด',
-    },
+    { value: '', label: 'ทั้งหมด' },
+    { value: 'true', label: 'สำเร็จ' },
+    { value: 'false', label: 'ไม่สำเร็จ' },
   ];
 
   date = ['', ''];
@@ -54,6 +65,7 @@ export class ListComponent implements OnInit {
       .append('page', this.page)
       .append('pageSize', this.pageSize);
     if (this.q) params = params.append('find', this.q);
+    if (this.status) params = params.append('status', this.status as string);
 
     if (this.type) params = params.append('type', this.type as string);
     if (this.date[0] && this.date[1]) {
@@ -116,5 +128,32 @@ export class ListComponent implements OnInit {
   }
   exportClick(): void {
     console.log(this.selectIndex);
+    const datas = this.list.filter((d, i) => this.selectIndex.includes(i));
+    this.downloadJSONAsCSV(datas);
+  }
+
+  downloadJSONAsCSV(jsonData: RewardHistory[]) {
+    // Convert JSON data to CSV
+    let csvData = this.jsonToCsv(jsonData); // Add .items.data
+    // Create a CSV file and allow the user to download it
+    let blob = new Blob([csvData], { type: 'text/csv' });
+    let url = window.URL.createObjectURL(blob);
+    let a = document.createElement('a');
+    a.href = url;
+    a.download = 'reward-exports.csv';
+    document.body.appendChild(a);
+    a.click();
+  }
+  jsonToCsv(jsonData: RewardHistory[]) {
+    let csv = '';
+    // Get the headers
+    let headers = Object.keys(jsonData[0]) as (keyof RewardHistory)[];
+    csv += headers.join(',') + '\n';
+    // Add the data
+    jsonData.forEach((row: RewardHistory) => {
+      let data = headers.map((header) => row[header] || '').join(',');
+      csv += data + '\n';
+    });
+    return csv;
   }
 }

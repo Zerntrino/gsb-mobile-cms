@@ -17,11 +17,23 @@ import { find, get, pull } from 'lodash';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
-  type: Select2Value = 'โปรโมชันลงทะเบียนรับสิทธิ์';
+  type: Select2Value = 1;
   typeOption: Select2Option[] = [
     {
-      value: 'โปรโมชันลงทะเบียนรับสิทธิ์',
+      value: 1,
       label: 'โปรโมชันลงทะเบียนรับสิทธิ์',
+    },
+    {
+      value: 2,
+      label: 'โปรโมชั่นไม่ลงทะเบียนรับสิทธิ์',
+    },
+    {
+      value: 3,
+      label: 'โปรโมชั่นลงทะเบียนรับสิทธิ์',
+    },
+    {
+      value: 4,
+      label: 'โปรโมชั่นลงทะเบียนรับสิทธิ์ (แสดงโค้ด)',
     },
   ];
 
@@ -103,7 +115,35 @@ export class ListComponent implements OnInit {
   pull(ar: number[], i: number): number[] {
     return pull(ar, i);
   }
+
   exportClick(): void {
     console.log(this.selectIndex);
+    const datas = this.list.filter((d, i) => this.selectIndex.includes(i));
+    this.downloadJSONAsCSV(datas);
+  }
+
+  downloadJSONAsCSV(jsonData: PromotionHistory[]) {
+    // Convert JSON data to CSV
+    let csvData = this.jsonToCsv(jsonData); // Add .items.data
+    // Create a CSV file and allow the user to download it
+    let blob = new Blob([csvData], { type: 'text/csv' });
+    let url = window.URL.createObjectURL(blob);
+    let a = document.createElement('a');
+    a.href = url;
+    a.download = 'promotion-exports.csv';
+    document.body.appendChild(a);
+    a.click();
+  }
+  jsonToCsv(jsonData: PromotionHistory[]) {
+    let csv = '';
+    // Get the headers
+    let headers = Object.keys(jsonData[0]) as (keyof PromotionHistory)[];
+    csv += headers.join(',') + '\n';
+    // Add the data
+    jsonData.forEach((row: PromotionHistory) => {
+      let data = headers.map((header) => row[header] || '').join(',');
+      csv += data + '\n';
+    });
+    return csv;
   }
 }
