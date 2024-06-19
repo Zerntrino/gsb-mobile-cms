@@ -61,8 +61,11 @@ export interface RewardHistory {
   id: number;
   cardName: string;
   cardNumber: string;
-  createdAt: string;
+  date: string;
   name: string;
   telephone: string;
   select: boolean;
+
+  cashBack: number;
+  point: number;
 }
