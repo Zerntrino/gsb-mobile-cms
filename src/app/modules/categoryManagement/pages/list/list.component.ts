@@ -33,13 +33,7 @@ export class ListComponent implements OnInit {
   deleteId = 0;
 
   showDetail = -1;
-  createUpdateForm = new FormGroup({
-    name: new FormControl('', [Validators.required]),
-    iconImageUrl: new FormControl(''),
-    isActive: new FormControl(true),
-  });
-
-  iconImageBase64 = '';
+  detail?: Category;
 
   constructor(
     private router: Router,
@@ -92,67 +86,15 @@ export class ListComponent implements OnInit {
     return date.locale('th-th').format('DD/MM/BBBB');
   }
 
-  inputFileChange(event: Event): void {
-    const files = (event.target as HTMLInputElement).files;
-    const file = files?.item(0);
-    if (file) {
-      const reader = new FileReader();
-      reader.readAsDataURL(file);
-      reader.onload = () => {
-        this.iconImageBase64 = reader.result?.toString() || '';
-      };
-    }
-  }
-
   createClick(): void {
     this.showDetail = 0;
   }
   showDetailClick(item: Category) {
-    this.createUpdateForm.setValue({
-      name: item.name,
-      iconImageUrl: item.iconImageUrl,
-      isActive: item.isActive,
-    });
+    this.detail = item;
     this.showDetail = item.id || 0;
   }
-
-  async onCreateUpdateSubmit() {
-    if (this.iconImageBase64) {
-      const upload = await this.categoryService
-        .upload({
-          imageBase64: this.iconImageBase64,
-        })
-        .toPromise();
-
-      this.createUpdateForm.get('iconImageUrl')?.setValue(upload?.data || '');
-    }
-
-    if (this.showDetail == 0) {
-      this.categoryService
-        .create(this.createUpdateForm.getRawValue())
-        .subscribe(
-          (response) => {
-            this.fetch();
-          },
-          (error) => {
-            console.log(error);
-            this.toastService.add('error', error);
-          }
-        );
-    } else {
-      this.categoryService
-        .update(this.showDetail, this.createUpdateForm.getRawValue())
-        .subscribe(
-          (response) => {
-            this.fetch();
-          },
-          (error) => {
-            console.log(error);
-            this.toastService.add('error', error);
-          }
-        );
-    }
-
+  showDetailSuccess() {
+    this.fetch();
     this.showDetail = -1;
   }
 

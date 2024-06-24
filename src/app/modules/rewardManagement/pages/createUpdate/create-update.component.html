@@ -30,7 +30,20 @@
           <div class="font-semibold my-2">รีวอร์ด</div>
           <div class="border border-gray-100 rounded-md p-6 space-y-4">
             <div>
-              <div class="text-sm">หมวดหมู่</div>
+              <div class="flex">
+                <div class="flex-1 text-sm">หมวดหมู่</div>
+                <div
+                  class="text-primary text-sm underline cursor-pointer"
+                  [ngClass]="{
+                    'text-primary cursor-pointer': mode != 'view',
+                    'text-gray-400': mode == 'view'
+                  }"
+                  (click)="mode != 'view' ? createCategoryClick() : ''"
+                >
+                  เพิ่มหมวดหมู่
+                </div>
+              </div>
+
               <select2
                 class="flex w-full"
                 [value]="submitForm.get('categorId')?.value || 0"
@@ -242,12 +255,33 @@
             >
               <div class="my-2 flex space-x-4">
                 <div class="flex-1">
+                  <div class="text-sm">คะแนนที่ใช้แลก (คะแนน)</div>
+                  <input
+                    name="mPoint"
+                    formControlName="mPoint"
+                    class="input text-right"
+                    placeholder="คะแนนที่ใช้แลก (คะแนน)"
+                  />
+                </div>
+                <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/ตลอดรายการ</div>
                   <input
                     name="limit"
                     formControlName="limit"
                     class="input text-right"
                     placeholder="จำกัดสิทธิ์/ตลอดรายการ"
+                  />
+                </div>
+              </div>
+
+              <div class="my-2 flex space-x-4">
+                <div class="flex-1">
+                  <div class="text-sm">จำกัดสิทธิ์/บัตร</div>
+                  <input
+                    name="limitPerCard"
+                    formControlName="limitPerCard"
+                    class="input text-right"
+                    placeholder="จำกัดสิทธิ์/บัตร"
                   />
                 </div>
                 <div class="flex-1">
@@ -259,19 +293,7 @@
                     placeholder="จำกัดสิทธิ์/ต่อเดือน"
                   />
                 </div>
-              </div>
-
-              <div class="my-2 flex space-x-4">
-                <div class="flex-1">
-                  <div class="text-sm">จำกัดสิทธิ์/บัตร/ต่อเดือน</div>
-                  <input
-                    name="limitPerCardMonth"
-                    formControlName="limitPerCardPerMonth"
-                    class="input text-right"
-                    placeholder="จำกัดสิทธิ์/บัตร/ต่อเดือน"
-                  />
-                </div>
-                <div class="flex-1">
+                <!-- <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/บัตร/ต่อวัน</div>
                   <input
                     name="limitPerCardDay"
@@ -279,7 +301,7 @@
                     class="input text-right"
                     placeholder="จำกัดสิทธิ์/บัตร/ต่อวัน"
                   />
-                </div>
+                </div> -->
               </div>
               <div class="text-sm text-primary">
                 *หากต้องการระบุค่าไม่จำกัดจำนวน กรุณาใส่ 0*
@@ -479,4 +501,9 @@
       </button>
     </div>
   </form>
+
+  <create-udpate-category-management-dialog
+    [showDetail]="showDetail"
+    (success)="createCategorySuccess()"
+  ></create-udpate-category-management-dialog>
 </div>
