@@ -49,8 +49,10 @@ export interface Reward {
   limit: number;
   limit_per_month: number;
   limitPerMonth: number;
-  limit_per_card_per_month: number;
-  limitPerCardPerMonth: number;
+  // limit_per_card_per_month: number;
+  // limitPerCardPerMonth: number;
+  limit_per_card: number;
+  limitPerCard: number;
   limit_per_card_per_day: number;
   limitPerCardPerDay: number;
   card_id: number[];

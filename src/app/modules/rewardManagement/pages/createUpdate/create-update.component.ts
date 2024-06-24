@@ -59,7 +59,7 @@ export class CreateUpdateComponent implements OnInit {
     ref1: new FormControl(''),
     limit: new FormControl(0),
     limitPerMonth: new FormControl(0),
-    limitPerCardPerMonth: new FormControl(0),
+    limitPerCard: new FormControl(0),
     limitPerCardPerDay: new FormControl(0),
     cardId: new FormControl<number[]>([]),
     coverUrl: new FormControl(''),
@@ -111,6 +111,8 @@ export class CreateUpdateComponent implements OnInit {
   cards: Card[] = [];
   cardIds: number[] = [];
 
+  showDetail = -1;
+
   constructor(
     private router: Router,
     activatedRoute: ActivatedRoute,
@@ -123,14 +125,19 @@ export class CreateUpdateComponent implements OnInit {
     private toastService: ToastService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
-    this.navItems[1].title =
-      this.id == 'create' ? 'สร้างรีวอร์ด' : 'แก้ไขรีวอร์ด';
 
     activatedRoute.queryParams.subscribe((params) => {
       if (params['mode'] == 'view') {
         this.mode = 'view';
         this.submitForm.disable();
         this.editorConfig.editable = false;
+
+        this.navItems[1].title =
+          this.id == 'create'
+            ? 'สร้างรีวอร์ด'
+            : this.mode == 'view'
+            ? 'รายละเอียดรีวอร์ด'
+            : 'แก้ไขรีวอร์ด';
       }
     });
   }
@@ -171,7 +178,7 @@ export class CreateUpdateComponent implements OnInit {
             ref1: res.ref1,
             limit: res.limit,
             limitPerMonth: res.limitPerMonth,
-            limitPerCardPerMonth: res.limitPerCardPerMonth,
+            limitPerCard: res.limitPerCard,
             limitPerCardPerDay: res.limitPerCardPerDay,
             cardId: res.cardId,
             coverUrl: res.coverUrl,
@@ -340,7 +347,7 @@ export class CreateUpdateComponent implements OnInit {
       this.submitForm.get('coverUrl')?.setValue(upload?.data || '');
     }
 
-    if (this.imageBase64.length) {
+    if (this.imageBase64?.length) {
       await this.imageBase64.forEach(async (img, i) => {
         if (!img.startsWith('http')) {
           const upload = await this.rewardService
@@ -380,9 +387,18 @@ export class CreateUpdateComponent implements OnInit {
     }
   }
 
+  createCategoryClick() {
+    this.showDetail = 0;
+  }
+  createCategorySuccess() {
+    this.showDetail = -1;
+    this.fetchCategory();
+  }
+
   edit() {
     this.mode = 'edit';
     this.submitForm.enable();
     this.editorConfig.editable = true;
+    this.navItems[1].title = 'แก้ไขรีวอร์ด';
   }
 }

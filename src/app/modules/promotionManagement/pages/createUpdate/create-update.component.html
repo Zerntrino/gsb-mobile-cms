@@ -30,7 +30,20 @@
           <div class="font-semibold my-2">โปรโมชัน</div>
           <div class="border border-gray-100 rounded-md p-6 space-y-4">
             <div>
-              <div class="text-sm">หมวดหมู่</div>
+              <div class="flex">
+                <div class="flex-1 text-sm">หมวดหมู่</div>
+                <div
+                  class="text-sm underline"
+                  [ngClass]="{
+                    'text-primary cursor-pointer': mode != 'view',
+                    'text-gray-400': mode == 'view'
+                  }"
+                  (click)="mode != 'view' ? createCategoryClick() : ''"
+                >
+                  เพิ่มหมวดหมู่
+                </div>
+              </div>
+
               <select2
                 class="flex w-full"
                 [value]="submitForm.get('categorId')?.value || 0"
@@ -435,4 +448,9 @@
       </button>
     </div>
   </form>
+
+  <create-udpate-category-management-dialog
+    [showDetail]="showDetail"
+    (success)="createCategorySuccess()"
+  ></create-udpate-category-management-dialog>
 </div>
