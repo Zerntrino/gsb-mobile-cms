@@ -59,7 +59,6 @@
                 class="input"
                 name="name"
                 formControlName="name"
-                required
                 placeholder="หัวข้อ"
               />
             </div>
@@ -250,9 +249,54 @@
               </div>
             </div>
 
-            <div
-              *ngIf="[1, 2, 4].includes(submitForm.get('typeId')?.value || 0)"
-            >
+            <div *ngIf="[1].includes(submitForm.get('typeId')?.value || 0)">
+              <div class="my-2 flex space-x-4">
+                <div class="flex-1">
+                  <div class="text-sm">คะแนนที่ใช้แลก (คะแนน)</div>
+                  <input
+                    name="mPoint"
+                    formControlName="mPoint"
+                    class="input text-right"
+                    placeholder="คะแนนที่ใช้แลก (คะแนน)"
+                  />
+                </div>
+                <div class="flex-1">
+                  <div class="text-sm">เครดิตเงินคืน (บาท)</div>
+                  <input
+                    name="creditCashBack"
+                    formControlName="creditCashBack"
+                    class="input text-right"
+                    placeholder="เครดิตเงินคืน (บาท)"
+                  />
+                </div>
+              </div>
+
+              <div class="my-2 flex space-x-4">
+                <div class="flex-1">
+                  <div class="text-sm">จำกัดสิทธิ์/ตลอดรายการ</div>
+                  <input
+                    name="limit"
+                    formControlName="limit"
+                    class="input text-right"
+                    placeholder="จำกัดสิทธิ์/ตลอดรายการ"
+                  />
+                </div>
+                <div class="flex-1">
+                  <div class="text-sm">จำกัดสิทธิ์/บัตร</div>
+                  <input
+                    name="limitPerCard"
+                    formControlName="limitPerCard"
+                    class="input text-right"
+                    placeholder="จำกัดสิทธิ์/บัตร"
+                  />
+                </div>
+              </div>
+              <div class="text-sm text-primary">
+                *หากต้องการระบุค่าไม่จำกัดจำนวน กรุณาใส่ 0*
+              </div>
+            </div>
+
+            <div *ngIf="[2].includes(submitForm.get('typeId')?.value || 0)">
               <div class="my-2 flex space-x-4">
                 <div class="flex-1">
                   <div class="text-sm">คะแนนที่ใช้แลก (คะแนน)</div>
@@ -293,7 +337,45 @@
                     placeholder="จำกัดสิทธิ์/ต่อเดือน"
                   />
                 </div>
-                <!-- <div class="flex-1">
+              </div>
+              <div class="text-sm text-primary">
+                *หากต้องการระบุค่าไม่จำกัดจำนวน กรุณาใส่ 0*
+              </div>
+            </div>
+
+            <div *ngIf="[4].includes(submitForm.get('typeId')?.value || 0)">
+              <div class="my-2 flex space-x-4">
+                <div class="flex-1">
+                  <div class="text-sm">จำกัดสิทธิ์/ตลอดรายการ</div>
+                  <input
+                    name="limit"
+                    formControlName="limit"
+                    class="input text-right"
+                    placeholder="จำกัดสิทธิ์/ตลอดรายการ"
+                  />
+                </div>
+                <div class="flex-1">
+                  <div class="text-sm">จำกัดสิทธิ์/ต่อเดือน</div>
+                  <input
+                    name="limitPerMonth"
+                    formControlName="limitPerMonth"
+                    class="input text-right"
+                    placeholder="จำกัดสิทธิ์/ต่อเดือน"
+                  />
+                </div>
+              </div>
+
+              <div class="my-2 flex space-x-4">
+                <div class="flex-1">
+                  <div class="text-sm">จำกัดสิทธิ์/บัตร/ต่อเดือน</div>
+                  <input
+                    name="limitPerCardPerMonth"
+                    formControlName="limitPerCardPerMonth"
+                    class="input text-right"
+                    placeholder="จำกัดสิทธิ์/บัตร/ต่อเดือน"
+                  />
+                </div>
+                <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/บัตร/ต่อวัน</div>
                   <input
                     name="limitPerCardDay"
@@ -301,7 +383,7 @@
                     class="input text-right"
                     placeholder="จำกัดสิทธิ์/บัตร/ต่อวัน"
                   />
-                </div> -->
+                </div>
               </div>
               <div class="text-sm text-primary">
                 *หากต้องการระบุค่าไม่จำกัดจำนวน กรุณาใส่ 0*

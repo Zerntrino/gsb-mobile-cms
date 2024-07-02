@@ -45,7 +45,10 @@ export class ListComponent implements OnInit {
     { value: 'false', label: 'ไม่สำเร็จ' },
   ];
 
-  date = ['', ''];
+  date1 = ['', ''];
+  date2 = ['', ''];
+  date3 = ['', ''];
+  date4 = ['', ''];
 
   selectIndex: number[] = [];
 
@@ -57,27 +60,26 @@ export class ListComponent implements OnInit {
   constructor(private router: Router, private rewardService: RewardService) {}
 
   ngOnInit(): void {
-    this.fetch();
+    // this.fetch();
   }
 
-  fetch(): void {
+  async fetch(type: number, date: string[], filename: string) {
     let params = new HttpParams()
-      .append('page', this.page)
-      .append('pageSize', this.pageSize);
-    if (this.q) params = params.append('find', this.q);
-    if (this.status) params = params.append('status', this.status as string);
-
-    if (this.type) params = params.append('type', this.type as string);
-    if (this.date[0] && this.date[1]) {
+      .append('page', 1)
+      .append('type', type)
+      .append('pageSize', 100000);
+    if (date[0] && date[1]) {
       params = params
-        .append('startDate', dayjs(this.date[0]).format('YYYY-MM-DDT00:00:00'))
-        .append('endDate', dayjs(this.date[1]).format('YYYY-MM-DDT00:00:00'));
+        .append('startDate', dayjs(date[0]).format('YYYY-MM-DDT00:00:00'))
+        .append('endDate', dayjs(date[1]).format('YYYY-MM-DDT00:00:00'));
     }
 
-    this.rewardService.getHistory(params).subscribe(
+    await this.rewardService.getHistory(params).subscribe(
       (response) => {
         console.log(response.data);
         this.list = response.data as RewardHistory[];
+
+        this.downloadJSONAsCSV(this.list, filename);
       },
       (error) => {
         console.log(error);
@@ -86,31 +88,40 @@ export class ListComponent implements OnInit {
   }
 
   qChange(): void {
-    this.fetch();
+    // this.fetch();
   }
   typeChange(e: Select2UpdateEvent): void {
     if (this.type != e.value) {
       this.type = e.value;
-      this.fetch();
+      // this.fetch();
     }
   }
   statusChange(e: Select2UpdateEvent): void {
     if (this.status != e.value) {
       this.status = e.value;
-      this.fetch();
+      // this.fetch();
     }
   }
-  dateChange(e: string[]): void {
-    this.date = e;
+  date1Change(e: string[]): void {
+    this.date1 = e;
+  }
+  date2Change(e: string[]): void {
+    this.date2 = e;
+  }
+  date3Change(e: string[]): void {
+    this.date3 = e;
+  }
+  date4Change(e: string[]): void {
+    this.date4 = e;
   }
 
   pageChange(p: number): void {
     this.page = p;
-    this.fetch();
+    // this.fetch();
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
-    this.fetch();
+    // this.fetch();
   }
   selectIndexAllClick(v: boolean): void {
     this.selectIndex = [];
@@ -126,13 +137,20 @@ export class ListComponent implements OnInit {
   pull(ar: number[], i: number): number[] {
     return pull(ar, i);
   }
-  exportClick(): void {
-    console.log(this.selectIndex);
-    const datas = this.list.filter((d, i) => this.selectIndex.includes(i));
-    this.downloadJSONAsCSV(datas);
+  export1Click(): void {
+    this.fetch(1, this.date1, 'reward-history-cashback-exports.csv');
+  }
+  export2Click(): void {
+    this.fetch(2, this.date2, 'reward-history-item-exports.csv');
+  }
+  export3Click(): void {
+    this.fetch(3, this.date3, 'reward-history-point-exports.csv');
+  }
+  export4Click(): void {
+    this.fetch(4, this.date4, 'reward-history-code-exports.csv');
   }
 
-  downloadJSONAsCSV(jsonData: RewardHistory[]) {
+  downloadJSONAsCSV(jsonData: RewardHistory[], filename: string) {
     // Convert JSON data to CSV
     let csvData = this.jsonToCsv(jsonData); // Add .items.data
     // Create a CSV file and allow the user to download it
@@ -140,7 +158,7 @@ export class ListComponent implements OnInit {
     let url = window.URL.createObjectURL(blob);
     let a = document.createElement('a');
     a.href = url;
-    a.download = 'reward-exports.csv';
+    a.download = filename;
     document.body.appendChild(a);
     a.click();
   }
