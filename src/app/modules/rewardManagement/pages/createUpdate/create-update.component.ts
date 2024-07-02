@@ -40,7 +40,7 @@ export class CreateUpdateComponent implements OnInit {
   submitForm = new FormGroup({
     categorId: new FormControl(0),
     isActive: new FormControl(true),
-    name: new FormControl('', [Validators.required]),
+    name: new FormControl(''), //  [Validators.required]
     description: new FormControl(''),
     aboutIt: new FormControl<string[]>([]),
     startDate: new FormControl('', []),
@@ -61,6 +61,7 @@ export class CreateUpdateComponent implements OnInit {
     limitPerMonth: new FormControl(0),
     limitPerCard: new FormControl(0),
     limitPerCardPerDay: new FormControl(0),
+    limitPerCardPerMonth: new FormControl(0),
     cardId: new FormControl<number[]>([]),
     coverUrl: new FormControl(''),
     imageUrl: new FormControl<string[]>([]),
@@ -77,7 +78,7 @@ export class CreateUpdateComponent implements OnInit {
   promotionTypeOption: Select2Option[] = [
     {
       value: 1,
-      label: 'ใช้ Point แลก Cashback',
+      label: 'ใช้ Point แลก cashback',
     },
     {
       value: 2,
@@ -85,11 +86,11 @@ export class CreateUpdateComponent implements OnInit {
     },
     {
       value: 3,
-      label: 'ใช้ Point แลก Point',
+      label: 'ใช้ Point แลก point',
     },
     {
       value: 4,
-      label: 'ใช้ Point แลก Code',
+      label: 'ใช้ Point แลก code',
     },
   ];
 
@@ -131,14 +132,13 @@ export class CreateUpdateComponent implements OnInit {
         this.mode = 'view';
         this.submitForm.disable();
         this.editorConfig.editable = false;
-
-        this.navItems[1].title =
-          this.id == 'create'
-            ? 'สร้างรีวอร์ด'
-            : this.mode == 'view'
-            ? 'รายละเอียดรีวอร์ด'
-            : 'แก้ไขรีวอร์ด';
       }
+      this.navItems[1].title =
+        this.id == 'create'
+          ? 'สร้างรีวอร์ด'
+          : this.mode == 'view'
+          ? 'รายละเอียดรีวอร์ด'
+          : 'แก้ไขรีวอร์ด';
     });
   }
 
@@ -180,6 +180,7 @@ export class CreateUpdateComponent implements OnInit {
             limitPerMonth: res.limitPerMonth,
             limitPerCard: res.limitPerCard,
             limitPerCardPerDay: res.limitPerCardPerDay,
+            limitPerCardPerMonth: res.limitPerCardPerMonth,
             cardId: res.cardId,
             coverUrl: res.coverUrl,
             imageUrl: res.imageUrl,

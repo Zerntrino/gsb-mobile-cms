@@ -40,7 +40,7 @@ export class CreateUpdateComponent implements OnInit {
   submitForm = new FormGroup({
     categorId: new FormControl(0),
     isActive: new FormControl(true),
-    name: new FormControl('', [Validators.required]),
+    name: new FormControl(''), // [Validators.required]
     description: new FormControl(''),
     aboutIt: new FormControl<string[]>([]),
     startDate: new FormControl('', []),

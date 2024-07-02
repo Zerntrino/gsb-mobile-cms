@@ -2,7 +2,7 @@
   <div class="flex items-center my-2 space-x-4">
     <div class="flex-1">
       <app-nav title="ประวัติการใช้โปรโมชัน" class=""></app-nav>
-      <div class="px-4 max-w-sm">
+      <!-- <div class="px-4 max-w-sm">
         <select2
           class="w-full select-text-primary"
           [value]="type"
@@ -10,10 +10,10 @@
           [data]="typeOption"
           placeholder="ประเภท"
         ></select2>
-      </div>
+      </div> -->
     </div>
 
-    <a
+    <!-- <a
       ><button
         class="button-yellow flex items-center space-x-4"
         (click)="exportClick()"
@@ -21,11 +21,99 @@
         <img src="assets/icons/export.svg" class="w-6" />
         <div>Export</div>
       </button></a
-    >
+    > -->
   </div>
 
-  <div class="flex-1 mx-w my-2 bg-white">
-    <div class="py-4 px-6 flex space-x-4">
+  <div class="flex-1 mx-w my-2 bg-white p-6 space-y-6">
+    <div class="border border-primary border-opacity-25 rounded-md">
+      <div
+        class="px-8 py-2 flex items-center space-x-4 bg-primary bg-opacity-15"
+      >
+        <img
+          src="assets/icons/menus/promotion-history-primary.svg"
+          class="w-6 text-primary"
+        />
+        <div class="text-primary">โปรโมชันลงทะเบียนรับสิทธิ์</div>
+      </div>
+      <div class="px-8 py-4 flex justify-between items-center">
+        <div class="flex-1">
+          <div class="text-sm text-gray-500">เลือกวันที่</div>
+          <div class="relative w-full max-w-sm">
+            <input
+              class="input"
+              [owlDateTime]="date1"
+              [owlDateTimeTrigger]="date1"
+              placeholder="วันที่: "
+              selectMode="range"
+              [value]="date1"
+              (dateTimeInput)="date1Change($event.value)"
+            />
+            <img
+              [owlDateTimeTrigger]="date1"
+              src="assets/icons/calendar.svg"
+              class="absolute bottom-2 right-2 w-6 cursor-pointer"
+            />
+            <owl-date-time #date1 pickerType="calendar"></owl-date-time>
+          </div>
+        </div>
+        <a
+          ><button
+            class="button-dark flex items-center space-x-4"
+            (click)="export1Click()"
+          >
+            <img src="assets/icons/export.svg" class="w-6" />
+            <div>ส่งออกข้อมูล</div>
+          </button></a
+        >
+      </div>
+    </div>
+
+    <div class="border border-primary border-opacity-25 rounded-md">
+      <div
+        class="px-8 py-2 flex items-center space-x-4 bg-primary bg-opacity-15"
+      >
+        <img
+          src="assets/icons/menus/promotion-history-primary.svg"
+          class="w-6 text-primary"
+        />
+        <div class="text-primary">
+          โปรโมชันลงทะเบียนรับสิทธิ์
+          <span class="text-gray-900">(แสดงโค้ด)</span>
+        </div>
+      </div>
+      <div class="px-8 py-4 flex justify-between items-center">
+        <div class="flex-1">
+          <div class="text-sm text-gray-500">เลือกวันที่</div>
+          <div class="relative w-full max-w-sm">
+            <input
+              class="input"
+              [owlDateTime]="date2"
+              [owlDateTimeTrigger]="date2"
+              placeholder="วันที่: "
+              selectMode="range"
+              [value]="date2"
+              (dateTimeInput)="date1Change($event.value)"
+            />
+            <img
+              [owlDateTimeTrigger]="date2"
+              src="assets/icons/calendar.svg"
+              class="absolute bottom-2 right-2 w-6 cursor-pointer"
+            />
+            <owl-date-time #date2 pickerType="calendar"></owl-date-time>
+          </div>
+        </div>
+        <a
+          ><button
+            class="button-dark flex items-center space-x-4"
+            (click)="export2Click()"
+          >
+            <img src="assets/icons/export.svg" class="w-6" />
+            <div>ส่งออกข้อมูล</div>
+          </button></a
+        >
+      </div>
+    </div>
+    <!-- <div class="py-4 px-6 flex space-x-4">
       <div class="flex-1 flex relative">
         <img
           src="assets/icons/search.svg"
@@ -102,6 +190,6 @@
       [totalPage]="totalPage"
       (pageSizeChange)="pageSizeChange($event)"
       (pageChange)="pageChange($event)"
-    ></app-pagination>
+    ></app-pagination> -->
   </div>
 </div>
