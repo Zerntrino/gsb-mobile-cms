@@ -98,6 +98,7 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
         .create(this.createUpdateForm.getRawValue())
         .subscribe(
           (response) => {
+            this.toastService.add('success', 'ทำรายการสำเร็จ');
             this.fetch();
           },
           (error) => {
@@ -110,6 +111,7 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
         .update(this.showDetail, this.createUpdateForm.getRawValue())
         .subscribe(
           (response) => {
+            this.toastService.add('success', 'ทำรายการสำเร็จ');
             this.fetch();
           },
           (error) => {

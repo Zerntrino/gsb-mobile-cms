@@ -24,11 +24,16 @@ export class LoginComponent implements OnInit {
     ]),
   });
 
+  error = '';
+  isForgot = false;
+
   ngOnInit(): void {}
 
   onSubmit(): void {
     const email = this.loginForm.get('email')?.value || '';
     const password = this.loginForm.get('password')?.value || '';
+
+    this.error = '';
 
     this.authService.login(email, password).subscribe(
       (response) => {
@@ -36,10 +41,11 @@ export class LoginComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        this.toastService.add(
-          'error',
-          'ชื่อผู้ใช้งาน / อีเมล์ หรือ รหัสผ่าน ไม่ถูกต้อง'
-        );
+        this.error = 'ข้อมูลของคุณไม่ถูกต้อง กรุณาตรวจสอบใหม่อีกครั้ง';
+        // this.toastService.add(
+        //   'error',
+        //   'ชื่อผู้ใช้งาน / อีเมล์ หรือ รหัสผ่าน ไม่ถูกต้อง'
+        // );
       }
     );
   }

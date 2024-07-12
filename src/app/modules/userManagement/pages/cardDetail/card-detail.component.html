@@ -1,123 +1,123 @@
 <div class="flex flex-col h-full">
-    <app-nav title="จัดการผู้ใช้บัตร" [items]="navItems"></app-nav>
+  <app-nav title="จัดการผู้ใช้บัตร" [items]="navItems"></app-nav>
 
-    <div class="flex-1 my-2 bg-white px-4 py-4">
-        <div class="font-semibold">บัตรเครดิต</div>
+  <div class="flex-1 my-2 bg-white px-4 py-4">
+    <div class="font-semibold">บัตรเครดิต</div>
 
-        <div class="border border-gray-100 rounded-md px-8 py-6 flex items-center space-x-6">
-            <div class=""><img class="w-20 shadow-lg" src="assets/icons/cards/visa.svg" /></div>
-            <div class="flex-1">
-                <div class="font-semibold">1234 XXXX XXXX 5678</div>
-                <div class="text-sm">Visa</div>
-            </div>
-            <div class="">
-                <div class="text-sm text-gray-400" style="text-align: end;">คะแนนสะสม</div>
-                <div class="font-semibold">9,900 คะแนน</div>
-            </div>
+    <div
+      class="border border-gray-100 rounded-md px-8 py-6 flex items-center space-x-6"
+    >
+      <div class="">
+        <img class="w-20 shadow-lg" src="assets/icons/cards/visa.svg" />
+      </div>
+      <div class="flex-1">
+        <div class="font-semibold">1234 XXXX XXXX 5678</div>
+        <div class="text-sm">Visa</div>
+      </div>
+      <div class="">
+        <div class="text-sm text-gray-400" style="text-align: end">
+          คะแนนสะสม
         </div>
-
-        <app-tab [tabs]="tabs" [index]="tab" (tabChange)="tab = $event"></app-tab>
-        
-        <div *ngIf="tab == 0" class="px-2">
-            <div class="flex items-center space-x-2">
-                <div class="flex-1 font-semibold">ประวัติการแลกคะแนน</div>
-                <app-dropdown placeholder="สถานะ : ทั้งหมด" class="w-44"></app-dropdown>
-                <app-dropdown placeholder="เดือน : ทั้งหมด" class="w-44"></app-dropdown>
-                <app-dropdown placeholder="ปี : 2566" class="w-32"></app-dropdown>
-            </div>
-
-            <div class="my-4 table w-full">
-                <div class="table-header-group">
-                    <div class="table-row">
-                        <div class="table-cell">#</div>
-                        <div class="table-cell">หมวดหมู่</div>
-                        <div class="table-cell">ประเภทการแลกคะแนน</div>
-                        <div class="table-cell text-center">คะแนนที่ใช้แลก</div>
-                        <div class="table-cell">ได้รับ</div>
-                        <div class="table-cell">วันที่ทำรายการ</div>
-                        <div class="table-cell">สถานะ</div>
-                    </div>
-                </div>
-                <div class="table-row-group">
-                    <div class="table-row" *ngFor="let item of [0,1,2,3,4,5]; let i=index">
-                        <div class="table-cell">{{i+1}}</div>
-                        <div class="table-cell">แลกของรางวัล</div>
-                        <div class="table-cell">ใช้ Point แลก ของ</div>
-                        <div class="table-cell text-center">1,500</div>
-                        <div class="table-cell">กระเป๋าผ้า GSB</div>
-                        <div class="table-cell">31/12/2566</div>
-                        <div class="table-cell">
-                            <div class="flex space-x-2 items-center">
-                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                                <div>กำลังใช้งาน</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="my-6 flex items-center">
-                <div class="px-2">แสดง</div>
-                <app-dropdown placeholder="10" class="w-20"></app-dropdown>
-                <div class="flex-1"></div>
-                <div class="px-2">หน้า <b>1-25</b></div>
-                <div class=""><img class="w-8 border border-gray-50 rounded-sm" src="assets/icons/left.svg" /></div>
-                <div class=""><img class="w-8 border border-gray-50 rounded-sm transform rotate-180" src="assets/icons/left.svg" /></div>
-            </div>
-        </div>
-
-        <div  *ngIf="tab == 1" class="px-2">
-            <div class="flex items-center space-x-2">
-                <div class="flex-1 font-semibold">ประวัติการใช้โปรโมชัน</div>
-                <app-dropdown placeholder="สถานะ : ทั้งหมด" class="w-44"></app-dropdown>
-                <app-dropdown placeholder="เดือน : ทั้งหมด" class="w-44"></app-dropdown>
-                <app-dropdown placeholder="ปี : 2566" class="w-32"></app-dropdown>
-            </div>
-            
-            <div class="my-4 table w-full">
-                <div class="table-header-group">
-                    <div class="table-row">
-                        <div class="table-cell">#</div>
-                        <div class="table-cell">หมวดหมู่</div>
-                        <div class="table-cell">ประเภทโปรโมชัน</div>
-                        <div class="table-cell">ชื่อโปรโมชัน</div>
-                        <div class="table-cell">วันที่ลงทะเบียน</div>
-                        <div class="table-cell">สถานะ</div>
-                    </div>
-                </div>
-                <div class="table-row-group">
-                    <div class="table-row" *ngFor="let item of [0,1,2,3,4,5]; let i=index">
-                        <div class="table-cell">{{i+1}}</div>
-                        <div class="table-cell">ชอปปิง</div>
-                        <div class="table-cell">ไม่ลงทะเบียนรับสิทธิ์</div>
-                        <div class="table-cell">Tops Online รับส่วนลด 200 บาท</div>
-                        <div class="table-cell">31/12/2566</div>
-                        <div class="table-cell">
-                            <div class="flex space-x-2 items-center">
-                                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
-                                <div>กำลังใช้งาน</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="my-6 flex items-center">
-                <div class="px-2">แสดง</div>
-                <app-dropdown placeholder="10" class="w-20"></app-dropdown>
-                <div class="flex-1"></div>
-                <div class="px-2">หน้า <b>1-25</b></div>
-                <div class=""><img class="w-8 border border-gray-50 rounded-sm" src="assets/icons/left.svg" /></div>
-                <div class=""><img class="w-8 border border-gray-50 rounded-sm transform rotate-180" src="assets/icons/left.svg" />
-                </div>
-            </div>
-        </div>
-
-        <select2 [value]="select2" (update)="select2Update($event)" [data]="select2Datas" placeholder="select ***"></select2>
-
+        <div class="font-semibold">9,900 คะแนน</div>
+      </div>
     </div>
 
-    
+    <app-tab [tabs]="tabs" [index]="tab" (tabChange)="tab = $event"></app-tab>
+
+    <div *ngIf="tab == 0" class="px-2">
+      <div class="flex items-center space-x-2">
+        <div class="flex-1 font-semibold">ประวัติการแลกคะแนน</div>
+        <app-dropdown placeholder="สถานะ : ทั้งหมด" class="w-44"></app-dropdown>
+        <app-dropdown placeholder="เดือน : ทั้งหมด" class="w-44"></app-dropdown>
+        <app-dropdown placeholder="ปี : 2566" class="w-32"></app-dropdown>
+      </div>
+
+      <div class="my-4 table w-full">
+        <div class="table-header-group">
+          <div class="table-row">
+            <div class="table-cell">#</div>
+            <div class="table-cell">หมวดหมู่</div>
+            <div class="table-cell">ประเภทการแลกคะแนน</div>
+            <div class="table-cell text-center">คะแนนที่ใช้แลก</div>
+            <div class="table-cell">ได้รับ</div>
+            <div class="table-cell">วันที่ทำรายการ</div>
+            <div class="table-cell">สถานะ</div>
+          </div>
+        </div>
+        <div class="table-row-group">
+          <div
+            class="table-row"
+            *ngFor="let item of [0, 1, 2, 3, 4, 5]; let i = index"
+          >
+            <div class="table-cell">{{ i + 1 }}</div>
+            <div class="table-cell">แลกของรางวัล</div>
+            <div class="table-cell">ใช้ Point แลก ของ</div>
+            <div class="table-cell text-center">1,500</div>
+            <div class="table-cell">กระเป๋าผ้า GSB</div>
+            <div class="table-cell">31/12/2566</div>
+            <div class="table-cell">
+              <div class="flex space-x-2 items-center">
+                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div>กำลังใช้งาน</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-pagination
+        [page]="page1"
+        [totalPage]="totalPage1"
+        (pageSizeChange)="pageSizeChange1($event)"
+        (pageChange)="pageChange1($event)"
+      ></app-pagination>
+    </div>
+
+    <div *ngIf="tab == 1" class="px-2">
+      <div class="flex items-center space-x-2">
+        <div class="flex-1 font-semibold">ประวัติการใช้โปรโมชัน</div>
+        <app-dropdown placeholder="สถานะ : ทั้งหมด" class="w-44"></app-dropdown>
+        <app-dropdown placeholder="เดือน : ทั้งหมด" class="w-44"></app-dropdown>
+        <app-dropdown placeholder="ปี : 2566" class="w-32"></app-dropdown>
+      </div>
+
+      <div class="my-4 table w-full">
+        <div class="table-header-group">
+          <div class="table-row">
+            <div class="table-cell">#</div>
+            <div class="table-cell">หมวดหมู่</div>
+            <div class="table-cell">ประเภทโปรโมชัน</div>
+            <div class="table-cell">ชื่อโปรโมชัน</div>
+            <div class="table-cell">วันที่ลงทะเบียน</div>
+            <div class="table-cell">สถานะ</div>
+          </div>
+        </div>
+        <div class="table-row-group">
+          <div
+            class="table-row"
+            *ngFor="let item of [0, 1, 2, 3, 4, 5]; let i = index"
+          >
+            <div class="table-cell">{{ i + 1 }}</div>
+            <div class="table-cell">ชอปปิง</div>
+            <div class="table-cell">ไม่ลงทะเบียนรับสิทธิ์</div>
+            <div class="table-cell">Tops Online รับส่วนลด 200 บาท</div>
+            <div class="table-cell">31/12/2566</div>
+            <div class="table-cell">
+              <div class="flex space-x-2 items-center">
+                <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+                <div>กำลังใช้งาน</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <app-pagination
+        [page]="page2"
+        [totalPage]="totalPage2"
+        (pageSizeChange)="pageSizeChange2($event)"
+        (pageChange)="pageChange2($event)"
+      ></app-pagination>
+    </div>
+  </div>
 </div>
-
-

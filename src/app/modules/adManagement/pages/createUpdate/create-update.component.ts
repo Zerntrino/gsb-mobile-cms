@@ -99,6 +99,7 @@ export class CreateUpdateComponent implements OnInit {
     if (this.id == 'create') {
       this.adService.create(this.submitForm.getRawValue()).subscribe(
         (response) => {
+          this.toastService.add('success', 'ทำรายการสำเร็จ');
           this.router.navigate(['/ad-management']);
         },
         (error) => {
@@ -111,6 +112,7 @@ export class CreateUpdateComponent implements OnInit {
         .update(parseInt(this.id), this.submitForm.getRawValue())
         .subscribe(
           (response) => {
+            this.toastService.add('success', 'ทำรายการสำเร็จ');
             this.router.navigate(['/ad-management']);
           },
           (error) => {

@@ -25,19 +25,13 @@ export class CardDetailComponent implements OnInit {
   tabs = ['ประวัติการแลกคะแนน', 'ประวัติการใช้โปรโมชัน'];
   tab = 0;
 
-  select2: Select2Value = '';
-  select2Datas: Select2Option[] = [
-    { value: '1', label: '1' },
-    { value: '2', label: '2' },
-    { value: '3', label: '3' },
-    { value: '4', label: '4' },
-    { value: '5', label: '5' },
-  ];
+  page1 = 1;
+  pageSize1 = 10;
+  totalPage1 = 1;
 
-  select2Update(e: Select2UpdateEvent): void {
-    this.select2 = e.value;
-    console.log(this.select2);
-  }
+  page2 = 1;
+  pageSize2 = 10;
+  totalPage2 = 1;
 
   constructor(
     private router: Router,
@@ -56,5 +50,46 @@ export class CardDetailComponent implements OnInit {
     // );
   }
 
-  ngOnInit(): void {}
+  fetch(): void {
+    // let params = new HttpParams()
+    //   .append('page', this.page)
+    //   .append('pageSize', this.pageSize);
+    // if (this.q) params = params.append('find', this.q);
+    // if (this.date[0] && this.date[1]) {
+    //   params = params
+    //     .append('startDate', dayjs(this.date[0]).format('YYYY-MM-DDT00:00:00'))
+    //     .append('endDate', dayjs(this.date[1]).format('YYYY-MM-DDT00:00:00'));
+    // }
+    // this.newsletterService.getList(params).subscribe(
+    //   (response) => {
+    //     console.log(response.data);
+    //     this.list = response.data as NewsLetter[];
+    //   },
+    //   (error) => {
+    //     console.log(error);
+    //   }
+    // );
+  }
+
+  ngOnInit(): void {
+    this.fetch();
+  }
+
+  pageChange1(p: number): void {
+    this.page1 = p;
+    this.fetch();
+  }
+  pageSizeChange1(s: number): void {
+    this.pageSize1 = s;
+    this.fetch();
+  }
+
+  pageChange2(p: number): void {
+    this.page2 = p;
+    this.fetch();
+  }
+  pageSizeChange2(s: number): void {
+    this.pageSize2 = s;
+    this.fetch();
+  }
 }

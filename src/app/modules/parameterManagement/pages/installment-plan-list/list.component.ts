@@ -131,6 +131,7 @@ export class InstallmentPlanListComponent implements OnInit {
     this.parameterService.createInstallmentPlan(this.plan).subscribe(
       (response) => {
         this.showType = 'hide';
+        this.toastService.add('success', 'ทำรายการสำเร็จ');
         this.fetch();
       },
       (error) => {

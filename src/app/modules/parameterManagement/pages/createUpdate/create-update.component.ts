@@ -122,6 +122,7 @@ export class CreateUpdateComponent implements OnInit {
     if (this.id == 'create') {
       this.parameterService.create(this.submitForm.getRawValue()).subscribe(
         (response) => {
+          this.toastService.add('success', 'ทำรายการสำเร็จ');
           this.router.navigate(['/parameter']);
         },
         (error) => {
@@ -134,6 +135,7 @@ export class CreateUpdateComponent implements OnInit {
         .update(parseInt(this.id), this.submitForm.getRawValue())
         .subscribe(
           (response) => {
+            this.toastService.add('success', 'ทำรายการสำเร็จ');
             this.router.navigate(['/parameter']);
           },
           (error) => {
