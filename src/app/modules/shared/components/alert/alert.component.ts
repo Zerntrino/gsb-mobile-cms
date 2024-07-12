@@ -9,14 +9,15 @@ import {
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-confirm',
-  templateUrl: './confirm.component.html',
-  styleUrls: ['./confirm.component.css'],
+  selector: 'app-alert',
+  templateUrl: './alert.component.html',
+  styleUrls: ['./alert.component.css'],
 })
-export class ConfirmComponent {
+export class AlertComponent {
   @Input() show: number = 0;
   @Output() showChange = new EventEmitter<number>();
 
+  @Input() title: string = 'ยืนยัน';
   @Input() description: string = '';
   @Output() confirm = new EventEmitter<number>();
 

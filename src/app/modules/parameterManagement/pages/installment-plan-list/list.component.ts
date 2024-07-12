@@ -37,6 +37,7 @@ export class InstallmentPlanListComponent implements OnInit {
   totalPage = 1;
 
   deleteId = 0;
+  alertDeleteId = 0;
 
   plan = {} as InstallmentPlan;
 
@@ -141,8 +142,9 @@ export class InstallmentPlanListComponent implements OnInit {
     );
   }
 
-  deleteClick(id: number | undefined) {
-    this.deleteId = id || 0;
+  deleteClick(id: number | undefined, active: boolean) {
+    if (active) this.alertDeleteId = id || 0;
+    else this.deleteId = id || 0;
   }
   deleteConfirm(id: number) {
     this.parameterService.deleteInstallmentPlan(id).subscribe(

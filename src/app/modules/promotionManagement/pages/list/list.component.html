@@ -114,7 +114,7 @@
                 </a>
                 <a
                   class="flex px-4 py-2 cursor-pointer"
-                  (click)="deleteClick(item.id)"
+                  (click)="deleteClick(item.id, item.isActive)"
                 >
                   <div class="flex-1">ลบข้อมูล</div>
                   <img src="assets/icons/remove.svg" class="w-6" alt="" />
@@ -136,8 +136,16 @@
     <app-confirm
       [(show)]="deleteId"
       (confirm)="deleteConfirm(deleteId)"
-      title="ยืนยัน"
-      description="คุณแน่ใจที่จะลบข้อมูล ใช่หรือไม่ ?"
+      description="คุณแน่ใจที่จะ<span class='text-primary underline'>ลบ</span>ข้อมูล<br/> ใช่หรือไม่ ?"
     ></app-confirm>
+
+    <app-alert [(show)]="alertDeleteId">
+      <div class="text-center">
+        ข้อมูลของคุณกำลัง
+        <span class="text-primary">“Activate”</span> อยู่ในขณะนี้ <br />
+        กรุณาทำการ <span class="text-primary">“Inactivate”</span> ข้อมูล<br />
+        ก่อนที่จะลบรายการนี้
+      </div>
+    </app-alert>
   </div>
 </div>
