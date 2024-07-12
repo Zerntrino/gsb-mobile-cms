@@ -19,6 +19,7 @@ import { DragDropModule } from '@angular/cdk/drag-drop';
 import { AngularEditorModule } from '@kolkov/angular-editor';
 import { TagComponent } from './components/tag/tag.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
+import { AlertComponent } from './components/alert/alert.component';
 import { CreateUpdateCategoryDialogComponent } from '../categoryManagement/dialogs/create-update-dialog/create-update-dialog.component';
 
 @NgModule({
@@ -33,6 +34,7 @@ import { CreateUpdateCategoryDialogComponent } from '../categoryManagement/dialo
     ToggleComponent,
     TagComponent,
     ConfirmComponent,
+    AlertComponent,
     CreateUpdateCategoryDialogComponent,
   ],
   imports: [
@@ -63,6 +65,7 @@ import { CreateUpdateCategoryDialogComponent } from '../categoryManagement/dialo
     ToggleComponent,
     TagComponent,
     ConfirmComponent,
+    AlertComponent,
     CreateUpdateCategoryDialogComponent,
     AngularEditorModule,
   ],

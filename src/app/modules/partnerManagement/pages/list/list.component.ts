@@ -30,6 +30,7 @@ export class ListComponent implements OnInit {
   totalPage = 1;
 
   deleteId = 0;
+  alertDeleteId = 0;
 
   constructor(
     private router: Router,
@@ -82,8 +83,9 @@ export class ListComponent implements OnInit {
     return date.locale('th-th').format('DD/MM/BBBB');
   }
 
-  deleteClick(id: number | undefined) {
-    this.deleteId = id || 0;
+  deleteClick(id: number | undefined, active: boolean) {
+    if (active) this.alertDeleteId = id || 0;
+    else this.deleteId = id || 0;
   }
   deleteConfirm(id: number) {
     this.partnerService.delete(id).subscribe(
