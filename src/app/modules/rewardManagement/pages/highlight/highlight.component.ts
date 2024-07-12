@@ -128,7 +128,6 @@ export class HighlightComponent implements OnInit {
   }
 
   submitClick() {
-    console.log('submitClick');
     this.rewardService
       .updateHighlights({
         cardId: parseInt(this.card as string) || 0,
@@ -136,6 +135,7 @@ export class HighlightComponent implements OnInit {
       })
       .subscribe(
         (response) => {
+          this.toastService.add('success', 'ทำรายการสำเร็จ');
           this.router.navigate(['/reward-management']);
         },
         (error) => {

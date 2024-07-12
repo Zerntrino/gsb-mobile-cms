@@ -92,6 +92,7 @@ export class ListComponent implements OnInit {
     if (this.id == 0) {
       this.cardService.create(this.submitForm.getRawValue()).subscribe(
         (response) => {
+          this.toastService.add('success', 'ทำรายการสำเร็จ');
           this.router.navigate(['/privilege']);
         },
         (error) => {
@@ -102,6 +103,7 @@ export class ListComponent implements OnInit {
     } else {
       this.cardService.update(this.id, this.submitForm.getRawValue()).subscribe(
         (response) => {
+          this.toastService.add('success', 'ทำรายการสำเร็จ');
           this.router.navigate(['/privilege']);
         },
         (error) => {

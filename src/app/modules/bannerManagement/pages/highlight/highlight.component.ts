@@ -97,6 +97,7 @@ export class HighlightComponent implements OnInit {
       .updateHighlight({ bannerIds: this.list.map((l) => l.id) })
       .subscribe(
         (response) => {
+          this.toastService.add('success', 'ทำรายการสำเร็จ');
           this.router.navigate(['/banner-management']);
         },
         (error) => {

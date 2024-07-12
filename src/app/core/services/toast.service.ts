@@ -10,7 +10,7 @@ export class ToastService {
   add(
     type: 'success' | 'error' = 'success',
     message: string,
-    duration: number = 5000
+    duration: number = 10000
   ) {
     this.toasts.push({ message, duration, type });
     setTimeout(() => this.remove(0), duration);

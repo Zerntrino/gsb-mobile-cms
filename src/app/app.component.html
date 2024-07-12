@@ -1,21 +1,40 @@
 <div class="relative">
   <router-outlet (activate)="onActivate($event)"></router-outlet>
 
-  <div class="absolute top-20 right-2 space-y-2">
+  <div class="absolute top-20 right-2 space-y-2 w-full max-w-md">
     <div
       *ngFor="let toast of toastService.toasts; let i = index"
       x-transition.duration.300ms
-      class="z-50 rounded-md px-4 py-2 text-white transition"
+      class="z-50 rounded-md px-4 py-4 text-white transition"
       [ngClass]="{
-        'bg-green-500 hover:bg-green-600': toast.type == 'success',
-        'bg-red-500 hover:bg-red-600': toast.type == 'error'
+        'toast-success': toast.type == 'success',
+        'toast-error': toast.type == 'error'
       }"
     >
-      <div class="flex items-center space-x-2">
-        <p class="flex-1 text-sm cursor-pointer" (click)="removeToast(i)">
+      <div class="flex items-center space-x-4">
+        <img
+          *ngIf="toast.type == 'success'"
+          src="assets/icons/success.svg"
+          class="w-11 mx-auto"
+        />
+        <p class="flex-1">
           {{ toast.message }}
         </p>
+        <img
+          src="assets/icons/x.svg"
+          class="w-11 mx-auto cursor-pointer"
+          (click)="removeToast(i)"
+        />
       </div>
     </div>
   </div>
 </div>
+
+<style>
+  .toast-success {
+    background-color: #6dbe06;
+  }
+  .toast-error {
+    background-color: #b80020;
+  }
+</style>
