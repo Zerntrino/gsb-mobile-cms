@@ -72,23 +72,23 @@
       <div class="table-row-group">
         <div class="table-row" *ngFor="let item of list; let i = index">
           <div class="table-cell">{{ i + 1 }}</div>
-          <div class="table-cell">{{ item.category_name }}</div>
-          <div class="table-cell">{{ item.type_name }}</div>
+          <div class="table-cell">{{ item.categoryName }}</div>
+          <div class="table-cell">{{ item.typeName }}</div>
           <div class="table-cell">{{ item.name }}</div>
           <div class="table-cell">
-            {{ dateFormat(item.start_date) }}
+            {{ dateFormat(item.startDate) }}
           </div>
-          <div class="table-cell">{{ dateFormat(item.end_date) }}</div>
+          <div class="table-cell">{{ dateFormat(item.endDate) }}</div>
           <div class="table-cell">
             <div class="flex flex-nowrap space-x-2 items-center">
               <div
                 class="w-2 h-2 rounded-full"
                 [ngClass]="{
-                  'bg-green-500': item.is_active,
-                  'bg-gray-500': !item.is_active
+                  'bg-green-500': item.isActive,
+                  'bg-gray-500': !item.isActive
                 }"
               ></div>
-              <div>{{ item.is_active ? "แสดงผล" : "ไม่แสดงผล" }}</div>
+              <div>{{ item.isActive ? "แสดงผล" : "ไม่แสดงผล" }}</div>
             </div>
           </div>
           <div class="table-cell text-center w-8">
@@ -114,7 +114,7 @@
                 </a>
                 <a
                   class="flex px-4 py-2 cursor-pointer"
-                  (click)="deleteClick(item.id, item.is_active)"
+                  (click)="deleteClick(item.id, item.isActive)"
                 >
                   <div class="flex-1">ลบข้อมูล</div>
                   <img src="assets/icons/remove.svg" class="w-6" alt="" />
