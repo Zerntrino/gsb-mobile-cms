@@ -126,4 +126,8 @@
       </button>
     </div>
   </form>
+
+  <app-alert [(show)]="fileErrorId">
+    <div class="text-center" [innerHTML]="fileError"></div>
+  </app-alert>
 </div>

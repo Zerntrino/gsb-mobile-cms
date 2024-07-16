@@ -42,6 +42,8 @@ export class ListComponent implements OnInit {
     imageUrl: new FormControl(''),
   });
   imageBase64 = '';
+  fileErrorId = 0;
+  fileError = '';
 
   editorConfig = this.utilsService.editorConfig;
 
@@ -118,10 +120,33 @@ export class ListComponent implements OnInit {
     const files = (event.target as HTMLInputElement).files;
     const file = files?.item(0);
     if (file) {
+      if (
+        file.size > 2000000 ||
+        !['jpg', 'jpeg', 'png', 'gif'].includes(
+          file.name.split('.')?.pop()?.toLocaleLowerCase() || ''
+        )
+      ) {
+        this.fileErrorId = Math.random();
+        this.fileError =
+          'ไม่สามารถอัพโหลดไฟล์ได้ <br/> กรุณาตรวจสอบชนิดและขนาดไฟล์อีกครั้ง';
+        return;
+      }
+
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.imageBase64 = reader.result?.toString() || '';
+        const img = new Image();
+        img.onload = () => {
+          if (img.width != 492 || img.height != 300) {
+            this.fileErrorId = Math.random();
+            this.fileError =
+              'ไม่สามารถอัพโหลดไฟล์ได้ <br/> กรุณาตรวจสอบขนาด ความกวาง x ความสูง อีกครั้ง';
+            return;
+          }
+
+          this.imageBase64 = reader.result?.toString() || '';
+        };
+        img.src = URL.createObjectURL(file);
       };
     }
   }

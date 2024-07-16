@@ -588,4 +588,8 @@
     [showDetail]="showDetail"
     (success)="createCategorySuccess()"
   ></create-udpate-category-management-dialog>
+
+  <app-alert [(show)]="fileErrorId">
+    <div class="text-center" [innerHTML]="fileError"></div>
+  </app-alert>
 </div>
