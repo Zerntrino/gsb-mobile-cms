@@ -36,6 +36,8 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
   });
 
   iconImageBase64 = '';
+  fileErrorId = 0;
+  fileError = '';
 
   constructor(
     private router: Router,
@@ -62,10 +64,33 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
     const files = (event.target as HTMLInputElement).files;
     const file = files?.item(0);
     if (file) {
+      if (
+        file.size > 2000000 ||
+        !['jpg', 'jpeg', 'png', 'gif'].includes(
+          file.name.split('.')?.pop()?.toLocaleLowerCase() || ''
+        )
+      ) {
+        this.fileErrorId = Math.random();
+        this.fileError =
+          'ไม่สามารถอัพโหลดไฟล์ได้ <br/> กรุณาตรวจสอบชนิดและขนาดไฟล์อีกครั้ง';
+        return;
+      }
+
       const reader = new FileReader();
       reader.readAsDataURL(file);
       reader.onload = () => {
-        this.iconImageBase64 = reader.result?.toString() || '';
+        const img = new Image();
+        img.onload = () => {
+          if (img.width != 96 || img.height != 96) {
+            this.fileErrorId = Math.random();
+            this.fileError =
+              'ไม่สามารถอัพโหลดไฟล์ได้ <br/> กรุณาตรวจสอบขนาด ความกวาง x ความสูง อีกครั้ง';
+            return;
+          }
+
+          this.iconImageBase64 = reader.result?.toString() || '';
+        };
+        img.src = URL.createObjectURL(file);
       };
     }
   }
