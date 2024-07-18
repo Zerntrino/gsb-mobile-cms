@@ -63,6 +63,9 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
   inputFileChange(event: Event): void {
     const files = (event.target as HTMLInputElement).files;
     const file = files?.item(0);
+
+    this.fileError = '';
+
     if (file) {
       if (
         file.size > 2000000 ||
@@ -72,7 +75,7 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
       ) {
         this.fileErrorId = Math.random();
         this.fileError =
-          'ไม่สามารถอัพโหลดไฟล์ได้ <br/> กรุณาตรวจสอบชนิดและขนาดไฟล์อีกครั้ง';
+          '*ไม่สามารถอัพโหลดไฟล์ได้ กรุณาตรวจสอบชนิดและขนาดไฟล์อีกครั้ง';
         return;
       }
 
@@ -84,7 +87,7 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
           if (img.width != 96 || img.height != 96) {
             this.fileErrorId = Math.random();
             this.fileError =
-              'ไม่สามารถอัพโหลดไฟล์ได้ <br/> กรุณาตรวจสอบขนาด ความกวาง x ความสูง อีกครั้ง';
+              '*ไม่สามารถอัพโหลดไฟล์ได้ กรุณาตรวจสอบขนาด ความกวาง x ความสูง อีกครั้ง';
             return;
           }
 
