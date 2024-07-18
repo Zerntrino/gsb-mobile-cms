@@ -76,7 +76,12 @@
                   />
 
                   <div class="my-4 text-gray-400 text-sm">
-                    เลือกรูปภาพที่ใช้เป็น icon ( ขนาด 96 x 96 .png )
+                    เลือกรูปภาพที่ใช้เป็น icon ( ขนาด 96 x 96 .png ) พื้นหลัง
+                    Transparent
+                  </div>
+
+                  <div class="my-2 text-red-600" *ngIf="fileError">
+                    {{ fileError }}
                   </div>
                 </div>
               </div>
@@ -101,8 +106,4 @@
       </div>
     </div>
   </div>
-
-  <app-alert [(show)]="fileErrorId">
-    <div class="text-center" [innerHTML]="fileError"></div>
-  </app-alert>
 </div>
