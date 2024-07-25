@@ -76,6 +76,15 @@ export class ParameterService extends BaseService {
       object
     );
   }
+  updateInstallmentPlan(
+    id: number,
+    object: object
+  ): Observable<ApiResponse<Installment>> {
+    return this.http.put<ApiResponse<Installment>>(
+      `${this.apiUrl}/cms/installment/plan/${id}`,
+      object
+    );
+  }
 
   getMCCList(params?: HttpParams): Observable<ApiResponse<MCC[]>> {
     return this.http.get<ApiResponse<MCC[]>>(`${this.apiUrl}/cms/mcc`, {

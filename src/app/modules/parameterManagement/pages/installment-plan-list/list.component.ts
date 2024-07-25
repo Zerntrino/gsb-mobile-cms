@@ -129,17 +129,33 @@ export class InstallmentPlanListComponent implements OnInit {
     );
   }
   confirmClick(): void {
-    this.parameterService.createInstallmentPlan(this.plan).subscribe(
-      (response) => {
-        this.showType = 'hide';
-        this.toastService.add('success', 'ทำรายการสำเร็จ');
-        this.fetch();
-      },
-      (error) => {
-        console.log(error);
-        this.toastService.add('error', error);
-      }
-    );
+    if (this.plan.id) {
+      this.parameterService
+        .updateInstallmentPlan(this.plan.id, this.plan)
+        .subscribe(
+          (response) => {
+            this.showType = 'hide';
+            this.toastService.add('success', 'ทำรายการสำเร็จ');
+            this.fetch();
+          },
+          (error) => {
+            console.log(error);
+            this.toastService.add('error', error);
+          }
+        );
+    } else {
+      this.parameterService.createInstallmentPlan(this.plan).subscribe(
+        (response) => {
+          this.showType = 'hide';
+          this.toastService.add('success', 'ทำรายการสำเร็จ');
+          this.fetch();
+        },
+        (error) => {
+          console.log(error);
+          this.toastService.add('error', error);
+        }
+      );
+    }
   }
 
   deleteClick(id: number | undefined, active: boolean) {
