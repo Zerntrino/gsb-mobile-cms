@@ -38,7 +38,7 @@ export class CreateUpdateComponent implements OnInit {
   mode = 'edit';
 
   submitForm = new FormGroup({
-    categorId: new FormControl(0),
+    categoryId: new FormControl(0),
     isActive: new FormControl(true),
     name: new FormControl(''), // [Validators.required]
     description: new FormControl(''),
@@ -148,7 +148,7 @@ export class CreateUpdateComponent implements OnInit {
         (response) => {
           const res = response.data as Promotion;
           this.submitForm.setValue({
-            categorId: res.category_id,
+            categoryId: res.category_id,
             isActive: res.is_active,
             name: res.name,
             description: res.description,
@@ -248,8 +248,8 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   categoryChange(e: Select2UpdateEvent): void {
-    if (this.submitForm.get('categorId')?.value != e.value) {
-      this.submitForm.get('categorId')?.setValue(e.value as number);
+    if (this.submitForm.get('categoryId')?.value != e.value) {
+      this.submitForm.get('categoryId')?.setValue(e.value as number);
     }
   }
   promotionTypeChange(e: Select2UpdateEvent): void {
