@@ -161,6 +161,11 @@
                           submitForm.get('cardId')?.value?.length ==
                           cardIds.length
                         "
+                        [partial]="
+                          (submitForm.get('cardId')?.value || []).length > 0 &&
+                          (submitForm.get('cardId')?.value || []).length !=
+                            cardIds.length
+                        "
                         (valueUpdate)="
                           submitForm
                             .get('cardId')

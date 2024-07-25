@@ -3,13 +3,14 @@
     class="inp-cbx"
     [id]="'cbx-' + randomId"
     type="checkbox"
-    [checked]="value == 'on' || value"
+    [checked]="value == 'on' || value || partial"
     (change)="change($event)"
     [disabled]="disabled"
   /><label class="cbx" [for]="'cbx-' + randomId"
     ><span
       ><svg width="12px" height="10px" viewbox="0 0 12 10">
-        <polyline points="1.5 6 4.5 9 10.5 1"></polyline></svg></span
+        <polyline *ngIf="!partial" points="1.5 6 4.5 9 10.5 1"></polyline>
+        <polyline *ngIf="partial" points="1.5 5 10 5"></polyline></svg></span
   ></label>
   <div class="pl-2 flex-1">
     <ng-content></ng-content>
