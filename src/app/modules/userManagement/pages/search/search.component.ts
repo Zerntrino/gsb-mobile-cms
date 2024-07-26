@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
     const id = this.searchForm.get('id')?.value || '';
     console.log(id);
 
-    this.userService.getUserProfile(id).subscribe(
+    this.userService.getUser(id).subscribe(
       (response) => {
         this.router.navigate([`/user-management/${id}`]);
       },

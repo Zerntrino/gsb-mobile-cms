@@ -18,4 +18,7 @@ export class UserService extends BaseService {
       `${this.apiUrl}/user/${id}/profile`
     );
   }
+  getUser(id: string): Observable<ApiResponse<User>> {
+    return this.http.get<ApiResponse<User>>(`${this.apiUrl}/account/${id}`);
+  }
 }
