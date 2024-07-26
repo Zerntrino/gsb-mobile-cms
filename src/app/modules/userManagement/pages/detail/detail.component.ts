@@ -14,7 +14,7 @@ export class DetailComponent implements OnInit {
   id: string = '';
   navItems = [
     { title: 'จัดการผู้ใช้บัตร', to: '' },
-    { title: 'ข้อมูลผู้ใช้บัตร', to: '' }
+    { title: 'ข้อมูลผู้ใช้บัตร', to: '' },
   ];
 
   constructor(
@@ -24,7 +24,7 @@ export class DetailComponent implements OnInit {
   ) {
     this.id = this.activatedRoute.snapshot.params['id'];
 
-    this.userService.getUserProfile(this.id).subscribe(
+    this.userService.getUser(this.id).subscribe(
       (response) => {
         console.log(response);
       },
