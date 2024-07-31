@@ -7,6 +7,7 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 export class UtilsService {
   editorConfig: AngularEditorConfig = {
     editable: true,
+    minHeight: '320px',
     toolbarHiddenButtons: [
       [
         'subscript',
