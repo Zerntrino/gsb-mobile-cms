@@ -112,6 +112,7 @@
                 name="endDate"
                 formControlName="endDate"
                 placeholder="วว/ดด/ปปปป"
+                [min]="submitForm.get('startDate')?.value"
               />
               <img
                 [owlDateTimeTrigger]="endDate"
