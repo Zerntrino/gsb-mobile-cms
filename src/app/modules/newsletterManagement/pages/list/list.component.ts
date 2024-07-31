@@ -87,7 +87,7 @@ export class ListComponent implements OnInit {
   deleteConfirm(id: number) {
     this.newsletterService.delete(id).subscribe(
       (response) => {
-        this.router.navigate(['/newsletter-management']);
+        this.fetch();
       },
       (error) => {
         console.log(error);
