@@ -99,6 +99,10 @@
       </div>
     </div>
 
+    <div class="text-center font-semibold py-6" *ngIf="q && !list.length">
+      ไม่พบข้อมูลรายการที่ค้นหา
+    </div>
+
     <app-pagination
       [page]="page"
       [totalPage]="totalPage"

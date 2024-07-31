@@ -11,6 +11,7 @@ import { DropdownComponent } from './components/dropdown/dropdown.component';
 import { Select2Module } from 'ng-select2-component';
 import { PaginationComponent } from './components/pagination/pagination.component';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
+import { RadioboxComponent } from './components/radiobox/rediobox.component';
 import { ToggleComponent } from './components/toggle/toggle.component';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
@@ -31,6 +32,7 @@ import { CreateUpdateCategoryDialogComponent } from '../categoryManagement/dialo
     DropdownComponent,
     PaginationComponent,
     CheckboxComponent,
+    RadioboxComponent,
     ToggleComponent,
     TagComponent,
     ConfirmComponent,
@@ -62,6 +64,7 @@ import { CreateUpdateCategoryDialogComponent } from '../categoryManagement/dialo
     OwlNativeDateTimeModule,
     DragDropModule,
     CheckboxComponent,
+    RadioboxComponent,
     ToggleComponent,
     TagComponent,
     ConfirmComponent,

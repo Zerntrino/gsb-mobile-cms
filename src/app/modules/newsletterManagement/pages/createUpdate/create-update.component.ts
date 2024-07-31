@@ -29,6 +29,7 @@ export class CreateUpdateComponent implements OnInit {
     { title: 'สร้างการแจ้งเตือน', to: '' },
   ];
 
+  today = new Date();
   submitForm = new FormGroup({
     subject: new FormControl('', [Validators.required]),
     description: new FormControl(''),

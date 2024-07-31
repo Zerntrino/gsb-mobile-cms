@@ -56,7 +56,33 @@
         <div class="w-full max-w-md px-4">
           <div class="font-semibold my-2">กำหนดเงื่อนไข และการแสดงผล</div>
           <div class="border border-gray-100 rounded-md p-6 pb-12">
-            <div class="relative">
+            <div class="mb-4">
+              <app-radiobox
+                name="date"
+                [value]="
+                  !(submitForm.get('sendNotificationDate')?.value || false)
+                "
+                (valueUpdate)="
+                  submitForm.get('sendNotificationDate')?.setValue('')
+                "
+                >ส่งการแจ้งเตือนทันที</app-radiobox
+              >
+              <app-radiobox
+                name="date"
+                [value]="submitForm.get('sendNotificationDate')?.value || false"
+                (valueUpdate)="
+                  submitForm
+                    .get('sendNotificationDate')
+                    ?.setValue(today.toISOString())
+                "
+                >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-radiobox
+              >
+            </div>
+
+            <div
+              *ngIf="submitForm.get('sendNotificationDate')?.value"
+              class="relative mt-2 mb-6"
+            >
               <div class="text-sm">วันที่แสดง</div>
               <input
                 class="input"

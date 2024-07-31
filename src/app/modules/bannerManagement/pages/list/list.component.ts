@@ -90,7 +90,7 @@ export class ListComponent implements OnInit {
   deleteConfirm(id: number) {
     this.bannerService.delete(id).subscribe(
       (response) => {
-        this.router.navigate(['/banner-management']);
+        this.fetch();
       },
       (error) => {
         console.log(error);
