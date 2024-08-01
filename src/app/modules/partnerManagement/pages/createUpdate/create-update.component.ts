@@ -27,6 +27,8 @@ export class CreateUpdateComponent implements OnInit {
     { title: 'เพิ่มพาร์ทเนอร์', to: '' },
   ];
 
+  mode = 'edit';
+
   submitForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
@@ -48,8 +50,21 @@ export class CreateUpdateComponent implements OnInit {
     private utilsService: UtilsService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
-    this.navItems[1].title =
-      this.id == 'create' ? 'เพิ่มพาร์ทเนอร์' : 'แก้ไขพาร์ทเนอร์';
+
+    activatedRoute.queryParams.subscribe((params) => {
+      if (params['mode'] == 'view') {
+        this.mode = 'view';
+        this.submitForm.disable();
+        this.editorConfig.editable = false;
+      }
+
+      this.navItems[1].title =
+        this.id == 'create'
+          ? 'เพิ่มพาร์ทเนอร์'
+          : this.mode == 'view'
+          ? 'รายละเอียดพาร์ทเนอร์'
+          : 'แก้ไขพาร์ทเนอร์';
+    });
   }
 
   ngOnInit(): void {
@@ -156,5 +171,12 @@ export class CreateUpdateComponent implements OnInit {
           }
         );
     }
+  }
+
+  edit() {
+    this.mode = 'edit';
+    this.submitForm.enable();
+    this.editorConfig.editable = true;
+    this.navItems[1].title = 'แก้ไขโปรโมชัน';
   }
 }

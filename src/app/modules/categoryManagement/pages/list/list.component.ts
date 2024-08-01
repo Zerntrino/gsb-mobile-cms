@@ -34,6 +34,7 @@ export class ListComponent implements OnInit {
   alertDeleteId = 0;
 
   showDetail = -1;
+  showDetailMode = 'edit';
   detail?: Category;
 
   constructor(
@@ -90,9 +91,11 @@ export class ListComponent implements OnInit {
   createClick(): void {
     this.showDetail = 0;
   }
-  showDetailClick(item: Category) {
+  showDetailClick(item: Category, edit: boolean) {
     this.detail = item;
     this.showDetail = item.id || 0;
+    if (edit) this.showDetailMode = 'edit';
+    else this.showDetailMode = 'view';
   }
   showDetailSuccess() {
     this.fetch();

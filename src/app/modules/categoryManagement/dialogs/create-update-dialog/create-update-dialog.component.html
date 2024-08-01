@@ -10,7 +10,13 @@
         <div class="w-full max-w-lg bg-white rounded-md overflow-hidden">
           <div class="flex items-center mt-4 mb-2 border-b border-gray-100">
             <div class="flex-1 py-2 px-6 font-semibold">
-              {{ showDetail == 0 ? "เพิ่มหมวดหมู่" : "แก้ไขหมวดหมู่" }}
+              {{
+                showDetail == 0
+                  ? "เพิ่มหมวดหมู่"
+                  : mode == "view"
+                  ? "รายละเอียดหมวดหมู่"
+                  : "แก้ไขหมวดหมู่"
+              }}
             </div>
             <div class="flex items-center space-x-2 text-sm px-4">
               <div>สถานะ</div>
@@ -19,6 +25,7 @@
                 (valueUpdate)="
                   createUpdateForm.get('isActive')?.setValue($event)
                 "
+                [disabled]="mode == 'view'"
               ></app-toggle>
               <div>
                 {{
@@ -45,6 +52,7 @@
                   formControlName="name"
                   required
                   placeholder="ชื่อหมวดหมู่"
+                  [disabled]="mode == 'view'"
                 />
               </div>
 
@@ -58,7 +66,7 @@
                         createUpdateForm.get('iconImageUrl')?.value
                       )
                     "
-                    (click)="inputImage.click()"
+                    (click)="mode != 'view' ? inputImage.click() : undefined"
                     class="w-20 h-20 mt-2 flex justify-center items-center rounded-md bg-gray-300 cursor-pointer"
                   >
                     <img src="assets/icons/img.svg" class="w-11 mx-auto" />
@@ -69,7 +77,7 @@
                       iconImageBase64 ||
                       createUpdateForm.get('iconImageUrl')?.value
                     "
-                    (click)="inputImage.click()"
+                    (click)="mode != 'view' ? inputImage.click() : undefined"
                     class="relative"
                   >
                     <div
@@ -108,11 +116,24 @@
             <div
               class="px-4 py-4 flex justify-end space-x-4 border-t border-gray-100"
             >
-              <button class="button-default-border" (click)="cancelClick()">
+              <button
+                class="button-default-border"
+                type="button"
+                (click)="cancelClick()"
+              >
                 ยกเลิก
               </button>
               <button
-                class="button"
+                *ngIf="mode == 'view'"
+                class="button-dark w-auto px-6"
+                type="button"
+                (click)="edit()"
+              >
+                แก้ไข
+              </button>
+              <button
+                *ngIf="mode == 'edit'"
+                class="button w-auto px-6"
                 type="submit"
                 [disabled]="!createUpdateForm.valid"
               >
