@@ -33,7 +33,8 @@ export class CreateUpdateComponent implements OnInit {
   submitForm = new FormGroup({
     subject: new FormControl('', [Validators.required]),
     description: new FormControl(''),
-    sendNotificationDate: new FormControl('', [Validators.required]),
+    sendNotificationDate: new FormControl(''),
+    sendNotificationTime: new FormControl(''),
     condition: new FormControl(''),
     isActive: new FormControl(true),
     isSendNotification: new FormControl(true),
@@ -81,10 +82,12 @@ export class CreateUpdateComponent implements OnInit {
       this.newsLetterService.get(this.id).subscribe(
         (response) => {
           const res = response.data as NewsLetter;
+
           this.submitForm.setValue({
             subject: res.subject,
             description: res.description,
             sendNotificationDate: res.sendNotificationDate,
+            sendNotificationTime: res.sendNotificationDate,
             condition: res.condition || null,
             isActive: res.isActive,
             isSendNotification: res.isSendNotification,
@@ -121,8 +124,19 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   async onSubmit() {
+    const raw = this.submitForm.getRawValue();
+    if (raw.sendNotificationDate && raw.sendNotificationTime) {
+      const date = new Date(raw.sendNotificationDate);
+      const time = new Date(raw.sendNotificationTime);
+      date.setHours(time.getHours());
+      date.setMinutes(time.getMinutes());
+
+      raw.sendNotificationDate = date.toISOString();
+      raw.sendNotificationTime = null;
+    }
+
     if (this.id == 'create') {
-      this.newsLetterService.create(this.submitForm.getRawValue()).subscribe(
+      this.newsLetterService.create(raw).subscribe(
         (response) => {
           this.toastService.add('success', 'ทำรายการสำเร็จ');
           this.router.navigate(['/newsletter-management']);
@@ -133,18 +147,16 @@ export class CreateUpdateComponent implements OnInit {
         }
       );
     } else {
-      this.newsLetterService
-        .update(parseInt(this.id), this.submitForm.getRawValue())
-        .subscribe(
-          (response) => {
-            this.toastService.add('success', 'ทำรายการสำเร็จ');
-            this.router.navigate(['/newsletter-management']);
-          },
-          (error) => {
-            console.log(error);
-            this.toastService.add('error', error);
-          }
-        );
+      this.newsLetterService.update(parseInt(this.id), raw).subscribe(
+        (response) => {
+          this.toastService.add('success', 'ทำรายการสำเร็จ');
+          this.router.navigate(['/newsletter-management']);
+        },
+        (error) => {
+          console.log(error);
+          this.toastService.add('error', error);
+        }
+      );
     }
   }
 }

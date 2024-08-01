@@ -96,6 +96,29 @@
               <owl-date-time #date pickerType="calendar"></owl-date-time>
             </div>
 
+            <div
+              *ngIf="!submitForm.get('isSendNotification')?.value"
+              class="relative mt-2 mb-6"
+            >
+              <div class="text-sm">เวลาที่แสดง</div>
+              <input
+                class="input"
+                [owlDateTime]="time"
+                [owlDateTimeTrigger]="time"
+                name="sendNotificationTime"
+                formControlName="sendNotificationTime"
+                placeholder="12:00"
+              />
+              <img
+                [owlDateTimeTrigger]="time"
+                src="assets/icons/calendar.svg"
+                class="absolute bottom-2 right-2 w-6 cursor-pointer"
+              />
+              <owl-date-time #time pickerType="timer"></owl-date-time>
+            </div>
+
+            {{ submitForm.get("sendNotificationDate")?.value }}
+
             <div class="my-2">
               <!-- <app-checkbox
                 [value]="submitForm.get('isSendNotification')?.value || false"
