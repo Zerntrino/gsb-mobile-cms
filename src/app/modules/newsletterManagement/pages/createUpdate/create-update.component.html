@@ -59,28 +59,24 @@
             <div class="mb-4">
               <app-radiobox
                 name="date"
-                [value]="
-                  !(submitForm.get('sendNotificationDate')?.value || false)
-                "
+                [value]="submitForm.get('isSendNotification')?.value || false"
                 (valueUpdate)="
-                  submitForm.get('sendNotificationDate')?.setValue('')
+                  submitForm.get('isSendNotification')?.setValue(true)
                 "
                 >ส่งการแจ้งเตือนทันที</app-radiobox
               >
               <app-radiobox
                 name="date"
-                [value]="submitForm.get('sendNotificationDate')?.value || false"
+                [value]="!submitForm.get('isSendNotification')?.value || false"
                 (valueUpdate)="
-                  submitForm
-                    .get('sendNotificationDate')
-                    ?.setValue(today.toISOString())
+                  submitForm.get('isSendNotification')?.setValue(false)
                 "
                 >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-radiobox
               >
             </div>
 
             <div
-              *ngIf="submitForm.get('sendNotificationDate')?.value"
+              *ngIf="!submitForm.get('isSendNotification')?.value"
               class="relative mt-2 mb-6"
             >
               <div class="text-sm">วันที่แสดง</div>
@@ -101,13 +97,13 @@
             </div>
 
             <div class="my-2">
-              <app-checkbox
+              <!-- <app-checkbox
                 [value]="submitForm.get('isSendNotification')?.value || false"
                 (valueUpdate)="
                   submitForm.get('isSendNotification')?.setValue($event)
                 "
                 >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-checkbox
-              >
+              > -->
             </div>
 
             <div class="relative">
