@@ -47,6 +47,17 @@
           <div
             class="border border-gray-100 rounded-md px-6 pt-6 pb-12 space-y-4"
           >
+            <div>
+              <div class="text-sm">Ref.บัตร</div>
+              <select2
+                class="flex w-full"
+                [value]="submitForm.get('type')?.value || ''"
+                (update)="submitForm.get('type')?.setValue($event.value)"
+                [data]="typeOption"
+                placeholder="ประเภทบัตร"
+              ></select2>
+            </div>
+
             <div class="">
               <div class="text-sm">ชื่อบัตร</div>
               <input
@@ -58,22 +69,10 @@
             </div>
 
             <div>
-              <div class="text-sm">ประเภทบัตร</div>
-              <select2
-                class="flex w-full"
-                [value]="submitForm.get('type')?.value || ''"
-                (update)="submitForm.get('type')?.setValue($event.value)"
-                [data]="typeOption"
-                placeholder="ประเภทบัตร"
-              ></select2>
-            </div>
-
-            <div>
               <div class="text-sm">รายละเอียด</div>
               <div>
                 <angular-editor
                   placeholder="รายละเอียด"
-                  minHeight="180"
                   name="description"
                   formControlName="description"
                   [config]="editorConfig"
