@@ -29,6 +29,8 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
   @Input() detail?: Category;
   @Output() success = new EventEmitter<number>();
 
+  @Input() mode = 'edit';
+
   createUpdateForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     iconImageUrl: new FormControl(''),
@@ -50,12 +52,16 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    if (this.detail)
+    if (this.mode == 'view') this.createUpdateForm.disable();
+    else this.createUpdateForm.enable();
+
+    if (this.detail) {
       this.createUpdateForm.setValue({
         name: this.detail.name,
         iconImageUrl: this.detail.iconImageUrl,
         isActive: this.detail.isActive,
       });
+    }
   }
 
   fetch(): void {}
@@ -154,5 +160,10 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
 
   cancelClick() {
     this.success.emit(0);
+  }
+
+  edit() {
+    this.mode = 'edit';
+    this.createUpdateForm.enable();
   }
 }
