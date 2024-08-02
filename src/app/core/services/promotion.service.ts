@@ -22,6 +22,14 @@ export class PromotionService extends BaseService {
       }
     );
   }
+  getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
+    return this.http.get<ApiResponse<Paginate>>(
+      `${this.apiUrl}/cms/promotion/totalpage`,
+      {
+        params: params,
+      }
+    );
+  }
 
   get(id: string): Observable<ApiResponse<Promotion>> {
     return this.http.get<ApiResponse<Promotion>>(

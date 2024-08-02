@@ -69,6 +69,12 @@ export class InstallmentPlanListComponent implements OnInit {
         console.log(error);
       }
     );
+    this.parameterService.getInstallmentPlanListTotal(params).subscribe(
+      (response) => {
+        this.totalPage = response.data?.totalPage || 1;
+      },
+      (error) => {}
+    );
   }
 
   qChange(): void {

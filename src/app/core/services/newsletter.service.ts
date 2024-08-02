@@ -21,6 +21,14 @@ export class NewsLetterService extends BaseService {
       }
     );
   }
+  getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
+    return this.http.get<ApiResponse<Paginate>>(
+      `${this.apiUrl}/cms/notification/totalpage`,
+      {
+        params: params,
+      }
+    );
+  }
 
   get(id: string): Observable<ApiResponse<NewsLetter>> {
     return this.http.get<ApiResponse<NewsLetter>>(
