@@ -84,6 +84,12 @@ export class ListComponent implements OnInit {
         console.log(error);
       }
     );
+    this.promotionService.getListTotal(params).subscribe(
+      (response) => {
+        this.totalPage = response.data?.totalPage || 1;
+      },
+      (error) => {}
+    );
   }
 
   fetchCategory(): void {

@@ -18,6 +18,14 @@ export class BannerService extends BaseService {
       params: params,
     });
   }
+  getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
+    return this.http.get<ApiResponse<Paginate>>(
+      `${this.apiUrl}/cms/banner/totalpage`,
+      {
+        params: params,
+      }
+    );
+  }
 
   get(id: string): Observable<ApiResponse<Banner>> {
     return this.http.get<ApiResponse<Banner>>(

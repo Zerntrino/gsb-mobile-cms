@@ -60,6 +60,12 @@ export class ListComponent implements OnInit {
         console.log(error);
       }
     );
+    this.parameterService.getListTotal(params).subscribe(
+      (response) => {
+        this.totalPage = response.data?.totalPage || 1;
+      },
+      (error) => {}
+    );
   }
 
   qChange(): void {

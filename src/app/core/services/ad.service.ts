@@ -14,10 +14,17 @@ export class AdService extends BaseService {
   }
 
   getList(params?: HttpParams): Observable<ApiResponse<Ad[]>> {
-    console.log(params?.toString());
     return this.http.get<ApiResponse<Ad[]>>(`${this.apiUrl}/cms/advertise`, {
       params: params,
     });
+  }
+  getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
+    return this.http.get<ApiResponse<Paginate>>(
+      `${this.apiUrl}/cms/advertise/totalpage`,
+      {
+        params: params,
+      }
+    );
   }
 
   get(id: string): Observable<ApiResponse<Ad>> {

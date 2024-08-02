@@ -25,6 +25,15 @@ export class ParameterService extends BaseService {
       }
     );
   }
+  getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
+    return this.http.get<ApiResponse<Paginate>>(
+      `${this.apiUrl}/cms/installment/totalpage`,
+      {
+        params: params,
+      }
+    );
+  }
+
   get(id: string): Observable<ApiResponse<Installment>> {
     return this.http.get<ApiResponse<Installment>>(
       `${this.apiUrl}/cms/installment/${id}`
@@ -53,6 +62,16 @@ export class ParameterService extends BaseService {
   ): Observable<ApiResponse<InstallmentPlan[]>> {
     return this.http.get<ApiResponse<InstallmentPlan[]>>(
       `${this.apiUrl}/cms/installment/plan`,
+      {
+        params: params,
+      }
+    );
+  }
+  getInstallmentPlanListTotal(
+    params?: HttpParams
+  ): Observable<ApiResponse<Paginate>> {
+    return this.http.get<ApiResponse<Paginate>>(
+      `${this.apiUrl}/cms/installment/plan/totalpage`,
       {
         params: params,
       }

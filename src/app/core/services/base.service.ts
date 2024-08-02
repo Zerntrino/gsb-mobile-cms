@@ -30,8 +30,6 @@ export class ApiResponse<T> {
   message?: string;
 }
 
-export interface Paginate<T> {
-  data: T;
-  dataCount: number;
-  total: number;
+export interface Paginate {
+  totalPage: number;
 }

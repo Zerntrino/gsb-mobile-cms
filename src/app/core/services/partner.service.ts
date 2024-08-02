@@ -19,6 +19,14 @@ export class PartnerService extends BaseService {
       params: params,
     });
   }
+  getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
+    return this.http.get<ApiResponse<Paginate>>(
+      `${this.apiUrl}/cms/partner/totalpage`,
+      {
+        params: params,
+      }
+    );
+  }
 
   get(id: string): Observable<ApiResponse<Partner>> {
     return this.http.get<ApiResponse<Partner>>(
