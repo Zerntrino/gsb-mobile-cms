@@ -1,0 +1,114 @@
+<div class="flex flex-col h-full">
+  <div class="flex items-center my-2 space-x-4">
+    <div class="flex-1">
+      <app-nav title="Security Log" class=""></app-nav>
+    </div>
+  </div>
+
+  <div class="flex-1 mx-w my-2 bg-white">
+    <div class="py-4 px-6 flex space-x-2 items-center">
+      <div class="flex-1 flex relative">
+        <img
+          src="assets/icons/search.svg"
+          class="mx-auto w-6 absolute top-2 left-2"
+          alt=""
+        />
+        <input
+          class="input max-w-lg pl-10"
+          [(ngModel)]="q"
+          placeholder="ค้นหา: User name, IP Address"
+          (ngModelChange)="qChange()"
+        />
+      </div>
+
+      <div class="relative">
+        <input
+          class="input"
+          [owlDateTime]="date"
+          [owlDateTimeTrigger]="date"
+          placeholder="Logged Time "
+          selectMode="range"
+          (dateTimeInput)="dateChange($event.value)"
+          ([value])="(date)"
+        />
+        <img
+          [owlDateTimeTrigger]="date"
+          src="assets/icons/calendar.svg"
+          class="absolute bottom-2 right-2 w-6 cursor-pointer"
+        />
+        <owl-date-time #date pickerType="calendar"></owl-date-time>
+      </div>
+
+      <select2
+        class="flex w-44"
+        [value]="type"
+        (update)="typeChange($event)"
+        [data]="typeOption"
+        placeholder="Log Type : ทั้งหมด"
+      ></select2>
+
+      <select2
+        class="flex w-44"
+        [value]="action"
+        (update)="actionChange($event)"
+        [data]="actionOption"
+        placeholder="Action : ทั้งหมด"
+      ></select2>
+
+      <select2
+        class="flex w-44"
+        [value]="userGroup"
+        (update)="userGroupChange($event)"
+        [data]="userGroupOption"
+        placeholder="Usergroup : ทั้งหมด"
+      ></select2>
+
+      <div
+        class="text-primary underline font-semibold cursor-pointer px-4"
+        (click)="clearFilter()"
+      >
+        Clear All
+      </div>
+    </div>
+
+    <div class="px-6 table w-full">
+      <div class="table-header-group">
+        <div class="table-row">
+          <div class="table-cell">#</div>
+          <div class="table-cell">Logged Time</div>
+          <div class="table-cell">Log Type</div>
+          <div class="table-cell">Action</div>
+          <div class="table-cell">Message</div>
+          <div class="table-cell">Username</div>
+          <div class="table-cell">Usergroup</div>
+          <div class="table-cell">IP Address</div>
+        </div>
+      </div>
+      <div class="table-row-group">
+        <div class="table-row" *ngFor="let item of list; let i = index">
+          <div class="table-cell">{{ i + 1 }}</div>
+          <div class="table-cell">
+            {{ dateFormat(item.createTime) }}
+          </div>
+          <div class="table-cell">{{ item.type }}</div>
+          <div class="table-cell">{{ item.action }}</div>
+          <div class="table-cell">{{ item.message }}</div>
+          <div class="table-cell">{{ item.username }}</div>
+          <div class="table-cell">{{ item.userGroup }}</div>
+          <div class="table-cell">{{ item.ip }}</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center font-semibold py-6" *ngIf="q && !list.length">
+      ไม่พบข้อมูลรายการที่ค้นหา
+    </div>
+
+    <app-pagination
+      [page]="page"
+      [totalPage]="totalPage"
+      (pageSizeChange)="pageSizeChange($event)"
+      (pageChange)="pageChange($event)"
+    ></app-pagination>
+  </div>
+</div>

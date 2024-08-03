@@ -112,6 +112,23 @@ export class LayoutComponent implements OnDestroy, OnInit {
           } as LeftMenu,
         ],
       } as LeftMenu,
+      {
+        title: 'LOG',
+        items: [
+          {
+            title: 'Audit Log',
+            icon: 'assets/icons/menus/audit-log.svg',
+            to: '/audit-log',
+            active: this.url?.startsWith('/audit-log'),
+          } as LeftMenu,
+          {
+            title: 'Security Log',
+            icon: 'assets/icons/menus/security-log.svg',
+            to: '/security-log',
+            active: this.url?.startsWith('/security-log'),
+          } as LeftMenu,
+        ],
+      } as LeftMenu,
     ];
   }
 
