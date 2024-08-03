@@ -207,6 +207,36 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'audit-log',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/auditLog/audit-log.module').then(
+            (m) => m.AuditLogModule
+          ),
+        data: { title: 'audit-log' },
+      },
+    ],
+  },
+  {
+    path: 'security-log',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/securityLog/security-log.module').then(
+            (m) => m.SecurityLogModule
+          ),
+        data: { title: 'security-log' },
+      },
+    ],
+  },
+  {
     path: '404-not-found',
     component: Error404Component,
     data: { title: '404' },
