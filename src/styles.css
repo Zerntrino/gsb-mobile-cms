@@ -74,3 +74,19 @@ select2  {
     padding-right: 0 !important;
     border: none !important;
 }
+
+.custom-date-picker .owl-dt-calendar-control {
+    display: none;
+}
+
+.custom-date-picker .owl-dt-calendar-header {
+    display: none;
+}
+
+.owl-dt-calendar-control-content button.owl-dt-control-button {
+    user-select: none !important;
+    pointer-events: none !important;
+}
+.owl-dt-calendar-control-content .owl-dt-control-button-arrow {
+    display: none !important;
+}
