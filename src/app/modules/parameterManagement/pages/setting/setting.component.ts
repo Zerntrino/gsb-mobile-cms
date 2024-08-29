@@ -24,7 +24,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 })
 export class ParameterSettingComponent implements OnInit {
   navItems = [
-    { title: 'จัดการการผ่อนชำระ', to: '' },
+    { title: 'จัดการการผ่อนชำระ', to: '/parameter' },
     { title: 'ตั้งค่า', to: '' },
   ];
 

@@ -32,7 +32,7 @@ import { Promotion } from 'src/app/core/models/promotion.model';
 export class CreateUpdateComponent implements OnInit {
   id = 'create';
   navItems = [
-    { title: 'จัดการโปรโมชัน', to: '' },
+    { title: 'จัดการโปรโมชัน', to: '/promotion-management' },
     { title: 'สร้างโปรโมชัน', to: '' },
   ];
   mode = 'edit';

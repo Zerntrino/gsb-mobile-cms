@@ -32,7 +32,7 @@ import { MCC } from 'src/app/core/models/parameter.model';
 export class CreateUpdateComponent implements OnInit {
   id = 'create';
   navItems = [
-    { title: 'จัดการรีวอร์ด', to: '' },
+    { title: 'จัดการรีวอร์ด', to: '/reward-management' },
     { title: 'สร้างรีวอร์ด', to: '' },
   ];
   mode = 'edit';

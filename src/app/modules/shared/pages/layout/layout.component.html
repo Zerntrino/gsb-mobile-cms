@@ -1,7 +1,7 @@
-<div class="flex">
+<div class="flex" style="min-height: 100vh">
   <!-- left-menu -->
   <div
-    class="w-20 h-screen left-bar transition-all z-10 sticky top-0 left-0"
+    class="w-20 h-full left-bar transition-all z-10 sticky top-0 left-0"
     [ngClass]="{ 'w-60': leftMenuFull }"
   >
     <div class="my-2">
@@ -24,10 +24,15 @@
     </div>
 
     <div class="my-4" *ngFor="let group of leftMenus">
-      <div class="text-white mb-2 px-3 text-10px" [ngClass]="{
-        'text-center': !leftMenuFull,
-        'text-left px-6': leftMenuFull
-      }">{{ group.title }}</div>
+      <div
+        class="text-white mb-2 px-3 text-10px"
+        [ngClass]="{
+          'text-center': !leftMenuFull,
+          'text-left px-6': leftMenuFull
+        }"
+      >
+        {{ group.title }}
+      </div>
 
       <div class="space-y-2 flex flex-col">
         <a

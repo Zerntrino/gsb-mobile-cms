@@ -13,7 +13,7 @@ import { NavItem } from 'src/app/modules/shared/components/nav/nav.component';
 export class DetailComponent implements OnInit {
   id: string = '';
   navItems = [
-    { title: 'จัดการผู้ใช้บัตร', to: '' },
+    { title: 'จัดการผู้ใช้บัตร', to: '/user-management' },
     { title: 'ข้อมูลผู้ใช้บัตร', to: '' },
   ];
 

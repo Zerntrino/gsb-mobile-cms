@@ -27,7 +27,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 export class CreateUpdateComponent implements OnInit {
   id = 'create';
   navItems = [
-    { title: 'จัดการการผ่อนชำระ', to: '' },
+    { title: 'จัดการการผ่อนชำระ', to: '/parameter' },
     { title: 'สร้างพารามิเตอร์', to: '' },
   ];
   installmentPlans: InstallmentPlan[] = [];

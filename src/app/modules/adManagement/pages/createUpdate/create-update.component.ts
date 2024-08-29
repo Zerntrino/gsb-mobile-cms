@@ -20,7 +20,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 export class CreateUpdateComponent implements OnInit {
   id = 'create';
   navItems = [
-    { title: 'จัดการโฆษณา', to: '' },
+    { title: 'จัดการโฆษณา', to: '/ad-management' },
     { title: 'สร้างโฆษณา', to: '' },
   ];
 
