@@ -25,7 +25,7 @@ import { Card } from 'src/app/core/models/card.model';
 export class CreateUpdateComponent implements OnInit {
   id = 'create';
   navItems = [
-    { title: 'จัดการการแจ้งเตือน', to: '' },
+    { title: 'จัดการการแจ้งเตือน', to: '/newsletter-management' },
     { title: 'สร้างการแจ้งเตือน', to: '' },
   ];
 

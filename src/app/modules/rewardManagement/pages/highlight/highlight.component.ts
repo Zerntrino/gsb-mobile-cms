@@ -25,7 +25,7 @@ export class HighlightComponent implements OnInit {
   navItems = [
     {
       title: 'จัดการรีวอร์ด/เลือกไฮไลท์ : รีวอร์ด',
-      to: '',
+      to: '/reward-management',
     },
     { title: 'จัดการไฮไลท์ : รีวอร์ด', to: '' },
   ];

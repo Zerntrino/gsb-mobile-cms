@@ -18,8 +18,8 @@ import {
 export class CardDetailComponent implements OnInit {
   id: string = '';
   navItems = [
-    { title: 'จัดการผู้ใช้บัตร', to: '' },
-    { title: 'ข้อมูลผู้ใช้บัตร', to: '' },
+    { title: 'จัดการผู้ใช้บัตร', to: '/user-management' },
+    { title: 'ข้อมูลผู้ใช้บัตร', to: '/user-management/' },
     { title: 'บัตรเครดิต', to: '' },
   ];
   tabs = ['ประวัติการแลกคะแนน', 'ประวัติการใช้โปรโมชัน'];
@@ -39,6 +39,7 @@ export class CardDetailComponent implements OnInit {
     private userService: UserService
   ) {
     this.id = this.activatedRoute.snapshot.params['id'];
+    this.navItems[1].to = '/user-management/' + this.id;
 
     // this.userService.getUserProfile(this.id).subscribe(
     //   (response) => {

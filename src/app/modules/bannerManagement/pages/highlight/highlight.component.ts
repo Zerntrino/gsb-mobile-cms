@@ -19,7 +19,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 })
 export class HighlightComponent implements OnInit {
   navItems = [
-    { title: 'จัดการแบนเนอร์', to: '' },
+    { title: 'จัดการแบนเนอร์', to: '/banner-management' },
     { title: 'เลือกไฮไลท์ : แบนเนอร์', to: '' },
   ];
 

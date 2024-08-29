@@ -23,7 +23,7 @@ import { UtilsService } from 'src/app/core/services/utils.service';
 export class CreateUpdateComponent implements OnInit {
   id = 'create';
   navItems = [
-    { title: 'จัดการพาร์ทเนอร์', to: '' },
+    { title: 'จัดการพาร์ทเนอร์', to: '/partner-management' },
     { title: 'เพิ่มพาร์ทเนอร์', to: '' },
   ];
 
