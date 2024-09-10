@@ -3,7 +3,9 @@ export interface Promotion {
   name: string;
   description: string;
   category_id: number;
+  categoryId: number;
   category_name: string;
+  categoryName: string;
   endDate: string;
   startDate: string;
   start_date: string;
@@ -19,25 +21,34 @@ export interface Promotion {
   select: boolean;
 
   about_it: string[];
+  aboutIt: string[];
   mcc_code: string[];
+  mccCode: string[];
 
   coverImageUrl: string;
   cover_url: string;
+  coverUrl: string;
   imageUrl: string[];
   image_url: string[];
 
   generate_type: number;
+  generateType: number;
   prefix_code: string;
+  prefixCode: string;
   import_code?: string[];
+  importCode?: string[];
   isNotification: boolean;
   is_notification: boolean;
-  categoryName?: string;
 
   limit: number;
   limit_per_month: number;
+  limitPerMonth: number;
   limit_per_card_month: number;
+  limitPerCardMonth: number;
   limit_per_card_day: number;
+  limitPerCardDay: number;
   card_id: number[];
+  cardId: number[];
 }
 
 export interface PromotionHistory {
