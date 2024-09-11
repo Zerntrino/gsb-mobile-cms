@@ -25,6 +25,12 @@ export class ListComponent implements OnInit {
   page = 1;
   pageSize = 10;
   totalPage = 1;
+  status: Select2Value = '';
+  statusOption: Select2Option[] = [
+    { value: '', label: 'ทั้งหมด' },
+    { value: 'true', label: 'แสดงผล' },
+    { value: 'false', label: 'ไม่แสดงผล' },
+  ];
 
   deleteId = 0;
 
@@ -48,6 +54,7 @@ export class ListComponent implements OnInit {
         .append('startDate', dayjs(this.date[0]).format('YYYY-MM-DDT00:00:00'))
         .append('endDate', dayjs(this.date[1]).format('YYYY-MM-DDT00:00:00'));
     }
+    if (this.status) params = params.append('status', this.status as string);
 
     this.newsletterService.getList(params).subscribe(
       (response) => {
@@ -81,10 +88,20 @@ export class ListComponent implements OnInit {
     this.pageSize = s;
     this.fetch();
   }
+  statusChange(e: Select2UpdateEvent): void {
+    if (this.status != e.value) {
+      this.status = e.value;
+      this.fetch();
+    }
+  }
 
   dateFormat(d: string): string {
     const date = dayjs(d);
     return date.locale('th-th').format('DD/MM/BBBB');
+  }
+  timeFormat(d: string): string {
+    const date = dayjs(d);
+    return date.locale('th-th').format('HH:mm');
   }
 
   deleteClick(id: number | undefined) {
