@@ -8,7 +8,7 @@
   </div>
 
   <div class="flex-1 mx-w my-2 bg-white">
-    <div class="py-4 px-6 flex">
+    <div class="py-4 px-6 flex space-x-4">
       <div class="flex-1 flex relative">
         <img
           src="assets/icons/search.svg"
@@ -21,6 +21,16 @@
           placeholder="ค้นหา: หัวข้อการแจ้งเตือน"
           (ngModelChange)="qChange()"
         />
+      </div>
+      <div class="flex items-center space-x-2">
+        <div>สถานะ</div>
+        <select2
+          class="flex w-44"
+          [value]="status"
+          (update)="statusChange($event)"
+          [data]="statusOption"
+          placeholder="สถานะ : ทั้งหมด"
+        ></select2>
       </div>
       <div class="relative">
         <input
@@ -47,7 +57,9 @@
           <div class="table-cell">#</div>
           <div class="table-cell">หัวข้อการแจ้งเตือน</div>
           <div class="table-cell">วันที่แสดง</div>
+          <div class="table-cell">เวลาที่แสดง</div>
           <div class="table-cell">เงื่อนไข</div>
+          <div class="table-cell">สถานะ</div>
           <div class="table-cell w-8">&nbsp;</div>
         </div>
       </div>
@@ -62,7 +74,29 @@
             {{ dateFormat(item.sendNotificationDate) }}
           </div>
           <div class="table-cell">
+            {{ timeFormat(item.sendNotificationDate) }}
+          </div>
+          <div class="table-cell">
             <div class="line-clamp-2 max-w-xs">{{ item.condition }}</div>
+          </div>
+          <div class="table-cell">
+            <div class="flex space-x-2 items-center">
+              <div
+                class="w-2 h-2 rounded-full"
+                [ngClass]="{
+                  'bg-green-500': item.isActive,
+                  'bg-gray-400': !item.isActive
+                }"
+              ></div>
+              <div
+                [ngClass]="{
+                  'text-gray-700': item.isActive,
+                  'text-gray-400': !item.isActive
+                }"
+              >
+                {{ item.isActive ? "แสดงผล" : "ไม่แสดงผล" }}
+              </div>
+            </div>
           </div>
           <div class="table-cell text-center w-8">
             <app-dropdown>
