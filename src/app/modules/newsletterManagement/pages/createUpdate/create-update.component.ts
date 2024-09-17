@@ -128,7 +128,7 @@ export class CreateUpdateComponent implements OnInit {
     if (raw.sendNotificationDate && raw.sendNotificationTime) {
       const date = new Date(raw.sendNotificationDate);
       const time = new Date(raw.sendNotificationTime);
-      date.setHours(time.getHours());
+      date.setHours(time.getHours() + 7);
       date.setMinutes(time.getMinutes());
 
       raw.sendNotificationDate = date.toISOString();
