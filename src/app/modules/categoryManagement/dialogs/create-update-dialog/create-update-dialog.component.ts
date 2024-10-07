@@ -38,6 +38,7 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
   });
 
   iconImageBase64 = '';
+  iconImage: File | null = null;
   fileErrorId = 0;
   fileError = '';
 
@@ -98,6 +99,7 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
           }
 
           this.iconImageBase64 = reader.result?.toString() || '';
+          this.iconImage = file;
         };
         img.src = URL.createObjectURL(file);
       };
@@ -118,11 +120,9 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
 
   async onCreateUpdateSubmit() {
     if (this.iconImageBase64) {
-      const upload = await this.categoryService
-        .upload({
-          imageBase64: this.iconImageBase64,
-        })
-        .toPromise();
+      const data = new FormData();
+      data.append('file', this.iconImage as File);
+      const upload = await this.categoryService.upload(data).toPromise();
 
       this.createUpdateForm.get('iconImageUrl')?.setValue(upload?.data || '');
     }
