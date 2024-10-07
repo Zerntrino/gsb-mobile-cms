@@ -41,7 +41,7 @@ export class CardService extends BaseService {
     return this.http.delete<ApiResponse<Card>>(`${this.apiUrl}/cms/card/${id}`);
   }
 
-  upload(object: object): Observable<ApiResponse<string>> {
+  upload(object: FormData): Observable<ApiResponse<string>> {
     return this.http.post<ApiResponse<string>>(
       `${this.apiUrl}/upload/card`,
       object

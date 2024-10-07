@@ -54,7 +54,7 @@ export class RewardService extends BaseService {
     );
   }
 
-  upload(object: object): Observable<ApiResponse<string>> {
+  upload(object: FormData): Observable<ApiResponse<string>> {
     return this.http.post<ApiResponse<string>>(
       `${this.apiUrl}/upload/reward`,
       object
