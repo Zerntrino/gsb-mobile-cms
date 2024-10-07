@@ -68,7 +68,9 @@ export class CreateUpdateComponent implements OnInit {
   });
 
   coverImageBase64 = '';
+  coverImage: File | null = null;
   imageBase64: string[] = [];
+  images: File[] = [];
   fileErrorId = 0;
   fileError = '';
 
@@ -341,6 +343,7 @@ export class CreateUpdateComponent implements OnInit {
           }
 
           this.coverImageBase64 = reader.result?.toString() || '';
+          this.coverImage = file;
         };
         img.src = URL.createObjectURL(file);
       };
@@ -376,6 +379,7 @@ export class CreateUpdateComponent implements OnInit {
           }
 
           this.imageBase64.push(reader.result?.toString() || '');
+          this.images.push(file);
         };
         img.src = URL.createObjectURL(file);
       };
@@ -388,22 +392,18 @@ export class CreateUpdateComponent implements OnInit {
 
   async onSubmit() {
     if (this.coverImageBase64) {
-      const upload = await this.rewardService
-        .upload({
-          imageBase64: this.coverImageBase64,
-        })
-        .toPromise();
+      const data = new FormData();
+      data.append('file', this.coverImage as File);
+      const upload = await this.rewardService.upload(data).toPromise();
       this.submitForm.get('coverUrl')?.setValue(upload?.data || '');
     }
 
     if (this.imageBase64?.length) {
       await this.imageBase64.forEach(async (img, i) => {
         if (!img.startsWith('http')) {
-          const upload = await this.rewardService
-            .upload({
-              imageBase64: img,
-            })
-            .toPromise();
+          const data = new FormData();
+          data.append('file', this.images[i] as File);
+          const upload = await this.rewardService.upload(data).toPromise();
 
           this.imageBase64[i] = upload?.data || '';
         }

@@ -42,6 +42,7 @@ export class ListComponent implements OnInit {
     imageUrl: new FormControl(''),
   });
   imageBase64 = '';
+  image: File | null = null;
   fileErrorId = 0;
   fileError = '';
 
@@ -83,11 +84,9 @@ export class ListComponent implements OnInit {
 
   async onSubmit() {
     if (this.imageBase64) {
-      const upload = await this.cardService
-        .upload({
-          imageBase64: this.imageBase64,
-        })
-        .toPromise();
+      const data = new FormData();
+      data.append('file', this.image as File);
+      const upload = await this.cardService.upload(data).toPromise();
       this.submitForm.get('imageUrl')?.setValue(upload?.data || '');
     }
 
@@ -145,6 +144,7 @@ export class ListComponent implements OnInit {
           }
 
           this.imageBase64 = reader.result?.toString() || '';
+          this.image = file;
         };
         img.src = URL.createObjectURL(file);
       };
