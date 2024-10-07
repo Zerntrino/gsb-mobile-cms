@@ -80,6 +80,14 @@
               <div dropdown>
                 <a
                   [routerLink]="'/ad-management/' + item.id"
+                  [queryParams]="{ mode: 'view' }"
+                  class="flex px-4 py-2"
+                >
+                  <div class="flex-1">ดูรายละเอียด</div>
+                  <img src="assets/icons/view.svg" class="w-6" alt="" />
+                </a>
+                <a
+                  [routerLink]="'/ad-management/' + item.id"
                   class="flex px-4 py-2"
                 >
                   <div class="flex-1">แก้ไขข้อมูล</div>

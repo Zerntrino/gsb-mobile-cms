@@ -46,3 +46,8 @@
 .checkbox-wrapper-22 .slider.round:before {
     border-radius: 50%;
 }
+
+.checkbox-wrapper-22 input[type=checkbox]:disabled + .slider{
+    opacity: .5;
+    cursor: not-allowed;
+}

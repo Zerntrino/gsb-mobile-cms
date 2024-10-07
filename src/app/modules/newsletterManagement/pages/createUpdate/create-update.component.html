@@ -16,6 +16,7 @@
         <app-toggle
           [value]="submitForm.get('isActive')?.value || false"
           (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
+          [disabled]="mode == 'view'"
         ></app-toggle>
         <div>
           {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
@@ -63,6 +64,7 @@
                 (valueUpdate)="
                   submitForm.get('isSendNotification')?.setValue(true)
                 "
+                [disabled]="mode == 'view'"
                 >ส่งการแจ้งเตือนทันที</app-radiobox
               >
               <app-radiobox
@@ -71,6 +73,7 @@
                 (valueUpdate)="
                   submitForm.get('isSendNotification')?.setValue(false)
                 "
+                [disabled]="mode == 'view'"
                 >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-radiobox
               >
             </div>
@@ -159,6 +162,7 @@
                       .get('conditionId')
                       ?.setValue($event ? cardIds : [])
                   "
+                  [disabled]="mode == 'view'"
                   >ส่งข่าวสารให้กับสมาชิกทุกคน</app-checkbox
                 >
                 <app-checkbox
@@ -167,6 +171,7 @@
                     submitForm.get('conditionId')?.value?.includes(card.id)
                   "
                   (valueUpdate)="updateCondition($event, card.id)"
+                  [disabled]="mode == 'view'"
                   >ส่งข่าวสารเฉพาะสมาชิกบัตร {{ card.name }}</app-checkbox
                 >
               </div>
@@ -183,6 +188,15 @@
         ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
       >
       <button
+        *ngIf="mode == 'view'"
+        class="button-dark w-auto px-6"
+        type="button"
+        (click)="edit()"
+      >
+        แก้ไข
+      </button>
+      <button
+        *ngIf="mode == 'edit'"
         type="submit"
         class="button w-auto px-6"
         [disabled]="!submitForm.valid"

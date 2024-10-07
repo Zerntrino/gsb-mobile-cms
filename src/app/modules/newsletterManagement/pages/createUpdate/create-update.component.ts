@@ -28,6 +28,7 @@ export class CreateUpdateComponent implements OnInit {
     { title: 'จัดการการแจ้งเตือน', to: '/newsletter-management' },
     { title: 'สร้างการแจ้งเตือน', to: '' },
   ];
+  mode = 'edit';
 
   today = new Date();
   submitForm = new FormGroup({
@@ -55,8 +56,21 @@ export class CreateUpdateComponent implements OnInit {
     private utilsService: UtilsService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
-    this.navItems[1].title =
-      this.id == 'create' ? 'สร้างการแจ้งเตือน' : 'แก้ไขการแจ้งเตือน';
+
+    activatedRoute.queryParams.subscribe((params) => {
+      if (params['mode'] == 'view') {
+        this.mode = 'view';
+        this.submitForm.disable();
+        this.editorConfig.editable = false;
+      }
+
+      this.navItems[1].title =
+        this.id == 'create'
+          ? 'สร้างการแจ้งเตือน'
+          : this.mode == 'view'
+          ? 'รายละเอียดการแจ้งเตือน'
+          : 'แก้ไขการแจ้งเตือน';
+    });
   }
 
   ngOnInit(): void {
@@ -158,5 +172,12 @@ export class CreateUpdateComponent implements OnInit {
         }
       );
     }
+  }
+
+  edit() {
+    this.mode = 'edit';
+    this.submitForm.enable();
+    this.editorConfig.editable = true;
+    this.navItems[1].title = 'แก้ไขโปรโมชัน';
   }
 }

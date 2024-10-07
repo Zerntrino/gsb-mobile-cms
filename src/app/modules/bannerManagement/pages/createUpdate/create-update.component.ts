@@ -23,6 +23,7 @@ export class CreateUpdateComponent implements OnInit {
     { title: 'จัดการแบนเนอร์', to: '/banner-management' },
     { title: 'สร้างแบนเนอร์', to: '' },
   ];
+  mode = 'edit';
 
   submitForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -44,8 +45,20 @@ export class CreateUpdateComponent implements OnInit {
     private toastService: ToastService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
-    this.navItems[1].title =
-      this.id == 'create' ? 'สร้างแบนเนอร์' : 'แก้ไขแบนเนอร์';
+
+    activatedRoute.queryParams.subscribe((params) => {
+      if (params['mode'] == 'view') {
+        this.mode = 'view';
+        this.submitForm.disable();
+      }
+
+      this.navItems[1].title =
+        this.id == 'create'
+          ? 'สร้างแบนเนอร์'
+          : this.mode == 'view'
+          ? 'รายละเอียดแบนเนอร์'
+          : 'แก้ไขแบนเนอร์';
+    });
   }
 
   ngOnInit(): void {
@@ -147,5 +160,11 @@ export class CreateUpdateComponent implements OnInit {
           }
         );
     }
+  }
+
+  edit() {
+    this.mode = 'edit';
+    this.submitForm.enable();
+    this.navItems[1].title = 'แก้ไขแบนเนอร์';
   }
 }

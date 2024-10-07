@@ -71,3 +71,8 @@
 .checkbox-wrapper-46 .inp-cbx:checked+.cbx span:first-child svg {
     stroke-dashoffset: 0;
 }
+
+.checkbox-wrapper-46 input[type="checkbox"]:disabled +label{
+    opacity: .5;
+    cursor: not-allowed;
+}

@@ -105,6 +105,14 @@
               </div>
               <div dropdown>
                 <a
+                  [routerLink]="'/newsletter-management/' + item.id"
+                  [queryParams]="{ mode: 'view' }"
+                  class="flex px-4 py-2"
+                >
+                  <div class="flex-1">ดูรายละเอียด</div>
+                  <img src="assets/icons/view.svg" class="w-6" alt="" />
+                </a>
+                <a
                   class="flex px-4 py-2"
                   [routerLink]="'/newsletter-management/' + item.id"
                 >

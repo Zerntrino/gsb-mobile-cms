@@ -23,6 +23,7 @@ export class CreateUpdateComponent implements OnInit {
     { title: 'จัดการโฆษณา', to: '/ad-management' },
     { title: 'สร้างโฆษณา', to: '' },
   ];
+  mode = 'edit';
 
   submitForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
@@ -44,7 +45,20 @@ export class CreateUpdateComponent implements OnInit {
     private toastService: ToastService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
-    this.navItems[1].title = this.id == 'create' ? 'สร้างโฆษณา' : 'แก้ไขโฆษณา';
+
+    activatedRoute.queryParams.subscribe((params) => {
+      if (params['mode'] == 'view') {
+        this.mode = 'view';
+        this.submitForm.disable();
+      }
+
+      this.navItems[1].title =
+        this.id == 'create'
+          ? 'สร้างโฆษณา'
+          : this.mode == 'view'
+          ? 'รายละเอียดโฆษณา'
+          : 'แก้ไขโฆษณา';
+    });
   }
 
   ngOnInit(): void {
@@ -146,5 +160,11 @@ export class CreateUpdateComponent implements OnInit {
           }
         );
     }
+  }
+
+  edit() {
+    this.mode = 'edit';
+    this.submitForm.enable();
+    this.navItems[1].title = 'แก้ไขโฆษณา';
   }
 }

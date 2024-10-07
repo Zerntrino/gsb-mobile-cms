@@ -30,6 +30,7 @@ export class CreateUpdateComponent implements OnInit {
     { title: 'จัดการการผ่อนชำระ', to: '/parameter' },
     { title: 'สร้างพารามิเตอร์', to: '' },
   ];
+  mode = 'edit';
   installmentPlans: InstallmentPlan[] = [];
   installmentPlanOption: Select2Option[] = [];
   installmentPlan: InstallmentPlan = {} as InstallmentPlan;
@@ -58,6 +59,20 @@ export class CreateUpdateComponent implements OnInit {
     this.id = activatedRoute.snapshot.params['id'];
     this.navItems[1].title =
       this.id == 'create' ? 'สร้างพารามิเตอร์' : 'แก้ไขพารามิเตอร์';
+
+    activatedRoute.queryParams.subscribe((params) => {
+      if (params['mode'] == 'view') {
+        this.mode = 'view';
+        this.submitForm.disable();
+      }
+
+      this.navItems[1].title =
+        this.id == 'create'
+          ? 'สร้างพารามิเตอร์'
+          : this.mode == 'view'
+          ? 'รายละเอียดพารามิเตอร์'
+          : 'แก้ไขพารามิเตอร์';
+    });
   }
 
   async ngOnInit() {
@@ -184,5 +199,11 @@ export class CreateUpdateComponent implements OnInit {
       .getInstallmentPlan(f?.id || 0)
       .toPromise();
     this.installmentPlan = res?.data as InstallmentPlan;
+  }
+
+  edit() {
+    this.mode = 'edit';
+    this.submitForm.enable();
+    this.navItems[1].title = 'แก้ไขพารามิเตอร์';
   }
 }
