@@ -35,6 +35,8 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     iconImageUrl: new FormControl(''),
     isActive: new FormControl(true),
+    isPromotion: new FormControl(false),
+    isReward: new FormControl(false),
   });
 
   iconImageBase64 = '';
@@ -61,6 +63,8 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
         name: this.detail.name,
         iconImageUrl: this.detail.iconImageUrl,
         isActive: this.detail.isActive,
+        isPromotion: this.detail.isPromotion,
+        isReward: this.detail.isReward,
       });
     }
   }
@@ -114,6 +118,8 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
       name: item.name,
       iconImageUrl: item.iconImageUrl,
       isActive: item.isActive,
+      isPromotion: item.isPromotion,
+      isReward: item.isReward,
     });
     this.showDetail = item.id || 0;
   }

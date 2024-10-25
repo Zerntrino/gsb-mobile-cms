@@ -111,6 +111,31 @@
                   </div>
                 </div>
               </div>
+
+              <div class="my-4 border-t border-gray-100 pt-4">
+                <div class="text-sm mb-2">หมวดหมู่นี้ใช้กับรายการ</div>
+
+                <div class="flex space-x-2">
+                  <app-checkbox
+                    [value]="
+                      createUpdateForm.get('isPromotion')?.value || false
+                    "
+                    (valueUpdate)="
+                      createUpdateForm.get('isPromotion')?.setValue($event)
+                    "
+                    [disabled]="mode == 'view'"
+                    >โปรโมชั่น</app-checkbox
+                  >
+                  <app-checkbox
+                    [value]="createUpdateForm.get('isReward')?.value || false"
+                    (valueUpdate)="
+                      createUpdateForm.get('isReward')?.setValue($event)
+                    "
+                    [disabled]="mode == 'view'"
+                    >รีวอร์ด</app-checkbox
+                  >
+                </div>
+              </div>
             </div>
 
             <div

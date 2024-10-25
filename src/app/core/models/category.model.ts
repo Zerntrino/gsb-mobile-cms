@@ -4,4 +4,6 @@ export interface Category {
   name: string;
   createdAt: string;
   isActive: boolean;
+  isPromotion: boolean;
+  isReward: boolean;
 }

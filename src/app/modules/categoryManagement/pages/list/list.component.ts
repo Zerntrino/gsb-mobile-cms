@@ -25,6 +25,12 @@ export class ListComponent implements OnInit {
     { value: 'true', label: 'แสดงผล' },
     { value: 'false', label: 'ไม่แสดงผล' },
   ];
+  apply: Select2Value = '';
+  applyOption: Select2Option[] = [
+    { value: '', label: 'ทั้งหมด' },
+    { value: 'isPromotion', label: 'โปรโมชั่น' },
+    { value: 'isReward', label: 'รีวอร์ด' },
+  ];
   list: Category[] = [];
   page = 1;
   pageSize = 10;
@@ -53,6 +59,8 @@ export class ListComponent implements OnInit {
       .append('pageSize', this.pageSize);
     if (this.q) params = params.append('find', this.q);
     if (this.status) params = params.append('status', this.status as string);
+    if (this.apply == 'isPromotion') params = params.append('promotion', true);
+    else if (this.apply == 'isReward') params = params.append('reward', true);
 
     this.categoryService.getList(params).subscribe(
       (response) => {
@@ -77,6 +85,12 @@ export class ListComponent implements OnInit {
   statusChange(e: Select2UpdateEvent): void {
     if (this.status != e.value) {
       this.status = e.value;
+      this.fetch();
+    }
+  }
+  applyChange(e: Select2UpdateEvent): void {
+    if (this.apply != e.value) {
+      this.apply = e.value;
       this.fetch();
     }
   }
@@ -122,5 +136,8 @@ export class ListComponent implements OnInit {
         this.toastService.add('error', error);
       }
     );
+  }
+  joinComma(items: string[]): string {
+    return items.filter((item) => item).join(', ');
   }
 }
