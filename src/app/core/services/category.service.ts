@@ -22,9 +22,47 @@ export class CategoryService extends BaseService {
       }
     );
   }
+  getListReward(params?: HttpParams): Observable<ApiResponse<Category[]>> {
+    console.log(params?.toString());
+    return this.http.get<ApiResponse<Category[]>>(
+      `${this.apiUrl}/category/reward`,
+      {
+        params: params,
+      }
+    );
+  }
+  getListPromotion(params?: HttpParams): Observable<ApiResponse<Category[]>> {
+    console.log(params?.toString());
+    return this.http.get<ApiResponse<Category[]>>(
+      `${this.apiUrl}/category/promotion`,
+      {
+        params: params,
+      }
+    );
+  }
   getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
     return this.http.get<ApiResponse<Paginate>>(
       `${this.apiUrl}/cms/category/totalpage`,
+      {
+        params: params,
+      }
+    );
+  }
+
+  getListRewardTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
+    return this.http.get<ApiResponse<Paginate>>(
+      `${this.apiUrl}/cms/category/reward/totalpage`,
+      {
+        params: params,
+      }
+    );
+  }
+
+  getListPromotionTotal(
+    params?: HttpParams
+  ): Observable<ApiResponse<Paginate>> {
+    return this.http.get<ApiResponse<Paginate>>(
+      `${this.apiUrl}/cms/category/promotion/totalpage`,
       {
         params: params,
       }

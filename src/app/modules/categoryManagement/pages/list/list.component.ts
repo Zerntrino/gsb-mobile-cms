@@ -59,24 +59,55 @@ export class ListComponent implements OnInit {
       .append('pageSize', this.pageSize);
     if (this.q) params = params.append('find', this.q);
     if (this.status) params = params.append('status', this.status as string);
-    if (this.apply == 'isPromotion') params = params.append('promotion', true);
-    else if (this.apply == 'isReward') params = params.append('reward', true);
-
-    this.categoryService.getList(params).subscribe(
-      (response) => {
-        console.log(response.data);
-        this.list = response.data as Category[];
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
-    this.categoryService.getListTotal(params).subscribe(
-      (response) => {
-        this.totalPage = response.data?.totalPage || 1;
-      },
-      (error) => {}
-    );
+    if (this.apply == 'isPromotion') {
+      this.categoryService.getListPromotion(params).subscribe(
+        (response) => {
+          console.log(response.data);
+          this.list = response.data as Category[];
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      this.categoryService.getListPromotionTotal(params).subscribe(
+        (response) => {
+          this.totalPage = response.data?.totalPage || 1;
+        },
+        (error) => {}
+      );
+    } else if (this.apply == 'isReward') {
+      this.categoryService.getListReward(params).subscribe(
+        (response) => {
+          console.log(response.data);
+          this.list = response.data as Category[];
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      this.categoryService.getListRewardTotal(params).subscribe(
+        (response) => {
+          this.totalPage = response.data?.totalPage || 1;
+        },
+        (error) => {}
+      );
+    } else {
+      this.categoryService.getList(params).subscribe(
+        (response) => {
+          console.log(response.data);
+          this.list = response.data as Category[];
+        },
+        (error) => {
+          console.log(error);
+        }
+      );
+      this.categoryService.getListTotal(params).subscribe(
+        (response) => {
+          this.totalPage = response.data?.totalPage || 1;
+        },
+        (error) => {}
+      );
+    }
   }
 
   qChange(): void {
