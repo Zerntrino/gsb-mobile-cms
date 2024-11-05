@@ -77,10 +77,6 @@ export class CreateUpdateComponent implements OnInit {
   promotionType: Select2Value = '';
   promotionTypeOption: Select2Option[] = [
     {
-      value: 1,
-      label: 'โปรโมชันลงทะเบียนรับสิทธิ์',
-    },
-    {
       value: 2,
       label: 'โปรโมชั่นไม่ลงทะเบียนรับสิทธิ์',
     },
@@ -378,15 +374,14 @@ export class CreateUpdateComponent implements OnInit {
     }
 
     if (this.imageBase64?.length) {
-      await this.imageBase64.forEach(async (img, i) => {
-        if (!img.startsWith('http')) {
+      for (const i of this.imageBase64.keys()) {
+        if (!this.imageBase64[i].startsWith('http')) {
           const data = new FormData();
           data.append('file', this.image[i] as File);
           const upload = await this.promotionService.upload(data).toPromise();
-
           this.imageBase64[i] = upload?.data || '';
         }
-      });
+      }
       this.submitForm.get('imageUrl')?.setValue(this.imageBase64);
     }
 

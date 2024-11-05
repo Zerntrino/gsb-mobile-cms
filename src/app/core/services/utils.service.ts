@@ -8,6 +8,8 @@ export class UtilsService {
   editorConfig: AngularEditorConfig = {
     editable: true,
     minHeight: '320px',
+    translate: 'yes',
+    locale: 'th',
     toolbarHiddenButtons: [
       [
         'subscript',
