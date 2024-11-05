@@ -60,3 +60,8 @@ export interface PromotionHistory {
   telephone: string;
   select: boolean;
 }
+
+export interface PromotionType {
+  id: number;
+  name: string;
+}

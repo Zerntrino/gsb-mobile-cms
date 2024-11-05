@@ -150,7 +150,7 @@
             </div>
 
             <div
-              *ngIf="[2, 3, 4].includes(submitForm.get('typeId')?.value || 0)"
+              *ngIf="[1, 2, 3].includes(submitForm.get('typeId')?.value || 0)"
             >
               <div class="text-sm">ร้านค้า/แบรนด์</div>
               <select2
@@ -164,7 +164,7 @@
             </div>
 
             <div
-              *ngIf="[2, 3, 4].includes(submitForm.get('typeId')?.value || 0)"
+              *ngIf="[1, 2, 3].includes(submitForm.get('typeId')?.value || 0)"
               class="my-2"
             >
               <!-- <div class="text-sm">MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ</div>
@@ -187,7 +187,7 @@
             </div>
 
             <div
-              *ngIf="[4].includes(submitForm.get('typeId')?.value || 0)"
+              *ngIf="[2].includes(submitForm.get('typeId')?.value || 0)"
               class="border rounded-md border-gray-100 px-4 py-4 space-y-4"
             >
               <div>
@@ -215,7 +215,7 @@
               </div>
             </div>
 
-            <div *ngIf="[3, 4].includes(submitForm.get('typeId')?.value || 0)">
+            <div *ngIf="[1, 2].includes(submitForm.get('typeId')?.value || 0)">
               <div class="my-2 flex space-x-4">
                 <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/ตลอดรายการ</div>

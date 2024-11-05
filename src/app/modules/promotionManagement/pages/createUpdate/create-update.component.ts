@@ -22,7 +22,7 @@ import { ParameterService } from 'src/app/core/services/parameter.service';
 import { MCC } from 'src/app/core/models/parameter.model';
 import { CardService } from 'src/app/core/services/card.service';
 import { Card } from 'src/app/core/models/card.model';
-import { Promotion } from 'src/app/core/models/promotion.model';
+import { Promotion, PromotionType } from 'src/app/core/models/promotion.model';
 
 @Component({
   selector: 'app-promotion-management-create-update',
@@ -38,15 +38,15 @@ export class CreateUpdateComponent implements OnInit {
   mode = 'edit';
 
   submitForm = new FormGroup({
-    categoryId: new FormControl(0),
+    categoryId: new FormControl(0, [Validators.required]),
     isActive: new FormControl(true),
-    name: new FormControl(''), // [Validators.required]
+    name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
     aboutIt: new FormControl<string[]>([]),
     startDate: new FormControl('', []),
     endDate: new FormControl('', []),
     isNotification: new FormControl(true),
-    typeId: new FormControl(0),
+    typeId: new FormControl(0, [Validators.required]),
     shopId: new FormControl(0),
     mccCode: new FormControl<string[]>([]),
     generateType: new FormControl(0),
@@ -75,20 +75,7 @@ export class CreateUpdateComponent implements OnInit {
   };
 
   promotionType: Select2Value = '';
-  promotionTypeOption: Select2Option[] = [
-    {
-      value: 2,
-      label: 'โปรโมชั่นไม่ลงทะเบียนรับสิทธิ์',
-    },
-    {
-      value: 3,
-      label: 'โปรโมชั่นลงทะเบียนรับสิทธิ์',
-    },
-    {
-      value: 4,
-      label: 'โปรโมชั่นลงทะเบียนรับสิทธิ์ (แสดงโค้ด)',
-    },
-  ];
+  promotionTypeOption: Select2Option[] = [];
 
   shopOption: Select2Option[] = [];
   mccOption: Select2Option[] = [];
@@ -133,11 +120,12 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.fetch();
+    this.fetchType();
     this.fetchCategory();
     this.fetchShop();
     this.fetchMcc();
     this.fetchCard();
+    this.fetch();
   }
 
   fetch(): void {
@@ -176,6 +164,20 @@ export class CreateUpdateComponent implements OnInit {
         }
       );
     }
+  }
+
+  fetchType(): void {
+    this.promotionService.getTypes().subscribe(
+      (response) => {
+        const types = response.data as PromotionType[];
+        this.promotionTypeOption = types.map((t) => {
+          return { value: t.id, label: t.name } as Select2Option;
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
   }
 
   fetchCategory(): void {
