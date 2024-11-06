@@ -9,7 +9,6 @@ export class UtilsService {
     editable: true,
     minHeight: '320px',
     translate: 'yes',
-    locale: 'th',
     toolbarHiddenButtons: [
       [
         'subscript',
