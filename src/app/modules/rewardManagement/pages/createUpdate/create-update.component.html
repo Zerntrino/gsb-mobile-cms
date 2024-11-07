@@ -244,9 +244,42 @@
                   formControlName="prefixCode"
                   placeholder="Prefix code"
                 />
+                <div class="text-sm text-gray-400">
+                  ประกอบด้วย Prefix 5 หลัก (ตัวเลขหรือตัวอักษร)
+                </div>
               </div>
-              <div class="text-sm text-gray-400">
-                ประกอบด้วย Prefix 5 หลัก (ตัวเลขหรือตัวอักษร)
+
+              <div *ngIf="submitForm.get('generateType')?.value == 2">
+                <button
+                  class="button-border text-center flex items-center justify-center space-x-4 w-full"
+                  type="button"
+                  (click)="inputCode.click()"
+                  [disabled]="mode == 'view'"
+                >
+                  <img src="assets/icons/document.svg" class="w-6" />
+                  <div>นำเข้าเอกสาร</div>
+                </button>
+
+                <div
+                  *ngIf="fileCodeName"
+                  class="my-2 px-4 py-2 border border-gray-100 rounded-md flex items-center space-x-4 max-w-full"
+                >
+                  <img src="assets/icons/xls.svg" class="w-6" />
+                  <div class="flex-1 text-gray-400 text-sm truncate">
+                    {{ fileCodeName }}
+                  </div>
+                  <div class="cursor-pointer" (click)="removeFileCode()">
+                    <img src="assets/icons/x.svg" class="w-6" />
+                  </div>
+                </div>
+
+                <input
+                  type="file"
+                  class="hidden"
+                  accept=".xls,.xlsx"
+                  #inputCode
+                  (change)="inputCodeChange($event)"
+                />
               </div>
             </div>
 

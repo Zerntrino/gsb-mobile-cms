@@ -52,7 +52,7 @@
               <select2
                 class="flex w-full"
                 [value]="submitForm.get('type')?.value || ''"
-                (update)="submitForm.get('type')?.setValue($event.value)"
+                (update)="refChange($event)"
                 [data]="typeOption"
                 placeholder="ประเภทบัตร"
               ></select2>
@@ -65,6 +65,7 @@
                 placeholder="ชื่อบัตร"
                 name="name"
                 formControlName="name"
+                [disabled]="true"
               />
             </div>
 

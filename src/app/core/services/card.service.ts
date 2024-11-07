@@ -5,7 +5,7 @@ import { catchError, map } from 'rxjs/operators';
 import { ApiResponse, BaseService, Paginate } from './base.service';
 import { Ad } from '../models/ad.model';
 import { Banner } from '../models/banner.model';
-import { Card } from '../models/card.model';
+import { Card, CardRef } from '../models/card.model';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +13,15 @@ import { Card } from '../models/card.model';
 export class CardService extends BaseService {
   constructor(public http: HttpClient) {
     super();
+  }
+
+  getRef(params?: HttpParams): Observable<ApiResponse<CardRef[]>> {
+    return this.http.get<ApiResponse<CardRef[]>>(
+      `${this.apiUrl}/cms/privilege/referencecode`,
+      {
+        params: params,
+      }
+    );
   }
 
   getList(params?: HttpParams): Observable<ApiResponse<Card[]>> {

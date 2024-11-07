@@ -5,4 +5,10 @@ export interface Card {
   imageUrl: string;
   type: string;
   tags: string[];
+  referenceCode: string;
+}
+
+export interface CardRef {
+  id: number;
+  name: string;
 }

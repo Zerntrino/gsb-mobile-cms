@@ -23,6 +23,7 @@ import { Reward } from 'src/app/core/models/reward.model';
 import { Category } from 'src/app/core/models/category.model';
 import { Partner } from 'src/app/core/models/partner.model';
 import { MCC } from 'src/app/core/models/parameter.model';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-reward-management-create-update',
@@ -73,6 +74,7 @@ export class CreateUpdateComponent implements OnInit {
   images: File[] = [];
   fileErrorId = 0;
   fileError = '';
+  fileCodeName = '';
 
   categoryOption: Select2Option[] = [];
 
@@ -388,6 +390,50 @@ export class CreateUpdateComponent implements OnInit {
 
   removeImg(index: number): void {
     this.imageBase64 = this.imageBase64.filter((item, i) => i != index);
+  }
+
+  inputCodeChange(event: Event): void {
+    const files = (event.target as HTMLInputElement).files;
+    const file = files?.item(0);
+    if (file) {
+      if (
+        file.size > 2000000 ||
+        !['xls', 'xlsx'].includes(
+          file.name.split('.')?.pop()?.toLocaleLowerCase() || ''
+        )
+      ) {
+        this.fileErrorId = Math.random();
+        this.fileError =
+          'ไม่สามารถอัพโหลดไฟล์ได้ <br/> กรุณาตรวจสอบชนิดและขนาดไฟล์อีกครั้ง';
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        const workbook = XLSX.read(e.target.result, { type: 'binary' });
+        const firstSheetName = workbook.SheetNames[0];
+        const worksheet = workbook.Sheets[firstSheetName];
+        const excelData = XLSX.utils.sheet_to_json(worksheet, { raw: true });
+
+        interface Code {
+          code: string;
+        }
+
+        var codes = [];
+        for (let c of excelData as Code[]) {
+          codes.push(`${c?.code || ''}`);
+        }
+
+        this.submitForm.get('importCode')?.setValue(codes);
+      };
+      reader.readAsBinaryString(file);
+
+      this.fileCodeName = file.name;
+    }
+  }
+
+  removeFileCode() {
+    this.fileCodeName = '';
   }
 
   async onSubmit() {

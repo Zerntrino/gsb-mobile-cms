@@ -11,7 +11,7 @@ import { AdService } from 'src/app/core/services/ad.service';
 import dayjs from 'dayjs';
 import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { CardService } from 'src/app/core/services/card.service';
-import { Card } from 'src/app/core/models/card.model';
+import { Card, CardRef } from 'src/app/core/models/card.model';
 import { Installment } from 'src/app/core/models/parameter.model';
 import { ParameterService } from 'src/app/core/services/parameter.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -30,8 +30,6 @@ export class ListComponent implements OnInit {
 
   typeOption: Select2Option[] = [
     { value: '', label: 'กรุณาเลือก', disabled: true },
-    { value: 'Visa', label: 'Visa' },
-    { value: 'Master Card', label: 'Master Card' },
   ];
 
   submitForm = new FormGroup({
@@ -57,6 +55,7 @@ export class ListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.fetchRef();
     this.fetch();
   }
 
@@ -65,6 +64,23 @@ export class ListComponent implements OnInit {
     this.cardService.getList(params).subscribe(
       (response) => {
         this.cards = response.data as Card[];
+      },
+      (error) => {}
+    );
+
+    this.submitForm.get('name')?.disable();
+  }
+
+  fetchRef(): void {
+    let params = new HttpParams();
+    this.cardService.getList(params).subscribe(
+      (response) => {
+        const refs = response.data as Card[];
+        this.typeOption = this.typeOption.concat(
+          refs.map((r) => {
+            return { value: r.id, label: r.referenceCode } as Select2Option;
+          })
+        );
       },
       (error) => {}
     );
@@ -80,6 +96,12 @@ export class ListComponent implements OnInit {
       imageUrl: card?.imageUrl || '',
     });
     this.imageBase64 = '';
+  }
+
+  refChange(event: Select2UpdateEvent): void {
+    const ref = this.cards.find((c) => c.id == event.value);
+    this.submitForm.get('name')?.setValue(ref?.name || '');
+    this.submitForm.get('type')?.setValue(event.value);
   }
 
   async onSubmit() {
