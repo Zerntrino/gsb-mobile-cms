@@ -3,9 +3,9 @@ export interface Card {
   name: string;
   description: string;
   imageUrl: string;
-  type: string;
   tags: string[];
   referenceCode: string;
+  referenceId: number;
 }
 
 export interface CardRef {

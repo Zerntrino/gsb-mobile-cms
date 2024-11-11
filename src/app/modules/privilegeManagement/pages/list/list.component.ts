@@ -35,9 +35,10 @@ export class ListComponent implements OnInit {
   submitForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl(''),
-    type: new FormControl<Select2Value>('Visa', [Validators.required]),
+    referenceCode: new FormControl<Select2Value>('', [Validators.required]),
     tags: new FormControl<string[]>([]),
     imageUrl: new FormControl(''),
+    referenceId: new FormControl(0),
   });
   imageBase64 = '';
   image: File | null = null;
@@ -78,7 +79,10 @@ export class ListComponent implements OnInit {
         const refs = response.data as Card[];
         this.typeOption = this.typeOption.concat(
           refs.map((r) => {
-            return { value: r.id, label: r.referenceCode } as Select2Option;
+            return {
+              value: r.referenceCode,
+              label: r.referenceCode,
+            } as Select2Option;
           })
         );
       },
@@ -88,20 +92,24 @@ export class ListComponent implements OnInit {
 
   selectCard(card?: Card): void {
     this.id = card?.id || 0;
+
     this.submitForm.setValue({
       name: card?.name || '',
       description: card?.description || '',
-      type: card?.type || '',
+      referenceCode: card?.referenceCode || '',
       tags: card?.tags || [],
       imageUrl: card?.imageUrl || '',
+      referenceId: card?.referenceId || 0,
     });
     this.imageBase64 = '';
   }
 
   refChange(event: Select2UpdateEvent): void {
     const ref = this.cards.find((c) => c.id == event.value);
-    this.submitForm.get('name')?.setValue(ref?.name || '');
-    this.submitForm.get('type')?.setValue(event.value);
+    if (ref) {
+      this.submitForm.get('name')?.setValue(ref?.name || '');
+      this.submitForm.get('referenceId')?.setValue(ref?.id || 0);
+    }
   }
 
   async onSubmit() {

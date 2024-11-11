@@ -51,7 +51,7 @@
               <div class="text-sm">Ref.บัตร</div>
               <select2
                 class="flex w-full"
-                [value]="submitForm.get('type')?.value || ''"
+                [value]="submitForm.get('referenceCode')?.value || ''"
                 (update)="refChange($event)"
                 [data]="typeOption"
                 placeholder="ประเภทบัตร"
