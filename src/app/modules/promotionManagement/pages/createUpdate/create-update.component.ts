@@ -57,9 +57,9 @@ export class CreateUpdateComponent implements OnInit {
     limitPerMonth: new FormControl(0),
     limitPerCardMonth: new FormControl(0),
     limitPerCardDay: new FormControl(0),
-    cardId: new FormControl<number[]>([]),
-    coverImageUrl: new FormControl(''),
-    imageUrl: new FormControl<string[]>([]),
+    cardId: new FormControl<number[]>([], [Validators.required]),
+    coverImageUrl: new FormControl('', [Validators.required]),
+    imageUrl: new FormControl<string[]>([], [Validators.required]),
   });
 
   coverImageBase64 = '';
@@ -257,6 +257,49 @@ export class CreateUpdateComponent implements OnInit {
   promotionTypeChange(e: Select2UpdateEvent): void {
     if (this.submitForm.get('typeId')?.value != e.value) {
       this.submitForm.get('typeId')?.setValue(e.value as number);
+
+      this.submitForm.get('brandId')?.setValidators([]);
+      this.submitForm.get('brandId')?.setValidators([]);
+      this.submitForm.get('mccCode')?.setValidators([]);
+      this.submitForm.get('generateType')?.setValidators([]);
+      this.submitForm.get('limit')?.setValidators([]);
+      this.submitForm.get('limitPerMonth')?.setValidators([]);
+      this.submitForm.get('limitPerCardMonth')?.setValidators([]);
+      this.submitForm.get('limitPerCardDay')?.setValidators([]);
+
+      if (e.value == 1) {
+        this.submitForm.get('brandId')?.setValidators([Validators.required]);
+        this.submitForm.get('mccCode')?.setValidators([Validators.required]);
+        this.submitForm.get('limit')?.setValidators([Validators.required]);
+        this.submitForm
+          .get('limitPerMonth')
+          ?.setValidators([Validators.required]);
+        this.submitForm
+          .get('limitPerCardMonth')
+          ?.setValidators([Validators.required]);
+        this.submitForm
+          .get('limitPerCardDay')
+          ?.setValidators([Validators.required]);
+      } else if (e.value == 2) {
+        this.submitForm.get('brandId')?.setValidators([Validators.required]);
+        this.submitForm.get('mccCode')?.setValidators([Validators.required]);
+        this.submitForm
+          .get('generateType')
+          ?.setValidators([Validators.required]);
+        this.submitForm.get('limit')?.setValidators([Validators.required]);
+        this.submitForm
+          .get('limitPerMonth')
+          ?.setValidators([Validators.required]);
+        this.submitForm
+          .get('limitPerCardMonth')
+          ?.setValidators([Validators.required]);
+        this.submitForm
+          .get('limitPerCardDay')
+          ?.setValidators([Validators.required]);
+      } else if (e.value == 3) {
+        this.submitForm.get('brandId')?.setValidators([Validators.required]);
+        this.submitForm.get('mccCode')?.setValidators([Validators.required]);
+      }
     }
   }
   tagChange(e: string[]): void {

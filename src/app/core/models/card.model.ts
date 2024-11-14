@@ -11,4 +11,5 @@ export interface Card {
 export interface CardRef {
   id: number;
   name: string;
+  referenceCode: string;
 }

@@ -17,7 +17,7 @@ export class CardService extends BaseService {
 
   getRef(params?: HttpParams): Observable<ApiResponse<CardRef[]>> {
     return this.http.get<ApiResponse<CardRef[]>>(
-      `${this.apiUrl}/cms/privilege/referencecode`,
+      `${this.apiUrl}/cms/card/referencecode`,
       {
         params: params,
       }

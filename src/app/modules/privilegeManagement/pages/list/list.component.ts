@@ -26,6 +26,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 export class ListComponent implements OnInit {
   id = 0;
 
+  refs: CardRef[] = [];
   cards: Card[] = [];
 
   typeOption: Select2Option[] = [
@@ -74,9 +75,12 @@ export class ListComponent implements OnInit {
 
   fetchRef(): void {
     let params = new HttpParams();
-    this.cardService.getList(params).subscribe(
+    this.cardService.getRef(params).subscribe(
       (response) => {
-        const refs = response.data as Card[];
+        const refs = response.data as CardRef[];
+        console.log(refs);
+        this.refs = refs;
+        this.typeOption = [];
         this.typeOption = this.typeOption.concat(
           refs.map((r) => {
             return {
@@ -105,10 +109,12 @@ export class ListComponent implements OnInit {
   }
 
   refChange(event: Select2UpdateEvent): void {
-    const ref = this.cards.find((c) => c.id == event.value);
+    const ref = this.refs.find((r) => r.referenceCode == event.value);
     if (ref) {
       this.submitForm.get('name')?.setValue(ref?.name || '');
+      this.submitForm.get('referenceCode')?.setValue(ref?.referenceCode || '');
       this.submitForm.get('referenceId')?.setValue(ref?.id || 0);
+    } else {
     }
   }
 
@@ -124,7 +130,12 @@ export class ListComponent implements OnInit {
       this.cardService.create(this.submitForm.getRawValue()).subscribe(
         (response) => {
           this.toastService.add('success', 'ทำรายการสำเร็จ');
-          this.router.navigate(['/privilege']);
+
+          this.fetch();
+          this.fetchRef();
+
+          // clear
+          this.selectCard(this.cards[0] || {});
         },
         (error) => {
           console.log(error);
@@ -135,7 +146,9 @@ export class ListComponent implements OnInit {
       this.cardService.update(this.id, this.submitForm.getRawValue()).subscribe(
         (response) => {
           this.toastService.add('success', 'ทำรายการสำเร็จ');
-          this.router.navigate(['/privilege']);
+
+          this.fetch();
+          this.fetchRef();
         },
         (error) => {
           console.log(error);
