@@ -29,9 +29,9 @@ export class CreateUpdateComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
-    linkUrl: new FormControl('', [Validators.required]),
+    linkUrl: new FormControl(''),
     isActive: new FormControl(true),
-    imageUrl: new FormControl(''),
+    imageUrl: new FormControl('', [Validators.required]),
   });
   imageBase64 = '';
   image: File | null = null;
@@ -97,7 +97,7 @@ export class CreateUpdateComponent implements OnInit {
     if (file) {
       if (
         file.size > 2000000 ||
-        !['jpg', 'jpeg', 'png', 'gif'].includes(
+        !['png'].includes(
           file.name.split('.')?.pop()?.toLocaleLowerCase() || ''
         )
       ) {
@@ -121,6 +121,7 @@ export class CreateUpdateComponent implements OnInit {
 
           this.imageBase64 = reader.result?.toString() || '';
           this.image = file;
+          this.submitForm.get('imageUrl')?.setValue(this.imageBase64);
         };
         img.src = URL.createObjectURL(file);
       };

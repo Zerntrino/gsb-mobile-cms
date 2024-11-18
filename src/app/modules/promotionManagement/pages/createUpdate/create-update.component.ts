@@ -58,8 +58,8 @@ export class CreateUpdateComponent implements OnInit {
     limitPerCardMonth: new FormControl(0),
     limitPerCardDay: new FormControl(0),
     cardId: new FormControl<number[]>([], [Validators.required]),
-    coverImageUrl: new FormControl('', [Validators.required]),
-    imageUrl: new FormControl<string[]>([], [Validators.required]),
+    coverImageUrl: new FormControl(''),
+    imageUrl: new FormControl<string[]>([]),
   });
 
   coverImageBase64 = '';
