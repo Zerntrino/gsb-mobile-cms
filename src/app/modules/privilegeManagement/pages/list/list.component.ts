@@ -38,8 +38,9 @@ export class ListComponent implements OnInit {
     description: new FormControl(''),
     referenceCode: new FormControl<Select2Value>('', [Validators.required]),
     tags: new FormControl<string[]>([]),
-    imageUrl: new FormControl(''),
+    imageUrl: new FormControl('', [Validators.required]),
     referenceId: new FormControl(0),
+    isActive: new FormControl(true),
   });
   imageBase64 = '';
   image: File | null = null;
@@ -97,6 +98,8 @@ export class ListComponent implements OnInit {
   selectCard(card?: Card): void {
     this.id = card?.id || 0;
 
+    console.log(card?.isActive);
+
     this.submitForm.setValue({
       name: card?.name || '',
       description: card?.description || '',
@@ -104,8 +107,13 @@ export class ListComponent implements OnInit {
       tags: card?.tags || [],
       imageUrl: card?.imageUrl || '',
       referenceId: card?.referenceId || 0,
+      isActive: card?.isActive || false,
     });
     this.imageBase64 = '';
+  }
+
+  newCard(): void {
+    this.selectCard({ isActive: true } as Card);
   }
 
   refChange(event: Select2UpdateEvent): void {
@@ -188,6 +196,7 @@ export class ListComponent implements OnInit {
 
           this.imageBase64 = reader.result?.toString() || '';
           this.image = file;
+          this.submitForm.get('imageUrl')?.setValue(this.imageBase64);
         };
         img.src = URL.createObjectURL(file);
       };

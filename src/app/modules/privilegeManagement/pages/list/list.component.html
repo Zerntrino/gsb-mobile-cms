@@ -1,6 +1,16 @@
 <div class="flex flex-col h-full">
   <div class="flex items-center my-2">
     <app-nav title="จัดการสิทธิพิเศษ" class="flex-1"></app-nav>
+    <div class="flex items-center space-x-2 text-sm">
+      <div>สถานะ</div>
+      <app-toggle
+        [value]="submitForm.get('isActive')?.value || false"
+        (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
+      ></app-toggle>
+      <div>
+        {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
+      </div>
+    </div>
   </div>
 
   <form
@@ -20,7 +30,8 @@
               (click)="selectCard(card)"
               [ngClass]="{
                 'border-primary': id == card.id,
-                'border-white': id != card.id
+                'border-white': id != card.id,
+                'opacity-25': card.isActive == false
               }"
             >
               <img [src]="card.imageUrl" class="w-40 shadow-md" alt="" />
@@ -32,7 +43,7 @@
                 'border-primary bg-primary': id == 0,
                 'border-gray-300': id != 0
               }"
-              (click)="selectCard()"
+              (click)="newCard()"
             >
               <div>
                 <img src="assets/icons/add-card.svg" alt="" class="mx-auto" />
@@ -50,12 +61,20 @@
             <div>
               <div class="text-sm">Ref.บัตร</div>
               <select2
+                *ngIf="!id"
                 class="flex w-full"
                 [value]="submitForm.get('referenceCode')?.value || ''"
                 (update)="refChange($event)"
                 [data]="typeOption"
                 placeholder="ประเภทบัตร"
               ></select2>
+              <input
+                *ngIf="id"
+                class="input"
+                placeholder="ประเภทบัตร"
+                [value]="submitForm.get('referenceCode')?.value || ''"
+                [disabled]="true"
+              />
             </div>
 
             <div class="">
@@ -162,7 +181,11 @@
       <a routerLink=""
         ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
       >
-      <button type="submit" class="button w-auto px-6">
+      <button
+        type="submit"
+        [disabled]="!submitForm.valid"
+        class="button w-auto px-6"
+      >
         {{ id == 0 ? "สร้างสิทธิพิเศษ" : "บันทึกสิทธิพิเศษ" }}
       </button>
     </div>

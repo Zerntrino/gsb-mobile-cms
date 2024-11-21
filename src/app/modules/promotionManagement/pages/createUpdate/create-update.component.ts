@@ -235,7 +235,7 @@ export class CreateUpdateComponent implements OnInit {
     let params = new HttpParams().append('page', 1).append('pageSize', 100);
     this.cardService.getList(params).subscribe(
       (response) => {
-        this.cards = response.data as Card[];
+        this.cards = (response.data as Card[]).filter((c) => c.isActive);
         this.cardIds = this.cards.map((c) => c.id);
       },
       (error) => {

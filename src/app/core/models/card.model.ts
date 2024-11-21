@@ -6,6 +6,7 @@ export interface Card {
   tags: string[];
   referenceCode: string;
   referenceId: number;
+  isActive: boolean;
 }
 
 export interface CardRef {
