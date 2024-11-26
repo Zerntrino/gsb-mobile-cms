@@ -131,7 +131,7 @@
             </div>
 
             <div class="relative">
-              <div class="text-sm">ลิงค์ที่เกี่ยวข้อง</div>
+              <div class="text-sm">ลิงค์ที่เกี่ยวข้อง (ไม่บังคับ)</div>
               <input
                 class="input"
                 placeholder="https://"
@@ -192,6 +192,7 @@
         class="button-dark w-auto px-6"
         type="button"
         (click)="edit()"
+        [disabled]="!submitForm.valid"
       >
         แก้ไข
       </button>

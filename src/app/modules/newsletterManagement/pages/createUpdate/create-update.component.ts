@@ -33,14 +33,14 @@ export class CreateUpdateComponent implements OnInit {
   today = new Date();
   submitForm = new FormGroup({
     subject: new FormControl('', [Validators.required]),
-    description: new FormControl(''),
+    description: new FormControl('', [Validators.required]),
     sendNotificationDate: new FormControl(''),
-    sendNotificationTime: new FormControl(''),
-    condition: new FormControl(''),
+    sendNotificationTime: new FormControl<string | undefined>(undefined),
+    // condition: new FormControl(''),
     isActive: new FormControl(true),
     isSendNotification: new FormControl(true),
     linkUrl: new FormControl(''),
-    conditionId: new FormControl<number[]>([]),
+    conditionId: new FormControl<number[]>([], [Validators.required]),
   });
 
   cards: Card[] = [];
@@ -102,7 +102,7 @@ export class CreateUpdateComponent implements OnInit {
             description: res.description,
             sendNotificationDate: res.sendNotificationDate,
             sendNotificationTime: res.sendNotificationDate,
-            condition: res.condition || null,
+            // condition: null,
             isActive: res.isActive,
             isSendNotification: res.isSendNotification,
             linkUrl: res.linkUrl,
@@ -146,7 +146,7 @@ export class CreateUpdateComponent implements OnInit {
       date.setMinutes(time.getMinutes());
 
       raw.sendNotificationDate = date.toISOString();
-      raw.sendNotificationTime = null;
+      raw.sendNotificationTime = undefined;
     }
 
     if (this.id == 'create') {
