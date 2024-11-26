@@ -56,7 +56,7 @@ export class HighlightComponent implements OnInit {
       (response) => {
         const all = response.data as Banner[];
         const ids = this.list.map((l) => l.id);
-        this.all = all.filter((l) => !ids.includes(l.id));
+        this.all = all.filter((l) => !ids.includes(l.id) && l.isActive);
       },
       (error) => {
         console.log(error);
