@@ -61,18 +61,14 @@
               <app-radiobox
                 name="date"
                 [value]="submitForm.get('isSendNotification')?.value || false"
-                (valueUpdate)="
-                  submitForm.get('isSendNotification')?.setValue(true)
-                "
+                (valueUpdate)="isSendNotificationChange(true)"
                 [disabled]="mode == 'view'"
                 >ส่งการแจ้งเตือนทันที</app-radiobox
               >
               <app-radiobox
                 name="date"
                 [value]="!submitForm.get('isSendNotification')?.value || false"
-                (valueUpdate)="
-                  submitForm.get('isSendNotification')?.setValue(false)
-                "
+                (valueUpdate)="isSendNotificationChange(false)"
                 [disabled]="mode == 'view'"
                 >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-radiobox
               >

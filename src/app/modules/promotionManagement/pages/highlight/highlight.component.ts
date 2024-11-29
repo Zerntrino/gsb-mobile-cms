@@ -4,7 +4,7 @@ import { Router } from '@angular/router';
 import dayjs from 'dayjs';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { PromotionService } from 'src/app/core/services/promotion.service';
-import { Promotion } from 'src/app/core/models/promotion.model';
+import { Promotion, PromotionType } from 'src/app/core/models/promotion.model';
 import {
   Select2Option,
   Select2UpdateEvent,
@@ -13,6 +13,8 @@ import {
 import { CardService } from 'src/app/core/services/card.service';
 import { Card } from 'src/app/core/models/card.model';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { Category } from 'src/app/core/models/category.model';
+import { CategoryService } from 'src/app/core/services/category.service';
 
 @Component({
   selector: 'app-promotion-management-highlight',
@@ -33,10 +35,16 @@ export class HighlightComponent implements OnInit {
   card: Select2Value = '';
   cardOption: Select2Option[] = [];
 
+  category: Select2Value = '';
+  categoryOption: Select2Option[] = [];
+  promotionType: Select2Value = '';
+  promotionTypeOption: Select2Option[] = [];
+
   constructor(
     private router: Router,
     private promotionService: PromotionService,
     private cardService: CardService,
+    private categoryService: CategoryService,
     private toastService: ToastService
   ) {}
 
@@ -44,6 +52,9 @@ export class HighlightComponent implements OnInit {
     await this.fetchCard();
     // await this.fetch();
     await this.fetchPromotions();
+
+    await this.fetchType();
+    await this.fetchCategory();
   }
 
   async fetch() {
@@ -61,9 +72,15 @@ export class HighlightComponent implements OnInit {
   async fetchPromotions() {
     let params = new HttpParams().append('page', 1).append('pageSize', 100);
     if (this.q) params = params.append('find', this.q);
+    if (this.category)
+      params = params.append('categoryName', this.category as string);
+    if (this.promotionType)
+      params = params.append('type', this.promotionType as string);
     await this.promotionService.getList(params).subscribe(
       (response) => {
-        this.promotions = response.data as Promotion[];
+        this.promotions = (response.data as Promotion[]).filter(
+          (p) => p.isActive
+        );
       },
       (error) => {
         console.log(error);
@@ -87,6 +104,54 @@ export class HighlightComponent implements OnInit {
         console.log(error);
       }
     );
+  }
+
+  fetchType(): void {
+    this.promotionService.getTypes().subscribe(
+      (response) => {
+        const types = response.data as PromotionType[];
+        this.promotionTypeOption.push({ value: '', label: 'ทั้งหมด' });
+        this.promotionTypeOption = this.promotionTypeOption.concat(
+          types.map((t) => {
+            return { value: t.id, label: t.name } as Select2Option;
+          })
+        );
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  fetchCategory(): void {
+    let params = new HttpParams().append('page', 1).append('pageSize', 100);
+    this.categoryService.getList(params).subscribe(
+      (response) => {
+        const categories = response.data as Category[];
+        this.categoryOption.push({ value: '', label: 'ทั้งหมด' });
+        this.categoryOption = this.categoryOption.concat(
+          categories
+            .filter((c) => c.isPromotion)
+            .map((c) => {
+              return { value: c.name, label: c.name } as Select2Option;
+            })
+        );
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  categoryChange(e: Select2UpdateEvent): void {
+    this.category = e.value;
+
+    this.fetchPromotions();
+  }
+  promotionTypeChange(e: Select2UpdateEvent): void {
+    this.promotionType = e.value;
+
+    this.fetchPromotions();
   }
 
   onDrop(event: CdkDragDrop<string[]>) {

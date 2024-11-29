@@ -35,6 +35,7 @@
           <div class="table-cell">ลบ</div>
         </div>
       </div>
+
       <div
         class="table-row-group"
         cdkDropList
@@ -87,7 +88,8 @@
           <div class="py-4 px-6 border-b border-gray-100 font-semibold">
             จัดการไฮไลท์ : โปรโมชัน
           </div>
-          <div class="px-6 py-4">
+
+          <div class="px-6 py-4 flex items-center space-x-2">
             <div class="flex-1 flex relative">
               <img
                 src="assets/icons/search.svg"
@@ -97,9 +99,31 @@
               <input
                 class="input max-w-xs pl-10"
                 [(ngModel)]="q"
-                placeholder="ค้นหา: โฆษณา"
+                placeholder="ค้นหา: ชื่อโปรโมชัน"
                 (ngModelChange)="qChange()"
               />
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <div>ประเภท</div>
+              <select2
+                class="flex w-44"
+                [value]="promotionType"
+                (update)="promotionTypeChange($event)"
+                [data]="promotionTypeOption"
+                placeholder="ทั้งหมด"
+              ></select2>
+            </div>
+
+            <div class="flex items-center space-x-2">
+              <div>หมวดหมู่</div>
+              <select2
+                class="flex w-44"
+                [value]="category"
+                (update)="categoryChange($event)"
+                [data]="categoryOption"
+                placeholder="ทั้งหมด"
+              ></select2>
             </div>
           </div>
           <div class="px-6 pb-6 table w-full">
@@ -125,10 +149,10 @@
                   ></app-checkbox>
                 </div>
                 <div class="table-cell">
-                  {{ item.category_name }}
+                  {{ item.categoryName }}
                 </div>
                 <div class="table-cell">
-                  {{ item.type_name }}
+                  {{ item.typeName }}
                 </div>
                 <div class="table-cell">
                   {{ item.name }}

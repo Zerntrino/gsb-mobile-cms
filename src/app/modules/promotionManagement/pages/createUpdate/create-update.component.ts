@@ -257,7 +257,7 @@ export class CreateUpdateComponent implements OnInit {
     }
   }
   promotionTypeChange(e: Select2UpdateEvent): void {
-    if (this.submitForm.get('typeId')?.value != e.value) {
+    if (e.value && this.submitForm.get('typeId')?.value != e.value) {
       this.submitForm.get('typeId')?.setValue(e.value as number);
 
       this.submitForm.get('brandId')?.setValidators([]);
@@ -343,7 +343,7 @@ export class CreateUpdateComponent implements OnInit {
     if (file) {
       if (
         file.size > 2000000 ||
-        !['jpg', 'jpeg', 'png', 'gif'].includes(
+        !['png'].includes(
           file.name.split('.')?.pop()?.toLocaleLowerCase() || ''
         )
       ) {
@@ -379,7 +379,7 @@ export class CreateUpdateComponent implements OnInit {
     if (file) {
       if (
         file.size > 2000000 ||
-        !['jpg', 'jpeg', 'png', 'gif'].includes(
+        !['png'].includes(
           file.name.split('.')?.pop()?.toLocaleLowerCase() || ''
         )
       ) {

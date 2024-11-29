@@ -116,6 +116,18 @@ export class CreateUpdateComponent implements OnInit {
     }
   }
 
+  isSendNotificationChange(event: boolean) {
+    this.submitForm.get('isSendNotification')?.setValue(event);
+    if (event) {
+      this.submitForm
+        .get('sendNotificationDate')
+        ?.setValidators([Validators.required]);
+      this.submitForm
+        .get('sendNotificationTime')
+        ?.setValidators([Validators.required]);
+    }
+  }
+
   dateFormat(d: string): string {
     const date = dayjs(d);
     return date.locale('th-th').format('DD/MM/BBBB');
