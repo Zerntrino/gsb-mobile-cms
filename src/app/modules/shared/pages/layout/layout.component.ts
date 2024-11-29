@@ -12,7 +12,12 @@ export class LayoutComponent implements OnDestroy, OnInit {
   appUser?: AppUserToken;
   url?: string;
   leftMenus: LeftMenu[];
-  leftMenuFull = true;
+
+  get leftMenuFull(): boolean {
+    return localStorage.getItem('left-menu-full')
+      ? JSON.parse(localStorage.getItem('left-menu-full') || '')
+      : true;
+  }
 
   constructor(private authService: AuthService, private router: Router) {
     this.appUser = undefined;
@@ -133,7 +138,7 @@ export class LayoutComponent implements OnDestroy, OnInit {
   }
 
   toggleLeftMenu(): void {
-    this.leftMenuFull = !this.leftMenuFull;
+    localStorage.setItem('left-menu-full', `${!this.leftMenuFull}`);
   }
 
   logoutClick(): void {

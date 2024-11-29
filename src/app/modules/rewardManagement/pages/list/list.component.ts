@@ -99,9 +99,11 @@ export class ListComponent implements OnInit {
         this.categories = response.data as Category[];
         this.categoryOption.push({ value: '', label: 'ทั้งหมด' });
         this.categoryOption = this.categoryOption.concat(
-          this.categories.map((c) => {
-            return { value: c.id, label: c.name } as Select2Option;
-          })
+          this.categories
+            .filter((c) => c.isReward)
+            .map((c) => {
+              return { value: c.id, label: c.name } as Select2Option;
+            })
         );
       },
       (error) => {

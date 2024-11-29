@@ -207,9 +207,11 @@ export class CreateUpdateComponent implements OnInit {
       (response) => {
         const categories = response.data as Category[];
         this.categoryOption = this.categoryOption.concat(
-          categories.map((c) => {
-            return { value: c.id, label: c.name } as Select2Option;
-          })
+          categories
+            .filter((c) => c.isReward)
+            .map((c) => {
+              return { value: c.id, label: c.name } as Select2Option;
+            })
         );
       },
       (error) => {
