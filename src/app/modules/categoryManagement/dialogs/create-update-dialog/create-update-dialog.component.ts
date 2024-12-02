@@ -80,7 +80,7 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
     if (file) {
       if (
         file.size > 2000000 ||
-        !['jpg', 'jpeg', 'png', 'gif'].includes(
+        !['png'].includes(
           file.name.split('.')?.pop()?.toLocaleLowerCase() || ''
         )
       ) {
