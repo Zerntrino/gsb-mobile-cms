@@ -375,6 +375,7 @@
                 "
               >
                 <img
+                  *ngIf="mode != 'view'"
                   class="w-16 h-16 absolute top-0 right-0 z-10 cursor-pointer"
                   style="right: 0"
                   src="assets/icons/x-circle.svg"
@@ -426,15 +427,16 @@
                   *ngFor="let img of imageBase64; let i = index"
                 >
                   <img
+                    *ngIf="mode != 'view'"
                     class="w-16 h-16 absolute top-0 right-0 z-10 cursor-pointer"
                     style="right: 0"
                     src="assets/icons/x-circle.svg"
                     (click)="removeImg(i)"
                   />
                   <div
-                    class="w-32 h-20 flex justify-center items-center rounded-md bg-gray-300"
+                    class="w-32 h-20 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
                   >
-                    <img [src]="img" class="w-11 mx-auto cursor-pointer" />
+                    <img [src]="img" class="w-full mx-auto cursor-pointer" />
                   </div>
                 </div>
               </div>
@@ -465,6 +467,7 @@
 
               <div class="flex justify-center">
                 <button
+                  *ngIf="mode != 'view'"
                   class="button-border text-center flex items-center justify-center space-x-4"
                   type="button"
                   (click)="inputImage2.click()"

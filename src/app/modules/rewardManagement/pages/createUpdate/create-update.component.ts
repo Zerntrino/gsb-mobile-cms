@@ -39,15 +39,15 @@ export class CreateUpdateComponent implements OnInit {
   mode = 'edit';
 
   submitForm = new FormGroup({
-    categoryId: new FormControl(0),
+    categoryId: new FormControl(0, [Validators.required]),
     isActive: new FormControl(true),
-    name: new FormControl(''), //  [Validators.required]
-    description: new FormControl(''),
+    name: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
     aboutIt: new FormControl<string[]>([]),
-    startDate: new FormControl('', []),
-    endDate: new FormControl('', []),
+    startDate: new FormControl('', [Validators.required]),
+    endDate: new FormControl('', [Validators.required]),
     isNotification: new FormControl(true),
-    typeId: new FormControl(0),
+    typeId: new FormControl(0, [Validators.required]),
     shopId: new FormControl(0),
     generateType: new FormControl(0),
     prefixCode: new FormControl(''),
@@ -63,7 +63,7 @@ export class CreateUpdateComponent implements OnInit {
     limitPerCard: new FormControl(0),
     limitPerCardPerDay: new FormControl(0),
     limitPerCardPerMonth: new FormControl(0),
-    cardId: new FormControl<number[]>([]),
+    cardId: new FormControl<number[]>([], [Validators.required]),
     coverUrl: new FormControl(''),
     imageUrl: new FormControl<string[]>([]),
   });
@@ -276,8 +276,45 @@ export class CreateUpdateComponent implements OnInit {
     }
   }
   promotionTypeChange(e: Select2UpdateEvent): void {
-    if (this.submitForm.get('typeId')?.value != e.value) {
+    if (e.value && this.submitForm.get('typeId')?.value != e.value) {
       this.submitForm.get('typeId')?.setValue(e.value as number);
+
+      this.submitForm.get('brandId')?.setValidators([]);
+      this.submitForm.get('generateType')?.setValidators([]);
+      this.submitForm.get('productName')?.setValidators([]);
+      this.submitForm.get('mPoint')?.setValidators([]);
+      this.submitForm.get('creditCashBack')?.setValidators([]);
+      this.submitForm.get('limit')?.setValidators([]);
+      this.submitForm.get('limitPerCard')?.setValidators([]);
+      this.submitForm.get('limitPerMonth')?.setValidators([]);
+      this.submitForm.get('limitPerCardPerMonth')?.setValidators([]);
+      this.submitForm.get('limitPerCardPerDay')?.setValidators([]);
+      this.submitForm.get('ref1;')?.setValidators([]);
+
+      if (e.value == 1) {
+        this.submitForm.get('mPoint')?.setValidators([]);
+        this.submitForm.get('creditCashBack')?.setValidators([]);
+        this.submitForm.get('limit')?.setValidators([]);
+        this.submitForm.get('limitPerCard')?.setValidators([]);
+      } else if (e.value == 2) {
+        this.submitForm.get('productName')?.setValidators([]);
+        this.submitForm.get('mPoint')?.setValidators([]);
+        this.submitForm.get('limit')?.setValidators([]);
+        this.submitForm.get('limitPerCard')?.setValidators([]);
+        this.submitForm.get('limitPerMonth')?.setValidators([]);
+      } else if (e.value == 3) {
+        this.submitForm.get('brandId')?.setValidators([]);
+        this.submitForm.get('ref1')?.setValidators([]);
+        this.submitForm.get('point')?.setValidators([]);
+        this.submitForm.get('mPoint')?.setValidators([]);
+      } else if (e.value == 4) {
+        this.submitForm.get('brandId')?.setValidators([]);
+        this.submitForm.get('generateType')?.setValidators([]);
+        this.submitForm.get('limit')?.setValidators([]);
+        this.submitForm.get('limitPerMonth')?.setValidators([]);
+        this.submitForm.get('limitPerCardPerMonth')?.setValidators([]);
+        this.submitForm.get('limitPerCardDay')?.setValidators([]);
+      }
     }
   }
   tagChange(e: string[]): void {

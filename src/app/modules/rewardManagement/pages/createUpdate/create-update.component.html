@@ -50,7 +50,7 @@
                 (update)="categoryChange($event)"
                 [data]="categoryOption"
                 placeholder="เลือกหมวดหมู่"
-                [disabled]="mode == 'view'"
+                [disabled]="mode == 'view' || id != 'create'"
               ></select2>
             </div>
             <div class="">
@@ -95,6 +95,7 @@
                 name="startDate"
                 formControlName="startDate"
                 placeholder="วว/ดด/ปปปป"
+                [disabled]="id != 'create'"
               />
               <img
                 [owlDateTimeTrigger]="startDate"
@@ -127,7 +128,7 @@
                 (valueUpdate)="
                   submitForm.get('isNotification')?.setValue($event)
                 "
-                [disabled]="mode == 'view'"
+                [disabled]="mode == 'view' || id != 'create'"
                 >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-checkbox
               >
             </div>
@@ -145,7 +146,7 @@
                 (update)="promotionTypeChange($event)"
                 [data]="promotionTypeOption"
                 placeholder="เลือกประเภทการแลกคะแนน"
-                [disabled]="mode == 'view'"
+                [disabled]="mode == 'view' || id != 'create'"
               ></select2>
             </div>
 
@@ -158,6 +159,7 @@
                     formControlName="productName"
                     class="input"
                     placeholder="สินค้าที่ได้รับในการแลกคะแนน"
+                    [disabled]="mode == 'view' || id != 'create'"
                   />
                 </div>
                 <div class="flex-1">
@@ -167,6 +169,7 @@
                     formControlName="productCode"
                     class="input"
                     placeholder="รหัสสินค้า"
+                    [disabled]="mode == 'view' || id != 'create'"
                   />
                 </div>
               </div>
@@ -181,7 +184,7 @@
                   (update)="shopChange($event)"
                   [data]="shopOption"
                   placeholder="เลือกร้านค้า/แบรนด์"
-                  [disabled]="mode == 'view'"
+                  [disabled]="mode == 'view' || id != 'create'"
                 ></select2>
               </div>
             </div>
@@ -207,6 +210,7 @@
                     formControlName="point"
                     class="input text-right"
                     placeholder="คะแนนที่ใช้แลก"
+                    [disabled]="mode == 'view' || id != 'create'"
                   />
                 </div>
                 <div class="flex-1">
@@ -216,6 +220,7 @@
                     formControlName="mPoint"
                     class="input text-right"
                     placeholder="คะแนนที่ได้รับ (M Point)"
+                    [disabled]="mode == 'view'"
                   />
                 </div>
               </div>
@@ -236,13 +241,14 @@
                   [disabled]="mode == 'view'"
                 ></select2>
               </div>
-              <div>
+              <div *ngIf="submitForm.get('generateType')?.value == 1">
                 <div class="text-sm">Prefix code</div>
                 <input
                   class="input"
                   name="prefixCode"
                   formControlName="prefixCode"
                   placeholder="Prefix code"
+                  [disabled]="mode == 'view'"
                 />
                 <div class="text-sm text-gray-400">
                   ประกอบด้วย Prefix 5 หลัก (ตัวเลขหรือตัวอักษร)
@@ -293,6 +299,7 @@
                     class="input text-right"
                     placeholder="คะแนนที่ใช้แลก (คะแนน)"
                   />
+                  {{ id != "create" }}
                 </div>
                 <div class="flex-1">
                   <div class="text-sm">เครดิตเงินคืน (บาท)</div>
@@ -428,7 +435,7 @@
               *ngIf="(submitForm.get('typeId')?.value || 0) > 0"
               class="my-2"
             >
-              <div class="mb-2">ประเภทบัตรที่ใช้โปรโมชันได้</div>
+              <div class="mb-2">ประเภทบัตรสำหรับเครดิตเงินคืน</div>
               <div class="flex flex-wrap -mx-1">
                 <div class="p-1 w-full">
                   <div
@@ -488,6 +495,7 @@
                 *ngIf="coverImageBase64 || submitForm.get('coverUrl')?.value"
               >
                 <img
+                  *ngIf="mode != 'view'"
                   class="w-16 h-16 absolute top-0 right-0 z-10 cursor-pointer"
                   style="right: 0"
                   src="assets/icons/x-circle.svg"
@@ -539,15 +547,16 @@
                   *ngFor="let img of imageBase64; let i = index"
                 >
                   <img
+                    *ngIf="mode != 'view'"
                     class="w-16 h-16 absolute top-0 right-0 z-10 cursor-pointer"
                     style="right: 0"
                     src="assets/icons/x-circle.svg"
                     (click)="removeImg(i)"
                   />
                   <div
-                    class="w-32 h-20 flex justify-center items-center rounded-md bg-gray-300"
+                    class="w-32 h-20 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
                   >
-                    <img [src]="img" class="w-11 mx-auto cursor-pointer" />
+                    <img [src]="img" class="w-full mx-auto cursor-pointer" />
                   </div>
                 </div>
               </div>
