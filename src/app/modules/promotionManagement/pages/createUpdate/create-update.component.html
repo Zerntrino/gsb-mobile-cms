@@ -50,7 +50,7 @@
                 (update)="categoryChange($event)"
                 [data]="categoryOption"
                 placeholder="เลือกหมวดหมู่"
-                [disabled]="mode == 'view' || id"
+                [disabled]="mode == 'view' || id != 'create'"
               ></select2>
             </div>
             <div class="">
@@ -95,7 +95,7 @@
                 name="startDate"
                 formControlName="startDate"
                 placeholder="วว/ดด/ปปปป"
-                [disabled]="!!id"
+                [disabled]="id != 'create'"
               />
               <img
                 [owlDateTimeTrigger]="startDate"
@@ -105,7 +105,7 @@
               <owl-date-time
                 #startDate
                 pickerType="calendar"
-                [disabled]="!!id"
+                [disabled]="id != 'create'"
               ></owl-date-time>
             </div>
             <div class="relative">
@@ -132,7 +132,7 @@
                 (valueUpdate)="
                   submitForm.get('isNotification')?.setValue($event)
                 "
-                [disabled]="mode == 'view' || !!id"
+                [disabled]="mode == 'view' || id != 'create'"
                 >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-checkbox
               >
             </div>
@@ -150,7 +150,7 @@
                 (update)="promotionTypeChange($event)"
                 [data]="promotionTypeOption"
                 placeholder="เลือกหมวดหมู่"
-                [disabled]="mode == 'view' || id"
+                [disabled]="mode == 'view' || id != 'create'"
               ></select2>
             </div>
 
@@ -164,7 +164,7 @@
                 (update)="shopChange($event)"
                 [data]="shopOption"
                 placeholder="เลือกร้านค้า/แบรนด์"
-                [disabled]="mode == 'view' || id"
+                [disabled]="mode == 'view' || id != 'create'"
               ></select2>
             </div>
 
@@ -187,7 +187,7 @@
                 multiple="true"
                 (update)="mccChange($event)"
                 placeholder="MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ"
-                [disabled]="mode == 'view' || id"
+                [disabled]="mode == 'view' || id != 'create'"
               ></select2>
             </div>
 
@@ -203,7 +203,7 @@
                   (update)="generateTypeChange($event)"
                   [data]="codeTypeOption"
                   placeholder="เลือกประเภท Code"
-                  [disabled]="mode == 'view' || id"
+                  [disabled]="mode == 'view' || id != 'create'"
                 ></select2>
               </div>
               <div *ngIf="submitForm.get('generateType')?.value == 1">
@@ -213,7 +213,7 @@
                   name="prefixCode"
                   formControlName="prefixCode"
                   placeholder="Prefix code"
-                  [disabled]="!!id"
+                  [disabled]="id != 'create'"
                 />
 
                 <div class="text-sm text-gray-400">
@@ -225,7 +225,7 @@
                   class="button-border text-center flex items-center justify-center space-x-4 w-full"
                   type="button"
                   (click)="inputCode.click()"
-                  [disabled]="mode == 'view' || id"
+                  [disabled]="mode == 'view' || id != 'create'"
                 >
                   <img src="assets/icons/document.svg" class="w-6" />
                   <div>นำเข้าเอกสาร</div>
