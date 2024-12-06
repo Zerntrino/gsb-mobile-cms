@@ -122,11 +122,7 @@
                 *ngIf="!(imageBase64 || submitForm.get('imageUrl')?.value)"
                 class="w-full mt-6 aspect-w-3 aspect-h-2 flex justify-center items-center rounded-md bg-gray-300"
               >
-                <img
-                  src="assets/icons/img.svg"
-                  class="w-11 mx-auto cursor-pointer"
-                  (click)="submitForm.get('imageUrl')?.setValue('')"
-                />
+                <img src="assets/icons/img.svg" class="w-11 mx-auto" />
               </div>
 
               <div
@@ -134,9 +130,10 @@
                 class="relative"
               >
                 <img
-                  class="w-16 h-16 absolute top-0 right-0 z-10"
+                  class="w-16 h-16 absolute top-0 right-0 z-10 cursor-pointer"
                   style="right: 0"
                   src="assets/icons/x-circle.svg"
+                  (click)="submitForm.get('imageUrl')?.setValue('')"
                 />
                 <div
                   class="w-full mt-6 aspect-w-3 aspect-h-2 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
