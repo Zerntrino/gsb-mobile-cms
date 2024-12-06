@@ -32,8 +32,24 @@ export class HighlightComponent implements OnInit {
 
   list: Reward[] = [];
   rewards: Reward[] = [];
+  rewardsAll: Reward[] = [];
   showSelected = false;
   q = '';
+
+  type: Select2Value = '';
+  typeOption: Select2Option[] = [
+    { value: '', label: 'ทั้งหมด' },
+    { value: 1, label: 'ใช้ Point แลก Cashback' },
+    { value: 2, label: 'ใช้ Point แลก ของ' },
+    {
+      value: 3,
+      label: 'ใช้ Point แลก Point',
+    },
+    {
+      value: 4,
+      label: 'ใช้ Point แลก Code',
+    },
+  ];
 
   card: Select2Value = '';
   cardOption: Select2Option[] = [];
@@ -56,7 +72,7 @@ export class HighlightComponent implements OnInit {
     if (this.q) params = params.append('find', this.q);
     await this.rewardService.getList(params).subscribe(
       (response) => {
-        this.rewards = response.data as Reward[];
+        this.rewardsAll = response.data as Reward[];
       },
       (error) => {
         console.log(error);
@@ -109,7 +125,9 @@ export class HighlightComponent implements OnInit {
   }
   show(): void {
     const useds = this.list.map((l) => l.id);
-    this.rewards = this.rewards.filter((p) => !useds.includes(p.id));
+    this.rewards = this.rewardsAll.filter(
+      (p) => p.isActive && !useds.includes(p.id)
+    );
 
     this.showSelected = true;
   }
@@ -120,6 +138,20 @@ export class HighlightComponent implements OnInit {
     const selects = this.rewards.filter((p) => p.select);
     this.list = this.list.concat(selects);
     this.showSelected = false;
+  }
+
+  typeChange(e: Select2UpdateEvent): void {
+    if (this.type != e.value) {
+      this.type = e.value;
+
+      const useds = this.list.map((l) => l.id);
+      this.rewards = this.rewardsAll.filter(
+        (p) =>
+          p.isActive &&
+          !useds.includes(p.id) &&
+          (!this.type || p.typeId == this.type)
+      );
+    }
   }
 
   dateFormat(d: string): string {
