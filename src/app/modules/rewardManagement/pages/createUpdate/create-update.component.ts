@@ -64,8 +64,8 @@ export class CreateUpdateComponent implements OnInit {
     limitPerCardPerDay: new FormControl(0),
     limitPerCardPerMonth: new FormControl(0),
     cardId: new FormControl<number[]>([], [Validators.required]),
-    coverUrl: new FormControl(''),
-    imageUrl: new FormControl<string[]>([]),
+    coverUrl: new FormControl('', [Validators.required]),
+    imageUrl: new FormControl<string[]>([], [Validators.required]),
   });
 
   coverImageBase64 = '';
@@ -385,6 +385,9 @@ export class CreateUpdateComponent implements OnInit {
 
           this.coverImageBase64 = reader.result?.toString() || '';
           this.coverImage = file;
+          this.submitForm
+            .get('coverUrl')
+            ?.setValue(this.coverImageBase64 || '');
         };
         img.src = URL.createObjectURL(file);
       };
@@ -421,6 +424,7 @@ export class CreateUpdateComponent implements OnInit {
 
           this.imageBase64.push(reader.result?.toString() || '');
           this.images.push(file);
+          this.submitForm.get('imageUrl')?.setValue(this.imageBase64 || []);
         };
         img.src = URL.createObjectURL(file);
       };

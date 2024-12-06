@@ -81,7 +81,7 @@ export class CreateUpdateComponent implements OnInit {
   fetchCards() {
     this.cardService.getList().subscribe(
       (response) => {
-        const res = response.data as Card[];
+        const res = (response.data as Card[]).filter((c) => c.isActive);
         this.cards = res;
         this.cardIds = res.map((c) => c.id);
       },

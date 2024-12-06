@@ -113,7 +113,7 @@ export class HighlightComponent implements OnInit {
         this.promotionTypeOption.push({ value: '', label: 'ทั้งหมด' });
         this.promotionTypeOption = this.promotionTypeOption.concat(
           types.map((t) => {
-            return { value: t.id, label: t.name } as Select2Option;
+            return { value: t.name, label: t.name } as Select2Option;
           })
         );
       },

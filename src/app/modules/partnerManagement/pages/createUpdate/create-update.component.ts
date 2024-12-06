@@ -31,9 +31,9 @@ export class CreateUpdateComponent implements OnInit {
 
   submitForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    description: new FormControl(''),
+    description: new FormControl('', [Validators.required]),
     isActive: new FormControl(true),
-    imageUrl: new FormControl(''),
+    imageUrl: new FormControl('', [Validators.required]),
     aboutIt: new FormControl<string[]>([]),
   });
   imageBase64 = '';
@@ -132,6 +132,7 @@ export class CreateUpdateComponent implements OnInit {
 
           this.imageBase64 = reader.result?.toString() || '';
           this.image = file;
+          this.submitForm.get('imageUrl')?.setValue(this.imageBase64);
         };
         img.src = URL.createObjectURL(file);
       };
