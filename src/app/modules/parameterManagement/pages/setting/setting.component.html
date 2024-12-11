@@ -26,19 +26,23 @@
           />
         </div>
 
-        <div class="flex items-center space-x-2">
-          <div>สถานะ</div>
+        <!-- <div class="flex items-center space-x-2">
+          <div>ประเภทบัตร</div>
           <select2
             class="w-44"
-            [value]="statusMcc"
-            (update)="statusMccChange($event)"
-            [data]="statusMccOption"
-            placeholder="สถานะ"
+            [value]="type"
+            (update)="typeChange($event)"
+            [data]="typeOption"
+            placeholder="ทั้งหมด"
           ></select2>
-        </div>
+        </div> -->
       </div>
 
-      <div class="px-6 table w-full">
+      <div *ngIf="listMcc.length == 0" class="py-8 text-center text-gray-400">
+        ไม่พบข้อมูลรายการที่ค้นหา
+      </div>
+
+      <div *ngIf="listMcc.length > 0" class="px-6 table w-full">
         <div class="table-header-group">
           <div class="table-row">
             <div class="table-cell text-center">#</div>
@@ -78,20 +82,20 @@
     </div>
 
     <div *ngIf="tab == 1">
-      <div class="pb-4 px-6 flex space-x-4">
+      <!-- <div class="pb-4 px-6 flex space-x-4">
         <div class="flex-1 flex relative"></div>
 
         <div class="flex items-center space-x-2">
-          <div>สถานะ</div>
+          <div>ประเภทบัตร</div>
           <select2
             class="w-44"
-            [value]="statusMinimum"
-            (update)="statusMinimumChange($event)"
-            [data]="statusMinimumOption"
-            placeholder="สถานะ"
+            [value]="typeMinimum"
+            (update)="typeMinimumChange($event)"
+            [data]="typeMinimumOption"
+            placeholder="ทั้งหมด"
           ></select2>
         </div>
-      </div>
+      </div> -->
 
       <div class="px-6 table w-full">
         <div class="table-header-group">
@@ -144,7 +148,7 @@
                 </button>
                 <button
                   *ngIf="item.isEditing"
-                  (click)="item.isEditing = false"
+                  (click)="item.isEditing = false; updateMinimum(item)"
                   class="button text-sm w-20 px-3 py-2"
                 >
                   บันทึก
@@ -195,6 +199,7 @@
               [data]="currentAddMccOption"
               placeholder="ค้นหา: MCC"
               [resettable]="true"
+              noResultMessage="ไม่พบข้อมูลรายการที่ค้นหา"
             ></select2>
           </div>
         </div>
@@ -243,7 +248,7 @@
     </div>
   </div>
 
-  <div
+  <!-- <div
     class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2"
   >
     <a routerLink="/parameter"
@@ -252,5 +257,5 @@
     <button class="button w-auto px-6" (click)="save()">
       {{ tab == 0 ? "บันทึก MCC" : "บันทึกยอดใช้จ่ายขั้นต่ำ" }}
     </button>
-  </div>
+  </div> -->
 </div>

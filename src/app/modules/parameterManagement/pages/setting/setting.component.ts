@@ -16,6 +16,8 @@ import {
   ParameterMinimum,
 } from 'src/app/core/models/parameter.model';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { CardService } from 'src/app/core/services/card.service';
+import { Card } from 'src/app/core/models/card.model';
 
 @Component({
   selector: 'app-parameter-setting',
@@ -36,18 +38,10 @@ export class ParameterSettingComponent implements OnInit {
 
   qMcc = '';
   qAddMcc = '';
-  statusMcc: Select2Value = '';
-  statusMccOption: Select2Option[] = [
-    { value: '', label: 'ทั้งหมด' },
-    { value: 'true', label: 'แสดงผล' },
-    { value: 'false', label: 'ไม่แสดงผล' },
-  ];
-  statusMinimum: Select2Value = '';
-  statusMinimumOption: Select2Option[] = [
-    { value: '', label: 'ทั้งหมด' },
-    { value: 'true', label: 'แสดงผล' },
-    { value: 'false', label: 'ไม่แสดงผล' },
-  ];
+  type: Select2Value = '';
+  typeOption: Select2Option[] = [{ value: '', label: 'ทั้งหมด' }];
+  typeMinimum: Select2Value = '';
+  typeMinimumOption: Select2Option[] = [{ value: '', label: 'ทั้งหมด' }];
   mcc: ParameterMCC = {} as ParameterMCC;
   addMcc: Select2Value = '';
   addMccOption: Select2Option[] = [];
@@ -62,10 +56,17 @@ export class ParameterSettingComponent implements OnInit {
   constructor(
     private router: Router,
     private parameterService: ParameterService,
+    private cardService: CardService,
     private toastService: ToastService
   ) {}
 
   ngOnInit(): void {
+    this.fetchMCC();
+
+    this.fetch();
+  }
+
+  fetchMCC(): void {
     this.parameterService.getMCCList().subscribe(
       (response) => {
         this.mccs = response.data as MCC[];
@@ -80,15 +81,22 @@ export class ParameterSettingComponent implements OnInit {
         console.log(error);
       }
     );
-
-    this.fetch();
   }
 
   fetch(): void {
+    this.cardService.getList().subscribe((response) => {
+      this.typeOption = [{ value: '', label: 'ทั้งหมด' }];
+      this.typeMinimumOption = [{ value: '', label: 'ทั้งหมด' }];
+      const cards = response.data as Card[];
+      cards.map((item: Card) => {
+        this.typeOption.push({ value: item.id, label: item.name });
+        this.typeMinimumOption.push({ value: item.id, label: item.name });
+      });
+    });
+
     let params = new HttpParams();
     if (this.qMcc) params = params.append('find', this.qMcc);
-    if (this.statusMcc)
-      params = params.append('status', this.statusMcc.toString());
+    if (this.type) params = params.append('card', this.type.toString());
     this.parameterService.getInstallmentMCCList(params).subscribe(
       (response) => {
         this.listMcc = (response.data as ParameterMCC[]).map((e) => {
@@ -102,8 +110,8 @@ export class ParameterSettingComponent implements OnInit {
     );
 
     let params2 = new HttpParams();
-    if (this.statusMinimum)
-      params2 = params2.append('status', this.statusMinimum.toString());
+    if (this.typeMinimum)
+      params2 = params2.append('card', this.typeMinimum.toString());
     this.parameterService.getInstallmentMinimumList(params2).subscribe(
       (response) => {
         this.listMinimum = response.data as ParameterMinimum[];
@@ -117,9 +125,9 @@ export class ParameterSettingComponent implements OnInit {
   qMccChange(): void {
     this.fetch();
   }
-  statusMccChange(e: Select2UpdateEvent): void {
-    if (this.statusMcc != e.value) {
-      this.statusMcc = e.value;
+  typeChange(e: Select2UpdateEvent): void {
+    if (this.type != e.value) {
+      this.type = e.value;
       this.fetch();
     }
   }
@@ -127,9 +135,9 @@ export class ParameterSettingComponent implements OnInit {
     this.fetch();
   }
 
-  statusMinimumChange(e: Select2UpdateEvent): void {
-    if (this.statusMcc != e.value) {
-      this.statusMcc = e.value;
+  typeMinimumChange(e: Select2UpdateEvent): void {
+    if (this.typeMinimum != e.value) {
+      this.typeMinimum = e.value;
       this.fetch();
     }
   }
@@ -168,30 +176,32 @@ export class ParameterSettingComponent implements OnInit {
     const index = this.listMcc.findIndex((i) => i.id == this.mcc.id);
     this.listMcc[index] = this.mcc;
     this.showType = 'hide';
+
+    this.updateInstallmentMCC(this.listMcc[index]);
   }
 
-  async save() {
-    if (this.tab == 0) {
-      await this.listMcc.forEach(async (item) => {
-        console.log(item);
-        this.updateInstallmentMCC(item);
-      });
+  // async save() {
+  //   if (this.tab == 0) {
+  //     await this.listMcc.forEach(async (item) => {
+  //       console.log(item);
+  //       this.updateInstallmentMCC(item);
+  //     });
 
-      this.toastService.add(
-        'success',
-        'บันทึก ตั้งค่า MCC (ห้ามผ่อนชำระ) เรียบร้อยแล้ว'
-      );
-    } else {
-      await this.listMinimum.forEach((item) => {
-        this.updateMinimum(item);
-      });
+  //     this.toastService.add(
+  //       'success',
+  //       'บันทึก ตั้งค่า MCC (ห้ามผ่อนชำระ) เรียบร้อยแล้ว'
+  //     );
+  //   } else {
+  //     await this.listMinimum.forEach((item) => {
+  //       this.updateMinimum(item);
+  //     });
 
-      this.toastService.add(
-        'success',
-        'บันทึก ตั้งค่ายอดใช้จ่ายขั้นต่ำ (ต่อเซลล์สลิป) เรียบร้อยแล้ว'
-      );
-    }
-  }
+  //     this.toastService.add(
+  //       'success',
+  //       'บันทึก ตั้งค่ายอดใช้จ่ายขั้นต่ำ (ต่อเซลล์สลิป) เรียบร้อยแล้ว'
+  //     );
+  //   }
+  // }
 
   async updateInstallmentMCC(item: ParameterMCC) {
     await this.parameterService
@@ -199,6 +209,10 @@ export class ParameterSettingComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log(response);
+          this.toastService.add(
+            'success',
+            'บันทึก ตั้งค่า MCC (ห้ามผ่อนชำระ) เรียบร้อยแล้ว'
+          );
         },
         (error) => {
           console.log(error);
@@ -219,6 +233,10 @@ export class ParameterSettingComponent implements OnInit {
       .subscribe(
         (response) => {
           console.log(response);
+          this.toastService.add(
+            'success',
+            'บันทึก ตั้งค่ายอดใช้จ่ายขั้นต่ำ (ต่อเซลล์สลิป) เรียบร้อยแล้ว'
+          );
         },
         (error) => {
           console.log(error);
