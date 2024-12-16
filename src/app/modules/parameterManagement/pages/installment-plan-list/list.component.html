@@ -28,6 +28,16 @@
       </div>
 
       <div class="flex items-center space-x-2">
+        <div>จำนวนเดือน</div>
+        <select2
+          class="w-44"
+          [value]="month"
+          (update)="monthChange($event)"
+          [data]="monthOption"
+          placeholder="จำนวนเดือน"
+        ></select2>
+      </div>
+      <div class="flex items-center space-x-2">
         <div>สถานะ</div>
         <select2
           class="w-44"
@@ -126,7 +136,8 @@
       <div class="w-full max-w-3xl bg-white rounded-md overflow-hidden">
         <div class="flex items-center border-b border-gray-100">
           <div class="flex-1 py-4 px-6 font-semibold">
-            สร้าง Installment Plan
+            {{ mode == "view" ? "ดูรายละเอียด" : plan.id ? "แก้ไข" : "สร้าง" }}
+            Installment Plan
           </div>
           <div class="px-4 pt-1 flex space-x-2">
             <div>สถานะ</div>
@@ -145,7 +156,7 @@
             class="input"
             placeholder="Installment Plan"
             [(ngModel)]="plan.name"
-            [disabled]="mode == 'view'"
+            [disabled]="mode == 'view' || !!plan.id"
           />
         </div>
 
@@ -164,7 +175,7 @@
           *ngFor="let plan of plan.planInstallment; let i = index"
         >
           <div class="flex-1 px-2 py-2">
-            <div class="text-sm">อัตราดอกเบี้ย</div>
+            <div class="text-sm">อัตราดอกเบี้ย (%)</div>
             <input
               class="input"
               placeholder="อัตราดอกเบี้ย"
@@ -180,6 +191,8 @@
               placeholder="จำนวนเดือนผ่อน"
               [(ngModel)]="plan.month"
               [disabled]="mode == 'view'"
+              min="1"
+              max="99"
             />
           </div>
           <div class="flex-1 px-2 py-2">
@@ -218,8 +231,9 @@
             *ngIf="mode == 'edit'"
             class="button"
             (click)="confirmClick()"
+            [disabled]="checkRequire()"
           >
-            บันทึกและสร้าง
+            {{ plan.id ? "บันทึก" : "สร้าง" }}
           </button>
         </div>
       </div>

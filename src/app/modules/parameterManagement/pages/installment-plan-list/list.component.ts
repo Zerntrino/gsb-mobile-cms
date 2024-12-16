@@ -30,6 +30,34 @@ export class InstallmentPlanListComponent implements OnInit {
     { value: 'true', label: 'แสดงผล' },
     { value: 'false', label: 'ไม่แสดงผล' },
   ];
+  month: Select2Value = '';
+  monthOption: Select2Option[] = [
+    { value: '', label: 'ทั้งหมด' },
+    { value: '1', label: '1' },
+    { value: '2', label: '2' },
+    { value: '3', label: '3' },
+    { value: '4', label: '4' },
+    { value: '5', label: '5' },
+    { value: '6', label: '6' },
+    { value: '7', label: '7' },
+    { value: '8', label: '8' },
+    { value: '9', label: '9' },
+    { value: '10', label: '10' },
+    { value: '11', label: '11' },
+    { value: '12', label: '12' },
+    { value: '13', label: '13' },
+    { value: '14', label: '14' },
+    { value: '15', label: '15' },
+    { value: '16', label: '16' },
+    { value: '17', label: '17' },
+    { value: '18', label: '18' },
+    { value: '19', label: '19' },
+    { value: '20', label: '20' },
+    { value: '21', label: '21' },
+    { value: '22', label: '22' },
+    { value: '23', label: '23' },
+    { value: '24', label: '24' },
+  ];
 
   list: InstallmentPlan[] = [];
   page = 1;
@@ -60,6 +88,7 @@ export class InstallmentPlanListComponent implements OnInit {
       .append('pageSize', this.pageSize);
     if (this.q) params = params.append('find', this.q);
     if (this.status) params = params.append('status', this.status as string);
+    if (this.month) params = params.append('month', this.month as string);
 
     this.parameterService.getInstallmentPlanList(params).subscribe(
       (response) => {
@@ -85,6 +114,13 @@ export class InstallmentPlanListComponent implements OnInit {
   statusChange(e: Select2UpdateEvent): void {
     if (this.status != e.value) {
       this.status = e.value;
+      this.fetch();
+    }
+  }
+
+  monthChange(e: Select2UpdateEvent): void {
+    if (this.month != e.value) {
+      this.month = e.value;
       this.fetch();
     }
   }
@@ -140,6 +176,17 @@ export class InstallmentPlanListComponent implements OnInit {
         console.log(error);
         this.toastService.add('error', error);
       }
+    );
+  }
+
+  checkRequire(): boolean {
+    return !(
+      this.plan.name &&
+      this.plan.planInstallment.reduce(
+        (a, b) =>
+          !!(a && b.interestRate && b.month && b.expensesMinimumInstallment),
+        true
+      )
     );
   }
 
