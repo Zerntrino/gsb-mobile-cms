@@ -42,6 +42,7 @@ export class InstallmentPlanListComponent implements OnInit {
   plan = {} as InstallmentPlan;
 
   showType = 'hide';
+  mode = 'edit';
 
   constructor(
     private router: Router,
@@ -115,6 +116,7 @@ export class InstallmentPlanListComponent implements OnInit {
     );
   }
   editClick(d: InstallmentPlan): void {
+    this.mode = 'edit';
     this.showType = 'show';
     this.parameterService.getInstallmentPlan(d.id).subscribe(
       (response) => {
@@ -126,6 +128,26 @@ export class InstallmentPlanListComponent implements OnInit {
       }
     );
   }
+
+  viewClick(d: InstallmentPlan): void {
+    this.mode = 'view';
+    this.showType = 'show';
+    this.parameterService.getInstallmentPlan(d.id).subscribe(
+      (response) => {
+        this.plan = response.data as InstallmentPlan; // JSON.parse(JSON.stringify(d || { planInstallment: [] }));
+      },
+      (error) => {
+        console.log(error);
+        this.toastService.add('error', error);
+      }
+    );
+  }
+
+  editItemClick(): void {
+    this.mode = 'edit';
+    this.showType = 'show';
+  }
+
   addPlan() {
     this.plan.planInstallment.push({} as Plan);
   }
