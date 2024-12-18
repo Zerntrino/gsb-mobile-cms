@@ -14,6 +14,8 @@ import { Card } from 'src/app/core/models/card.model';
 import {
   Installment,
   InstallmentPlan,
+  MCC,
+  ParameterMinimum,
 } from 'src/app/core/models/parameter.model';
 import { ParameterService } from 'src/app/core/services/parameter.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
@@ -34,18 +36,19 @@ export class CreateUpdateComponent implements OnInit {
   installmentPlans: InstallmentPlan[] = [];
   installmentPlanOption: Select2Option[] = [];
   installmentPlan: InstallmentPlan = {} as InstallmentPlan;
+  listMinimum: ParameterMinimum[] = [];
 
-  mccs: string[] = [];
+  mccOption: Select2Option[] = [];
   cards: Card[] = [];
   cardIds: number[] = [];
   submitForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    description: new FormControl(''),
-    planCode: new FormControl(''),
+    description: new FormControl('', [Validators.required]),
+    planCode: new FormControl('', [Validators.required]),
     mccCode: new FormControl<string[]>([]),
-    startDate: new FormControl(''),
-    endDate: new FormControl(''),
-    cardId: new FormControl<number[]>([]),
+    startDate: new FormControl('', [Validators.required]),
+    endDate: new FormControl('', [Validators.required]),
+    cardId: new FormControl<number[]>([], [Validators.required]),
     isActive: new FormControl(false),
   });
 
@@ -79,6 +82,8 @@ export class CreateUpdateComponent implements OnInit {
     await this.fetch();
     await this.fetchCards();
     await this.fetchInstallmentPlans();
+    await this.fetchMcc();
+    await this.fetchCardMin();
   }
 
   async fetch() {
@@ -122,15 +127,55 @@ export class CreateUpdateComponent implements OnInit {
     this.parameterService.getInstallmentPlanList(params).subscribe(
       (response) => {
         this.installmentPlans = response.data as InstallmentPlan[];
-        this.installmentPlanOption = this.installmentPlans.map((i) => {
-          return {
-            value: i.name,
-            label: i.name,
-          } as Select2Option;
-        });
+        this.installmentPlanOption = this.installmentPlans
+          .filter((i) => i.isActive)
+          .map((i) => {
+            return {
+              value: i.name,
+              label: i.name,
+            } as Select2Option;
+          });
       },
       (error) => {}
     );
+  }
+
+  fetchMcc(): void {
+    let params = new HttpParams();
+    params = params.append('pageSize', '100');
+    this.parameterService.getMCCList(params).subscribe(
+      (response) => {
+        const mccs = response.data as MCC[];
+        this.mccOption = mccs.map((item) => {
+          return { value: item.code, label: item.name } as Select2Option;
+        });
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  fetchCardMin(): void {
+    let params = new HttpParams();
+    params = params.append('pageSize', '100');
+    this.parameterService.getInstallmentMinimumList(params).subscribe(
+      (response) => {
+        this.listMinimum = response.data as ParameterMinimum[];
+      },
+      (error) => {
+        console.log(error);
+      }
+    );
+  }
+
+  getCardName(id: number): string {
+    const card = this.cards.find((c) => c.id == id);
+    return card ? card.name : '';
+  }
+  getCardMin(id: number): number {
+    const min = this.listMinimum.find((c) => c.id == id);
+    return min ? min.minimumAmount : 0;
   }
 
   onSubmit(): void {
@@ -165,8 +210,11 @@ export class CreateUpdateComponent implements OnInit {
     const date = dayjs(d);
     return date.locale('th-th').format('DD/MM/BBBB');
   }
-  mccChange(e: string[]): void {
-    this.mccs = e;
+
+  mccChange(e: Select2UpdateEvent): void {
+    if (this.submitForm.get('mccCode')?.value != e.value) {
+      this.submitForm.get('mccCode')?.setValue((e.value as string[]) || []);
+    }
   }
 
   updateCard(event: boolean, id: number) {

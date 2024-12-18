@@ -103,13 +103,25 @@
             <div class="font-semibold my-2">กำหนดเงื่อนไข</div>
             <div class="border border-gray-100 rounded-md p-6 space-y-4">
               <div class="my-2">
-                <div class="text-sm">MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ</div>
+                <!-- <div class="text-sm">MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ</div>
                 <app-tag
                   [value]="mccs"
                   (valueUpdate)="mccChange($event)"
                   placeholder="MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ"
                   [disabled]="mode == 'view'"
-                ></app-tag>
+                ></app-tag> -->
+                <div class="text-sm">
+                  MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ (ไม่บังคับ)
+                </div>
+                <select2
+                  class="flex w-full"
+                  [value]="submitForm.get('mccCode')?.value || []"
+                  [data]="mccOption"
+                  multiple="true"
+                  (update)="mccChange($event)"
+                  placeholder="MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ"
+                  [disabled]="mode == 'view'"
+                ></select2>
                 <div class="text-sm py-1 text-gray-500">
                   *หากไม่ระบุจะใช้กับทุก MCC
                 </div>
@@ -219,15 +231,18 @@
                   </div>
                 </div>
                 <div class="table-row-group">
-                  <div class="table-row">
-                    <div class="table-cell text-center">1</div>
-                    <div class="table-cell">GSB Precious</div>
-                    <div class="table-cell text-right font-semibold">3,000</div>
-                  </div>
-                  <div class="table-row">
-                    <div class="table-cell text-center">1</div>
-                    <div class="table-cell">GSB Precious</div>
-                    <div class="table-cell text-right font-semibold">3,000</div>
+                  <div
+                    *ngFor="
+                      let cardId of submitForm.get('cardId')?.value;
+                      let i = index
+                    "
+                    class="table-row"
+                  >
+                    <div class="table-cell text-center">{{ i + 1 }}</div>
+                    <div class="table-cell">{{ getCardName(cardId) }}</div>
+                    <div class="table-cell text-right font-semibold">
+                      {{ getCardMin(cardId) }}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -250,7 +265,12 @@
         >
           แก้ไข
         </button>
-        <button *ngIf="mode == 'edit'" type="submit" class="button w-auto px-6">
+        <button
+          *ngIf="mode == 'edit'"
+          type="submit"
+          [disabled]="!submitForm.valid"
+          class="button w-auto px-6"
+        >
           {{ id == "create" ? "สร้างพารามิเตอร์" : "บันทึกพารามิเตอร์" }}
         </button>
       </div>
