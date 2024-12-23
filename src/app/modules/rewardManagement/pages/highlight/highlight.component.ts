@@ -64,11 +64,13 @@ export class HighlightComponent implements OnInit {
   async ngOnInit() {
     await this.fetchCard();
     // await this.fetch();
-    await this.fetchRewards();
   }
 
   async fetchRewards() {
-    let params = new HttpParams().append('page', 1).append('pageSize', 100);
+    let params = new HttpParams()
+      .append('page', 1)
+      .append('pageSize', 100)
+      .append('cardId', this.card as string);
     if (this.q) params = params.append('find', this.q);
     await this.rewardService.getList(params).subscribe(
       (response) => {
@@ -102,6 +104,7 @@ export class HighlightComponent implements OnInit {
         this.card = `${cards[0]?.id}`;
 
         this.fetch();
+        this.fetchRewards();
       },
       (error) => {
         console.log(error);
@@ -117,6 +120,7 @@ export class HighlightComponent implements OnInit {
     if (this.card != e.value) {
       this.card = e.value;
       this.fetch();
+      this.fetchRewards();
     }
   }
 

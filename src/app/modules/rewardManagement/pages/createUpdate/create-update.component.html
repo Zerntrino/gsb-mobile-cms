@@ -249,6 +249,8 @@
                   formControlName="prefixCode"
                   placeholder="Prefix code"
                   [disabled]="mode == 'view'"
+                  maxlength="5"
+                  pattern="[A-Za-z0-9]{5}"
                 />
                 <div class="text-sm text-gray-400">
                   ประกอบด้วย Prefix 5 หลัก (ตัวเลขหรือตัวอักษร)
