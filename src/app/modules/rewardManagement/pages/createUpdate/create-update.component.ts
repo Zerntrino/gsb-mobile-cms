@@ -52,6 +52,7 @@ export class CreateUpdateComponent implements OnInit {
     generateType: new FormControl(0),
     prefixCode: new FormControl(''),
     importCode: new FormControl<string[]>([]),
+    importCodeFileName: new FormControl(''),
     productName: new FormControl(''),
     productCode: new FormControl(''),
     point: new FormControl(0),
@@ -176,6 +177,7 @@ export class CreateUpdateComponent implements OnInit {
             generateType: res.generateType,
             prefixCode: res.prefixCode,
             importCode: res.importCode || [],
+            importCodeFileName: res.importCodeFileName,
             productName: res.productName,
             productCode: res.productCode,
             point: res.point,
@@ -476,7 +478,8 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   removeFileCode() {
-    this.fileCodeName = '';
+    this.submitForm.get('importCodeFileName')?.setValue('');
+    this.submitForm.get('importCode')?.setValue([]);
   }
 
   async onSubmit() {

@@ -53,6 +53,7 @@ export class CreateUpdateComponent implements OnInit {
     generateType: new FormControl(0),
     prefixCode: new FormControl(''),
     importCode: new FormControl<string[]>([]),
+    importCodeFileName: new FormControl(''),
     limit: new FormControl(0),
     limitPerMonth: new FormControl(0),
     limitPerCardMonth: new FormControl(0),
@@ -150,6 +151,7 @@ export class CreateUpdateComponent implements OnInit {
             generateType: res.generateType,
             prefixCode: res.prefixCode,
             importCode: res.importCode || [],
+            importCodeFileName: res.importCodeFileName,
             limit: res.limit,
             limitPerMonth: res.limitPerMonth,
             limitPerCardMonth: res.limitPerCardMonth,
@@ -455,7 +457,8 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   removeFileCode() {
-    this.fileCodeName = '';
+    this.submitForm.get('importCodeFileName')?.setValue('');
+    this.submitForm.get('importCode')?.setValue([]);
   }
 
   async onSubmit() {

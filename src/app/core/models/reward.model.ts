@@ -35,6 +35,7 @@ export interface Reward {
   prefixCode: string;
   import_code?: string[];
   importCode?: string[];
+  importCodeFileName: string;
 
   productName: string;
   productCode: string;
