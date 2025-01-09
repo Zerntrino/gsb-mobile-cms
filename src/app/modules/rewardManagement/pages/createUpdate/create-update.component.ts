@@ -194,6 +194,8 @@ export class CreateUpdateComponent implements OnInit {
             imageUrl: res.imageUrl,
           });
 
+          if (res.importCodeFileName) this.submitForm.get('limit')?.disable();
+
           this.imageBase64 = res.imageUrl;
         },
         (error) => {
@@ -470,6 +472,12 @@ export class CreateUpdateComponent implements OnInit {
         }
 
         this.submitForm.get('importCode')?.setValue(codes);
+        this.submitForm.get('importCodeFileName')?.setValue(file.name);
+        const currentLimit = this.submitForm
+          .get('limit')
+          ?.getRawValue() as number;
+        this.submitForm.get('limit')?.setValue(currentLimit + codes.length);
+        this.submitForm.get('limit')?.disable();
       };
       reader.readAsBinaryString(file);
 
