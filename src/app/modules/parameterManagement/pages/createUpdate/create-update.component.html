@@ -232,10 +232,7 @@
                 </div>
                 <div class="table-row-group">
                   <div
-                    *ngFor="
-                      let cardId of submitForm.get('cardId')?.value;
-                      let i = index
-                    "
+                    *ngFor="let cardId of cardIds; let i = index"
                     class="table-row"
                   >
                     <div class="table-cell text-center">{{ i + 1 }}</div>

@@ -147,7 +147,10 @@ export class CreateUpdateComponent implements OnInit {
       (response) => {
         const mccs = response.data as MCC[];
         this.mccOption = mccs.map((item) => {
-          return { value: item.code, label: item.name } as Select2Option;
+          return {
+            value: item.code,
+            label: `${item.code} : ${item.name}`,
+          } as Select2Option;
         });
       },
       (error) => {
