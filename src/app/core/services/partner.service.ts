@@ -60,4 +60,17 @@ export class PartnerService extends BaseService {
       object
     );
   }
+
+  getHighlight(): Observable<ApiResponse<Partner[]>> {
+    return this.http.get<ApiResponse<Partner[]>>(
+      `${this.apiUrl}/cms/partner/highlight`,
+      {}
+    );
+  }
+  updateHighlight(object: object): Observable<ApiResponse<Partner[]>> {
+    return this.http.post<ApiResponse<Partner[]>>(
+      `${this.apiUrl}/cms/partner/highlight`,
+      object
+    );
+  }
 }

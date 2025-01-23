@@ -7,4 +7,6 @@ export interface Partner {
   createdAt: string;
   isActive: boolean;
   aboutIt: string[];
+
+  select?: boolean;
 }
