@@ -184,7 +184,12 @@ export class InstallmentPlanListComponent implements OnInit {
       this.plan.name &&
       this.plan.planInstallment.reduce(
         (a, b) =>
-          !!(a && b.interestRate && b.month && b.expensesMinimumInstallment),
+          !!(
+            a &&
+            b.interestRate >= 0 &&
+            b.month &&
+            b.expensesMinimumInstallment >= 0
+          ),
         true
       )
     );

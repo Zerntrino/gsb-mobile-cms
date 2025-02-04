@@ -75,6 +75,10 @@ export class HighlightComponent implements OnInit {
     await this.rewardService.getList(params).subscribe(
       (response) => {
         this.rewardsAll = response.data as Reward[];
+        const useds = this.list.map((l) => l.id);
+        this.rewards = this.rewardsAll.filter(
+          (p) => p.isActive && !useds.includes(p.id)
+        );
       },
       (error) => {
         console.log(error);
