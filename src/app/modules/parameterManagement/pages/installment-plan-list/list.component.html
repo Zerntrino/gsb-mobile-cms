@@ -181,6 +181,9 @@
               placeholder="อัตราดอกเบี้ย"
               [(ngModel)]="plan.interestRate"
               [disabled]="mode == 'view'"
+              type="number"
+              min="0"
+              max="100"
             />
           </div>
           <div class="flex-1 px-2 py-2">
@@ -199,9 +202,11 @@
             <div class="text-sm">ยอดขั้นต่ำที่สามารถให้ทำรายการผ่อนได้</div>
             <input
               class="input"
+              type="number"
               placeholder="ยอดขั้นต่ำที่สามารถให้ทำรายการผ่อนได้"
               [(ngModel)]="plan.expensesMinimumInstallment"
               [disabled]="mode == 'view'"
+              min="1"
             />
           </div>
           <div class="px-2 py-2">
