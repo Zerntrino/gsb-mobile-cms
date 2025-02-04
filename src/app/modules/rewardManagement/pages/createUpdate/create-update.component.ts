@@ -209,7 +209,9 @@ export class CreateUpdateComponent implements OnInit {
     let params = new HttpParams().append('page', 1).append('pageSize', 100);
     this.categoryService.getList(params).subscribe(
       (response) => {
-        const categories = response.data as Category[];
+        const categories = (response.data as Category[]).filter(
+          (c) => c.isActive
+        );
         this.categoryOption = this.categoryOption.concat(
           categories
             .filter((c) => c.isReward)
