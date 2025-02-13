@@ -52,7 +52,7 @@ export class CreateUpdateComponent implements OnInit {
     generateType: new FormControl(0),
     prefixCode: new FormControl(''),
     importCode: new FormControl<string[]>([]),
-    importCodeFileName: new FormControl(''),
+    importCodeFileName: new FormControl<string[]>([]),
     productName: new FormControl(''),
     productCode: new FormControl(''),
     point: new FormControl(0),
@@ -474,7 +474,14 @@ export class CreateUpdateComponent implements OnInit {
         }
 
         this.submitForm.get('importCode')?.setValue(codes);
-        this.submitForm.get('importCodeFileName')?.setValue(file.name);
+        this.submitForm
+          .get('importCodeFileName')
+          ?.setValue(
+            this.submitForm
+              .get('importCodeFileName')
+              ?.getRawValue()
+              .push(file.name)
+          );
         const currentLimit = this.submitForm
           .get('limit')
           ?.getRawValue() as number;
@@ -488,7 +495,11 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   removeFileCode() {
-    this.submitForm.get('importCodeFileName')?.setValue('');
+    this.submitForm
+      .get('importCodeFileName')
+      ?.setValue(
+        this.submitForm.get('importCodeFileName')?.getRawValue().pop()
+      );
     this.submitForm.get('importCode')?.setValue([]);
   }
 

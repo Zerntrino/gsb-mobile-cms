@@ -227,19 +227,22 @@
                   class="button-border text-center flex items-center justify-center space-x-4 w-full"
                   type="button"
                   (click)="inputCode.click()"
-                  [disabled]="mode == 'view' || id != 'create'"
+                  [disabled]="mode == 'view'"
                 >
                   <img src="assets/icons/document.svg" class="w-6" />
                   <div>นำเข้าเอกสาร</div>
                 </button>
 
                 <div
-                  *ngIf="submitForm.get('importCodeFileName')?.value"
                   class="my-2 px-4 py-2 border border-gray-100 rounded-md flex items-center space-x-4 max-w-full"
+                  *ngFor="
+                    let file of submitForm.get('importCodeFileName')?.value;
+                    let i = index
+                  "
                 >
                   <img src="assets/icons/xls.svg" class="w-6" />
                   <div class="flex-1 text-gray-400 text-sm truncate">
-                    {{ submitForm.get("importCodeFileName")?.value }}
+                    {{ file }}
                   </div>
                   <div
                     *ngIf="mode == 'create'"

@@ -269,12 +269,14 @@
                 </button>
 
                 <div
-                  *ngIf="submitForm.get('importCodeFileName')?.value"
+                  *ngFor="
+                    let file of submitForm.get('importCodeFileName')?.value
+                  "
                   class="my-2 px-4 py-2 border border-gray-100 rounded-md flex items-center space-x-4 max-w-full"
                 >
                   <img src="assets/icons/xls.svg" class="w-6" />
                   <div class="flex-1 text-gray-400 text-sm truncate">
-                    {{ submitForm.get("importCodeFileName")?.value }}
+                    {{ file }}
                   </div>
                   <div
                     *ngIf="mode == 'create'"
