@@ -144,7 +144,7 @@ export class CreateUpdateComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          this.toastService.add('error', error);
+          this.toastService.add('error', 'ทำรายการไม่สำเร็จ');
         }
       );
     } else {
@@ -157,7 +157,7 @@ export class CreateUpdateComponent implements OnInit {
           },
           (error) => {
             console.log(error);
-            this.toastService.add('error', error);
+            this.toastService.add('error', 'ทำรายการไม่สำเร็จ');
           }
         );
     }

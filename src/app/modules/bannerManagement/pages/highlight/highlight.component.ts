@@ -54,7 +54,12 @@ export class HighlightComponent implements OnInit {
     if (this.q) params = params.append('find', this.q);
     await this.bannerService.getList(params).subscribe(
       (response) => {
-        const all = response.data as Banner[];
+        let now = new Date();
+        console.log(now);
+        const all = (response.data as Banner[]).filter((f) => {
+          if (!f.endDate) return true;
+          return dayjs(f.endDate).isAfter(now);
+        });
         const ids = this.list.map((l) => l.id);
         this.all = all.filter((l) => !ids.includes(l.id) && l.isActive);
       },
@@ -102,7 +107,7 @@ export class HighlightComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          this.toastService.add('error', error);
+          this.toastService.add('error', 'ทำรายการไม่สำเร็จ');
         }
       );
   }

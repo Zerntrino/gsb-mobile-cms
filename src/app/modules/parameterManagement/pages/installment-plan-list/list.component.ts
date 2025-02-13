@@ -160,7 +160,7 @@ export class InstallmentPlanListComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        this.toastService.add('error', error);
+        this.toastService.add('error', 'ทำรายการไม่สำเร็จ');
       }
     );
   }
@@ -174,7 +174,7 @@ export class InstallmentPlanListComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        this.toastService.add('error', error);
+        this.toastService.add('error', 'ทำรายการไม่สำเร็จ');
       }
     );
   }
@@ -232,7 +232,7 @@ export class InstallmentPlanListComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          this.toastService.add('error', error);
+          this.toastService.add('error', 'ทำรายการไม่สำเร็จ');
         }
       );
     }
@@ -249,7 +249,7 @@ export class InstallmentPlanListComponent implements OnInit {
       },
       (error) => {
         console.log(error);
-        this.toastService.add('error', error);
+        this.toastService.add('error', 'ทำรายการไม่สำเร็จ');
       }
     );
   }
