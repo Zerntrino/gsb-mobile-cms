@@ -33,12 +33,14 @@ export interface MCC {
 export interface ParameterMCC {
   id: number;
   cardName: string;
+  cardId: number;
   mccCode: string[];
 }
 
 export interface ParameterMinimum {
   id: number;
   cardName: string;
+  cardId: number;
   minimumAmount: number;
   oldMinimumAmount?: number;
   isEditing: boolean;

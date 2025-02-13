@@ -14,7 +14,6 @@ export class PartnerService extends BaseService {
   }
 
   getList(params?: HttpParams): Observable<ApiResponse<Partner[]>> {
-    console.log(params?.toString());
     return this.http.get<ApiResponse<Partner[]>>(`${this.apiUrl}/cms/partner`, {
       params: params,
     });

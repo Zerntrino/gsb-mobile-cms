@@ -277,7 +277,11 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   categoryChange(e: Select2UpdateEvent): void {
-    if (this.submitForm.get('categoryId')?.value != e.value) {
+    if (
+      this.submitForm.get('categoryId')?.value &&
+      this.submitForm.get('categoryId')?.value != e.value &&
+      e.value
+    ) {
       this.submitForm.get('categoryId')?.setValue(e.value as number);
     }
   }

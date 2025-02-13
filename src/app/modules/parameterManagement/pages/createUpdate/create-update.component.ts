@@ -142,7 +142,7 @@ export class CreateUpdateComponent implements OnInit {
 
   fetchMcc(): void {
     let params = new HttpParams();
-    params = params.append('pageSize', '100');
+    params = params.append('pageSize', '1000');
     this.parameterService.getMCCList(params).subscribe(
       (response) => {
         const mccs = response.data as MCC[];
@@ -161,7 +161,7 @@ export class CreateUpdateComponent implements OnInit {
 
   fetchCardMin(): void {
     let params = new HttpParams();
-    params = params.append('pageSize', '100');
+    params = params.append('pageSize', '1000');
     this.parameterService.getInstallmentMinimumList(params).subscribe(
       (response) => {
         this.listMinimum = response.data as ParameterMinimum[];
@@ -177,7 +177,7 @@ export class CreateUpdateComponent implements OnInit {
     return card ? card.name : '';
   }
   getCardMin(id: number): number {
-    const min = this.listMinimum.find((c) => c.id == id);
+    const min = this.listMinimum.find((c) => c.cardId == id);
     return min ? min.minimumAmount : 0;
   }
 

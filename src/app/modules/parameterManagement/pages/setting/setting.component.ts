@@ -67,7 +67,9 @@ export class ParameterSettingComponent implements OnInit {
   }
 
   fetchMCC(): void {
-    this.parameterService.getMCCList().subscribe(
+    let params = new HttpParams();
+    params = params.append('pageSize', '1000');
+    this.parameterService.getMCCList(params).subscribe(
       (response) => {
         this.mccs = response.data as MCC[];
         this.addMccOption = this.mccs.map((item) => {
@@ -84,7 +86,9 @@ export class ParameterSettingComponent implements OnInit {
   }
 
   fetch(): void {
-    this.cardService.getList().subscribe((response) => {
+    let params1 = new HttpParams();
+    params1 = params1.append('pageSize', '1000');
+    this.cardService.getList(params1).subscribe((response) => {
       this.typeOption = [{ value: '', label: 'ทั้งหมด' }];
       this.typeMinimumOption = [{ value: '', label: 'ทั้งหมด' }];
       const cards = response.data as Card[];
@@ -95,6 +99,7 @@ export class ParameterSettingComponent implements OnInit {
     });
 
     let params = new HttpParams();
+    params = params.append('pageSize', '1000');
     if (this.qMcc) params = params.append('find', this.qMcc);
     if (this.type) params = params.append('card', this.type.toString());
     this.parameterService.getInstallmentMCCList(params).subscribe(
@@ -110,6 +115,7 @@ export class ParameterSettingComponent implements OnInit {
     );
 
     let params2 = new HttpParams();
+    params2 = params2.append('pageSize', '1000');
     if (this.typeMinimum)
       params2 = params2.append('card', this.typeMinimum.toString());
     this.parameterService.getInstallmentMinimumList(params2).subscribe(

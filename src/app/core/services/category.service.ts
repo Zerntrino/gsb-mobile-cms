@@ -14,7 +14,6 @@ export class CategoryService extends BaseService {
   }
 
   getList(params?: HttpParams): Observable<ApiResponse<Category[]>> {
-    console.log(params?.toString());
     return this.http.get<ApiResponse<Category[]>>(
       `${this.apiUrl}/cms/category`,
       {
@@ -23,7 +22,6 @@ export class CategoryService extends BaseService {
     );
   }
   getListReward(params?: HttpParams): Observable<ApiResponse<Category[]>> {
-    console.log(params?.toString());
     return this.http.get<ApiResponse<Category[]>>(
       `${this.apiUrl}/category/reward`,
       {
@@ -32,7 +30,6 @@ export class CategoryService extends BaseService {
     );
   }
   getListPromotion(params?: HttpParams): Observable<ApiResponse<Category[]>> {
-    console.log(params?.toString());
     return this.http.get<ApiResponse<Category[]>>(
       `${this.apiUrl}/category/promotion`,
       {
