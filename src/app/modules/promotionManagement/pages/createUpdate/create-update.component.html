@@ -35,10 +35,16 @@
                 <div
                   class="text-sm underline"
                   [ngClass]="{
-                    'text-primary cursor-pointer': mode != 'view',
-                    'text-gray-400': mode == 'view'
+                    'text-primary cursor-pointer': !(
+                      mode == 'view' || id != 'create'
+                    ),
+                    'text-gray-400': mode == 'view' || id != 'create'
                   }"
-                  (click)="mode != 'view' ? createCategoryClick() : ''"
+                  (click)="
+                    !(mode == 'view' || id != 'create')
+                      ? createCategoryClick()
+                      : ''
+                  "
                 >
                   เพิ่มหมวดหมู่
                 </div>
