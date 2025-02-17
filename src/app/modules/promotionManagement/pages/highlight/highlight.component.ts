@@ -76,6 +76,7 @@ export class HighlightComponent implements OnInit {
       params = params.append('categoryName', this.category as string);
     if (this.promotionType)
       params = params.append('type', this.promotionType as string);
+    params = params.append('cardId', this.card as string);
     await this.promotionService.getList(params).subscribe(
       (response) => {
         this.promotions = (response.data as Promotion[]).filter(

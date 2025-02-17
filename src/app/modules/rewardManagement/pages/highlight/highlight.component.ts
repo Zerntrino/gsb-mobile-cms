@@ -72,6 +72,7 @@ export class HighlightComponent implements OnInit {
       .append('pageSize', 100)
       .append('cardId', this.card as string);
     if (this.q) params = params.append('find', this.q);
+    params = params.append('cardId', this.card as string);
     await this.rewardService.getList(params).subscribe(
       (response) => {
         this.rewardsAll = response.data as Reward[];

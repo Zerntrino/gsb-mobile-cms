@@ -149,12 +149,12 @@ export class CreateUpdateComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.fetch();
-    this.fetchCategory();
+  async ngOnInit() {
+    await this.fetchCategory();
     this.fetchShop();
     // this.fetchMcc();
-    this.fetchCard();
+    await this.fetchCard();
+    this.fetch();
   }
 
   fetch(): void {
@@ -205,9 +205,9 @@ export class CreateUpdateComponent implements OnInit {
     }
   }
 
-  fetchCategory(): void {
+  async fetchCategory() {
     let params = new HttpParams().append('page', 1).append('pageSize', 100);
-    this.categoryService.getList(params).subscribe(
+    await this.categoryService.getList(params).subscribe(
       (response) => {
         const categories = (response.data as Category[]).filter(
           (c) => c.isActive
@@ -258,9 +258,9 @@ export class CreateUpdateComponent implements OnInit {
     );
   }
 
-  fetchCard(): void {
+  async fetchCard() {
     let params = new HttpParams().append('page', 1).append('pageSize', 100);
-    this.cardService.getList(params).subscribe(
+    await this.cardService.getList(params).subscribe(
       (response) => {
         this.cards = (response.data as Card[]).filter((c) => c.isActive);
         this.cardIds = this.cards.map((c) => c.id);
