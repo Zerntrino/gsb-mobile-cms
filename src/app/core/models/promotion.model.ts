@@ -37,7 +37,7 @@ export interface Promotion {
   prefixCode: string;
   import_code?: string[];
   importCode?: string[];
-  importCodeFileName: string[];
+  importCodeFileName: string[] | string;
   isNotification: boolean;
   is_notification: boolean;
 

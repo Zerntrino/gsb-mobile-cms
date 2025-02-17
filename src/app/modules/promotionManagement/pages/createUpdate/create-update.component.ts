@@ -24,6 +24,7 @@ import { CardService } from 'src/app/core/services/card.service';
 import { Card } from 'src/app/core/models/card.model';
 import { Promotion, PromotionType } from 'src/app/core/models/promotion.model';
 import * as XLSX from 'xlsx';
+import { isArray } from 'lodash';
 
 @Component({
   selector: 'app-promotion-management-create-update',
@@ -53,7 +54,7 @@ export class CreateUpdateComponent implements OnInit {
     generateType: new FormControl(0),
     prefixCode: new FormControl(''),
     importCode: new FormControl<string[]>([]),
-    importCodeFileName: new FormControl<string[]>([]),
+    importCodeFileName: new FormControl<string[] | string>([]),
     limit: new FormControl(0),
     limitPerMonth: new FormControl(0),
     limitPerCardMonth: new FormControl(0),
@@ -151,7 +152,10 @@ export class CreateUpdateComponent implements OnInit {
             generateType: res.generateType,
             prefixCode: res.prefixCode,
             importCode: res.importCode || [],
-            importCodeFileName: res.importCodeFileName,
+            importCodeFileName:
+              (isArray(res.importCodeFileName)
+                ? res.importCodeFileName
+                : [res.importCodeFileName]) || [],
             limit: res.limit,
             limitPerMonth: res.limitPerMonth,
             limitPerCardMonth: res.limitPerCardMonth,
@@ -161,7 +165,8 @@ export class CreateUpdateComponent implements OnInit {
             imageUrl: res.imageUrl,
           });
 
-          if (res.importCodeFileName) this.submitForm.get('limit')?.disable();
+          if (res.importCodeFileName?.length)
+            this.submitForm.get('limit')?.disable();
 
           this.imageBase64 = res.imageUrl;
         },
@@ -457,14 +462,6 @@ export class CreateUpdateComponent implements OnInit {
         }
 
         this.submitForm.get('importCode')?.setValue(codes);
-        this.submitForm
-          .get('importCodeFileName')
-          ?.setValue(
-            this.submitForm
-              .get('importCodeFileName')
-              ?.getRawValue()
-              .push(file.name)
-          );
         const currentLimit = this.submitForm
           .get('limit')
           ?.getRawValue() as number;
@@ -478,12 +475,8 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   removeFileCode() {
-    this.submitForm
-      .get('importCodeFileName')
-      ?.setValue(
-        this.submitForm.get('importCodeFileName')?.getRawValue().pop()
-      );
     this.submitForm.get('importCode')?.setValue([]);
+    this.fileCodeName = '';
   }
 
   async onSubmit() {
@@ -515,6 +508,10 @@ export class CreateUpdateComponent implements OnInit {
         }
       }
       this.submitForm.get('imageUrl')?.setValue(this.imageBase64);
+    }
+
+    if (this.fileCodeName) {
+      this.submitForm.get('importCodeFileName')?.setValue(this.fileCodeName);
     }
 
     if (this.id == 'create') {

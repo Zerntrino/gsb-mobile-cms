@@ -24,6 +24,7 @@ import { Category } from 'src/app/core/models/category.model';
 import { Partner } from 'src/app/core/models/partner.model';
 import { MCC } from 'src/app/core/models/parameter.model';
 import * as XLSX from 'xlsx';
+import { isArray } from 'lodash';
 
 @Component({
   selector: 'app-reward-management-create-update',
@@ -52,7 +53,7 @@ export class CreateUpdateComponent implements OnInit {
     generateType: new FormControl(0),
     prefixCode: new FormControl(''),
     importCode: new FormControl<string[]>([]),
-    importCodeFileName: new FormControl<string[]>([]),
+    importCodeFileName: new FormControl<string[] | string>([]),
     productName: new FormControl(''),
     productCode: new FormControl(''),
     point: new FormControl(0),
@@ -177,7 +178,10 @@ export class CreateUpdateComponent implements OnInit {
             generateType: res.generateType,
             prefixCode: res.prefixCode,
             importCode: res.importCode || [],
-            importCodeFileName: res.importCodeFileName,
+            importCodeFileName:
+              (isArray(res.importCodeFileName)
+                ? res.importCodeFileName
+                : [res.importCodeFileName]) || [],
             productName: res.productName,
             productCode: res.productCode,
             point: res.point,
@@ -194,7 +198,8 @@ export class CreateUpdateComponent implements OnInit {
             imageUrl: res.imageUrl,
           });
 
-          if (res.importCodeFileName) this.submitForm.get('limit')?.disable();
+          if (res.importCodeFileName.length)
+            this.submitForm.get('limit')?.disable();
 
           this.imageBase64 = res.imageUrl;
         },
@@ -478,14 +483,7 @@ export class CreateUpdateComponent implements OnInit {
         }
 
         this.submitForm.get('importCode')?.setValue(codes);
-        this.submitForm
-          .get('importCodeFileName')
-          ?.setValue(
-            this.submitForm
-              .get('importCodeFileName')
-              ?.getRawValue()
-              .push(file.name)
-          );
+
         const currentLimit = this.submitForm
           .get('limit')
           ?.getRawValue() as number;
@@ -499,12 +497,8 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   removeFileCode() {
-    this.submitForm
-      .get('importCodeFileName')
-      ?.setValue(
-        this.submitForm.get('importCodeFileName')?.getRawValue().pop()
-      );
     this.submitForm.get('importCode')?.setValue([]);
+    this.fileCodeName = '';
   }
 
   async onSubmit() {
@@ -524,6 +518,10 @@ export class CreateUpdateComponent implements OnInit {
       data.append('file', this.coverImage as File);
       const upload = await this.rewardService.upload(data).toPromise();
       this.submitForm.get('coverUrl')?.setValue(upload?.data || '');
+    }
+
+    if (this.fileCodeName) {
+      this.submitForm.get('importCodeFileName')?.setValue(this.fileCodeName);
     }
 
     if (this.imageBase64?.length) {
