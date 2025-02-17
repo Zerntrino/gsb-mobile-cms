@@ -263,11 +263,7 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   categoryChange(e: Select2UpdateEvent): void {
-    if (
-      this.submitForm.get('categoryId')?.value &&
-      this.submitForm.get('categoryId')?.value != e.value &&
-      e.value
-    ) {
+    if (this.submitForm.get('categoryId')?.value != e.value && e.value) {
       this.submitForm.get('categoryId')?.setValue(e.value as number);
     }
   }
@@ -275,8 +271,7 @@ export class CreateUpdateComponent implements OnInit {
     if (e.value && this.submitForm.get('typeId')?.value != e.value) {
       this.submitForm.get('typeId')?.setValue(e.value as number);
 
-      this.submitForm.get('brandId')?.setValidators([]);
-      this.submitForm.get('brandId')?.setValidators([]);
+      this.submitForm.get('shopId')?.setValidators([]);
       this.submitForm.get('mccCode')?.setValidators([]);
       this.submitForm.get('generateType')?.setValidators([]);
       this.submitForm.get('limit')?.setValidators([]);
@@ -284,8 +279,10 @@ export class CreateUpdateComponent implements OnInit {
       this.submitForm.get('limitPerCardMonth')?.setValidators([]);
       this.submitForm.get('limitPerCardDay')?.setValidators([]);
 
+      console.log(e.value);
+
       if (e.value == 1) {
-        this.submitForm.get('brandId')?.setValidators([Validators.required]);
+        this.submitForm.get('shopId')?.setValidators([Validators.required]);
         this.submitForm.get('mccCode')?.setValidators([Validators.required]);
         this.submitForm.get('limit')?.setValidators([Validators.required]);
         this.submitForm
@@ -298,7 +295,7 @@ export class CreateUpdateComponent implements OnInit {
           .get('limitPerCardDay')
           ?.setValidators([Validators.required]);
       } else if (e.value == 2) {
-        this.submitForm.get('brandId')?.setValidators([Validators.required]);
+        this.submitForm.get('shopId')?.setValidators([Validators.required]);
         this.submitForm.get('mccCode')?.setValidators([Validators.required]);
         this.submitForm
           .get('generateType')
@@ -314,9 +311,11 @@ export class CreateUpdateComponent implements OnInit {
           .get('limitPerCardDay')
           ?.setValidators([Validators.required]);
       } else if (e.value == 3) {
-        this.submitForm.get('brandId')?.setValidators([Validators.required]);
+        this.submitForm.get('shopId')?.setValidators([Validators.required]);
         this.submitForm.get('mccCode')?.setValidators([Validators.required]);
       }
+
+      console.log(this.submitForm);
     }
   }
   tagChange(e: string[]): void {
@@ -333,7 +332,7 @@ export class CreateUpdateComponent implements OnInit {
     }
   }
   generateTypeChange(e: Select2UpdateEvent): void {
-    if (this.submitForm.get('generateType')?.value != e.value) {
+    if (this.submitForm.get('generateType')?.value != e.value && e.value) {
       this.submitForm.get('generateType')?.setValue(e.value as number);
     }
   }
@@ -512,6 +511,8 @@ export class CreateUpdateComponent implements OnInit {
 
     if (this.fileCodeName) {
       this.submitForm.get('importCodeFileName')?.setValue(this.fileCodeName);
+    } else {
+      this.submitForm.get('importCodeFileName')?.setValue('');
     }
 
     if (this.id == 'create') {
@@ -553,5 +554,8 @@ export class CreateUpdateComponent implements OnInit {
     this.submitForm.enable();
     this.editorConfig.editable = true;
     this.navItems[1].title = 'แก้ไขโปรโมชัน';
+  }
+  stringify(o: any): string {
+    return JSON.stringify(o);
   }
 }

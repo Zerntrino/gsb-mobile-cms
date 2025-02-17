@@ -282,16 +282,12 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   categoryChange(e: Select2UpdateEvent): void {
-    if (
-      this.submitForm.get('categoryId')?.value &&
-      this.submitForm.get('categoryId')?.value != e.value &&
-      e.value
-    ) {
+    if (this.submitForm.get('categoryId')?.value != e.value && e.value) {
       this.submitForm.get('categoryId')?.setValue(e.value as number);
     }
   }
   promotionTypeChange(e: Select2UpdateEvent): void {
-    if (e.value && this.submitForm.get('typeId')?.value != e.value) {
+    if (e.value && this.submitForm.get('typeId')?.value != e.value && e.value) {
       this.submitForm.get('typeId')?.setValue(e.value as number);
 
       this.submitForm.get('brandId')?.setValidators([]);
@@ -336,22 +332,22 @@ export class CreateUpdateComponent implements OnInit {
     this.submitForm.get('aboutIt')?.setValue(e);
   }
   shopChange(e: Select2UpdateEvent): void {
-    if (this.submitForm.get('shopId')?.value != e.value) {
+    if (this.submitForm.get('shopId')?.value != e.value && e.value) {
       this.submitForm.get('shopId')?.setValue(e.value as number);
     }
   }
   // mccChange(e: Select2UpdateEvent): void {
-  //   if (this.submitForm.get('mccCode')?.value != e.value) {
+  //   if (this.submitForm.get('mccCode')?.value != e.value && e.value) {
   //     this.submitForm.get('mccCode')?.setValue((e.value as string[]) || []);
   //   }
   // }
   generateTypeChange(e: Select2UpdateEvent): void {
-    if (this.submitForm.get('generateType')?.value != e.value) {
+    if (this.submitForm.get('generateType')?.value != e.value && e.value) {
       this.submitForm.get('generateType')?.setValue(e.value as number);
     }
   }
   ref1Change(e: Select2UpdateEvent): void {
-    if (this.submitForm.get('ref1')?.value != e.value) {
+    if (this.submitForm.get('ref1')?.value != e.value && e.value) {
       this.submitForm.get('ref1')?.setValue(e.value as string);
     }
   }
@@ -522,6 +518,8 @@ export class CreateUpdateComponent implements OnInit {
 
     if (this.fileCodeName) {
       this.submitForm.get('importCodeFileName')?.setValue(this.fileCodeName);
+    } else {
+      this.submitForm.get('importCodeFileName')?.setValue('');
     }
 
     if (this.imageBase64?.length) {

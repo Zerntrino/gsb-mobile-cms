@@ -35,10 +35,16 @@
                 <div
                   class="text-primary text-sm underline cursor-pointer"
                   [ngClass]="{
-                    'text-primary cursor-pointer': !(mode == 'view' || id != 'create'),
-                    'text-gray-400': (mode == 'view' || id != 'create')
+                    'text-primary cursor-pointer': !(
+                      mode == 'view' || id != 'create'
+                    ),
+                    'text-gray-400': mode == 'view' || id != 'create'
                   }"
-                  (click)="!(mode == 'view' || id != 'create') ? createCategoryClick() : ''"
+                  (click)="
+                    !(mode == 'view' || id != 'create')
+                      ? createCategoryClick()
+                      : ''
+                  "
                 >
                   เพิ่มหมวดหมู่
                 </div>
@@ -250,7 +256,7 @@
                   placeholder="Prefix code"
                   [disabled]="mode == 'view'"
                   maxlength="5"
-                  pattern="[A-Za-z0-9]{5}"
+                  pattern="[A-Za-z0-9]{0,5}"
                 />
                 <div class="text-sm text-gray-400">
                   ประกอบด้วย Prefix 5 หลัก (ตัวเลขหรือตัวอักษร)
