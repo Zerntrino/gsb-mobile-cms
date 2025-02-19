@@ -204,7 +204,8 @@ export class HighlightComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          this.toastService.add('error', error);
+          // this.toastService.add('error', error);
+          this.toastService.add('error', 'ไม่สามารถทำรายการได้ ');
         }
       );
   }
