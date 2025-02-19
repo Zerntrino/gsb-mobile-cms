@@ -70,7 +70,8 @@ export class CreateUpdateComponent implements OnInit {
   image: File[] = [];
   fileErrorId = 0;
   fileError = '';
-  fileCodeName = '';
+  fileCodeName: string | null = null;
+  fileCodeLimitOrg = 0;
 
   categoryOption: Select2Option[] = [];
 
@@ -167,6 +168,8 @@ export class CreateUpdateComponent implements OnInit {
 
           if (res.importCodeFileName?.length)
             this.submitForm.get('limit')?.disable();
+
+          this.fileCodeLimitOrg = res.importCode?.length || res.limit || 0;
 
           this.imageBase64 = res.imageUrl;
         },
@@ -457,14 +460,13 @@ export class CreateUpdateComponent implements OnInit {
 
         var codes = [];
         for (let c of excelData as Code[]) {
-          codes.push(`${c?.code || ''}`);
+          if (c?.code) codes.push(`${c?.code || ''}`);
         }
 
         this.submitForm.get('importCode')?.setValue(codes);
-        const currentLimit = this.submitForm
+        this.submitForm
           .get('limit')
-          ?.getRawValue() as number;
-        this.submitForm.get('limit')?.setValue(currentLimit + codes.length);
+          ?.setValue(this.fileCodeLimitOrg + codes.length);
         this.submitForm.get('limit')?.disable();
       };
       reader.readAsBinaryString(file);
@@ -475,7 +477,8 @@ export class CreateUpdateComponent implements OnInit {
 
   removeFileCode() {
     this.submitForm.get('importCode')?.setValue([]);
-    this.fileCodeName = '';
+    this.submitForm.get('limit')?.setValue(this.fileCodeLimitOrg);
+    this.fileCodeName = null;
   }
 
   async onSubmit() {
