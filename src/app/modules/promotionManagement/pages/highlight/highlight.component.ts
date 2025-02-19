@@ -168,6 +168,7 @@ export class HighlightComponent implements OnInit {
     if (this.card != e.value) {
       this.card = e.value;
       this.fetch();
+      this.fetchPromotions();
     }
   }
   show(): void {
