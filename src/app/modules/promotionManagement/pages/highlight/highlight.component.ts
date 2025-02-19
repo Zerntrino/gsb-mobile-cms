@@ -51,7 +51,7 @@ export class HighlightComponent implements OnInit {
   async ngOnInit() {
     await this.fetchCard();
     // await this.fetch();
-    await this.fetchPromotions();
+    // await this.fetchPromotions();
 
     await this.fetchType();
     await this.fetchCategory();
@@ -99,6 +99,7 @@ export class HighlightComponent implements OnInit {
         });
         this.card = `${cards[0]?.id}`;
 
+        this.fetchPromotions();
         this.fetch();
       },
       (error) => {

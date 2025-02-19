@@ -125,6 +125,14 @@
               </div>
             </div>
           </div>
+
+          <div
+            *ngIf="all.length == 0"
+            class="px-6 py-12 text-gray-400 text-center"
+          >
+            ไม่พบข้อมูลรายการที่ค้นหา
+          </div>
+
           <div
             class="px-4 py-4 flex justify-end space-x-4 border-t border-gray-100"
           >
@@ -146,7 +154,7 @@
   <div
     class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2"
   >
-    <a routerLink="/banner-management"
+    <a routerLink="/partner-management"
       ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
     >
     <button class="button w-auto px-6" (click)="confirmClick()">
