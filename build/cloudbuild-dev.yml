@@ -24,6 +24,7 @@ steps:
       - '80'
       - '--allow-unauthenticated'
     env:
+      - 'API_BACKEND_URL=http://gsb-api.ubakong.com/api'
       - 'CLOUDSDK_CORE_PROJECT=gsbcard'
       - 'CLOUDSDK_COMPUTE_ZONE=asia-southeast1-a'
 images:
