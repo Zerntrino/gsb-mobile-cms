@@ -188,7 +188,7 @@ export class ListComponent implements OnInit {
       reader.onload = () => {
         const img = new Image();
         img.onload = () => {
-          if (img.width != 492 || img.height != 300) {
+          if (img.width != 987 || img.height != 600) {
             this.fileErrorId = Math.random();
             this.fileError =
               'ไม่สามารถอัพโหลดไฟล์ได้ <br/> กรุณาตรวจสอบขนาด ความกวาง x ความสูง อีกครั้ง';
