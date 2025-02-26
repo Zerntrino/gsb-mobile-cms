@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   Select2Option,
@@ -25,6 +25,7 @@ import { Card } from 'src/app/core/models/card.model';
 import { Promotion, PromotionType } from 'src/app/core/models/promotion.model';
 import * as XLSX from 'xlsx';
 import { isArray } from 'lodash';
+import { ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-promotion-management-create-update',
@@ -32,6 +33,9 @@ import { isArray } from 'lodash';
   styleUrls: ['./create-update.component.css'],
 })
 export class CreateUpdateComponent implements OnInit {
+  @ViewChild('inputCode', { static: false })
+  inputCode: ElementRef | undefined;
+
   id = 'create';
   navItems = [
     { title: 'จัดการโปรโมชัน', to: '/promotion-management' },
@@ -479,6 +483,8 @@ export class CreateUpdateComponent implements OnInit {
     this.submitForm.get('importCode')?.setValue([]);
     this.submitForm.get('limit')?.setValue(this.fileCodeLimitOrg);
     this.fileCodeName = null;
+
+    if (this.inputCode) this.inputCode.nativeElement.value = '';
   }
 
   async onSubmit() {

@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   Select2Option,
@@ -32,6 +32,9 @@ import { isArray } from 'lodash';
   styleUrls: ['./create-update.component.css'],
 })
 export class CreateUpdateComponent implements OnInit {
+  @ViewChild('inputCode', { static: false })
+  inputCode: ElementRef | undefined;
+
   id = 'create';
   navItems = [
     { title: 'จัดการรีวอร์ด', to: '/reward-management' },
@@ -497,6 +500,8 @@ export class CreateUpdateComponent implements OnInit {
     this.submitForm.get('importCode')?.setValue([]);
     this.submitForm.get('limit')?.setValue(this.fileCodeLimitOrg);
     this.fileCodeName = null;
+
+    if (this.inputCode) this.inputCode.nativeElement.value = '';
   }
 
   async onSubmit() {
