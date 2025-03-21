@@ -14,60 +14,43 @@ export class BannerService extends BaseService {
   }
 
   getList(params?: HttpParams): Observable<ApiResponse<Banner[]>> {
-    return this.http.get<ApiResponse<Banner[]>>(`${this.apiUrl}/cms/banner`, {
+    return this.http.get<ApiResponse<Banner[]>>(`/api/cms/banner`, {
       params: params,
     });
   }
   getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
-    return this.http.get<ApiResponse<Paginate>>(
-      `${this.apiUrl}/cms/banner/totalpage`,
-      {
-        params: params,
-      }
-    );
+    return this.http.get<ApiResponse<Paginate>>(`/api/cms/banner/totalpage`, {
+      params: params,
+    });
   }
 
   get(id: string): Observable<ApiResponse<Banner>> {
-    return this.http.get<ApiResponse<Banner>>(
-      `${this.apiUrl}/cms/banner/${id}`,
-      {}
-    );
+    return this.http.get<ApiResponse<Banner>>(`/api/cms/banner/${id}`, {});
   }
 
   create(object: object): Observable<ApiResponse<Banner>> {
-    return this.http.post<ApiResponse<Banner>>(
-      `${this.apiUrl}/cms/banner`,
-      object
-    );
+    return this.http.post<ApiResponse<Banner>>(`/api/cms/banner`, object);
   }
   update(id: number, object: object): Observable<ApiResponse<Banner>> {
-    return this.http.put<ApiResponse<Banner>>(
-      `${this.apiUrl}/cms/banner/${id}`,
-      object
-    );
+    return this.http.put<ApiResponse<Banner>>(`/api/cms/banner/${id}`, object);
   }
   delete(id: number): Observable<ApiResponse<Banner>> {
-    return this.http.delete<ApiResponse<Banner>>(
-      `${this.apiUrl}/cms/banner/${id}`
-    );
+    return this.http.delete<ApiResponse<Banner>>(`/api/cms/banner/${id}`);
   }
 
   upload(object: FormData): Observable<ApiResponse<string>> {
-    return this.http.post<ApiResponse<string>>(
-      `${this.apiUrl}/upload/banner`,
-      object
-    );
+    return this.http.post<ApiResponse<string>>(`/api/upload/banner`, object);
   }
 
   getHighlight(): Observable<ApiResponse<Banner[]>> {
     return this.http.get<ApiResponse<Banner[]>>(
-      `${this.apiUrl}/cms/banner/highlight`,
+      `/api/cms/banner/highlight`,
       {}
     );
   }
   updateHighlight(object: object): Observable<ApiResponse<Banner[]>> {
     return this.http.post<ApiResponse<Banner[]>>(
-      `${this.apiUrl}/cms/banner/highlight`,
+      `/api/cms/banner/highlight`,
       object
     );
   }

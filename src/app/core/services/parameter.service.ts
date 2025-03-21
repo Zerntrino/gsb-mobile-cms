@@ -18,16 +18,13 @@ export class ParameterService extends BaseService {
     super();
   }
   getList(params?: HttpParams): Observable<ApiResponse<Installment[]>> {
-    return this.http.get<ApiResponse<Installment[]>>(
-      `${this.apiUrl}/cms/installment`,
-      {
-        params: params,
-      }
-    );
+    return this.http.get<ApiResponse<Installment[]>>(`/api/cms/installment`, {
+      params: params,
+    });
   }
   getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
     return this.http.get<ApiResponse<Paginate>>(
-      `${this.apiUrl}/cms/installment/totalpage`,
+      `/api/cms/installment/totalpage`,
       {
         params: params,
       }
@@ -36,24 +33,24 @@ export class ParameterService extends BaseService {
 
   get(id: string): Observable<ApiResponse<Installment>> {
     return this.http.get<ApiResponse<Installment>>(
-      `${this.apiUrl}/cms/installment/${id}`
+      `/api/cms/installment/${id}`
     );
   }
   create(object: object): Observable<ApiResponse<Installment>> {
     return this.http.post<ApiResponse<Installment>>(
-      `${this.apiUrl}/cms/installment/management`,
+      `/api/cms/installment/management`,
       object
     );
   }
   update(id: number, object: object): Observable<ApiResponse<Installment>> {
     return this.http.put<ApiResponse<Installment>>(
-      `${this.apiUrl}/cms/installment/${id}`,
+      `/api/cms/installment/${id}`,
       object
     );
   }
   delete(id: number): Observable<ApiResponse<Installment>> {
     return this.http.delete<ApiResponse<Installment>>(
-      `${this.apiUrl}/cms/installment/${id}`
+      `/api/cms/installment/${id}`
     );
   }
 
@@ -61,7 +58,7 @@ export class ParameterService extends BaseService {
     params?: HttpParams
   ): Observable<ApiResponse<InstallmentPlan[]>> {
     return this.http.get<ApiResponse<InstallmentPlan[]>>(
-      `${this.apiUrl}/cms/installment/plan`,
+      `/api/cms/installment/plan`,
       {
         params: params,
       }
@@ -71,7 +68,7 @@ export class ParameterService extends BaseService {
     params?: HttpParams
   ): Observable<ApiResponse<Paginate>> {
     return this.http.get<ApiResponse<Paginate>>(
-      `${this.apiUrl}/cms/installment/plan/totalpage`,
+      `/api/cms/installment/plan/totalpage`,
       {
         params: params,
       }
@@ -79,19 +76,19 @@ export class ParameterService extends BaseService {
   }
   getInstallmentPlan(id: number): Observable<ApiResponse<InstallmentPlan>> {
     return this.http.get<ApiResponse<InstallmentPlan>>(
-      `${this.apiUrl}/cms/installment/plan/${id}`
+      `/api/cms/installment/plan/${id}`
     );
   }
   deleteInstallmentPlan(id: number): Observable<ApiResponse<InstallmentPlan>> {
     return this.http.delete<ApiResponse<InstallmentPlan>>(
-      `${this.apiUrl}/cms/installment/plan/${id}`
+      `/api/cms/installment/plan/${id}`
     );
   }
   createInstallmentPlan(
     object: object
   ): Observable<ApiResponse<InstallmentPlan>> {
     return this.http.post<ApiResponse<InstallmentPlan>>(
-      `${this.apiUrl}/cms/installment/plan`,
+      `/api/cms/installment/plan`,
       object
     );
   }
@@ -100,13 +97,13 @@ export class ParameterService extends BaseService {
     object: object
   ): Observable<ApiResponse<Installment>> {
     return this.http.put<ApiResponse<Installment>>(
-      `${this.apiUrl}/cms/installment/plan/${id}`,
+      `/api/cms/installment/plan/${id}`,
       object
     );
   }
 
   getMCCList(params?: HttpParams): Observable<ApiResponse<MCC[]>> {
-    return this.http.get<ApiResponse<MCC[]>>(`${this.apiUrl}/cms/mcc`, {
+    return this.http.get<ApiResponse<MCC[]>>(`/api/cms/mcc`, {
       params: params,
     });
   }
@@ -115,7 +112,7 @@ export class ParameterService extends BaseService {
     params?: HttpParams
   ): Observable<ApiResponse<ParameterMCC[]>> {
     return this.http.get<ApiResponse<ParameterMCC[]>>(
-      `${this.apiUrl}/cms/installment/mcc`,
+      `/api/cms/installment/mcc`,
       {
         params: params,
       }
@@ -126,7 +123,7 @@ export class ParameterService extends BaseService {
     object: object
   ): Observable<ApiResponse<ParameterMCC>> {
     return this.http.put<ApiResponse<ParameterMCC>>(
-      `${this.apiUrl}/cms/installment/mcc/${id}`,
+      `/api/cms/installment/mcc/${id}`,
       object
     );
   }
@@ -135,7 +132,7 @@ export class ParameterService extends BaseService {
     params?: HttpParams
   ): Observable<ApiResponse<ParameterMinimum[]>> {
     return this.http.get<ApiResponse<ParameterMinimum[]>>(
-      `${this.apiUrl}/cms/installment/expenses`,
+      `/api/cms/installment/expenses`,
       {
         params: params,
       }
@@ -146,7 +143,7 @@ export class ParameterService extends BaseService {
     minimumAmount: number
   ): Observable<ApiResponse<object>> {
     return this.http.put<ApiResponse<object>>(
-      `${this.apiUrl}/cms/installment/expenses/${id}`,
+      `/api/cms/installment/expenses/${id}`,
       {
         minimumAmount,
       }

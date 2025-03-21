@@ -18,11 +18,11 @@ steps:
       - 'asia.gcr.io/$PROJECT_ID/gsb-cms-web:develop'
       - '--region'
       - 'asia-southeast1'
-      - "--set-env-vars=API_BACKEND=http://gsb-api.ubakong.com/api"
+      - "--set-env-vars=API_BACKEND=http://gsb-api.ubakong.com"
       - '--platform'
       - 'managed'
       - '--port'
-      - '80'
+      - '8080'
       - '--allow-unauthenticated'
     env:
       - 'CLOUDSDK_CORE_PROJECT=gsbcard'

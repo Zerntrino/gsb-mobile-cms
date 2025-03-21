@@ -13,16 +13,13 @@ export class RewardService extends BaseService {
   }
 
   getList(params?: HttpParams): Observable<ApiResponse<Reward[]>> {
-    return this.http.get<ApiResponse<Reward[]>>(
-      `${this.apiUrl}/cms/reward/management`,
-      {
-        params: params,
-      }
-    );
+    return this.http.get<ApiResponse<Reward[]>>(`/api/cms/reward/management`, {
+      params: params,
+    });
   }
   getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
     return this.http.get<ApiResponse<Paginate>>(
-      `${this.apiUrl}/cms/reward/management/totalpage`,
+      `/api/cms/reward/management/totalpage`,
       {
         params: params,
       }
@@ -30,53 +27,39 @@ export class RewardService extends BaseService {
   }
 
   get(id: string): Observable<ApiResponse<Reward>> {
-    return this.http.get<ApiResponse<Reward>>(
-      `${this.apiUrl}/cms/reward/${id}`,
-      {}
-    );
+    return this.http.get<ApiResponse<Reward>>(`/api/cms/reward/${id}`, {});
   }
 
   create(object: object): Observable<ApiResponse<Reward>> {
-    return this.http.post<ApiResponse<Reward>>(
-      `${this.apiUrl}/cms/reward`,
-      object
-    );
+    return this.http.post<ApiResponse<Reward>>(`/api/cms/reward`, object);
   }
   update(id: number, object: object): Observable<ApiResponse<Reward>> {
-    return this.http.put<ApiResponse<Reward>>(
-      `${this.apiUrl}/cms/reward/${id}`,
-      object
-    );
+    return this.http.put<ApiResponse<Reward>>(`/api/cms/reward/${id}`, object);
   }
   delete(id: number): Observable<ApiResponse<Reward>> {
-    return this.http.delete<ApiResponse<Reward>>(
-      `${this.apiUrl}/cms/reward/${id}`
-    );
+    return this.http.delete<ApiResponse<Reward>>(`/api/cms/reward/${id}`);
   }
 
   upload(object: FormData): Observable<ApiResponse<string>> {
-    return this.http.post<ApiResponse<string>>(
-      `${this.apiUrl}/upload/reward`,
-      object
-    );
+    return this.http.post<ApiResponse<string>>(`/api/upload/reward`, object);
   }
 
   getHighlights(cardId: string): Observable<ApiResponse<Reward[]>> {
     return this.http.get<ApiResponse<Reward[]>>(
-      `${this.apiUrl}/cms/reward/card/${cardId}/highlight`,
+      `/api/cms/reward/card/${cardId}/highlight`,
       {}
     );
   }
   updateHighlights(object: object): Observable<ApiResponse<Reward[]>> {
     return this.http.post<ApiResponse<Reward[]>>(
-      `${this.apiUrl}/cms/reward/highlight`,
+      `/api/cms/reward/highlight`,
       object
     );
   }
 
   getHistory(params?: HttpParams): Observable<ApiResponse<RewardHistory[]>> {
     return this.http.get<ApiResponse<RewardHistory[]>>(
-      `${this.apiUrl}/cms/reward/history`,
+      `/api/cms/reward/history`,
       { params: params }
     );
   }

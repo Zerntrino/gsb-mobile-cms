@@ -14,41 +14,29 @@ export class CategoryService extends BaseService {
   }
 
   getList(params?: HttpParams): Observable<ApiResponse<Category[]>> {
-    return this.http.get<ApiResponse<Category[]>>(
-      `${this.apiUrl}/cms/category`,
-      {
-        params: params,
-      }
-    );
+    return this.http.get<ApiResponse<Category[]>>(`/api/cms/category`, {
+      params: params,
+    });
   }
   getListReward(params?: HttpParams): Observable<ApiResponse<Category[]>> {
-    return this.http.get<ApiResponse<Category[]>>(
-      `${this.apiUrl}/category/reward`,
-      {
-        params: params,
-      }
-    );
+    return this.http.get<ApiResponse<Category[]>>(`/api/category/reward`, {
+      params: params,
+    });
   }
   getListPromotion(params?: HttpParams): Observable<ApiResponse<Category[]>> {
-    return this.http.get<ApiResponse<Category[]>>(
-      `${this.apiUrl}/category/promotion`,
-      {
-        params: params,
-      }
-    );
+    return this.http.get<ApiResponse<Category[]>>(`/api/category/promotion`, {
+      params: params,
+    });
   }
   getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
-    return this.http.get<ApiResponse<Paginate>>(
-      `${this.apiUrl}/cms/category/totalpage`,
-      {
-        params: params,
-      }
-    );
+    return this.http.get<ApiResponse<Paginate>>(`/api/cms/category/totalpage`, {
+      params: params,
+    });
   }
 
   getListRewardTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
     return this.http.get<ApiResponse<Paginate>>(
-      `${this.apiUrl}/cms/category/reward/totalpage`,
+      `/api/cms/category/reward/totalpage`,
       {
         params: params,
       }
@@ -59,7 +47,7 @@ export class CategoryService extends BaseService {
     params?: HttpParams
   ): Observable<ApiResponse<Paginate>> {
     return this.http.get<ApiResponse<Paginate>>(
-      `${this.apiUrl}/cms/category/promotion/totalpage`,
+      `/api/cms/category/promotion/totalpage`,
       {
         params: params,
       }
@@ -67,34 +55,23 @@ export class CategoryService extends BaseService {
   }
 
   get(id: string): Observable<ApiResponse<Category>> {
-    return this.http.get<ApiResponse<Category>>(
-      `${this.apiUrl}/cms/category/${id}`,
-      {}
-    );
+    return this.http.get<ApiResponse<Category>>(`/api/cms/category/${id}`, {});
   }
 
   create(object: object): Observable<ApiResponse<Category>> {
-    return this.http.post<ApiResponse<Category>>(
-      `${this.apiUrl}/cms/category`,
-      object
-    );
+    return this.http.post<ApiResponse<Category>>(`/api/cms/category`, object);
   }
   update(id: number, object: object): Observable<ApiResponse<Category>> {
     return this.http.put<ApiResponse<Category>>(
-      `${this.apiUrl}/cms/category/${id}`,
+      `/api/cms/category/${id}`,
       object
     );
   }
   delete(id: number): Observable<ApiResponse<Category>> {
-    return this.http.delete<ApiResponse<Category>>(
-      `${this.apiUrl}/cms/category/${id}`
-    );
+    return this.http.delete<ApiResponse<Category>>(`/api/cms/category/${id}`);
   }
 
   upload(object: FormData): Observable<ApiResponse<string>> {
-    return this.http.post<ApiResponse<string>>(
-      `${this.apiUrl}/upload/category`,
-      object
-    );
+    return this.http.post<ApiResponse<string>>(`/api/upload/category`, object);
   }
 }

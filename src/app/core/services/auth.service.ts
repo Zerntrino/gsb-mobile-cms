@@ -37,7 +37,7 @@ export class AuthService extends BaseService implements OnDestroy {
       if (event.key === 'login-event') {
         // this.stopTokenTimer();
         this.http
-          .get<ApiResponse<AppUserToken>>(`${this.apiUrl}/me`)
+          .get<ApiResponse<AppUserToken>>(`/api/me`)
           .subscribe((response) => {
             if (response.success) {
               this.appUser.next(response.data as AppUserToken);
@@ -60,7 +60,7 @@ export class AuthService extends BaseService implements OnDestroy {
 
   login(email: string, password: string): Observable<Response<AppUserToken>> {
     return this.http
-      .post<Response<AppUserToken>>(`${this.apiUrl}/cms/signin`, {
+      .post<Response<AppUserToken>>(`/api/cms/signin`, {
         email,
         password,
       })
@@ -76,7 +76,7 @@ export class AuthService extends BaseService implements OnDestroy {
 
   logout(returnUrl?: string): void {
     this.http
-      .post(`${this.apiUrl}/cms/signout`, {})
+      .post(`/api/cms/signout`, {})
       .pipe(
         finalize(() => {
           this.onLogout(returnUrl);
@@ -114,7 +114,7 @@ export class AuthService extends BaseService implements OnDestroy {
       this.clearTokenStorage();
     }
     return this.http
-      .post<ApiResponse<AppUserToken>>(`${this.apiUrl}/cms/token`, {
+      .post<ApiResponse<AppUserToken>>(`/api/cms/token`, {
         refresh_token: refreshToken,
       })
       .pipe(

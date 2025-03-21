@@ -6,19 +6,18 @@ COPY . .
 
 RUN yarn install --unsafe-perm && yarn build-prod
 
-# FROM nginx:alpine
-# EXPOSE 80
+FROM nginx:1.26.3-alpine3.20
 
-# COPY nginx-dev.conf /etc/nginx/conf.d/default.conf
+# Install gettext
+RUN apk update
+RUN apk add --no-cache gettext=0.22.5-r0
 
-# COPY --from=builder /app/dist/* /etc/nginx/html
+RUN addgroup -S nonroot \
+    && adduser -S nonroot -G nonroot
 
-FROM nginx:alpine
-
-# Install envsubst to process environment variables
-RUN apk add --no-cache gettext
-
-EXPOSE 80
+RUN chown -R nonroot:nonroot /etc/nginx/
+RUN chown -R nonroot:nonroot /var/cache/nginx/
+RUN chown -R nonroot:nonroot /var/run/
 
 COPY nginx.conf /etc/nginx/nginx.conf.template
 
@@ -26,6 +25,10 @@ COPY --from=builder /app/dist/* /etc/nginx/html
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
+
+EXPOSE 8080
+
+USER nonroot
 
 # Set the entrypoint script
 ENTRYPOINT ["/docker-entrypoint.sh"]

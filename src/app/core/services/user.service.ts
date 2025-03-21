@@ -14,11 +14,9 @@ export class UserService extends BaseService {
   }
 
   getUserProfile(id: string): Observable<ApiResponse<User>> {
-    return this.http.get<ApiResponse<User>>(
-      `${this.apiUrl}/user/${id}/profile`
-    );
+    return this.http.get<ApiResponse<User>>(`/api/user/${id}/profile`);
   }
   getUser(id: string): Observable<ApiResponse<User>> {
-    return this.http.get<ApiResponse<User>>(`${this.apiUrl}/account/${id}`);
+    return this.http.get<ApiResponse<User>>(`/api/account/${id}`);
   }
 }

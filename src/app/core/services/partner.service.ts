@@ -14,61 +14,47 @@ export class PartnerService extends BaseService {
   }
 
   getList(params?: HttpParams): Observable<ApiResponse<Partner[]>> {
-    return this.http.get<ApiResponse<Partner[]>>(`${this.apiUrl}/cms/partner`, {
+    return this.http.get<ApiResponse<Partner[]>>(`/api/cms/partner`, {
       params: params,
     });
   }
   getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
-    return this.http.get<ApiResponse<Paginate>>(
-      `${this.apiUrl}/cms/partner/totalpage`,
-      {
-        params: params,
-      }
-    );
+    return this.http.get<ApiResponse<Paginate>>(`/api/cms/partner/totalpage`, {
+      params: params,
+    });
   }
 
   get(id: string): Observable<ApiResponse<Partner>> {
-    return this.http.get<ApiResponse<Partner>>(
-      `${this.apiUrl}/cms/partner/${id}`,
-      {}
-    );
+    return this.http.get<ApiResponse<Partner>>(`/api/cms/partner/${id}`, {});
   }
 
   create(object: object): Observable<ApiResponse<Partner>> {
-    return this.http.post<ApiResponse<Partner>>(
-      `${this.apiUrl}/cms/partner`,
-      object
-    );
+    return this.http.post<ApiResponse<Partner>>(`/api/cms/partner`, object);
   }
 
   update(id: number, object: object): Observable<ApiResponse<Partner>> {
     return this.http.put<ApiResponse<Partner>>(
-      `${this.apiUrl}/cms/partner/${id}`,
+      `/api/cms/partner/${id}`,
       object
     );
   }
   delete(id: number): Observable<ApiResponse<Partner>> {
-    return this.http.delete<ApiResponse<Partner>>(
-      `${this.apiUrl}/cms/partner/${id}`
-    );
+    return this.http.delete<ApiResponse<Partner>>(`/api/cms/partner/${id}`);
   }
 
   upload(object: FormData): Observable<ApiResponse<string>> {
-    return this.http.post<ApiResponse<string>>(
-      `${this.apiUrl}/upload/partner`,
-      object
-    );
+    return this.http.post<ApiResponse<string>>(`/api/upload/partner`, object);
   }
 
   getHighlight(): Observable<ApiResponse<Partner[]>> {
     return this.http.get<ApiResponse<Partner[]>>(
-      `${this.apiUrl}/cms/partner/highlight`,
+      `/api/cms/partner/highlight`,
       {}
     );
   }
   updateHighlight(object: object): Observable<ApiResponse<Partner[]>> {
     return this.http.post<ApiResponse<Partner[]>>(
-      `${this.apiUrl}/cms/partner/highlight`,
+      `/api/cms/partner/highlight`,
       object
     );
   }

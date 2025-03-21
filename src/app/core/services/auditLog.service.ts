@@ -14,35 +14,26 @@ export class AuditLogService extends BaseService {
   }
 
   getAuditLogList(params?: HttpParams): Observable<ApiResponse<AuditLog[]>> {
-    return this.http.get<ApiResponse<AuditLog[]>>(
-      `${this.apiUrl}/cms/auditlog`,
-      {
-        params: params,
-      }
-    );
+    return this.http.get<ApiResponse<AuditLog[]>>(`/api/cms/auditlog`, {
+      params: params,
+    });
   }
   getAuditLogListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
-    return this.http.get<ApiResponse<Paginate>>(
-      `${this.apiUrl}/cms/auditlog/totalpage`,
-      {
-        params: params,
-      }
-    );
+    return this.http.get<ApiResponse<Paginate>>(`/api/cms/auditlog/totalpage`, {
+      params: params,
+    });
   }
 
   getSecurityLogList(params?: HttpParams): Observable<ApiResponse<AuditLog[]>> {
-    return this.http.get<ApiResponse<AuditLog[]>>(
-      `${this.apiUrl}/cms/securitylog`,
-      {
-        params: params,
-      }
-    );
+    return this.http.get<ApiResponse<AuditLog[]>>(`/api/cms/securitylog`, {
+      params: params,
+    });
   }
   getSucurityLogListTotal(
     params?: HttpParams
   ): Observable<ApiResponse<Paginate>> {
     return this.http.get<ApiResponse<Paginate>>(
-      `${this.apiUrl}/cms/securitylog/totalpage`,
+      `/api/cms/securitylog/totalpage`,
       {
         params: params,
       }

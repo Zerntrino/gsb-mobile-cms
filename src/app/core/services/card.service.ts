@@ -17,7 +17,7 @@ export class CardService extends BaseService {
 
   getRef(params?: HttpParams): Observable<ApiResponse<CardRef[]>> {
     return this.http.get<ApiResponse<CardRef[]>>(
-      `${this.apiUrl}/cms/card/referencecode`,
+      `/api/cms/card/referencecode`,
       {
         params: params,
       }
@@ -25,35 +25,26 @@ export class CardService extends BaseService {
   }
 
   getList(params?: HttpParams): Observable<ApiResponse<Card[]>> {
-    return this.http.get<ApiResponse<Card[]>>(`${this.apiUrl}/cms/card`, {
+    return this.http.get<ApiResponse<Card[]>>(`/api/cms/card`, {
       params: params,
     });
   }
 
   get(id: string): Observable<ApiResponse<Card>> {
-    return this.http.get<ApiResponse<Card>>(
-      `${this.apiUrl}/cms/card/${id}`,
-      {}
-    );
+    return this.http.get<ApiResponse<Card>>(`/api/cms/card/${id}`, {});
   }
 
   create(object: object): Observable<ApiResponse<Card>> {
-    return this.http.post<ApiResponse<Card>>(`${this.apiUrl}/cms/card`, object);
+    return this.http.post<ApiResponse<Card>>(`/api/cms/card`, object);
   }
   update(id: number, object: object): Observable<ApiResponse<Card>> {
-    return this.http.put<ApiResponse<Card>>(
-      `${this.apiUrl}/cms/card/${id}`,
-      object
-    );
+    return this.http.put<ApiResponse<Card>>(`/api/cms/card/${id}`, object);
   }
   delete(id: number): Observable<ApiResponse<Card>> {
-    return this.http.delete<ApiResponse<Card>>(`${this.apiUrl}/cms/card/${id}`);
+    return this.http.delete<ApiResponse<Card>>(`/api/cms/card/${id}`);
   }
 
   upload(object: FormData): Observable<ApiResponse<string>> {
-    return this.http.post<ApiResponse<string>>(
-      `${this.apiUrl}/upload/card`,
-      object
-    );
+    return this.http.post<ApiResponse<string>>(`/api/upload/card`, object);
   }
 }

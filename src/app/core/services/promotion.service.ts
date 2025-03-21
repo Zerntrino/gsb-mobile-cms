@@ -19,22 +19,19 @@ export class PromotionService extends BaseService {
 
   getTypes(): Observable<ApiResponse<PromotionType[]>> {
     return this.http.get<ApiResponse<PromotionType[]>>(
-      `${this.apiUrl}/cms/promotion/type`,
+      `/api/cms/promotion/type`,
       {}
     );
   }
 
   getList(params?: HttpParams): Observable<ApiResponse<Promotion[]>> {
-    return this.http.get<ApiResponse<Promotion[]>>(
-      `${this.apiUrl}/cms/promotion`,
-      {
-        params: params,
-      }
-    );
+    return this.http.get<ApiResponse<Promotion[]>>(`/api/cms/promotion`, {
+      params: params,
+    });
   }
   getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
     return this.http.get<ApiResponse<Paginate>>(
-      `${this.apiUrl}/cms/promotion/totalpage`,
+      `/api/cms/promotion/totalpage`,
       {
         params: params,
       }
@@ -43,39 +40,31 @@ export class PromotionService extends BaseService {
 
   get(id: string): Observable<ApiResponse<Promotion>> {
     return this.http.get<ApiResponse<Promotion>>(
-      `${this.apiUrl}/cms/promotion/${id}`,
+      `/api/cms/promotion/${id}`,
       {}
     );
   }
 
   create(object: object): Observable<ApiResponse<Promotion>> {
-    return this.http.post<ApiResponse<Promotion>>(
-      `${this.apiUrl}/cms/promotion`,
-      object
-    );
+    return this.http.post<ApiResponse<Promotion>>(`/api/cms/promotion`, object);
   }
   update(id: number, object: object): Observable<ApiResponse<Promotion>> {
     return this.http.put<ApiResponse<Promotion>>(
-      `${this.apiUrl}/cms/promotion/${id}`,
+      `/api/cms/promotion/${id}`,
       object
     );
   }
   delete(id: number): Observable<ApiResponse<Promotion>> {
-    return this.http.delete<ApiResponse<Promotion>>(
-      `${this.apiUrl}/cms/promotion/${id}`
-    );
+    return this.http.delete<ApiResponse<Promotion>>(`/api/cms/promotion/${id}`);
   }
 
   upload(object: FormData): Observable<ApiResponse<string>> {
-    return this.http.post<ApiResponse<string>>(
-      `${this.apiUrl}/upload/promotion`,
-      object
-    );
+    return this.http.post<ApiResponse<string>>(`/api/upload/promotion`, object);
   }
 
   getHighlights(cardId: string): Observable<ApiResponse<Promotion[]>> {
     return this.http.get<ApiResponse<Promotion[]>>(
-      `${this.apiUrl}/cms/promotion/${cardId}/highlight`,
+      `/api/cms/promotion/${cardId}/highlight`,
       {}
     );
   }
@@ -84,14 +73,14 @@ export class PromotionService extends BaseService {
     object: object
   ): Observable<ApiResponse<Promotion[]>> {
     return this.http.post<ApiResponse<Promotion[]>>(
-      `${this.apiUrl}/cms/promotion/card/${cardId}/highlight`,
+      `/api/cms/promotion/card/${cardId}/highlight`,
       object
     );
   }
 
   getHistory(params?: HttpParams): Observable<ApiResponse<PromotionHistory[]>> {
     return this.http.get<ApiResponse<PromotionHistory[]>>(
-      `${this.apiUrl}/cms/promotion/history`,
+      `/api/cms/promotion/history`,
       { params: params }
     );
   }
