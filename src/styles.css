@@ -90,3 +90,9 @@ select2  {
 .owl-dt-calendar-control-content .owl-dt-control-button-arrow {
     display: none !important;
 }
+
+.angular-editor-toolbar-set input[type="color"] {
+    display: contents !important;
+    width: 0;
+    height: 0;
+}

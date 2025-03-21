@@ -23,8 +23,8 @@ export class UtilsService {
       ],
       [
         'fontSize',
-        'textColor',
-        'backgroundColor',
+        // 'textColor',
+        // 'backgroundColor',
         'customClasses',
         // 'link',
         'unlink',

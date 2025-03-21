@@ -132,7 +132,7 @@ export class AuthService extends BaseService implements OnDestroy {
   get appUserDataStorage(): AppUserToken {
     return localStorage.getItem('logined_user')
       ? JSON.parse(localStorage.getItem('logined_user') || '')
-      : null;
+      : ({} as AppUserToken);
   }
 
   setUserStorage(appUser: AppUserToken): void {
