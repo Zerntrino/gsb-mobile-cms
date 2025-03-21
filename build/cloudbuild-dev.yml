@@ -22,7 +22,7 @@ steps:
       - '--platform'
       - 'managed'
       - '--port'
-      - '80'
+      - '8080'
       - '--allow-unauthenticated'
     env:
       - 'CLOUDSDK_CORE_PROJECT=gsbcard'

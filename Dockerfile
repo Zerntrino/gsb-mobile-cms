@@ -26,10 +26,10 @@ COPY --from=builder /app/dist/* /etc/nginx/html
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
-EXPOSE 80
-# EXPOSE 8080
+# EXPOSE 80
+EXPOSE 8080
 
-# USER nonroot
+USER nonroot
 
 # Set the entrypoint script
 ENTRYPOINT ["/docker-entrypoint.sh"]
