@@ -31,6 +31,9 @@ EXPOSE 8080
 
 USER nonroot
 
+# test
+
 # Set the entrypoint script
 ENTRYPOINT ["/docker-entrypoint.sh"]
 CMD ["nginx", "-g", "daemon off;"]
+
