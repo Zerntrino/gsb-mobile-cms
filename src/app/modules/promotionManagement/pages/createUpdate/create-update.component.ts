@@ -170,7 +170,7 @@ export class CreateUpdateComponent implements OnInit {
             imageUrl: res.imageUrl,
           });
 
-          if (res.importCodeFileName?.length)
+          if (res?.importCodeFileName?.length)
             this.submitForm.get('limit')?.disable();
 
           this.fileCodeLimitOrg = res.importCode?.length || res.limit || 0;
