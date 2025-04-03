@@ -63,12 +63,12 @@ export class LayoutComponent implements OnDestroy, OnInit {
             to: '/promotion-management',
             active: this.url?.startsWith('/promotion-management'),
           } as LeftMenu,
-          {
-            title: 'ประวัติการใช้โปรโมชัน',
-            icon: 'assets/icons/menus/promotion-history.svg',
-            to: '/promotion-history',
-            active: this.url?.startsWith('/promotion-history'),
-          } as LeftMenu,
+          // {
+          //   title: 'ประวัติการใช้โปรโมชัน',
+          //   icon: 'assets/icons/menus/promotion-history.svg',
+          //   to: '/promotion-history',
+          //   active: this.url?.startsWith('/promotion-history'),
+          // } as LeftMenu,
         ],
       } as LeftMenu,
       {
@@ -80,12 +80,12 @@ export class LayoutComponent implements OnDestroy, OnInit {
             to: '/reward-management',
             active: this.url?.startsWith('/reward-management'),
           } as LeftMenu,
-          {
-            title: 'ประวัติการใช้รีวอร์ด',
-            icon: 'assets/icons/menus/reward-history.svg',
-            to: '/reward-history',
-            active: this.url?.startsWith('/reward-history'),
-          } as LeftMenu,
+          // {
+          //   title: 'ประวัติการใช้รีวอร์ด',
+          //   icon: 'assets/icons/menus/reward-history.svg',
+          //   to: '/reward-history',
+          //   active: this.url?.startsWith('/reward-history'),
+          // } as LeftMenu,
         ],
       } as LeftMenu,
       {
