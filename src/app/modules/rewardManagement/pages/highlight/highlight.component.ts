@@ -177,7 +177,8 @@ export class HighlightComponent implements OnInit {
       .subscribe(
         (response) => {
           this.toastService.add('success', 'ทำรายการสำเร็จ');
-          this.router.navigate(['/reward-management']);
+          this.fetch();
+          // this.router.navigate(['/reward-management/highlight']);
         },
         (error) => {
           console.log(error);

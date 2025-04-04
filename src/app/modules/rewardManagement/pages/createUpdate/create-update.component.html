@@ -277,10 +277,12 @@
                 <div
                   *ngFor="
                     let file of fileCodeName
-                      ? (submitForm.get('importCodeFileName')?.value?.length ?[
-                          submitForm.get('importCodeFileName')?.value,
-                          fileCodeName
-                        ]: [fileCodeName])
+                      ? submitForm.get('importCodeFileName')?.value?.length
+                        ? [
+                            submitForm.get('importCodeFileName')?.value,
+                            fileCodeName
+                          ]
+                        : [fileCodeName]
                       : submitForm.get('importCodeFileName')?.value;
                     let i = index
                   "
