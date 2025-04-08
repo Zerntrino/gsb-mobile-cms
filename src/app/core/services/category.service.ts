@@ -19,14 +19,17 @@ export class CategoryService extends BaseService {
     });
   }
   getListReward(params?: HttpParams): Observable<ApiResponse<Category[]>> {
-    return this.http.get<ApiResponse<Category[]>>(`/api/category/reward`, {
+    return this.http.get<ApiResponse<Category[]>>(`/api/cms/category/reward`, {
       params: params,
     });
   }
   getListPromotion(params?: HttpParams): Observable<ApiResponse<Category[]>> {
-    return this.http.get<ApiResponse<Category[]>>(`/api/category/promotion`, {
-      params: params,
-    });
+    return this.http.get<ApiResponse<Category[]>>(
+      `/api/cms/category/promotion`,
+      {
+        params: params,
+      }
+    );
   }
   getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
     return this.http.get<ApiResponse<Paginate>>(`/api/cms/category/totalpage`, {
