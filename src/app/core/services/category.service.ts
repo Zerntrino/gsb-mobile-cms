@@ -31,6 +31,7 @@ export class CategoryService extends BaseService {
       }
     );
   }
+  
   getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
     return this.http.get<ApiResponse<Paginate>>(`/api/cms/category/totalpage`, {
       params: params,
