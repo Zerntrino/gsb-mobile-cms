@@ -52,7 +52,7 @@
                 <div class="text-sm">Installment Plan</div>
                 <select2
                   class="flex w-full"
-                  [value]="submitForm.get('planCode')?.value || ''"
+                  [value]="submitForm.get('planId')?.value || ''"
                   (update)="installmentPlanChange($event)"
                   [data]="installmentPlanOption"
                   placeholder="Installment Plan"

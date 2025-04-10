@@ -3,6 +3,7 @@ export interface Installment {
   installmentPlan: string;
   name: string;
   description: string;
+  planId: number;
   planCode: string;
   mccCode: string[];
   isActive: boolean;
