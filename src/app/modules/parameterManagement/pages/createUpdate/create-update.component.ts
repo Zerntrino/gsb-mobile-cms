@@ -44,6 +44,7 @@ export class CreateUpdateComponent implements OnInit {
   submitForm = new FormGroup({
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
+    planId: new FormControl(0, [Validators.required]),
     planCode: new FormControl('', [Validators.required]),
     mccCode: new FormControl<string[]>([]),
     startDate: new FormControl('', [Validators.required]),
@@ -79,9 +80,10 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   async ngOnInit() {
+    await this.fetchInstallmentPlans();
     await this.fetch();
     await this.fetchCards();
-    await this.fetchInstallmentPlans();
+    
     await this.fetchMcc();
     await this.fetchCardMin();
   }
@@ -94,6 +96,7 @@ export class CreateUpdateComponent implements OnInit {
           this.submitForm.setValue({
             name: res.name,
             description: res.description,
+            planId: res.planId,
             planCode: res.planCode,
             mccCode: res.mccCode,
             startDate: res.startDate,
@@ -102,7 +105,7 @@ export class CreateUpdateComponent implements OnInit {
             isActive: res.isActive,
           });
 
-          this.fetchInstallmentPlan(res.planCode);
+          this.fetchInstallmentPlan(res.planId);
         },
         (error) => {
           console.log(error);
@@ -131,7 +134,7 @@ export class CreateUpdateComponent implements OnInit {
           .filter((i) => i.isActive)
           .map((i) => {
             return {
-              value: i.name,
+              value: i.id,
               label: i.name,
             } as Select2Option;
           });
@@ -182,6 +185,8 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   onSubmit(): void {
+    const planCode = this.installmentPlanOption.find(i => i.value == this.submitForm.get('planId')?.value)?.label || ''
+    this.submitForm.setValue({...this.submitForm.getRawValue(), planCode: planCode});
     if (this.id == 'create') {
       this.parameterService.create(this.submitForm.getRawValue()).subscribe(
         (response) => {
@@ -235,21 +240,22 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   installmentPlanChange(e: Select2UpdateEvent): void {
-    if (this.submitForm.get('planCode')?.value != e.value) {
-      this.submitForm.get('planCode')?.setValue(e.value as string);
+    if (this.submitForm.get('planId')?.value != e.value) {
+      this.submitForm.get('planId')?.setValue(e.value as number);
 
-      this.fetchInstallmentPlan(e.value as string);
+      this.fetchInstallmentPlan(e.value as number);
     }
   }
 
-  async fetchInstallmentPlan(name: string) {
-    const f = this.installmentPlans.find((i) => i.name == name);
+  async fetchInstallmentPlan(id: number) {
+    const f = this.installmentPlans.find((i) => i.id == id);
     if (!f) return;
 
     const res = await this.parameterService
       .getInstallmentPlan(f?.id || 0)
       .toPromise();
     this.installmentPlan = res?.data as InstallmentPlan;
+
   }
 
   edit() {
