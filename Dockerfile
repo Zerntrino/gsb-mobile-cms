@@ -4,6 +4,7 @@ WORKDIR /app
 
 COPY . .
 
+RUN yarn prebuild
 RUN yarn install --unsafe-perm && yarn build-prod
 
 FROM nginx:1.26.3-alpine3.20

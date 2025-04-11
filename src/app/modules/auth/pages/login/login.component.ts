@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ToastService } from 'src/app/core/services/toast.service';
+
+import { OktaAuthStateService, OKTA_AUTH } from '@okta/okta-angular';
+import { AuthState } from '@okta/okta-auth-js';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +18,9 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private toastService: ToastService
   ) {}
+
+  private oktaStateService = inject(OktaAuthStateService);
+  private oktaAuth = inject(OKTA_AUTH);
 
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
@@ -48,5 +54,11 @@ export class LoginComponent implements OnInit {
         // );
       }
     );
+  }
+
+  oktaLogin(): void {
+    this.oktaAuth.signInWithRedirect({
+      originalUri: this.authService.getRedirectUrl(),
+    });
   }
 }

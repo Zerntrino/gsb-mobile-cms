@@ -1,5 +1,10 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, LOCALE_ID, Injectable } from '@angular/core';
+import {
+  NgModule,
+  LOCALE_ID,
+  Injectable,
+  importProvidersFrom,
+} from '@angular/core';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -8,11 +13,24 @@ import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from './core/core.module';
 
+import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
+import { OktaAuth } from '@okta/okta-auth-js';
+
 import dayjs from 'dayjs';
 import { OWL_DATE_TIME_LOCALE } from 'ng-pick-datetime';
 
 var buddhistEra = require('dayjs/plugin/buddhistEra');
+
 dayjs.extend(buddhistEra);
+
+import { environment } from '../environments/environment';
+
+const oktaAuth = new OktaAuth({
+  issuer: 'https://mfapwldev.gsb.or.th',
+  clientId: '0oa1uk5axxcJJh8mB1d8',
+  redirectUri: 'http://gsbmycardsit.gsb.or.th/api/authen/callback', //window.location.origin + '/api/authen/callback',
+  scopes: ['openid', 'profile', 'offline_access'],
+});
 
 @NgModule({
   declarations: [AppComponent],
@@ -23,6 +41,7 @@ dayjs.extend(buddhistEra);
     RouterModule,
     SharedModule,
     CoreModule,
+    OktaAuthModule,
   ],
   providers: [
     { provide: LOCALE_ID, useValue: 'th' },
@@ -30,6 +49,8 @@ dayjs.extend(buddhistEra);
       provide: OWL_DATE_TIME_LOCALE,
       useValue: 'th',
     },
+    { provide: OKTA_CONFIG, useValue: { oktaAuth } },
+    // { provide: OktaAuth, useValue: oktaAuth },
   ],
   bootstrap: [AppComponent],
 })
