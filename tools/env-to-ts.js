@@ -18,5 +18,5 @@ for (const key in envVars) {
 content += "};\n";
 
 // Write to Angular env file
-fs.writeFileSync("./src/environments/environment.ts", content);
+fs.writeFileSync("./src/environments/environment.prod.ts", content);
 console.log("✔ Environment file generated.");
