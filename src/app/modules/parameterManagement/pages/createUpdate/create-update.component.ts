@@ -83,7 +83,7 @@ export class CreateUpdateComponent implements OnInit {
     await this.fetchInstallmentPlans();
     await this.fetch();
     await this.fetchCards();
-    
+
     await this.fetchMcc();
     await this.fetchCardMin();
   }
@@ -93,10 +93,14 @@ export class CreateUpdateComponent implements OnInit {
       await this.parameterService.get(this.id).subscribe(
         (response) => {
           const res = response.data as Installment;
+          const planId = this.installmentPlanOption
+            .find((i) => i.label == res.planCode)
+            ?.value.toString();
+
           this.submitForm.setValue({
             name: res.name,
             description: res.description,
-            planId: res.planId,
+            planId: res.planId || parseInt(planId || ''),
             planCode: res.planCode,
             mccCode: res.mccCode,
             startDate: res.startDate,
@@ -185,8 +189,14 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const planCode = this.installmentPlanOption.find(i => i.value == this.submitForm.get('planId')?.value)?.label || ''
-    this.submitForm.setValue({...this.submitForm.getRawValue(), planCode: planCode});
+    const planCode =
+      this.installmentPlanOption.find(
+        (i) => i.value == this.submitForm.get('planId')?.value
+      )?.label || '';
+    this.submitForm.setValue({
+      ...this.submitForm.getRawValue(),
+      planCode: planCode,
+    });
     if (this.id == 'create') {
       this.parameterService.create(this.submitForm.getRawValue()).subscribe(
         (response) => {
@@ -255,7 +265,6 @@ export class CreateUpdateComponent implements OnInit {
       .getInstallmentPlan(f?.id || 0)
       .toPromise();
     this.installmentPlan = res?.data as InstallmentPlan;
-
   }
 
   edit() {
