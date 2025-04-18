@@ -212,6 +212,9 @@ export class CreateUpdateComponent implements OnInit {
           this.fileCodeLimitOrg = res.importCode?.length || res.limit || 0;
 
           this.imageBase64 = res.imageUrl;
+
+          this.submitForm.get('productId')?.disable();
+          this.submitForm.get('productDescription')?.disable();
         },
         (error) => {
           console.log(error);

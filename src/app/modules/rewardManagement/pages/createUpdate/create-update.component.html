@@ -101,7 +101,7 @@
                 name="startDate"
                 formControlName="startDate"
                 placeholder="วว/ดด/ปปปป"
-                [attr.disabled]="id != 'create'"
+                [disabled]="id != 'create'"
               />
               <img
                 [owlDateTimeTrigger]="startDate"
@@ -165,7 +165,7 @@
                     formControlName="productName"
                     class="input"
                     placeholder="สินค้าที่ได้รับในการแลกคะแนน"
-                    [attr.disabled]="mode == 'view' || id != 'create'"
+                    [disabled]="mode == 'view' || id != 'create'"
                   />
                 </div>
                 <div class="flex-1">
@@ -175,7 +175,7 @@
                     formControlName="productCode"
                     class="input"
                     placeholder="รหัสสินค้า"
-                    [attr.disabled]="mode == 'view' || id != 'create'"
+                    [disabled]="mode == 'view' || id != 'create'"
                   />
                 </div>
               </div>
@@ -195,7 +195,7 @@
               </div>
             </div>
 
-            <div>
+            <div *ngIf="submitForm.get('typeId')?.value">
               <div class="flex-1">
                 <div class="text-sm">รหัสสินค้า</div>
                 <input
@@ -203,7 +203,7 @@
                   formControlName="productId"
                   class="input"
                   placeholder="รหัสสินค้า"
-                  [attr.disabled]="id != 'create'"
+                  [disabled]="id != 'create'"
                 />
               </div>
               <div class="flex-1 mt-4">
@@ -213,7 +213,7 @@
                   formControlName="productDescription"
                   class="input"
                   placeholder="รายละเอียดสินค้า"
-                  [attr.disabled]="id != 'create'"
+                  [disabled]="id != 'create'"
                 />
               </div>
             </div>
@@ -239,7 +239,7 @@
                     formControlName="point"
                     class="input text-right"
                     placeholder="คะแนนที่ใช้แลก"
-                    [attr.disabled]="mode == 'view' || id != 'create'"
+                    [disabled]="mode == 'view' || id != 'create'"
                   />
                 </div>
                 <div class="flex-1">
@@ -249,7 +249,7 @@
                     formControlName="mPoint"
                     class="input text-right"
                     placeholder="คะแนนที่ได้รับ (M Point)"
-                    [attr.disabled]="mode == 'view'"
+                    [disabled]="mode == 'view'"
                   />
                 </div>
               </div>
@@ -277,7 +277,7 @@
                   name="prefixCode"
                   formControlName="prefixCode"
                   placeholder="Prefix code"
-                  [attr.disabled]="mode == 'view'"
+                  [disabled]="mode == 'view'"
                   maxlength="5"
                   pattern="[A-Za-z0-9]{0,5}"
                 />
