@@ -156,7 +156,7 @@
               ></select2>
             </div>
 
-            <div *ngIf="submitForm.get('typeId')?.value == 2">
+            <!-- <div *ngIf="submitForm.get('typeId')?.value == 2">
               <div class="my-2 space-y-4">
                 <div class="flex-1">
                   <div class="text-sm">สินค้าที่ได้รับในการแลกคะแนน</div>
@@ -179,7 +179,7 @@
                   />
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <div *ngIf="[3, 4].includes(submitForm.get('typeId')?.value || 0)">
               <div>
