@@ -1,10 +1,12 @@
-FROM node:16-alpine as builder
+FROM node:20-alpine3.20 AS builder
 
 WORKDIR /app
 
 COPY . .
 
-RUN yarn install --unsafe-perm && yarn build-prod
+RUN yarn install --unsafe-perm
+RUN yarn prebuild
+RUN yarn build-prod
 
 FROM nginx:1.26.3-alpine3.20
 

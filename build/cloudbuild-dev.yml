@@ -18,7 +18,7 @@ steps:
       - 'asia.gcr.io/$PROJECT_ID/gsb-cms-web:develop'
       - '--region'
       - 'asia-southeast1'
-      - "--set-env-vars=API_BACKEND=http://gsb-api.ubakong.com"
+      - '--set-env-vars=API_BACKEND=http://gsb-api.ubakong.com,OAUTH2_ISSUER=https://mfapwldev.gsb.or.th,OAUTH2_CLIENT_ID=0oa1uk5axxcJJh8mB1d8,OAUTH2_REDIRECT_URI=http://gsb-api.ubakong.com/api/authen/callback'
       - '--platform'
       - 'managed'
       - '--port'
