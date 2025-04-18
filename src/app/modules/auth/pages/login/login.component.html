@@ -1,75 +1,113 @@
 <div class="h-screen w-full auth-bg flex items-center justify-center">
   <div class="w-full max-w-md bg-white rounded-xl py-4 px-8 shadow-lg mx-4">
-    <img src="assets/images/logo-large.png" class="mx-auto w-56 my-4" alt="" />
+    <!-- <img src="assets/images/logo-large.png" class="mx-auto w-56 my-4" alt="" />
     <div class="mb-6 text-center text-xl font-semibold">
       เข้าสู่ระบบจัดการแอปพลิเคชัน
-    </div>
+    </div> -->
 
-    <form
-      *ngIf="!isForgot"
-      [formGroup]="loginForm"
-      (submit)="lf.form.valid && onSubmit()"
-      #lf="ngForm"
-    >
-      <div class="my-3">
-        <div class="text-sm">ชื่อผู้ใช้งาน / อีเมล์</div>
-        <input
-          class="input"
-          name="email"
-          formControlName="email"
-          required
-          placeholder="กรอกชื่อผู้ใช้งาน / อีเมล์"
-          autocomplete="off"
-        />
+    <div *ngIf="page == 'login'">
+      <div class="flex justify-center my-6">
+        <img src="assets/images/logo_gsb.png" class="mx-auto w-56" alt="" />
+      </div>
+      <div class="text-xl font-semibold text-center my-4">
+        <span>เข้าสู่ระบบ CMS </span>
+        <span class="text-primary font-bold">My Card by GSB</span>
       </div>
 
-      <div class="my-3">
-        <div class="text-sm">รหัสผ่าน</div>
-        <input
-          class="input"
-          type="password"
-          name="password"
-          formControlName="password"
-          required
-          placeholder="กรอกรหัสผ่าน"
-          autocomplete="off"
-        />
-      </div>
-
-      <div
-        class="my-2 bg-red-700 text-white px-4 py-1 rounded-sm"
-        *ngIf="error"
-      >
-        {{ error }}
-      </div>
-
-      <div
-        class="mt-4 mb-3 text-primary underline text-sm cursor-pointer"
-        (click)="isForgot = true"
-      >
-        ลืมรหัสผ่าน ?
-      </div>
-
-      <button class="mb-6 button" type="submit" [disabled]="lf.invalid">
-        เข้าสู่ระบบ
+      <button class="mb-6 button w-full" (click)="(oktaLogin)">
+        เข้าสู่ระบบด้วยอีเมลออมสิน
       </button>
-    </form>
 
-    <div *ngIf="isForgot">
-      <div class="my-6 text-primary text-center">ลืมรหัสผ่าน</div>
-
-      <div class="text-center text-xl">กรุณาติดต่อผู้ดูแลระบบ</div>
-      <div class="text-center text-lg">
-        เพื่อทำการขอข้อมูล<br />ในการเข้าสู่ระบบ
-      </div>
-
-      <button class="mt-8 mb-6 w-full button" (click)="isForgot = false">
-        ตกลง
+      <button
+        class="mb-6 button-border w-full"
+        (click)="page = 'email-password'"
+      >
+        เข้าสู่ระบบด้วยอีเมลอื่น
       </button>
     </div>
 
-    <button class="mt-8 mb-6 w-full button" (click)="oktaLogin()">
-      เข้าสู่ระบบด้วยอีเมลออมสิน
-    </button>
+    <div *ngIf="page == 'email-password'" class="relative">
+      <img
+        src="assets/images/back.png"
+        class="w-18 absolute -top-6 -left-6 cursor-pointer"
+        alt=""
+        (click)="page = 'login'"
+      />
+      <div
+        class="flex justify-center w-full bg-primary my-6 -mx-8"
+        style="width: calc(100% + 4rem)"
+      >
+        <img src="assets/images/logo_gsb.png" class="w-56" alt="" />
+      </div>
+      <div class="text-xl font-semibold text-center my-4">
+        <span>เข้าสู่ระบบ CMS </span>
+        <span class="text-primary font-bold">My Card by GSB</span>
+      </div>
+
+      <form
+        *ngIf="!isForgot"
+        [formGroup]="loginForm"
+        (submit)="lf.form.valid && onSubmit()"
+        #lf="ngForm"
+      >
+        <div class="my-3">
+          <div class="text-sm">ชื่อผู้ใช้งาน / อีเมล์</div>
+          <input
+            class="input"
+            name="email"
+            formControlName="email"
+            required
+            placeholder="กรอกชื่อผู้ใช้งาน / อีเมล์"
+            autocomplete="off"
+          />
+        </div>
+
+        <div class="my-3">
+          <div class="text-sm">รหัสผ่าน</div>
+          <input
+            class="input"
+            type="password"
+            name="password"
+            formControlName="password"
+            required
+            placeholder="กรอกรหัสผ่าน"
+            autocomplete="off"
+          />
+        </div>
+
+        <div
+          class="my-2 bg-red-700 text-white px-4 py-1 rounded-sm"
+          *ngIf="error"
+        >
+          {{ error }}
+        </div>
+
+        <div
+          class="mt-4 mb-3 text-primary underline text-sm cursor-pointer"
+          (click)="isForgot = true"
+        >
+          ลืมรหัสผ่าน ?
+        </div>
+
+        <button
+          class="mb-6 button w-full"
+          type="submit"
+          [disabled]="lf.invalid"
+        >
+          เข้าสู่ระบบ
+        </button>
+      </form>
+
+      <div *ngIf="isForgot">
+        <div class="text-center text-xl">กรุณาติดต่อผู้ดูแลระบบ</div>
+        <div class="text-center text-lg">
+          เพื่อทำการขอข้อมูล<br />ในการเข้าสู่ระบบ <br /><br />
+        </div>
+
+        <button class="mt-8 mb-6 w-full button" (click)="isForgot = false">
+          ตกลง
+        </button>
+      </div>
+    </div>
   </div>
 </div>
