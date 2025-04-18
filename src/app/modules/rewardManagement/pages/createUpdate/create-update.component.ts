@@ -71,6 +71,8 @@ export class CreateUpdateComponent implements OnInit {
     cardId: new FormControl<number[]>([], [Validators.required]),
     coverUrl: new FormControl('', [Validators.required]),
     imageUrl: new FormControl<string[]>([], [Validators.required]),
+    productId: new FormControl('', [Validators.required]),
+    productDescription: new FormControl('', [Validators.required]),
   });
 
   coverImageBase64 = '';
@@ -159,7 +161,7 @@ export class CreateUpdateComponent implements OnInit {
     await this.fetchShop();
     // this.fetchMcc();
     await this.fetchCard();
-    this.fetch();
+    await this.fetch();
   }
 
   fetch(): void {
@@ -200,6 +202,8 @@ export class CreateUpdateComponent implements OnInit {
             cardId: res.cardId,
             coverUrl: res.coverUrl,
             imageUrl: res.imageUrl,
+            productId: res.productId,
+            productDescription: res.productDescription,
           });
 
           if (res?.importCodeFileName?.length)

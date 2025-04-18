@@ -16,7 +16,7 @@
         <app-toggle
           [value]="submitForm.get('isActive')?.value || false"
           (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
-          [disabled]="mode == 'view'"
+          [attr.disabled]="mode == 'view'"
         ></app-toggle>
         <div>
           {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
@@ -56,7 +56,7 @@
                   (update)="installmentPlanChange($event)"
                   [data]="installmentPlanOption"
                   placeholder="Installment Plan"
-                  [disabled]="mode == 'view'"
+                  [attr.disabled]="mode == 'view'"
                 ></select2>
               </div>
 
@@ -108,7 +108,7 @@
                   [value]="mccs"
                   (valueUpdate)="mccChange($event)"
                   placeholder="MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ"
-                  [disabled]="mode == 'view'"
+                  [attr.disabled]="mode == 'view'"
                 ></app-tag> -->
                 <div class="text-sm">
                   MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ (ไม่บังคับ)
@@ -120,7 +120,7 @@
                   multiple="true"
                   (update)="mccChange($event)"
                   placeholder="MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ"
-                  [disabled]="mode == 'view'"
+                  [attr.disabled]="mode == 'view'"
                 ></select2>
                 <div class="text-sm py-1 text-gray-500">
                   *หากไม่ระบุจะใช้กับทุก MCC
@@ -187,7 +187,7 @@
                             .get('cardId')
                             ?.setValue($event ? cardIds : [])
                         "
-                        [disabled]="mode == 'view'"
+                        [attr.disabled]="mode == 'view'"
                       ></app-checkbox>
                     </div>
                   </div>
@@ -203,7 +203,7 @@
                           submitForm.get('cardId')?.value?.includes(card.id)
                         "
                         (valueUpdate)="updateCard($event, card.id)"
-                        [disabled]="mode == 'view'"
+                        [attr.disabled]="mode == 'view'"
                       ></app-checkbox>
                     </div>
                   </div>
@@ -265,7 +265,7 @@
         <button
           *ngIf="mode == 'edit'"
           type="submit"
-          [disabled]="!submitForm.valid"
+          [attr.disabled]="!submitForm.valid"
           class="button w-auto px-6"
         >
           {{ id == "create" ? "สร้างพารามิเตอร์" : "บันทึกพารามิเตอร์" }}

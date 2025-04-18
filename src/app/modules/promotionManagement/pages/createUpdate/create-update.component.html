@@ -16,7 +16,7 @@
         <app-toggle
           [value]="submitForm.get('isActive')?.value || false"
           (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
-          [disabled]="mode == 'view'"
+          [attr.disabled]="mode == 'view'"
         ></app-toggle>
         <div>
           {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
@@ -56,7 +56,7 @@
                 (update)="categoryChange($event)"
                 [data]="categoryOption"
                 placeholder="เลือกหมวดหมู่"
-                [disabled]="mode == 'view' || id != 'create'"
+                [attr.disabled]="mode == 'view' || id != 'create'"
               ></select2>
             </div>
             <div class="">
@@ -89,7 +89,7 @@
                 (valueUpdate)="tagChange($event)"
                 (valueUpdate)="tagChange($event)"
                 placeholder="ข้อมูลที่เกี่ยวข้อง"
-                [disabled]="mode == 'view'"
+                [attr.disabled]="mode == 'view'"
               ></app-tag>
             </div>
             <div class="relative">
@@ -101,7 +101,7 @@
                 name="startDate"
                 formControlName="startDate"
                 placeholder="วว/ดด/ปปปป"
-                [disabled]="id != 'create'"
+                [attr.disabled]="id != 'create'"
               />
               <img
                 [owlDateTimeTrigger]="startDate"
@@ -111,7 +111,7 @@
               <owl-date-time
                 #startDate
                 pickerType="calendar"
-                [disabled]="id != 'create'"
+                [attr.disabled]="id != 'create'"
               ></owl-date-time>
             </div>
             <div class="relative">
@@ -138,7 +138,7 @@
                 (valueUpdate)="
                   submitForm.get('isNotification')?.setValue($event)
                 "
-                [disabled]="mode == 'view' || id != 'create'"
+                [attr.disabled]="mode == 'view' || id != 'create'"
                 >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-checkbox
               >
             </div>
@@ -156,7 +156,7 @@
                 (update)="promotionTypeChange($event)"
                 [data]="promotionTypeOption"
                 placeholder="เลือกหมวดหมู่"
-                [disabled]="mode == 'view' || id != 'create'"
+                [attr.disabled]="mode == 'view' || id != 'create'"
               ></select2>
             </div>
 
@@ -170,7 +170,7 @@
                 (update)="shopChange($event)"
                 [data]="shopOption"
                 placeholder="เลือกร้านค้า/แบรนด์"
-                [disabled]="mode == 'view' || id != 'create'"
+                [attr.disabled]="mode == 'view' || id != 'create'"
               ></select2>
             </div>
 
@@ -193,7 +193,7 @@
                 multiple="true"
                 (update)="mccChange($event)"
                 placeholder="MCC (พิเศษ) ที่ใช้ในการผ่อนชำระ"
-                [disabled]="mode == 'view' || id != 'create'"
+                [attr.disabled]="mode == 'view' || id != 'create'"
               ></select2>
             </div>
 
@@ -209,7 +209,7 @@
                   (update)="generateTypeChange($event)"
                   [data]="codeTypeOption"
                   placeholder="เลือกประเภท Code"
-                  [disabled]="mode == 'view' || id != 'create'"
+                  [attr.disabled]="mode == 'view' || id != 'create'"
                 ></select2>
               </div>
               <div *ngIf="submitForm.get('generateType')?.value == 1">
@@ -219,7 +219,7 @@
                   name="prefixCode"
                   formControlName="prefixCode"
                   placeholder="Prefix code"
-                  [disabled]="id != 'create'"
+                  [attr.disabled]="id != 'create'"
                   maxlength="5"
                   pattern="[A-Za-z0-9]{0,5}"
                 />
@@ -233,7 +233,7 @@
                   class="button-border text-center flex items-center justify-center space-x-4 w-full"
                   type="button"
                   (click)="inputCode.click()"
-                  [disabled]="mode == 'view'"
+                  [attr.disabled]="mode == 'view'"
                 >
                   <img src="assets/icons/document.svg" class="w-6" />
                   <div>นำเข้าเอกสาร</div>
@@ -243,10 +243,12 @@
                   class="my-2 px-4 py-2 border border-gray-100 rounded-md flex items-center space-x-4 max-w-full"
                   *ngFor="
                     let file of fileCodeName
-                      ? (submitForm.get('importCodeFileName')?.value?.length ?[
-                          submitForm.get('importCodeFileName')?.value,
-                          fileCodeName
-                        ]: [fileCodeName])
+                      ? submitForm.get('importCodeFileName')?.value?.length
+                        ? [
+                            submitForm.get('importCodeFileName')?.value,
+                            fileCodeName
+                          ]
+                        : [fileCodeName]
                       : submitForm.get('importCodeFileName')?.value;
                     let i = index
                   "
@@ -349,7 +351,7 @@
                           .get('cardId')
                           ?.setValue($event ? cardIds : [])
                       "
-                      [disabled]="mode == 'view'"
+                      [attr.disabled]="mode == 'view'"
                     ></app-checkbox>
                   </div>
                 </div>
@@ -365,7 +367,7 @@
                         submitForm.get('cardId')?.value?.includes(card.id)
                       "
                       (valueUpdate)="updateCard($event, card.id)"
-                      [disabled]="mode == 'view'"
+                      [attr.disabled]="mode == 'view'"
                     ></app-checkbox>
                   </div>
                 </div>
@@ -433,7 +435,7 @@
                   class="button-border text-center flex items-center justify-center space-x-4"
                   type="button"
                   (click)="inputImage.click()"
-                  [disabled]="mode == 'view'"
+                  [attr.disabled]="mode == 'view'"
                 >
                   <img src="assets/icons/upload.svg" class="w-6" />
                   <div>อัปโหลดไฟล์รูปภาพ</div>
@@ -491,7 +493,7 @@
                   class="button-border text-center flex items-center justify-center space-x-4"
                   type="button"
                   (click)="inputImage2.click()"
-                  [disabled]="mode == 'view'"
+                  [attr.disabled]="mode == 'view'"
                 >
                   <img src="assets/icons/upload.svg" class="w-6" />
                   <div>อัปโหลดไฟล์รูปภาพ</div>
@@ -523,7 +525,7 @@
         *ngIf="mode == 'edit'"
         class="button w-auto px-6"
         type="submit"
-        [disabled]="!submitForm.valid"
+        [attr.disabled]="!submitForm.valid"
       >
         {{ id == "create" ? "สร้างโปรโมชัน" : "บันทึกโปรโมชัน" }}
       </button>

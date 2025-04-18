@@ -73,7 +73,7 @@
                 class="input"
                 placeholder="ประเภทบัตร"
                 [value]="submitForm.get('referenceCode')?.value || ''"
-                [disabled]="true"
+                [attr.disabled]="true"
               />
             </div>
 
@@ -84,7 +84,7 @@
                 placeholder="ชื่อบัตร"
                 name="name"
                 formControlName="name"
-                [disabled]="true"
+                [attr.disabled]="true"
               />
             </div>
 
@@ -180,7 +180,7 @@
       >
       <button
         type="submit"
-        [disabled]="!submitForm.valid"
+        [attr.disabled]="!submitForm.valid"
         class="button w-auto px-6"
       >
         {{ id == 0 ? "สร้างสิทธิพิเศษ" : "บันทึกสิทธิพิเศษ" }}

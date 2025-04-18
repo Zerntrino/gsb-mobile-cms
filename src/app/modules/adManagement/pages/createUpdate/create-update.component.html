@@ -12,7 +12,7 @@
         <app-toggle
           [value]="submitForm.get('isActive')?.value || false"
           (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
-          [disabled]="mode == 'view'"
+          [attr.disabled]="mode == 'view'"
         ></app-toggle>
         <div>
           {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
@@ -130,7 +130,7 @@
               </div>
               <div class="flex justify-center">
                 <button
-                  [disabled]="mode == 'view'"
+                  [attr.disabled]="mode == 'view'"
                   (click)="inputImage.click()"
                   class="button-border text-center flex items-center justify-center space-x-4"
                   type="button"
@@ -163,7 +163,7 @@
         *ngIf="mode == 'edit'"
         class="button w-auto px-6"
         type="submit"
-        [disabled]="!submitForm.valid"
+        [attr.disabled]="!submitForm.valid"
       >
         {{ id == "create" ? "สร้างโฆษณา" : "บันทึกโฆษณา" }}
       </button>

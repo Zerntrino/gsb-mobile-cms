@@ -59,6 +59,9 @@ export interface Reward {
   limitPerCardPerDay: number;
   card_id: number[];
   cardId: number[];
+
+  productId: string;
+  productDescription: string;
 }
 
 export interface RewardHistory {
