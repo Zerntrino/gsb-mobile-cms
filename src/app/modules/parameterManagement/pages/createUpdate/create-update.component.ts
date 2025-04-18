@@ -80,9 +80,9 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   async ngOnInit() {
+    await this.fetchCards();
     await this.fetchInstallmentPlans();
     await this.fetch();
-    await this.fetchCards();
 
     await this.fetchMcc();
     await this.fetchCardMin();
@@ -118,12 +118,13 @@ export class CreateUpdateComponent implements OnInit {
     }
   }
 
-  fetchCards(): void {
+  async fetchCards() {
     let params = new HttpParams();
-    this.cardService.getList(params).subscribe(
+    await this.cardService.getList(params).subscribe(
       (response) => {
         this.cards = (response.data as Card[]).filter((c) => c.isActive);
         this.cardIds = this.cards.map((c) => c.id);
+        console.log(this.cardIds);
       },
       (error) => {}
     );
@@ -171,9 +172,11 @@ export class CreateUpdateComponent implements OnInit {
     params = params.append('pageSize', '1000');
     this.parameterService.getInstallmentMinimumList(params).subscribe(
       (response) => {
+        console.log(this.cardIds);
         this.listMinimum = (response.data as ParameterMinimum[]).filter((c) =>
           this.cardIds.includes(c.cardId)
         );
+        console.log(this.listMinimum);
       },
       (error) => {
         console.log(error);
@@ -186,6 +189,8 @@ export class CreateUpdateComponent implements OnInit {
     return card ? card.name : '';
   }
   getCardMin(id: number): number {
+    console.log(id);
+    console.log(this.listMinimum);
     const min = this.listMinimum.find((c) => c.cardId == id);
     return min ? min.minimumAmount : 0;
   }
