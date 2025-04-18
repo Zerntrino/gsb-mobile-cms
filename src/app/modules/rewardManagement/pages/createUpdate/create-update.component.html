@@ -156,7 +156,7 @@
               ></select2>
             </div>
 
-            <div *ngIf="submitForm.get('typeId')?.value == 2">
+            <!-- <div *ngIf="submitForm.get('typeId')?.value == 2">
               <div class="my-2 space-y-4">
                 <div class="flex-1">
                   <div class="text-sm">สินค้าที่ได้รับในการแลกคะแนน</div>
@@ -179,7 +179,7 @@
                   />
                 </div>
               </div>
-            </div>
+            </div> -->
 
             <div *ngIf="[3, 4].includes(submitForm.get('typeId')?.value || 0)">
               <div>
@@ -192,6 +192,29 @@
                   placeholder="เลือกร้านค้า/แบรนด์"
                   [disabled]="mode == 'view' || id != 'create'"
                 ></select2>
+              </div>
+            </div>
+
+            <div *ngIf="submitForm.get('typeId')?.value">
+              <div class="flex-1">
+                <div class="text-sm">รหัสสินค้า</div>
+                <input
+                  name="productId"
+                  formControlName="productId"
+                  class="input"
+                  placeholder="รหัสสินค้า"
+                  [disabled]="id != 'create'"
+                />
+              </div>
+              <div class="flex-1 mt-4">
+                <div class="text-sm">รายละเอียดสินค้า</div>
+                <input
+                  name="productDescription"
+                  formControlName="productDescription"
+                  class="input"
+                  placeholder="รายละเอียดสินค้า"
+                  [disabled]="id != 'create'"
+                />
               </div>
             </div>
 

@@ -243,10 +243,12 @@
                   class="my-2 px-4 py-2 border border-gray-100 rounded-md flex items-center space-x-4 max-w-full"
                   *ngFor="
                     let file of fileCodeName
-                      ? (submitForm.get('importCodeFileName')?.value?.length ?[
-                          submitForm.get('importCodeFileName')?.value,
-                          fileCodeName
-                        ]: [fileCodeName])
+                      ? submitForm.get('importCodeFileName')?.value?.length
+                        ? [
+                            submitForm.get('importCodeFileName')?.value,
+                            fileCodeName
+                          ]
+                        : [fileCodeName]
                       : submitForm.get('importCodeFileName')?.value;
                     let i = index
                   "

@@ -22,6 +22,8 @@ export class LoginComponent implements OnInit {
   private oktaStateService = inject(OktaAuthStateService);
   private oktaAuth = inject(OKTA_AUTH);
 
+  page = 'login';
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
     password: new FormControl('', [
