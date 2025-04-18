@@ -31,12 +31,13 @@ export class CreateUpdateComponent implements OnInit {
     endDate: new FormControl('', [Validators.required]),
     linkUrl: new FormControl(''),
     isActive: new FormControl(true),
-    imageUrl: new FormControl('', [Validators.required]),
+    imageUrl: new FormControl(''),
   });
   imageBase64 = '';
   image: File | null = null;
   fileErrorId = 0;
   fileError = '';
+  currentDate = new Date().toISOString();
 
   constructor(
     private router: Router,

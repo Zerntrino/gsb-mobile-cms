@@ -37,6 +37,7 @@ export class CreateUpdateComponent implements OnInit {
   image: File | null = null;
   fileErrorId = 0;
   fileError = '';
+  currentDate = new Date().toISOString();
 
   constructor(
     private router: Router,

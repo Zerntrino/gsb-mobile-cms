@@ -122,7 +122,7 @@ export class CreateUpdateComponent implements OnInit {
     let params = new HttpParams();
     this.cardService.getList(params).subscribe(
       (response) => {
-        this.cards = response.data as Card[];
+        this.cards = (response.data as Card[]).filter((c) => c.isActive);
         this.cardIds = this.cards.map((c) => c.id);
       },
       (error) => {}
@@ -171,7 +171,9 @@ export class CreateUpdateComponent implements OnInit {
     params = params.append('pageSize', '1000');
     this.parameterService.getInstallmentMinimumList(params).subscribe(
       (response) => {
-        this.listMinimum = response.data as ParameterMinimum[];
+        this.listMinimum = (response.data as ParameterMinimum[]).filter((c) =>
+          this.cardIds.includes(c.cardId)
+        );
       },
       (error) => {
         console.log(error);
@@ -250,7 +252,7 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   installmentPlanChange(e: Select2UpdateEvent): void {
-    if (this.submitForm.get('planId')?.value != e.value) {
+    if (e.value != undefined) {
       this.submitForm.get('planId')?.setValue(e.value as number);
 
       this.fetchInstallmentPlan(e.value as number);
