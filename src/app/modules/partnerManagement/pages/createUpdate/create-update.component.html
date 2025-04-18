@@ -16,7 +16,7 @@
         <app-toggle
           [value]="submitForm.get('isActive')?.value || false"
           (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
-          [attr.disabled]="mode == 'view'"
+          [disabled]="mode == 'view'"
         ></app-toggle>
         <div>
           {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
@@ -105,7 +105,7 @@
                   (click)="inputImage.click()"
                   class="button-border text-center flex items-center justify-center space-x-4"
                   type="button"
-                  [attr.disabled]="mode == 'view'"
+                  [disabled]="mode == 'view'"
                 >
                   <img src="assets/icons/upload.svg" class="w-6" />
                   <div>อัปโหลดไฟล์รูปภาพ</div>
@@ -136,7 +136,7 @@
         *ngIf="mode == 'edit'"
         class="button w-auto px-6"
         type="submit"
-        [attr.disabled]="!submitForm.valid"
+        [disabled]="!submitForm.valid"
       >
         {{ id == "create" ? "เพิ่มพาร์ทเนอร์" : "บันทึกพาร์ทเนอร์" }}
       </button>

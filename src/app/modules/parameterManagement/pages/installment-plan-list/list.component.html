@@ -144,7 +144,7 @@
             <app-toggle
               [value]="plan.isActive"
               (valueUpdate)="plan.isActive = $event"
-              [attr.disabled]="mode == 'view'"
+              [disabled]="mode == 'view'"
             ></app-toggle>
             <div>แสดงผล</div>
           </div>
@@ -236,7 +236,7 @@
             *ngIf="mode == 'edit'"
             class="button"
             (click)="confirmClick()"
-            [attr.disabled]="checkRequire()"
+            [disabled]="checkRequire()"
           >
             {{ plan.id ? "บันทึก" : "สร้าง" }}
           </button>

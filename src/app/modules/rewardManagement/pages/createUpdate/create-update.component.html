@@ -16,7 +16,7 @@
         <app-toggle
           [value]="submitForm.get('isActive')?.value || false"
           (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
-          [attr.disabled]="mode == 'view'"
+          [disabled]="mode == 'view'"
         ></app-toggle>
         <div>
           {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
@@ -56,7 +56,7 @@
                 (update)="categoryChange($event)"
                 [data]="categoryOption"
                 placeholder="เลือกหมวดหมู่"
-                [attr.disabled]="mode == 'view' || id != 'create'"
+                [disabled]="mode == 'view' || id != 'create'"
               ></select2>
             </div>
             <div class="">
@@ -89,7 +89,7 @@
                 (valueUpdate)="tagChange($event)"
                 (valueUpdate)="tagChange($event)"
                 placeholder="ข้อมูลที่เกี่ยวข้อง"
-                [attr.disabled]="mode == 'view'"
+                [disabled]="mode == 'view'"
               ></app-tag>
             </div>
             <div class="relative">
@@ -134,7 +134,7 @@
                 (valueUpdate)="
                   submitForm.get('isNotification')?.setValue($event)
                 "
-                [attr.disabled]="mode == 'view' || id != 'create'"
+                [disabled]="mode == 'view' || id != 'create'"
                 >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-checkbox
               >
             </div>
@@ -152,7 +152,7 @@
                 (update)="promotionTypeChange($event)"
                 [data]="promotionTypeOption"
                 placeholder="เลือกประเภทการแลกคะแนน"
-                [attr.disabled]="mode == 'view' || id != 'create'"
+                [disabled]="mode == 'view' || id != 'create'"
               ></select2>
             </div>
 
@@ -190,7 +190,7 @@
                   (update)="shopChange($event)"
                   [data]="shopOption"
                   placeholder="เลือกร้านค้า/แบรนด์"
-                  [attr.disabled]="mode == 'view' || id != 'create'"
+                  [disabled]="mode == 'view' || id != 'create'"
                 ></select2>
               </div>
             </div>
@@ -227,7 +227,7 @@
                   (update)="ref1Change($event)"
                   [data]="ref1Option"
                   placeholder="Ref 1"
-                  [attr.disabled]="mode == 'view'"
+                  [disabled]="mode == 'view'"
                 ></select2>
               </div>
 
@@ -267,7 +267,7 @@
                   (update)="generateTypeChange($event)"
                   [data]="codeTypeOption"
                   placeholder="เลือกประเภท Code"
-                  [attr.disabled]="mode == 'view'"
+                  [disabled]="mode == 'view'"
                 ></select2>
               </div>
               <div *ngIf="submitForm.get('generateType')?.value == 1">
@@ -291,7 +291,7 @@
                   class="button-border text-center flex items-center justify-center space-x-4 w-full"
                   type="button"
                   (click)="inputCode.click()"
-                  [attr.disabled]="mode == 'view'"
+                  [disabled]="mode == 'view'"
                 >
                   <img src="assets/icons/document.svg" class="w-6" />
                   <div>นำเข้าเอกสาร</div>
@@ -343,7 +343,7 @@
                     formControlName="point"
                     class="input text-right"
                     placeholder="คะแนนที่ใช้แลก"
-                    [attr.disabled]="mode == 'view' || id != 'create'"
+                    [disabled]="mode == 'view' || id != 'create'"
                   />
                 </div>
               </div>
@@ -512,7 +512,7 @@
                           .get('cardId')
                           ?.setValue($event ? cardIds : [])
                       "
-                      [attr.disabled]="mode == 'view'"
+                      [disabled]="mode == 'view'"
                     ></app-checkbox>
                   </div>
                 </div>
@@ -528,7 +528,7 @@
                         submitForm.get('cardId')?.value?.includes(card.id)
                       "
                       (valueUpdate)="updateCard($event, card.id)"
-                      [attr.disabled]="mode == 'view'"
+                      [disabled]="mode == 'view'"
                     ></app-checkbox>
                   </div>
                 </div>
@@ -592,7 +592,7 @@
                   class="button-border text-center flex items-center justify-center space-x-4"
                   type="button"
                   (click)="inputImage.click()"
-                  [attr.disabled]="mode == 'view'"
+                  [disabled]="mode == 'view'"
                 >
                   <img src="assets/icons/upload.svg" class="w-6" />
                   <div>อัปโหลดไฟล์รูปภาพ</div>
@@ -649,7 +649,7 @@
                   class="button-border text-center flex items-center justify-center space-x-4"
                   type="button"
                   (click)="inputImage2.click()"
-                  [attr.disabled]="mode == 'view'"
+                  [disabled]="mode == 'view'"
                 >
                   <img src="assets/icons/upload.svg" class="w-6" />
                   <div>อัปโหลดไฟล์รูปภาพ</div>
@@ -679,7 +679,7 @@
         *ngIf="mode == 'edit'"
         class="button w-auto px-6"
         type="submit"
-        [attr.disabled]="!submitForm.valid"
+        [disabled]="!submitForm.valid"
       >
         {{ id == "create" ? "สร้างรีวอร์ด" : "บันทึกรีวอร์ด" }}
       </button>

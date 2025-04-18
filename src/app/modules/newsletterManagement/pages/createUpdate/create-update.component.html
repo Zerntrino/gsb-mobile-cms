@@ -16,7 +16,7 @@
         <app-toggle
           [value]="submitForm.get('isActive')?.value || false"
           (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
-          [attr.disabled]="mode == 'view'"
+          [disabled]="mode == 'view'"
         ></app-toggle>
         <div>
           {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
@@ -62,14 +62,14 @@
                 name="date"
                 [value]="submitForm.get('isSendNotification')?.value || false"
                 (valueUpdate)="isSendNotificationChange(true)"
-                [attr.disabled]="mode == 'view'"
+                [disabled]="mode == 'view'"
                 >ส่งการแจ้งเตือนทันที</app-radiobox
               >
               <app-radiobox
                 name="date"
                 [value]="!submitForm.get('isSendNotification')?.value || false"
                 (valueUpdate)="isSendNotificationChange(false)"
-                [attr.disabled]="mode == 'view'"
+                [disabled]="mode == 'view'"
                 >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-radiobox
               >
             </div>
@@ -158,7 +158,7 @@
                       .get('conditionId')
                       ?.setValue($event ? cardIds : [])
                   "
-                  [attr.disabled]="mode == 'view'"
+                  [disabled]="mode == 'view'"
                   >ส่งข่าวสารให้กับสมาชิกทุกคน</app-checkbox
                 >
                 <app-checkbox
@@ -167,7 +167,7 @@
                     submitForm.get('conditionId')?.value?.includes(card.id)
                   "
                   (valueUpdate)="updateCondition($event, card.id)"
-                  [attr.disabled]="mode == 'view'"
+                  [disabled]="mode == 'view'"
                   >ส่งข่าวสารเฉพาะสมาชิกบัตร {{ card.name }}</app-checkbox
                 >
               </div>
@@ -188,7 +188,7 @@
         class="button-dark w-auto px-6"
         type="button"
         (click)="edit()"
-        [attr.disabled]="!submitForm.valid"
+        [disabled]="!submitForm.valid"
       >
         แก้ไข
       </button>
@@ -196,7 +196,7 @@
         *ngIf="mode == 'edit'"
         type="submit"
         class="button w-auto px-6"
-        [attr.disabled]="!submitForm.valid"
+        [disabled]="!submitForm.valid"
       >
         {{ id == "create" ? "สร้างการแจ้งเตือน" : "บันทึกการแจ้งเตือน" }}
       </button>

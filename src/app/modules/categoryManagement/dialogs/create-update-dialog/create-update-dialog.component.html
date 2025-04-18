@@ -25,7 +25,7 @@
                 (valueUpdate)="
                   createUpdateForm.get('isActive')?.setValue($event)
                 "
-                [attr.disabled]="mode == 'view'"
+                [disabled]="mode == 'view'"
               ></app-toggle>
               <div>
                 {{
@@ -52,7 +52,7 @@
                   formControlName="name"
                   required
                   placeholder="ชื่อหมวดหมู่"
-                  [attr.disabled]="mode == 'view'"
+                  [disabled]="mode == 'view'"
                 />
               </div>
 
@@ -123,7 +123,7 @@
                     (valueUpdate)="
                       createUpdateForm.get('isPromotion')?.setValue($event)
                     "
-                    [attr.disabled]="mode == 'view'"
+                    [disabled]="mode == 'view'"
                     >โปรโมชั่น</app-checkbox
                   >
                   <app-checkbox
@@ -131,7 +131,7 @@
                     (valueUpdate)="
                       createUpdateForm.get('isReward')?.setValue($event)
                     "
-                    [attr.disabled]="mode == 'view'"
+                    [disabled]="mode == 'view'"
                     >รีวอร์ด</app-checkbox
                   >
                 </div>
@@ -160,7 +160,7 @@
                 *ngIf="mode == 'edit'"
                 class="button w-auto px-6"
                 type="submit"
-                [attr.disabled]="!createUpdateForm.valid"
+                [disabled]="!createUpdateForm.valid"
               >
                 {{ showDetail == 0 ? "เพิ่มหมวดหมู่" : "แก้ไขหมวดหมู่" }}
               </button>
