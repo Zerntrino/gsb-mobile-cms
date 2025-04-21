@@ -45,7 +45,7 @@ export class CreateUpdateComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     planId: new FormControl(0, [Validators.required]),
-    planCode: new FormControl('', [Validators.required]),
+    planCode: new FormControl('', []),
     mccCode: new FormControl<string[]>([]),
     startDate: new FormControl('', [Validators.required]),
     endDate: new FormControl('', [Validators.required]),
@@ -83,9 +83,10 @@ export class CreateUpdateComponent implements OnInit {
     await this.fetchCards();
     await this.fetchInstallmentPlans();
     await this.fetch();
-
     await this.fetchMcc();
-    await this.fetchCardMin();
+    setTimeout(() => {
+      this.fetchCardMin();
+    }, 100);
   }
 
   async fetch() {
@@ -122,17 +123,17 @@ export class CreateUpdateComponent implements OnInit {
     let params = new HttpParams();
     await this.cardService.getList(params).subscribe(
       (response) => {
-        this.cards = (response.data as Card[]).filter((c) => c.isActive);
+        const cards = response.data as Card[];
+        this.cards = cards.filter((c) => c.isActive);
         this.cardIds = this.cards.map((c) => c.id);
-        console.log(this.cardIds);
       },
       (error) => {}
     );
   }
 
-  fetchInstallmentPlans(): void {
+  async fetchInstallmentPlans() {
     let params = new HttpParams();
-    this.parameterService.getInstallmentPlanList(params).subscribe(
+    await this.parameterService.getInstallmentPlanList(params).subscribe(
       (response) => {
         this.installmentPlans = response.data as InstallmentPlan[];
         this.installmentPlanOption = this.installmentPlans
@@ -148,10 +149,10 @@ export class CreateUpdateComponent implements OnInit {
     );
   }
 
-  fetchMcc(): void {
+  async fetchMcc() {
     let params = new HttpParams();
     params = params.append('pageSize', '1000');
-    this.parameterService.getMCCList(params).subscribe(
+    await this.parameterService.getMCCList(params).subscribe(
       (response) => {
         const mccs = response.data as MCC[];
         this.mccOption = mccs.map((item) => {
@@ -167,10 +168,10 @@ export class CreateUpdateComponent implements OnInit {
     );
   }
 
-  fetchCardMin(): void {
+  async fetchCardMin() {
     let params = new HttpParams();
     params = params.append('pageSize', '1000');
-    this.parameterService.getInstallmentMinimumList(params).subscribe(
+    await this.parameterService.getInstallmentMinimumList(params).subscribe(
       (response) => {
         console.log(this.cardIds);
         this.listMinimum = (response.data as ParameterMinimum[]).filter((c) =>
@@ -189,8 +190,6 @@ export class CreateUpdateComponent implements OnInit {
     return card ? card.name : '';
   }
   getCardMin(id: number): number {
-    console.log(id);
-    console.log(this.listMinimum);
     const min = this.listMinimum.find((c) => c.cardId == id);
     return min ? min.minimumAmount : 0;
   }
