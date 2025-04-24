@@ -26,11 +26,15 @@ dayjs.extend(buddhistEra);
 import { environment } from '../environments/environment';
 
 const oktaAuth = new OktaAuth({
-  issuer: 'https://mfapwldev.gsb.or.th',
-  clientId: '0oa1uk5axxcJJh8mB1d8',
-  redirectUri: 'http://gsbmycardsit.gsb.or.th/api/authen/callback', //window.location.origin + '/api/authen/callback',
+  pkce: false,
+  issuer: environment.OAUTH2_ISSUER || 'https://mfapwldev.gsb.or.th',
+  clientId: environment.OAUTH2_CLIENT_ID || '0oa1uk5axxcJJh8mB1d8',
+  redirectUri:
+    environment.OAUTH2_REDIRECT_URI ||
+    'http://gsbmycardsit.gsb.or.th/api/authen/callback', //window.location.origin + '/api/authen/callback',
   scopes: ['openid', 'profile', 'offline_access'],
 });
+console.log('isPKCESupported', oktaAuth.features.isPKCESupported());
 
 @NgModule({
   declarations: [AppComponent],
