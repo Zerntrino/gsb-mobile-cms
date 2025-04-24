@@ -128,6 +128,8 @@ export class CreateUpdateComponent implements OnInit {
 
   showDetail = -1;
 
+  currentDate = new Date().toISOString();
+
   constructor(
     private router: Router,
     activatedRoute: ActivatedRoute,

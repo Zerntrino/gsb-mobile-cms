@@ -53,6 +53,8 @@ export class CreateUpdateComponent implements OnInit {
     isActive: new FormControl(false),
   });
 
+  currentDate = new Date().toISOString();
+
   constructor(
     private router: Router,
     activatedRoute: ActivatedRoute,

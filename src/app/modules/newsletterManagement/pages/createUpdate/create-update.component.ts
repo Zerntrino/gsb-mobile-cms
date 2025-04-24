@@ -47,6 +47,8 @@ export class CreateUpdateComponent implements OnInit {
   cardIds: number[] = [];
   editorConfig = this.utilsService.editorConfig;
 
+  currentDate = new Date().toISOString();
+
   constructor(
     private router: Router,
     activatedRoute: ActivatedRoute,
