@@ -33,6 +33,7 @@ const oktaAuth = new OktaAuth({
     environment.OAUTH2_REDIRECT_URI ||
     'http://gsbmycardsit.gsb.or.th/api/authen/callback', //window.location.origin + '/api/authen/callback',
   scopes: ['openid', 'profile', 'offline_access'],
+  responseType: 'code',
 });
 console.log('isPKCESupported', oktaAuth.features.isPKCESupported());
 
