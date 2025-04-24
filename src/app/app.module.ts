@@ -35,7 +35,6 @@ const oktaAuth = new OktaAuth({
   scopes: ['openid', 'profile', 'offline_access'],
   responseType: 'code',
 });
-console.log('isPKCESupported', oktaAuth.features.isPKCESupported());
 
 @NgModule({
   declarations: [AppComponent],
