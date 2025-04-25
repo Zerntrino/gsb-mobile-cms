@@ -84,11 +84,11 @@ export class CreateUpdateComponent implements OnInit {
   async ngOnInit() {
     await this.fetchCards();
     await this.fetchInstallmentPlans();
-    await this.fetch();
+    await this.fetchCardMin();
     await this.fetchMcc();
     setTimeout(() => {
-      this.fetchCardMin();
-    }, 100);
+      this.fetch();
+    }, 200);
   }
 
   async fetch() {
@@ -179,7 +179,6 @@ export class CreateUpdateComponent implements OnInit {
         this.listMinimum = (response.data as ParameterMinimum[]).filter((c) =>
           this.cardIds.includes(c.cardId)
         );
-        console.log(this.listMinimum);
       },
       (error) => {
         console.log(error);
