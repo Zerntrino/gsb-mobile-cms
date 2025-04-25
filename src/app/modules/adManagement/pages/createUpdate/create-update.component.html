@@ -164,7 +164,11 @@
         *ngIf="mode == 'edit'"
         class="button w-auto px-6"
         type="submit"
-        [disabled]="!submitForm.valid"
+        [disabled]="
+          !submitForm.get('name')?.value ||
+          !submitForm.get('startDate')?.value ||
+          !submitForm.get('endDate')?.value
+        "
       >
         {{ id == "create" ? "สร้างโฆษณา" : "บันทึกโฆษณา" }}
       </button>

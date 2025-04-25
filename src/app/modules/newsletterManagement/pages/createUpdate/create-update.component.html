@@ -197,7 +197,11 @@
         *ngIf="mode == 'edit'"
         type="submit"
         class="button w-auto px-6"
-        [disabled]="!submitForm.valid"
+        [disabled]="
+          !submitForm.get('subject')?.value ||
+          !submitForm.get('description')?.value ||
+          !submitForm.get('conditionId')?.value
+        "
       >
         {{ id == "create" ? "สร้างการแจ้งเตือน" : "บันทึกการแจ้งเตือน" }}
       </button>

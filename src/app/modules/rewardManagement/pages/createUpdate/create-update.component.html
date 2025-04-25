@@ -680,7 +680,19 @@
         *ngIf="mode == 'edit'"
         class="button w-auto px-6"
         type="submit"
-        [disabled]="!submitForm.valid"
+        [disabled]="
+          !submitForm.get('categoryId')?.value ||
+          !submitForm.get('name')?.value ||
+          !submitForm.get('description')?.value ||
+          !submitForm.get('startDate')?.value ||
+          !submitForm.get('endDate')?.value ||
+          !submitForm.get('typeId')?.value ||
+          !submitForm.get('cardId')?.value ||
+          !submitForm.get('coverUrl')?.value ||
+          !submitForm.get('imageUrl')?.value ||
+          !submitForm.get('productId')?.value ||
+          !submitForm.get('productDescription')?.value
+        "
       >
         {{ id == "create" ? "สร้างรีวอร์ด" : "บันทึกรีวอร์ด" }}
       </button>

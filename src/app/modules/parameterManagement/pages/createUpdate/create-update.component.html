@@ -154,7 +154,7 @@
                   placeholder="วว/ดด/ปปปป"
                   name="endDate"
                   formControlName="endDate"
-                  [min]="submitForm.get('startDate')?.value || currentDate"
+                  [min]="submitForm.get('endDate')?.value || currentDate"
                 />
                 <img
                   [owlDateTimeTrigger]="endDate"
@@ -266,7 +266,14 @@
         <button
           *ngIf="mode == 'edit'"
           type="submit"
-          [disabled]="!submitForm.valid"
+          [disabled]="
+            !submitForm.get('name')?.value ||
+            !submitForm.get('description')?.value ||
+            !submitForm.get('planId')?.value ||
+            !submitForm.get('startDate')?.value ||
+            !submitForm.get('endDate')?.value ||
+            !submitForm.get('cardId')?.value
+          "
           class="button w-auto px-6"
         >
           {{ id == "create" ? "สร้างพารามิเตอร์" : "บันทึกพารามิเตอร์" }}
