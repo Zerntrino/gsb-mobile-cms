@@ -12,7 +12,9 @@
         <app-toggle
           [value]="submitForm.get('isActive')?.value || false"
           (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
-          [disabled]="mode == 'view'"
+          [disabled]="
+            mode == 'view' || dateBeforeNow(submitForm.get('endDate')?.value)
+          "
         ></app-toggle>
         <div>
           {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}

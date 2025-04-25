@@ -593,4 +593,11 @@ export class CreateUpdateComponent implements OnInit {
     this.editorConfig.editable = true;
     this.navItems[1].title = 'แก้ไขรีวอร์ด';
   }
+
+  dateBeforeNow(d: string | null | undefined): boolean {
+    const date = dayjs(d);
+    const c = dayjs(this.currentDate);
+    const diff = date.diff(c, 'minute');
+    return diff <= 0;
+  }
 }
