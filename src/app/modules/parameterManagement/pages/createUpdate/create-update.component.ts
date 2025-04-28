@@ -83,11 +83,12 @@ export class CreateUpdateComponent implements OnInit {
   async ngOnInit() {
     await this.fetchCards();
     await this.fetchInstallmentPlans();
-    await this.fetchCardMin();
+
     await this.fetchMcc();
+    this.fetch();
     setTimeout(() => {
-      this.fetch();
-    }, 200);
+      this.fetchCardMin();
+    }, 300);
   }
 
   async fetch() {
