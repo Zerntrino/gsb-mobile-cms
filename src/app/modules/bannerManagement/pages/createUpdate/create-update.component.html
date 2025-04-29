@@ -49,7 +49,7 @@
                 name="startDate"
                 formControlName="startDate"
                 placeholder="วว/ดด/ปปปป"
-                [min]="currentDate"
+                [owlDateTimeFilter]="startDateFilter"
               />
               <img
                 [owlDateTimeTrigger]="startDate"
@@ -67,7 +67,7 @@
                 name="endDate"
                 formControlName="endDate"
                 placeholder="วว/ดด/ปปปป"
-                [min]="submitForm.get('endDate')?.value || currentDate"
+                [owlDateTimeFilter]="endDateFilter"
               />
               <img
                 [owlDateTimeTrigger]="endDate"

@@ -86,7 +86,7 @@
                 name="sendNotificationDate"
                 formControlName="sendNotificationDate"
                 placeholder="วว/ดด/ปปปป"
-                [min]="currentDate"
+                [owlDateTimeFilter]="startDateFilter"
               />
               <img
                 [owlDateTimeTrigger]="date"

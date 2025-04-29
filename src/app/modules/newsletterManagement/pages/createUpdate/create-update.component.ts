@@ -196,4 +196,24 @@ export class CreateUpdateComponent implements OnInit {
     this.editorConfig.editable = true;
     this.navItems[1].title = 'แก้ไขโปรโมชัน';
   }
+
+  startDateFilter(e: Date | null): boolean {
+    const date = dayjs(e);
+    const c = dayjs();
+    const diff = date.diff(c, 'day');
+    return diff >= 0;
+  }
+
+  endDateFilter = (e: Date | null): boolean => {
+    const date = dayjs(e);
+    var c = dayjs();
+    var diff = 0;
+    if (this.submitForm?.get('startDate')?.value) {
+      c = dayjs(this.submitForm.get('startDate')?.value);
+      diff = date.diff(c, 'day');
+    } else {
+      diff = date.diff(c, 'day');
+    }
+    return diff >= 0;
+  };
 }
