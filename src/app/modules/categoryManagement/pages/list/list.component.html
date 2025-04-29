@@ -55,7 +55,7 @@
       </div>
       <div class="table-row-group">
         <div class="table-row" *ngFor="let item of list; let i = index">
-          <div class="table-cell">{{ i + 1 }}</div>
+          <div class="table-cell">{{ (page - 1) * pageSize + i + 1 }}</div>
           <div class="table-cell text-center">
             <img
               [src]="item.iconImageUrl"
