@@ -84,14 +84,14 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   async ngOnInit() {
+    await this.fetchMcc();
     await this.fetchCards();
     await this.fetchInstallmentPlans();
 
-    await this.fetchMcc();
-    this.fetch();
+    await this.fetch();
     setTimeout(() => {
       this.fetchCardMin();
-    }, 300);
+    }, 200);
   }
 
   async fetch() {
@@ -116,6 +116,8 @@ export class CreateUpdateComponent implements OnInit {
           });
 
           this.fetchInstallmentPlan(res.planId);
+
+          return;
         },
         (error) => {
           console.log(error);
@@ -131,6 +133,8 @@ export class CreateUpdateComponent implements OnInit {
         const cards = response.data as Card[];
         this.cards = cards.filter((c) => c.isActive);
         this.cardIds = this.cards.map((c) => c.id);
+
+        return;
       },
       (error) => {}
     );
@@ -149,6 +153,7 @@ export class CreateUpdateComponent implements OnInit {
               label: i.name,
             } as Select2Option;
           });
+        return;
       },
       (error) => {}
     );
@@ -166,6 +171,7 @@ export class CreateUpdateComponent implements OnInit {
             label: `${item.code} : ${item.name}`,
           } as Select2Option;
         });
+        return;
       },
       (error) => {
         console.log(error);
@@ -182,6 +188,8 @@ export class CreateUpdateComponent implements OnInit {
         this.listMinimum = (response.data as ParameterMinimum[]).filter((c) =>
           this.cardIds.includes(c.cardId)
         );
+
+        return;
       },
       (error) => {
         console.log(error);
