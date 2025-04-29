@@ -57,6 +57,8 @@ export class CreateUpdateComponent implements OnInit {
         this.mode = 'view';
         this.submitForm.disable();
         this.editorConfig.editable = false;
+      } else {
+        this.editorConfig.editable = true;
       }
 
       this.navItems[1].title =
