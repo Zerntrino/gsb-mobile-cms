@@ -104,6 +104,7 @@
                 formControlName="startDate"
                 placeholder="วว/ดด/ปปปป"
                 [disabled]="id != 'create'"
+                [readOnly]="id != 'create'"
                 [owlDateTimeFilter]="startDateFilter"
               />
               <img
@@ -111,7 +112,11 @@
                 src="assets/icons/calendar.svg"
                 class="absolute bottom-2 right-2 w-6 cursor-pointer"
               />
-              <owl-date-time #startDate pickerType="calendar"></owl-date-time>
+              <owl-date-time
+                #startDate
+                [disabled]="id != 'create'"
+                pickerType="calendar"
+              ></owl-date-time>
             </div>
             <div class="relative">
               <div class="text-sm">วันที่สิ้นสุด</div>

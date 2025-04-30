@@ -104,6 +104,7 @@
                 formControlName="startDate"
                 placeholder="วว/ดด/ปปปป"
                 [disabled]="id != 'create'"
+                [readOnly]="id != 'create'"
                 [owlDateTimeFilter]="startDateFilter"
               />
               <img
