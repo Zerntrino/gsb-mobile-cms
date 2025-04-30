@@ -2,6 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AppUserToken, LeftMenu } from 'src/app/core/models/app-user.model';
 import { AuthService } from 'src/app/core/services/auth.service';
+const { version } = require('../../../../../../package.json');
+declare const require: any;
 
 @Component({
   selector: 'app-layout',
@@ -12,6 +14,7 @@ export class LayoutComponent implements OnDestroy, OnInit {
   appUser?: AppUserToken;
   url?: string;
   leftMenus: LeftMenu[];
+  versionString = version;
 
   get leftMenuFull(): boolean {
     return localStorage.getItem('left-menu-full')
