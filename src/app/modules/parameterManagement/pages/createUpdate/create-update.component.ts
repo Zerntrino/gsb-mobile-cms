@@ -85,13 +85,6 @@ export class CreateUpdateComponent implements OnInit {
 
   async ngOnInit() {
     await this.fetchMcc();
-    await this.fetchCards();
-    await this.fetchInstallmentPlans();
-
-    await this.fetch();
-    setTimeout(() => {
-      this.fetchCardMin();
-    }, 200);
   }
 
   async fetch() {
@@ -171,6 +164,15 @@ export class CreateUpdateComponent implements OnInit {
             label: `${item.code} : ${item.name}`,
           } as Select2Option;
         });
+
+        this.fetchCards();
+        this.fetchInstallmentPlans();
+
+        this.fetch();
+        setTimeout(() => {
+          this.fetchCardMin();
+        }, 200);
+
         return;
       },
       (error) => {
