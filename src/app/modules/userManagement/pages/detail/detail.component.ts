@@ -24,14 +24,16 @@ export class DetailComponent implements OnInit {
   ) {
     this.id = this.activatedRoute.snapshot.params['id'];
 
-    this.userService.getUser(this.id).subscribe(
-      (response) => {
-        console.log(response);
-      },
-      (error) => {
-        console.log(error);
-      }
-    );
+    this.fetch();
+  }
+
+  async fetch() {
+    const res = await this.userService.getUser(this.id, '100');
+    if (res instanceof Error) {
+      console.log(res);
+    } else {
+      console.log(res);
+    }
   }
 
   ngOnInit(): void {}

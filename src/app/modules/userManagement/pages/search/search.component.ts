@@ -19,19 +19,17 @@ export class SearchComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSubmit(): void {
+  async onSubmit() {
     const id = this.searchForm.get('id')?.value || '';
     console.log(id);
 
-    this.userService.getUser(id).subscribe(
-      (response) => {
-        this.router.navigate([`/user-management/${id}`]);
-      },
-      (error) => {
-        console.log(error);
-        this.errorId = Math.random();
-        this.error = 'ไม่พบข้อมูลที่ตรงกัน <br/> กรุณาตรวจสอบอีกครั้ง';
-      }
-    );
+    const res = await this.userService.getUser(id, '100');
+    if (res instanceof Error) {
+      console.log(res);
+      this.errorId = Math.random();
+      this.error = 'ไม่พบข้อมูลที่ตรงกัน <br/> กรุณาตรวจสอบอีกครั้ง';
+    } else {
+      this.router.navigate([`/user-management/${id}`]);
+    }
   }
 }
