@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import { PromotionService } from 'src/app/core/services/promotion.service';
 import { PromotionHistory } from 'src/app/core/models/promotion.model';
 import { find, get, pull } from 'lodash';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-promotion-history-list',
@@ -50,10 +51,18 @@ export class ListComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private promotionService: PromotionService
+    private promotionService: PromotionService,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
+    this.page = Number(
+      this.router.routerState.snapshot.root.queryParams['page'] || 1
+    );
+    this.pageSize = Number(
+      this.router.routerState.snapshot.root.queryParams['pageSize'] || 10
+    );
+
     // this.fetch();
   }
 
@@ -99,10 +108,12 @@ export class ListComponent implements OnInit {
 
   pageChange(p: number): void {
     this.page = p;
+    this._location.go(`/parameter?page=${this.page}&pageSize=${this.pageSize}`);
     // this.fetch();
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
+    this._location.go(`/parameter?page=${this.page}&pageSize=${this.pageSize}`);
     // this.fetch();
   }
   selectIndexAllClick(v: boolean): void {

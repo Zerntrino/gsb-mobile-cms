@@ -11,6 +11,7 @@ import { AdService } from 'src/app/core/services/ad.service';
 import dayjs from 'dayjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-ad-management-create-update',
@@ -31,7 +32,7 @@ export class CreateUpdateComponent implements OnInit {
     endDate: new FormControl('', [Validators.required]),
     linkUrl: new FormControl(''),
     isActive: new FormControl(true),
-    imageUrl: new FormControl(''),
+    imageUrl: new FormControl('', [Validators.required]),
   });
   imageBase64 = '';
   image: File | null = null;
@@ -45,7 +46,8 @@ export class CreateUpdateComponent implements OnInit {
     private router: Router,
     activatedRoute: ActivatedRoute,
     private adService: AdService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private _location: Location
   ) {
     this.id = activatedRoute.snapshot.params['id'];
 
@@ -198,4 +200,8 @@ export class CreateUpdateComponent implements OnInit {
     }
     return diff >= 0;
   };
+
+  back() {
+    this._location.back();
+  }
 }

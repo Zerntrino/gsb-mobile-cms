@@ -10,6 +10,7 @@ import dayjs from 'dayjs';
 import { find, get, pull } from 'lodash';
 import { RewardService } from 'src/app/core/services/reward.service';
 import { RewardHistory } from 'src/app/core/models/reward.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-reward-history-list',
@@ -57,9 +58,20 @@ export class ListComponent implements OnInit {
   pageSize = 10;
   totalPage = 1;
 
-  constructor(private router: Router, private rewardService: RewardService) {}
+  constructor(
+    private router: Router,
+    private rewardService: RewardService,
+    private _location: Location
+  ) {}
 
   ngOnInit(): void {
+    this.page = Number(
+      this.router.routerState.snapshot.root.queryParams['page'] || 1
+    );
+    this.pageSize = Number(
+      this.router.routerState.snapshot.root.queryParams['pageSize'] || 10
+    );
+
     // this.fetch();
   }
 
@@ -117,10 +129,12 @@ export class ListComponent implements OnInit {
 
   pageChange(p: number): void {
     this.page = p;
+    this._location.go(`/parameter?page=${this.page}&pageSize=${this.pageSize}`);
     // this.fetch();
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
+    this._location.go(`/parameter?page=${this.page}&pageSize=${this.pageSize}`);
     // this.fetch();
   }
   selectIndexAllClick(v: boolean): void {

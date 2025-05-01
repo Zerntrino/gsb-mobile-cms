@@ -14,6 +14,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 import { PartnerService } from 'src/app/core/services/partner.service';
 import { Partner } from 'src/app/core/models/partner.model';
 import { UtilsService } from 'src/app/core/services/utils.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-partner-management-create-update',
@@ -48,7 +49,8 @@ export class CreateUpdateComponent implements OnInit {
     activatedRoute: ActivatedRoute,
     private partnerService: PartnerService,
     private toastService: ToastService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private _location: Location
   ) {
     this.id = activatedRoute.snapshot.params['id'];
 
@@ -181,5 +183,9 @@ export class CreateUpdateComponent implements OnInit {
     this.submitForm.enable();
     this.editorConfig.editable = true;
     this.navItems[1].title = 'แก้ไขโปรโมชัน';
+  }
+
+  back() {
+    this._location.back();
   }
 }

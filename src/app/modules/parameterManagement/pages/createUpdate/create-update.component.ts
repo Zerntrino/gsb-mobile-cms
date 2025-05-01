@@ -20,6 +20,7 @@ import {
 import { ParameterService } from 'src/app/core/services/parameter.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-parameter-management-create-update',
@@ -62,7 +63,8 @@ export class CreateUpdateComponent implements OnInit {
     activatedRoute: ActivatedRoute,
     private parameterService: ParameterService,
     private cardService: CardService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private _location: Location
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.navItems[1].title =
@@ -319,4 +321,8 @@ export class CreateUpdateComponent implements OnInit {
     }
     return diff >= 0;
   };
+
+  back() {
+    this._location.back();
+  }
 }

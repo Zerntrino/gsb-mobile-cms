@@ -16,6 +16,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { CardService } from 'src/app/core/services/card.service';
 import { Card } from 'src/app/core/models/card.model';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-banner-management-create-update',
@@ -57,7 +58,8 @@ export class CreateUpdateComponent implements OnInit {
     private newsLetterService: NewsLetterService,
     private cardService: CardService,
     private toastService: ToastService,
-    private utilsService: UtilsService
+    private utilsService: UtilsService,
+    private _location: Location
   ) {
     this.id = activatedRoute.snapshot.params['id'];
 
@@ -216,4 +218,8 @@ export class CreateUpdateComponent implements OnInit {
     }
     return diff >= 0;
   };
+
+  back() {
+    this._location.back();
+  }
 }

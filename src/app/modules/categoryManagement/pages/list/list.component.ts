@@ -11,6 +11,7 @@ import { CategoryService } from 'src/app/core/services/category.service';
 import { Category } from 'src/app/core/models/category.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-category-management-list',
@@ -46,10 +47,18 @@ export class ListComponent implements OnInit {
   constructor(
     private router: Router,
     private categoryService: CategoryService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private _location: Location
   ) {}
 
   ngOnInit(): void {
+    this.page = Number(
+      this.router.routerState.snapshot.root.queryParams['page'] || 1
+    );
+    this.pageSize = Number(
+      this.router.routerState.snapshot.root.queryParams['pageSize'] || 10
+    );
+
     this.fetch();
   }
 
@@ -127,10 +136,12 @@ export class ListComponent implements OnInit {
   }
   pageChange(p: number): void {
     this.page = p;
+    this._location.go(`/parameter?page=${this.page}&pageSize=${this.pageSize}`);
     this.fetch();
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
+    this._location.go(`/parameter?page=${this.page}&pageSize=${this.pageSize}`);
     this.fetch();
   }
 

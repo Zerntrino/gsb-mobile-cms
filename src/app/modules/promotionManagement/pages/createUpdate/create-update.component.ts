@@ -26,6 +26,7 @@ import { Promotion, PromotionType } from 'src/app/core/models/promotion.model';
 import * as XLSX from 'xlsx';
 import { isArray } from 'lodash';
 import { ViewChild } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-promotion-management-create-update',
@@ -112,7 +113,8 @@ export class CreateUpdateComponent implements OnInit {
     private parameterService: ParameterService,
     private cardService: CardService,
     private utilsService: UtilsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private _location: Location
   ) {
     this.id = activatedRoute.snapshot.params['id'];
 
@@ -600,4 +602,8 @@ export class CreateUpdateComponent implements OnInit {
     }
     return diff >= 0;
   };
+
+  back() {
+    this._location.back();
+  }
 }
