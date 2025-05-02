@@ -136,12 +136,16 @@ export class InstallmentPlanListComponent implements OnInit {
 
   pageChange(p: number): void {
     this.page = p;
-    this._location.go(`/parameter?page=${this.page}&pageSize=${this.pageSize}`);
+    this._location.go(
+      `/parameter/installment-plan?page=${this.page}&pageSize=${this.pageSize}`
+    );
     this.fetch();
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
-    this._location.go(`/parameter?page=${this.page}&pageSize=${this.pageSize}`);
+    this._location.go(
+      `/parameter/installment-plan?page=${this.page}&pageSize=${this.pageSize}`
+    );
     this.fetch();
   }
   dateFormat(d: string): string {
