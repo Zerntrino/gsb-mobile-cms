@@ -126,7 +126,10 @@ export class HighlightComponent implements OnInit {
   }
 
   fetchCategory(): void {
-    let params = new HttpParams().append('page', 1).append('pageSize', 100);
+    let params = new HttpParams()
+      .append('page', 1)
+      .append('pageSize', 100)
+      .append('status', true);
     this.categoryService.getList(params).subscribe(
       (response) => {
         const categories = response.data as Category[];

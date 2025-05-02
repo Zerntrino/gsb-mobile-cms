@@ -205,7 +205,10 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   async fetchCategory() {
-    let params = new HttpParams().append('page', 1).append('pageSize', 100);
+    let params = new HttpParams()
+      .append('page', 1)
+      .append('pageSize', 100)
+      .append('status', true);
     await this.categoryService.getList(params).subscribe(
       (response) => {
         const categories = (response.data as Category[]).filter(
