@@ -160,7 +160,13 @@
                 *ngIf="mode == 'edit'"
                 class="button w-auto px-6"
                 type="submit"
-                [disabled]="!createUpdateForm.valid"
+                [disabled]="
+                  !createUpdateForm.valid ||
+                  !(
+                    iconImageBase64 ||
+                    createUpdateForm.get('iconImageUrl')?.value
+                  )
+                "
               >
                 {{ showDetail == 0 ? "เพิ่มหมวดหมู่" : "แก้ไขหมวดหมู่" }}
               </button>
