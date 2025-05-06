@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { switchMap } from 'rxjs';
+import { User } from 'src/app/core/models/user.model';
 import { UserService } from 'src/app/core/services/user.service';
 import { NavItem } from 'src/app/modules/shared/components/nav/nav.component';
 
@@ -17,6 +18,8 @@ export class DetailComponent implements OnInit {
     { title: 'ข้อมูลผู้ใช้บัตร', to: '' },
   ];
 
+  user = {} as User;
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
@@ -28,13 +31,24 @@ export class DetailComponent implements OnInit {
   }
 
   async fetch() {
-    const res = await this.userService.getUser(this.id, '100');
+    const res = await this.userService.getUser(this.id);
     if (res instanceof Error) {
       console.log(res);
     } else {
+      this.user = (res?.data || {}) as User;
       console.log(res);
     }
   }
 
   ngOnInit(): void {}
+
+  getUrl(accountNumber: string, cardOrg: string, cardNumber: string) {
+    const referenceId = `${this.id.slice(
+      this.id.length - 4
+    )}${accountNumber.slice(0, 5)}${(
+      (cardOrg == '001' ? '100' : '800') + this.id
+    ).slice(0, 12)}${cardNumber.slice(12)}`;
+    console.log(referenceId);
+    return `/user-management/card/${this.id}/${referenceId}`;
+  }
 }

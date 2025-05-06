@@ -17,6 +17,7 @@ import {
 })
 export class CardDetailComponent implements OnInit {
   id: string = '';
+  ref: string = '';
   navItems = [
     { title: 'จัดการผู้ใช้บัตร', to: '/user-management' },
     { title: 'ข้อมูลผู้ใช้บัตร', to: '/user-management/' },
@@ -39,6 +40,7 @@ export class CardDetailComponent implements OnInit {
     private userService: UserService
   ) {
     this.id = this.activatedRoute.snapshot.params['id'];
+    this.ref = this.activatedRoute.snapshot.params['ref'];
     this.navItems[1].to = '/user-management/' + this.id;
 
     // this.userService.getUserProfile(this.id).subscribe(
@@ -51,25 +53,13 @@ export class CardDetailComponent implements OnInit {
     // );
   }
 
-  fetch(): void {
-    // let params = new HttpParams()
-    //   .append('page', this.page)
-    //   .append('pageSize', this.pageSize);
-    // if (this.q) params = params.append('find', this.q);
-    // if (this.date[0] && this.date[1]) {
-    //   params = params
-    //     .append('startDate', dayjs(this.date[0]).format('YYYY-MM-DDT00:00:00'))
-    //     .append('endDate', dayjs(this.date[1]).format('YYYY-MM-DDT00:00:00'));
-    // }
-    // this.newsletterService.getList(params).subscribe(
-    //   (response) => {
-    //     console.log(response.data);
-    //     this.list = response.data as NewsLetter[];
-    //   },
-    //   (error) => {
-    //     console.log(error);
-    //   }
-    // );
+  async fetch() {
+    const res = await this.userService.getRewardHistory(this.id, this.ref);
+    if (res instanceof Error) {
+      console.log(res);
+    } else {
+      console.log(res);
+    }
   }
 
   ngOnInit(): void {

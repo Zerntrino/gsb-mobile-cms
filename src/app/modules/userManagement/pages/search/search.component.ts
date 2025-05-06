@@ -10,7 +10,10 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class SearchComponent implements OnInit {
   searchForm = new FormGroup({
-    id: new FormControl('', [Validators.required, Validators.minLength(13)]),
+    id: new FormControl('1100400223049', [
+      Validators.required,
+      Validators.minLength(13),
+    ]),
   });
   errorId = 0;
   error = '';
@@ -21,9 +24,8 @@ export class SearchComponent implements OnInit {
 
   async onSubmit() {
     const id = this.searchForm.get('id')?.value || '';
-    console.log(id);
 
-    const res = await this.userService.getUser(id, '100');
+    const res = await this.userService.getUser(id);
     if (res instanceof Error) {
       console.log(res);
       this.errorId = Math.random();
@@ -33,3 +35,6 @@ export class SearchComponent implements OnInit {
     }
   }
 }
+
+// 3049 14201 100110040022 1224
+// 3049 14201 100110040022 1224

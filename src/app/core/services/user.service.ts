@@ -49,16 +49,13 @@ export class UserService extends BaseService {
     return this.http.get<ApiResponse<User>>(`/api/user/${id}/profile`);
   }
 
-  async getUser(
-    id: string,
-    type: string
-  ): Promise<ApiResponse<User> | undefined> {
-    const test = await this.encryptAES(
-      'ABCDE12345ABCDE12345',
-      'changeit',
-      'd0ba2eef035b7ddc'
-    );
-    console.log('test', test);
+  async getUser(id: string): Promise<ApiResponse<User> | undefined> {
+    // const test = await this.encryptAES(
+    //   'ABCDE12345ABCDE12345',
+    //   'changeit',
+    //   'd0ba2eef035b7ddc'
+    // );
+    // console.log('test', test);
 
     const citizenId = await this.encryptAES(id, this.appId, this.salt);
     const custIdCreditCard = await this.encryptAES(
@@ -72,7 +69,7 @@ export class UserService extends BaseService {
       this.salt
     );
 
-    this.http
+    const u = await this.http
       .post<ApiResponse<User>>(
         `/api/cms/card/user/information`,
         {
@@ -87,9 +84,44 @@ export class UserService extends BaseService {
           },
         }
       )
-      .subscribe((response) => {
-        console.log(response);
-      });
-    return undefined;
+      .toPromise();
+
+    return u;
+  }
+
+  async getRewardHistory(
+    id: string,
+    ref: string,
+    params?: HttpParams
+  ): Promise<ApiResponse<User> | undefined> {
+    const u = await this.http
+      .post<ApiResponse<User>>(
+        `/api/cms/user/referece/${ref}/reward/history`,
+        {},
+        {
+          params: params,
+        }
+      )
+      .toPromise();
+
+    return u;
+  }
+
+  async getPromotionHistory(
+    id: string,
+    ref: string,
+    params?: HttpParams
+  ): Promise<ApiResponse<User> | undefined> {
+    const u = await this.http
+      .post<ApiResponse<User>>(
+        `/api/cms/user/referece/${ref}/promotion/history`,
+        {},
+        {
+          params: params,
+        }
+      )
+      .toPromise();
+
+    return u;
   }
 }

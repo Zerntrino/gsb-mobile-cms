@@ -10,14 +10,13 @@ const routes: Routes = [
     component: SearchComponent,
   },
   {
-    path: 'card/:id',
+    path: 'card/:id/:ref',
     component: CardDetailComponent,
   },
   {
     path: ':id',
     component: DetailComponent,
   },
-  
 ];
 
 @NgModule({
