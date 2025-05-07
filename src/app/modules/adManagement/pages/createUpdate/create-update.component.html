@@ -172,7 +172,7 @@
           !submitForm.get('name')?.value ||
           !submitForm.get('startDate')?.value ||
           !submitForm.get('endDate')?.value ||
-          !submitForm.get('imageUrl')?.value
+          !(submitForm.get('imageUrl')?.value || imageBase64)
         "
       >
         {{ id == "create" ? "สร้างโฆษณา" : "บันทึกโฆษณา" }}

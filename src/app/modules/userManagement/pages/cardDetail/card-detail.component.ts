@@ -60,6 +60,13 @@ export class CardDetailComponent implements OnInit {
     } else {
       console.log(res);
     }
+
+    const res2 = await this.userService.getPromotionHistory(this.id, this.ref);
+    if (res2 instanceof Error) {
+      console.log(res2);
+    } else {
+      console.log(res2);
+    }
   }
 
   ngOnInit(): void {

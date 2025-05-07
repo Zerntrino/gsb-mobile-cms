@@ -95,9 +95,10 @@ export class UserService extends BaseService {
     params?: HttpParams
   ): Promise<ApiResponse<User> | undefined> {
     const u = await this.http
-      .post<ApiResponse<User>>(
-        `/api/cms/user/referece/${ref}/reward/history`,
-        {},
+      .get<ApiResponse<User>>(
+        // `/api/cms/user/referece/${ref}/reward/history`,
+        `/api/cms/card/user/referece/3049142011001100400221224/reward/history`,
+
         {
           params: params,
         }
@@ -113,9 +114,9 @@ export class UserService extends BaseService {
     params?: HttpParams
   ): Promise<ApiResponse<User> | undefined> {
     const u = await this.http
-      .post<ApiResponse<User>>(
-        `/api/cms/user/referece/${ref}/promotion/history`,
-        {},
+      .get<ApiResponse<User>>(
+        // `/api/cms/user/referece/${ref}/promotion/history`,
+        `/api/cms/card/user/referece/3049142011001100400221224/promotion/history`,
         {
           params: params,
         }

@@ -537,8 +537,8 @@
           !submitForm.get('endDate')?.value ||
           !submitForm.get('typeId')?.value ||
           !submitForm.get('cardId')?.value ||
-          !submitForm.get('imageUrl')?.value ||
-          !submitForm.get('coverImageUrl')?.value
+          !(submitForm.get('imageUrl')?.value || imageBase64) ||
+          !(submitForm.get('coverImageUrl')?.value || coverImageBase64)
         "
       >
         {{ id == "create" ? "สร้างโปรโมชัน" : "บันทึกโปรโมชัน" }}

@@ -697,8 +697,8 @@
           !submitForm.get('endDate')?.value ||
           !submitForm.get('typeId')?.value ||
           !submitForm.get('cardId')?.value ||
-          !submitForm.get('coverUrl')?.value ||
-          !submitForm.get('imageUrl')?.value ||
+          !(submitForm.get('coverUrl')?.value || coverImageBase64) ||
+          !(submitForm.get('imageUrl')?.value || imageBase64) ||
           !submitForm.get('productId')?.value ||
           !submitForm.get('productDescription')?.value
         "
