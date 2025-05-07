@@ -1,8 +1,8 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
-import { ApiResponse, BaseService } from './base.service';
-import { User } from '../models/user.model';
+import { ApiResponse, BaseService, Paginate } from './base.service';
+import { User, CardReward, CardPomition } from '../models/user.model';
 // import { createDecipheriv, randomBytes, createHash } from 'crypto';
 // import { createHash, createDecipheriv } from 'crypto-browserify';
 // import crypto from 'crypto-browserify';
@@ -93,10 +93,27 @@ export class UserService extends BaseService {
     id: string,
     ref: string,
     params?: HttpParams
-  ): Promise<ApiResponse<User> | undefined> {
+  ): Promise<ApiResponse<CardReward[]> | undefined> {
     const u = await this.http
-      .get<ApiResponse<User>>(
-        `/api/cms/user/referece/${ref}/reward/history`,
+      .get<ApiResponse<CardReward[]>>(
+        `/api/cms/card/user/referece/${ref}/reward/history`,
+
+        {
+          params: params,
+        }
+      )
+      .toPromise();
+
+    return u;
+  }
+  async getRewardHistoryTotalPage(
+    id: string,
+    ref: string,
+    params?: HttpParams
+  ): Promise<ApiResponse<Paginate> | undefined> {
+    const u = await this.http
+      .get<ApiResponse<Paginate>>(
+        `/api/cms/card/user/referece/${ref}/reward/history/totalpage`,
 
         {
           params: params,
@@ -111,10 +128,29 @@ export class UserService extends BaseService {
     id: string,
     ref: string,
     params?: HttpParams
-  ): Promise<ApiResponse<User> | undefined> {
+  ): Promise<ApiResponse<CardPomition[]> | undefined> {
     const u = await this.http
-      .get<ApiResponse<User>>(
-        `/api/cms/user/referece/${ref}/promotion/history`,
+      .get<ApiResponse<CardPomition[]>>(
+        `/api/cms/card/user/referece/${ref}/promotion/history`,
+
+        {
+          params: params,
+        }
+      )
+      .toPromise();
+
+    return u;
+  }
+
+  async getPromotionHistoryTotalPage(
+    id: string,
+    ref: string,
+    params?: HttpParams
+  ): Promise<ApiResponse<Paginate> | undefined> {
+    const u = await this.http
+      .get<ApiResponse<Paginate>>(
+        `/api/cms/card/user/referece/${ref}/promotion/history/totalpage`,
+
         {
           params: params,
         }

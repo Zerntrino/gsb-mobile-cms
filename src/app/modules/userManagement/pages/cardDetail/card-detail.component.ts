@@ -9,6 +9,9 @@ import {
   Select2UpdateEvent,
   Select2Value,
 } from 'ng-select2-component';
+import { CardPomition, CardReward } from 'src/app/core/models/user.model';
+import dayjs from 'dayjs';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-management-card-detail',
@@ -25,6 +28,9 @@ export class CardDetailComponent implements OnInit {
   ];
   tabs = ['ประวัติการแลกคะแนน', 'ประวัติการใช้โปรโมชัน'];
   tab = 0;
+
+  rewards: CardReward[] = [];
+  promotions: CardPomition[] = [];
 
   page1 = 1;
   pageSize1 = 10;
@@ -53,41 +59,86 @@ export class CardDetailComponent implements OnInit {
     // );
   }
 
-  async fetch() {
-    const res = await this.userService.getRewardHistory(this.id, this.ref);
+  async fetchReward() {
+    let params = new HttpParams()
+      .append('page', this.page1)
+      .append('pageSize', this.pageSize1);
+    const res = await this.userService.getRewardHistory(
+      this.id,
+      this.ref,
+      params
+    );
     if (res instanceof Error) {
       console.log(res);
     } else {
       console.log(res);
+      this.rewards = res?.data || [];
     }
 
-    const res2 = await this.userService.getPromotionHistory(this.id, this.ref);
+    const res2 = await this.userService.getRewardHistoryTotalPage(
+      this.id,
+      this.ref,
+      params
+    );
     if (res2 instanceof Error) {
       console.log(res2);
     } else {
       console.log(res2);
+      this.totalPage1 = res2?.data?.totalPage || 1;
+    }
+  }
+  async fetchPromotion() {
+    let params = new HttpParams()
+      .append('page', this.page2)
+      .append('pageSize', this.pageSize2);
+    const res = await this.userService.getPromotionHistory(
+      this.id,
+      this.ref,
+      params
+    );
+    if (res instanceof Error) {
+      console.log(res);
+    } else {
+      this.promotions = res?.data || [];
+    }
+
+    const res2 = await this.userService.getPromotionHistoryTotalPage(
+      this.id,
+      this.ref,
+      params
+    );
+    if (res2 instanceof Error) {
+      console.log(res2);
+    } else {
+      console.log(res2);
+      this.totalPage2 = res2?.data?.totalPage || 1;
     }
   }
 
   ngOnInit(): void {
-    this.fetch();
+    this.fetchReward();
+  }
+
+  dateFormat(d: string): string {
+    const date = dayjs(d);
+    return date.locale('th-th').format('DD/MM/BBBB');
   }
 
   pageChange1(p: number): void {
     this.page1 = p;
-    this.fetch();
+    this.fetchReward();
   }
   pageSizeChange1(s: number): void {
     this.pageSize1 = s;
-    this.fetch();
+    this.fetchReward();
   }
 
   pageChange2(p: number): void {
     this.page2 = p;
-    this.fetch();
+    this.fetchPromotion();
   }
   pageSizeChange2(s: number): void {
     this.pageSize2 = s;
-    this.fetch();
+    this.fetchPromotion();
   }
 }

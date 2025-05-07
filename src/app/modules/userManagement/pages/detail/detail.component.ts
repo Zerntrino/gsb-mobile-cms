@@ -49,6 +49,6 @@ export class DetailComponent implements OnInit {
       (cardOrg == '001' ? '100' : '800') + this.id
     ).slice(0, 12)}${cardNumber.slice(12)}`;
     console.log(referenceId);
-    return `/user-management/card/${this.id}/${referenceId}`;
+    return `/user-management/card/${cardNumber}/${referenceId}`;
   }
 }

@@ -94,9 +94,11 @@ export class HighlightComponent implements OnInit {
     await this.cardService.getList(params).subscribe(
       (response) => {
         const cards = response.data as Card[];
-        this.cardOption = cards.map((c) => {
-          return { value: `${c.id}`, label: c.name } as Select2Option;
-        });
+        this.cardOption = cards
+          .filter((c) => c.isActive)
+          .map((c) => {
+            return { value: `${c.id}`, label: c.name } as Select2Option;
+          });
         this.card = `${cards[0]?.id}`;
 
         this.fetchPromotions();

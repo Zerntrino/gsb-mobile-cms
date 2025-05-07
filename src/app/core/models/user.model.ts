@@ -26,3 +26,23 @@ export interface CreditCardList {
   cardTypeName: string;
   cardholderName: string;
 }
+
+export interface CardReward {
+  categoryName: string;
+  id: number;
+  isActive: boolean;
+  redeemPoint: number;
+  reward: string;
+  rewardType: string;
+  transactionDate: string;
+}
+
+export interface CardPomition {
+  categoryName: string;
+  id: number;
+  isActive: boolean;
+  redeemPoint: number;
+  reward: string;
+  rewardType: string;
+  transactionDate: string;
+}
