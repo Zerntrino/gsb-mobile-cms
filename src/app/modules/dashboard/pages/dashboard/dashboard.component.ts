@@ -1,4 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,7 +8,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
   styleUrls: ['./dashboard.component.scss'],
 })
 export class DashboardComponent implements OnInit {
-  constructor() {}
+  constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const u = this.authService.getToken();
+    console.log(u);
+    if (!u) {
+      this.router.navigate(['/auth']);
+    }
+  }
 }

@@ -54,6 +54,10 @@ export class AuthService extends BaseService implements OnDestroy {
     window.addEventListener('storage', this.storageEventListener.bind(this));
   }
 
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
+
   ngOnDestroy(): void {
     window.removeEventListener('storage', this.storageEventListener.bind(this));
   }

@@ -227,7 +227,7 @@
             </div>
 
             <div *ngIf="submitForm.get('typeId')?.value == 3">
-              <div class="my-4">
+              <!-- <div class="my-4">
                 <div class="text-sm">Ref 1</div>
                 <select2
                   class="flex w-full"
@@ -237,7 +237,7 @@
                   placeholder="Ref 1"
                   [disabled]="mode == 'view'"
                 ></select2>
-              </div>
+              </div> -->
 
               <div class="my-4 flex space-x-4">
                 <div class="flex-1">
@@ -251,12 +251,12 @@
                   />
                 </div>
                 <div class="flex-1">
-                  <div class="text-sm">คะแนนที่ได้รับ (M Point)</div>
+                  <div class="text-sm">คะแนนที่ได้รับ</div>
                   <input
                     name="mPoint"
                     formControlName="mPoint"
                     class="input text-right"
-                    placeholder="คะแนนที่ได้รับ (M Point)"
+                    placeholder="คะแนนที่ได้รับ"
                     [disabled]="mode == 'view'"
                   />
                 </div>
