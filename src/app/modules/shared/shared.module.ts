@@ -13,6 +13,7 @@ import { PaginationComponent } from './components/pagination/pagination.componen
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { RadioboxComponent } from './components/radiobox/rediobox.component';
 import { ToggleComponent } from './components/toggle/toggle.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { DragDropModule } from '@angular/cdk/drag-drop';
@@ -37,6 +38,7 @@ import { CreateUpdateCategoryDialogComponent } from '../categoryManagement/dialo
     TagComponent,
     ConfirmComponent,
     AlertComponent,
+    LoadingComponent,
     CreateUpdateCategoryDialogComponent,
   ],
   imports: [
@@ -69,6 +71,7 @@ import { CreateUpdateCategoryDialogComponent } from '../categoryManagement/dialo
     TagComponent,
     ConfirmComponent,
     AlertComponent,
+    LoadingComponent,
     CreateUpdateCategoryDialogComponent,
     AngularEditorModule,
   ],
