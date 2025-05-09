@@ -41,8 +41,7 @@ export interface CardPomition {
   categoryName: string;
   id: number;
   isActive: boolean;
-  redeemPoint: number;
-  reward: string;
-  rewardType: string;
-  transactionDate: string;
+  promotionName: string;
+  promotionType: string;
+  regisDate: string;
 }

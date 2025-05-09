@@ -117,6 +117,7 @@ export class CardDetailComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchReward();
+    this.fetchPromotion();
   }
 
   dateFormat(d: string): string {

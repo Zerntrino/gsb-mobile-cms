@@ -94,15 +94,12 @@
           </div>
         </div>
         <div class="table-row-group">
-          <div
-            class="table-row"
-            *ngFor="let item of [0, 1, 2, 3, 4, 5]; let i = index"
-          >
+          <div class="table-row" *ngFor="let p of promotions; let i = index">
             <div class="table-cell">{{ i + 1 }}</div>
-            <div class="table-cell">ชอปปิง</div>
-            <div class="table-cell">ไม่ลงทะเบียนรับสิทธิ์</div>
-            <div class="table-cell">Tops Online รับส่วนลด 200 บาท</div>
-            <div class="table-cell">31/12/2566</div>
+            <div class="table-cell">{{ p.categoryName }}</div>
+            <div class="table-cell">{{ p.promotionType }}</div>
+            <div class="table-cell">{{ p.promotionName }}</div>
+            <div class="table-cell">{{ dateFormat(p.regisDate) }}</div>
             <div class="table-cell">
               <div class="flex space-x-2 items-center">
                 <div class="w-2 h-2 bg-green-500 rounded-full"></div>
