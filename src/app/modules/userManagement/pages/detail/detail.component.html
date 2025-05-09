@@ -91,6 +91,7 @@
       <div class="relative">
         <img
           class="w-6 h-6 absolute top-2 left-2"
+          alt="Search Icon"
           src="assets/icons/search.svg"
         />
         <input class="input pl-8" placeholder="ค้นหา: หมายเลขบัตร 4 ตัวหลัง" />
@@ -100,7 +101,7 @@
     <div class="space-y-2">
       <div *ngFor="let c of user.creditCardList">
         <a
-          [routerLink]="getUrl(c.accountNumber, c.cardOrg, c.cardNumber)"
+          [routerLink]="'/user-management/card/' + id + '/' + c.accountNumber"
           class="border border-gray-100 rounded-md px-8 py-6 flex items-center space-x-6"
         >
           <div class="">

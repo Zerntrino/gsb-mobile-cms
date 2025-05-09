@@ -10,7 +10,7 @@ const routes: Routes = [
     component: SearchComponent,
   },
   {
-    path: 'card/:id/:ref',
+    path: 'card/:id/:card',
     component: CardDetailComponent,
   },
   {

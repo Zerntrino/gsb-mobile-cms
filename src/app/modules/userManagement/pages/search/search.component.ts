@@ -10,10 +10,7 @@ import { UserService } from 'src/app/core/services/user.service';
 })
 export class SearchComponent implements OnInit {
   searchForm = new FormGroup({
-    id: new FormControl('1100400223049', [
-      Validators.required,
-      Validators.minLength(13),
-    ]),
+    id: new FormControl('', [Validators.required, Validators.minLength(13)]), // 1100400223049
   });
   errorId = 0;
   error = '';

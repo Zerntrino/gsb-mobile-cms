@@ -8,18 +8,18 @@
       class="border border-gray-100 rounded-md px-8 py-6 flex items-center space-x-6"
     >
       <div class="">
-        <img class="w-20 shadow-lg" src="assets/icons/cards/visa.svg" />
+        <img class="w-20 shadow-lg" [src]="cardS.cardImageUrl" />
       </div>
       <div class="flex-1">
-        <div class="font-semibold">{{ id }}</div>
-        <div class="text-sm">Visa</div>
+        <div class="font-semibold">{{ cardS.accountNumber }}</div>
+        <div class="text-sm">{{ cardS.cardTypeFlag }}</div>
       </div>
-      <div class="">
+      <!-- <div class="">
         <div class="text-sm text-gray-400" style="text-align: end">
           คะแนนสะสม
         </div>
         <div class="font-semibold">9,900 คะแนน</div>
-      </div>
+      </div> -->
     </div>
 
     <app-tab [tabs]="tabs" [index]="tab" (tabChange)="tab = $event"></app-tab>

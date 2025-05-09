@@ -26,8 +26,6 @@ export class DetailComponent implements OnInit {
     private userService: UserService
   ) {
     this.id = this.activatedRoute.snapshot.params['id'];
-
-    this.fetch();
   }
 
   async fetch() {
@@ -40,15 +38,7 @@ export class DetailComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {}
-
-  getUrl(accountNumber: string, cardOrg: string, cardNumber: string) {
-    const referenceId = `${this.id.slice(
-      this.id.length - 4
-    )}${accountNumber.slice(0, 5)}${(
-      (cardOrg == '001' ? '100' : '800') + this.id
-    ).slice(0, 12)}${cardNumber.slice(12)}`;
-    console.log(referenceId);
-    return `/user-management/card/${cardNumber}/${referenceId}`;
+  ngOnInit(): void {
+    this.fetch();
   }
 }

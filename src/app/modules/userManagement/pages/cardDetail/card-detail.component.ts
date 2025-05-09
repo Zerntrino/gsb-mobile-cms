@@ -9,9 +9,15 @@ import {
   Select2UpdateEvent,
   Select2Value,
 } from 'ng-select2-component';
-import { CardPomition, CardReward } from 'src/app/core/models/user.model';
+import {
+  CardPomition,
+  CardReward,
+  CreditCardList,
+  User,
+} from 'src/app/core/models/user.model';
 import dayjs from 'dayjs';
 import { HttpParams } from '@angular/common/http';
+import { Card } from 'src/app/core/models/card.model';
 
 @Component({
   selector: 'app-user-management-card-detail',
@@ -20,7 +26,7 @@ import { HttpParams } from '@angular/common/http';
 })
 export class CardDetailComponent implements OnInit {
   id: string = '';
-  ref: string = '';
+  card: string = '';
   navItems = [
     { title: 'จัดการผู้ใช้บัตร', to: '/user-management' },
     { title: 'ข้อมูลผู้ใช้บัตร', to: '/user-management/' },
@@ -40,13 +46,17 @@ export class CardDetailComponent implements OnInit {
   pageSize2 = 10;
   totalPage2 = 1;
 
+  user = {} as User;
+  cardS = {} as CreditCardList;
+  ref = '';
+
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private userService: UserService
   ) {
     this.id = this.activatedRoute.snapshot.params['id'];
-    this.ref = this.activatedRoute.snapshot.params['ref'];
+    this.card = this.activatedRoute.snapshot.params['card'];
     this.navItems[1].to = '/user-management/' + this.id;
 
     // this.userService.getUserProfile(this.id).subscribe(
@@ -57,6 +67,25 @@ export class CardDetailComponent implements OnInit {
     //     console.log(error);
     //   }
     // );
+  }
+
+  async fetch() {
+    console.log(this.card);
+    const res = await this.userService.getUser(this.id);
+    if (res instanceof Error) {
+      console.log(res);
+    } else {
+      this.user = (res?.data || {}) as User;
+      this.cardS = (this.user.creditCardList.find(
+        (c) => c.accountNumber == this.card
+      ) || {}) as CreditCardList;
+
+      this.ref = this.getRef(
+        this.cardS.accountNumber,
+        this.cardS.cardOrg,
+        this.cardS.cardNumber
+      );
+    }
   }
 
   async fetchReward() {
@@ -115,7 +144,10 @@ export class CardDetailComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
+  async ngOnInit() {
+    console.log('init');
+    await this.fetch();
+
     this.fetchReward();
     this.fetchPromotion();
   }
@@ -141,5 +173,14 @@ export class CardDetailComponent implements OnInit {
   pageSizeChange2(s: number): void {
     this.pageSize2 = s;
     this.fetchPromotion();
+  }
+
+  getRef(accountNumber: string, cardOrg: string, cardNumber: string) {
+    const referenceId = `${this.id.slice(
+      this.id.length - 4
+    )}${accountNumber.slice(0, 5)}${(
+      (cardOrg == '001' ? '100' : '800') + this.id
+    ).slice(0, 12)}${cardNumber.slice(12)}`;
+    return `${referenceId}`;
   }
 }
