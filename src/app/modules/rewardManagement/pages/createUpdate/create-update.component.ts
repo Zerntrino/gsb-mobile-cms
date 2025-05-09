@@ -239,13 +239,12 @@ export class CreateUpdateComponent implements OnInit {
         const categories = (response.data as Category[]).filter(
           (c) => c.isActive
         );
-        this.categoryOption = this.categoryOption.concat(
-          categories
-            .filter((c) => c.isReward)
-            .map((c) => {
-              return { value: c.id, label: c.name } as Select2Option;
-            })
-        );
+        const cs = categories
+          .filter((c) => c.isReward)
+          .map((c) => {
+            return { value: c.id, label: c.name } as Select2Option;
+          });
+        this.categoryOption = cs;
       },
       (error) => {
         console.log(error);
@@ -591,7 +590,9 @@ export class CreateUpdateComponent implements OnInit {
   }
   createCategorySuccess() {
     this.showDetail = -1;
-    this.fetchCategory();
+    setTimeout(() => {
+      this.fetchCategory();
+    }, 200);
   }
 
   edit() {
