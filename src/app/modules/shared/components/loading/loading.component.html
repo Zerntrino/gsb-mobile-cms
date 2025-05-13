@@ -1,6 +1,6 @@
 <div>
   <!-- modal -->
-  <div class="relative z-10 transition-all" [hidden]="!value">
+  <div class="relative z-10 transition-all" *ngIf="isLoading | async">
     <div
       class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
     ></div>

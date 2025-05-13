@@ -5,14 +5,14 @@ import {
   Injectable,
   importProvidersFrom,
 } from '@angular/core';
-
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SharedModule } from './modules/shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { RouterModule } from '@angular/router';
 import { CoreModule } from './core/core.module';
-
+import { LoadingInterceptor } from './core/interceptors/loading.interceptor';
 import { OktaAuthModule, OKTA_CONFIG } from '@okta/okta-angular';
 import { OktaAuth } from '@okta/okta-auth-js';
 
@@ -55,6 +55,11 @@ const oktaAuth = new OktaAuth({
     },
     { provide: OKTA_CONFIG, useValue: { oktaAuth } },
     // { provide: OktaAuth, useValue: oktaAuth },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: LoadingInterceptor,
+      multi: true,
+    },
   ],
   bootstrap: [AppComponent],
 })

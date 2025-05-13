@@ -3,7 +3,6 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/core/services/user.service';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { LoadingComponent } from 'src/app/modules/shared/components/loading/loading.component';
 
 @Component({
   selector: 'app-user-management-search',
@@ -16,7 +15,6 @@ export class SearchComponent implements OnInit {
   });
   errorId = 0;
   error = '';
-  loading = false;
 
   constructor(
     private router: Router,

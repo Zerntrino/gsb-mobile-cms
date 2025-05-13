@@ -7,6 +7,7 @@ import {
   EventEmitter,
 } from '@angular/core';
 import { Router } from '@angular/router';
+import { LoadingService } from 'src/app/core/services/loading.service';
 
 @Component({
   selector: 'app-loading',
@@ -14,10 +15,11 @@ import { Router } from '@angular/router';
   styleUrls: ['./loading.component.css'],
 })
 export class LoadingComponent {
-  @Input() value: boolean | undefined | string = false;
+  // @Input() value: boolean | undefined | string = false;
   // @Output() valueUpdate = new EventEmitter<boolean>();
 
-  constructor(private router: Router) {}
+  isLoading = this.loadingService.loading$;
+  constructor(private loadingService: LoadingService) {}
 
   // change(e: Event): void {
   //   const v = (e.target as HTMLInputElement).checked;
