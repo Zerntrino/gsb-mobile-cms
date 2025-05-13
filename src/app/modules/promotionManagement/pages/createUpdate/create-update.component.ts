@@ -231,7 +231,7 @@ export class CreateUpdateComponent implements OnInit {
     let params = new HttpParams().append('page', 1).append('pageSize', 100);
     this.partnerService.getList(params).subscribe(
       (response) => {
-        const partners = response.data as Partner[];
+        const partners = (response.data as Partner[]).filter((c) => c.isActive);
         this.shopOption = partners.map((c) => {
           return { value: c.id, label: c.name } as Select2Option;
         });

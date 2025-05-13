@@ -113,7 +113,8 @@ export class ListComponent implements OnInit {
   deleteConfirm(id: number) {
     this.parameterService.delete(id).subscribe(
       (response) => {
-        this.router.navigate(['/parameter']);
+        // this.router.navigate(['/parameter']);
+        this.fetch();
       },
       (error) => {
         console.log(error);
