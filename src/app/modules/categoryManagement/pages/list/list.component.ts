@@ -58,6 +58,9 @@ export class ListComponent implements OnInit {
     this.pageSize = Number(
       this.router.routerState.snapshot.root.queryParams['pageSize'] || 10
     );
+    this.q = this.router.routerState.snapshot.root.queryParams['q'];
+    this.status = this.router.routerState.snapshot.root.queryParams['status'];
+    this.apply = this.router.routerState.snapshot.root.queryParams['apply'];
 
     this.fetch();
   }
@@ -120,31 +123,31 @@ export class ListComponent implements OnInit {
   }
 
   qChange(): void {
-    this.fetch();
+    this.redirect();
   }
   statusChange(e: Select2UpdateEvent): void {
     if (this.status != e.value) {
       this.status = e.value;
-      this.fetch();
+      this.redirect();
     }
   }
   applyChange(e: Select2UpdateEvent): void {
     if (this.apply != e.value) {
       this.apply = e.value;
-      this.fetch();
+      this.redirect();
     }
   }
   pageChange(p: number): void {
     this.page = p;
-    this._location.go(
-      `/category-management?page=${this.page}&pageSize=${this.pageSize}`
-    );
-    this.fetch();
+    this.redirect();
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
+    this.redirect;
+  }
+  redirect() {
     this._location.go(
-      `/category-management?page=${this.page}&pageSize=${this.pageSize}`
+      `/category-management?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&status=${this.status}&apply=${this.apply}`
     );
     this.fetch();
   }

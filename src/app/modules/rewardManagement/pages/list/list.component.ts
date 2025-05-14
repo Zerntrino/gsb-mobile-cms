@@ -69,6 +69,12 @@ export class ListComponent implements OnInit {
     this.pageSize = Number(
       this.router.routerState.snapshot.root.queryParams['pageSize'] || 10
     );
+    this.q = this.router.routerState.snapshot.root.queryParams['q'] || '';
+    this.category =
+      this.router.routerState.snapshot.root.queryParams['category'] || '';
+    this.type = this.router.routerState.snapshot.root.queryParams['type'] || '';
+    this.status =
+      this.router.routerState.snapshot.root.queryParams['status'] || '';
 
     this.fetch();
     this.fetchCategory();
@@ -125,37 +131,38 @@ export class ListComponent implements OnInit {
   }
 
   qChange(): void {
-    this.fetch();
+    this.redirect();
   }
   categoryChange(e: Select2UpdateEvent): void {
     if (this.category != e.value) {
       this.category = e.value;
-      this.fetch();
+      this.redirect();
     }
   }
   typeChange(e: Select2UpdateEvent): void {
     if (this.type != e.value) {
       this.type = e.value;
-      this.fetch();
+      this.redirect();
     }
   }
   statusChange(e: Select2UpdateEvent): void {
     if (this.status != e.value) {
       this.status = e.value;
-      this.fetch();
+      this.redirect();
     }
   }
   pageChange(p: number): void {
     this.page = p;
-    this._location.go(
-      `/reward-management?page=${this.page}&pageSize=${this.pageSize}`
-    );
-    this.fetch();
+    this.redirect();
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
+    this.redirect();
+  }
+
+  redirect() {
     this._location.go(
-      `/reward-management?page=${this.page}&pageSize=${this.pageSize}`
+      `/reward-management?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&category=${this.category}&type=${this.type}&status=${this.status}`
     );
     this.fetch();
   }

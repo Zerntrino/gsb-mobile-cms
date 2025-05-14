@@ -64,6 +64,15 @@ export class ListComponent implements OnInit {
     this.pageSize = Number(
       this.router.routerState.snapshot.root.queryParams['pageSize'] || 10
     );
+    this.q = this.router.routerState.snapshot.root.queryParams['q'];
+    this.type = this.router.routerState.snapshot.root.queryParams['type'];
+    this.action = this.router.routerState.snapshot.root.queryParams['action'];
+    this.userGroup =
+      this.router.routerState.snapshot.root.queryParams['userGroup'];
+
+    this.date = (this.router.routerState.snapshot.root.queryParams[
+      'date'
+    ] as []) || ['', ''];
 
     this.fetch();
   }
@@ -102,40 +111,44 @@ export class ListComponent implements OnInit {
   }
 
   qChange(): void {
-    this.fetch();
+    this.redirect();
   }
   typeChange(e: Select2UpdateEvent): void {
     if (this.type != e.value) {
       this.type = e.value;
-      this.fetch();
+      this.redirect();
     }
   }
   actionChange(e: Select2UpdateEvent): void {
     if (this.action != e.value) {
       this.action = e.value;
-      this.fetch();
+      this.redirect();
     }
   }
   userGroupChange(e: Select2UpdateEvent): void {
     if (this.userGroup != e.value) {
       this.userGroup = e.value;
-      this.fetch();
+      this.redirect();
     }
   }
 
   dateChange(e: string[]): void {
     this.date = e;
-    this.fetch();
+    this.redirect();
   }
 
   pageChange(p: number): void {
     this.page = p;
-    this._location.go(`/audit-log?page=${this.page}&pageSize=${this.pageSize}`);
-    this.fetch();
+    this.redirect();
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
-    this._location.go(`/audit-log?page=${this.page}&pageSize=${this.pageSize}`);
+    this.redirect();
+  }
+  redirect() {
+    this._location.go(
+      `/audit-log?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&type=${this.type}&action=${this.action}&userGroup=${this.userGroup}&date[0]=${this.date[0]}&date[1]=${this.date[1]}`
+    );
     this.fetch();
   }
   selectIndexAllClick(v: boolean): void {

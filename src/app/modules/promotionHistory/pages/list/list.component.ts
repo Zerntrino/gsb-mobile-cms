@@ -62,6 +62,14 @@ export class ListComponent implements OnInit {
     this.pageSize = Number(
       this.router.routerState.snapshot.root.queryParams['pageSize'] || 10
     );
+    this.q = this.router.routerState.snapshot.root.queryParams['q'] || '';
+    this.date1 = (this.router.routerState.snapshot.root.queryParams[
+      'date1'
+    ] as []) || ['', ''];
+    this.date2 = (this.router.routerState.snapshot.root.queryParams[
+      'date2'
+    ] as []) || ['', ''];
+    this.type = this.router.routerState.snapshot.root.queryParams['type'] || '';
 
     // this.fetch();
   }
@@ -108,18 +116,19 @@ export class ListComponent implements OnInit {
 
   pageChange(p: number): void {
     this.page = p;
-    this._location.go(
-      `/promotion-history?page=${this.page}&pageSize=${this.pageSize}`
-    );
-    // this.fetch();
+    this.redirect();
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
+    this.redirect();
+  }
+  redirect() {
     this._location.go(
-      `/promotion-history?page=${this.page}&pageSize=${this.pageSize}`
+      `/promotion-history?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&type=${this.type}&date1[0]=${this.date1[0]}&date1[1]=${this.date1[1]}&date2[0]=${this.date2[0]}&date2[1]=${this.date2[1]}`
     );
     // this.fetch();
   }
+
   selectIndexAllClick(v: boolean): void {
     this.selectIndex = [];
     if (v)

@@ -87,6 +87,11 @@ export class InstallmentPlanListComponent implements OnInit {
     this.pageSize = Number(
       this.router.routerState.snapshot.root.queryParams['pageSize'] || 10
     );
+    this.q = this.router.routerState.snapshot.root.queryParams['q'] || '';
+    this.status =
+      this.router.routerState.snapshot.root.queryParams['status'] || '';
+    this.month =
+      this.router.routerState.snapshot.root.queryParams['month'] || '';
 
     this.fetch();
   }
@@ -117,34 +122,34 @@ export class InstallmentPlanListComponent implements OnInit {
   }
 
   qChange(): void {
-    this.fetch();
+    this.redirect();
   }
 
   statusChange(e: Select2UpdateEvent): void {
     if (this.status != e.value) {
       this.status = e.value;
-      this.fetch();
+      this.redirect();
     }
   }
 
   monthChange(e: Select2UpdateEvent): void {
     if (this.month != e.value) {
       this.month = e.value;
-      this.fetch();
+      this.redirect();
     }
   }
 
   pageChange(p: number): void {
     this.page = p;
-    this._location.go(
-      `/parameter/installment-plan?page=${this.page}&pageSize=${this.pageSize}`
-    );
-    this.fetch();
+    this.redirect();
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
+    this.redirect();
+  }
+  redirect() {
     this._location.go(
-      `/parameter/installment-plan?page=${this.page}&pageSize=${this.pageSize}`
+      `/parameter/installment-plan?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&status=${this.status}&month=${this.month}`
     );
     this.fetch();
   }

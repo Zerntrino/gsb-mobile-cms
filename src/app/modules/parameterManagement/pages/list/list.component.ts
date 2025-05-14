@@ -49,6 +49,9 @@ export class ListComponent implements OnInit {
     this.pageSize = Number(
       this.router.routerState.snapshot.root.queryParams['pageSize'] || 10
     );
+    this.q = this.router.routerState.snapshot.root.queryParams['q'] || '';
+    this.status =
+      this.router.routerState.snapshot.root.queryParams['status'] || '';
 
     this.fetch();
   }
@@ -78,24 +81,28 @@ export class ListComponent implements OnInit {
   }
 
   qChange(): void {
-    this.fetch();
+    this.redirect();
   }
 
   statusChange(e: Select2UpdateEvent): void {
     if (this.status != e.value) {
       this.status = e.value;
-      this.fetch();
+      this.redirect();
     }
   }
 
   pageChange(p: number): void {
     this.page = p;
-    this._location.go(`/parameter?page=${this.page}&pageSize=${this.pageSize}`);
-    this.fetch();
+    this.redirect();
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
-    this._location.go(`/parameter?page=${this.page}&pageSize=${this.pageSize}`);
+    this.redirect();
+  }
+  redirect() {
+    this._location.go(
+      `/parameter?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&status=${this.status}`
+    );
     this.fetch();
   }
   dateFormat(d: string): string {
