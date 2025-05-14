@@ -3,6 +3,7 @@ import { Error404Component } from './modules/shared/pages/error404/error404.comp
 import { LayoutComponent } from './modules/shared/pages/layout/layout.component';
 import { NgModule } from '@angular/core';
 import { AuthGuard } from './core/guards/auth.guard';
+import { APP_BASE_HREF } from '@angular/common';
 
 export const routes: Routes = [
   {
@@ -247,5 +248,6 @@ export const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
+  providers: [{ provide: APP_BASE_HREF, useValue: '/cms' }],
 })
 export class AppRoutingModule {}
