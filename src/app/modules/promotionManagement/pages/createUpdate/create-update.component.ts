@@ -498,12 +498,12 @@ export class CreateUpdateComponent implements OnInit {
   async onSubmit() {
     if (this.submitForm.get('startDate')?.value) {
       const date = new Date(this.submitForm.get('startDate')?.value || '');
-      date.setHours(date.getHours() + 7);
+      date.setHours(date.getHours());
       this.submitForm.get('startDate')?.setValue(date.toISOString());
     }
     if (this.submitForm.get('endDate')?.value) {
       const date = new Date(this.submitForm.get('endDate')?.value || '');
-      date.setHours(date.getHours() + 7);
+      date.setHours(date.getHours());
       this.submitForm.get('endDate')?.setValue(date.toISOString());
     }
 
