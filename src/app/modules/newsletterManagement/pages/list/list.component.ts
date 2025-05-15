@@ -24,7 +24,7 @@ export class ListComponent implements OnInit {
   date = ['', ''];
   list: NewsLetter[] = [];
   page = 1;
-  pageSize = 5;
+  pageSize = 10;
   totalPage = 1;
   status: Select2Value = '';
   statusOption: Select2Option[] = [
@@ -47,7 +47,7 @@ export class ListComponent implements OnInit {
       this.router.routerState.snapshot.root.queryParams['page'] || 1
     );
     this.pageSize = Number(
-      this.router.routerState.snapshot.root.queryParams['pageSize'] || 5
+      this.router.routerState.snapshot.root.queryParams['pageSize'] || 10
     );
     this.q = this.router.routerState.snapshot.root.queryParams['q'] || '';
     this.date = (this.router.routerState.snapshot.root.queryParams[
@@ -89,10 +89,12 @@ export class ListComponent implements OnInit {
   }
 
   qChange(): void {
+    this.page = 1;
     this.redirect();
   }
   dateChange(e: string[]): void {
     this.date = e;
+    this.page = 1;
     this.redirect();
   }
   pageChange(p: number): void {
@@ -101,11 +103,13 @@ export class ListComponent implements OnInit {
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
+    this.page = 1;
     this.redirect();
   }
   statusChange(e: Select2UpdateEvent): void {
     if (this.status != e.value) {
       this.status = e.value;
+      this.page = 1;
       this.redirect();
     }
   }

@@ -131,23 +131,27 @@ export class ListComponent implements OnInit {
   }
 
   qChange(): void {
+    this.page = 1;
     this.redirect();
   }
   categoryChange(e: Select2UpdateEvent): void {
     if (this.category != e.value) {
       this.category = e.value;
+      this.page = 1;
       this.redirect();
     }
   }
   typeChange(e: Select2UpdateEvent): void {
     if (this.type != e.value) {
       this.type = e.value;
+      this.page = 1;
       this.redirect();
     }
   }
   statusChange(e: Select2UpdateEvent): void {
     if (this.status != e.value) {
       this.status = e.value;
+      this.page = 1;
       this.redirect();
     }
   }
@@ -157,6 +161,7 @@ export class ListComponent implements OnInit {
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
+    this.page = 1;
     this.redirect();
   }
 

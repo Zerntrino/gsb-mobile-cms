@@ -99,18 +99,22 @@ export class ListComponent implements OnInit {
   }
 
   qChange(): void {
+    this.page = 1;
     // this.fetch();
   }
   typeChange(e: Select2UpdateEvent): void {
     if (this.type != e.value) {
       this.type = e.value;
+      this.page = 1;
       // this.fetch();
     }
   }
   date1Change(e: string[]): void {
+    this.page = 1;
     this.date1 = e;
   }
   date2Change(e: string[]): void {
+    this.page = 1;
     this.date2 = e;
   }
 
@@ -120,6 +124,7 @@ export class ListComponent implements OnInit {
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
+    this.page = 1;
     this.redirect();
   }
   redirect() {

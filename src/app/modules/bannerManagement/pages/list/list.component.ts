@@ -78,11 +78,13 @@ export class ListComponent implements OnInit {
   }
 
   qChange(): void {
+    this.page = 1;
     this.redirect();
   }
   statusChange(e: Select2UpdateEvent): void {
     if (this.status != e.value) {
       this.status = e.value;
+      this.page = 1;
       this.redirect();
     }
   }
@@ -92,6 +94,7 @@ export class ListComponent implements OnInit {
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
+    this.page = 1;
     this.redirect();
   }
   redirect() {

@@ -111,29 +111,34 @@ export class ListComponent implements OnInit {
   }
 
   qChange(): void {
+    this.page = 1;
     this.fetch();
   }
   typeChange(e: Select2UpdateEvent): void {
     if (this.type != e.value) {
       this.type = e.value;
+      this.page = 1;
       this.fetch();
     }
   }
   actionChange(e: Select2UpdateEvent): void {
     if (this.action != e.value) {
       this.action = e.value;
+      this.page = 1;
       this.fetch();
     }
   }
   userGroupChange(e: Select2UpdateEvent): void {
     if (this.userGroup != e.value) {
       this.userGroup = e.value;
+      this.page = 1;
       this.fetch();
     }
   }
 
   dateChange(e: string[]): void {
     this.date = e;
+    this.page = 1;
     this.fetch();
   }
 
@@ -143,6 +148,7 @@ export class ListComponent implements OnInit {
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
+    this.page = 1;
     this.redirect();
   }
 
