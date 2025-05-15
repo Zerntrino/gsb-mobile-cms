@@ -22,7 +22,12 @@ export class SearchComponent implements OnInit {
     private authService: AuthService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const u = this.authService.getToken();
+    if (!u) {
+      this.router.navigate(['/auth']);
+    }
+  }
 
   async onSubmit() {
     const id = this.searchForm.get('id')?.value || '';
