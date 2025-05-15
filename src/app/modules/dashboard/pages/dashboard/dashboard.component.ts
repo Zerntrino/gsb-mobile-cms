@@ -12,9 +12,10 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     const u = this.authService.getToken();
-    console.log(u);
     if (!u) {
       this.router.navigate(['/auth']);
+    } else {
+      this.router.navigate(['/user-management']);
     }
   }
 }
