@@ -43,13 +43,21 @@
             <div>
               <div class="text-sm">รายละเอียด</div>
               <div>
-                <angular-editor
+                <textarea
+                  class="input w-full"
+                  placeholder="รายละเอียด"
+                  minHeight="180"
+                  name="description"
+                  formControlName="description"
+                  rows="10"
+                ></textarea>
+                <!-- <angular-editor
                   placeholder="รายละเอียด"
                   minHeight="180"
                   name="description"
                   formControlName="description"
                   [config]="editorConfig"
-                ></angular-editor>
+                ></angular-editor> -->
               </div>
             </div>
           </div>
