@@ -32,13 +32,18 @@ export class SearchComponent implements OnInit {
   async onSubmit() {
     const id = this.searchForm.get('id')?.value || '';
 
-    const res = await this.userService.getUser(id);
-    if (res instanceof Error) {
-      console.log(res);
+    try {
+      const res = await this.userService.getUser(id);
+      if (res instanceof Error) {
+        console.log(res);
+        this.errorId = Math.random();
+        this.error = 'ไม่พบข้อมูลที่ตรงกัน <br/> กรุณาตรวจสอบอีกครั้ง';
+      } else {
+        this.router.navigate([`/user-management/${id}`]);
+      }
+    } catch (e) {
       this.errorId = Math.random();
       this.error = 'ไม่พบข้อมูลที่ตรงกัน <br/> กรุณาตรวจสอบอีกครั้ง';
-    } else {
-      this.router.navigate([`/user-management/${id}`]);
     }
   }
 }
