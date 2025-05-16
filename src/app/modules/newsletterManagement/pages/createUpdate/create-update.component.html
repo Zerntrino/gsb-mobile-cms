@@ -116,13 +116,18 @@
                 name="sendNotificationTime"
                 formControlName="sendNotificationTime"
                 placeholder="12:00"
+                [owlDateTimeFilter]="startDateFilter"
               />
               <img
                 [owlDateTimeTrigger]="time"
                 src="assets/icons/calendar.svg"
                 class="absolute bottom-2 right-2 w-6 cursor-pointer"
               />
-              <owl-date-time #time pickerType="timer"></owl-date-time>
+              <owl-date-time
+                #time
+                pickerType="timer"
+                [stepMinute]="10"
+              ></owl-date-time>
             </div>
 
             <div class="my-2">

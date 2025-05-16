@@ -36,7 +36,9 @@ export class CreateUpdateComponent implements OnInit {
     subject: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     sendNotificationDate: new FormControl(''),
-    sendNotificationTime: new FormControl<string | undefined>(undefined),
+    sendNotificationTime: new FormControl<string | undefined | Date>(
+      new Date(new Date().setHours(this.today.getHours() + 1, 0, 0))
+    ),
     // condition: new FormControl(''),
     isActive: new FormControl(true),
     isSendNotification: new FormControl(true),
