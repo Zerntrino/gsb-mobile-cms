@@ -55,11 +55,11 @@ export class HighlightComponent implements OnInit {
     await this.bannerService.getList(params).subscribe(
       (response) => {
         let now = new Date();
-        now = new Date(now.setHours(23, 59));
+        now = new Date(now.setHours(0, 0, 0, 0));
 
         const all = (response.data as Banner[]).filter((f) => {
           if (!f.endDate) return true;
-          return dayjs(f.endDate).isAfter(now);
+          return dayjs(f.endDate).unix() >= dayjs(now).unix();
         });
         const ids = this.list.map((l) => l.id);
         this.all = all.filter((l) => !ids.includes(l.id) && l.isActive);
