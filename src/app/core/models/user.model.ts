@@ -1,9 +1,11 @@
 export interface User {
   creditCardUserInformation: CardUserInformation;
+  revolvingLoanUserInformation: RevolvingLoanUserInformation;
   creditCardList: CreditCardList[];
   responseCode: string;
   responseDesc: string;
   responseDescTh: string;
+  cardTypeFlag: string;
 }
 
 export interface CardUserInformation {
@@ -11,6 +13,13 @@ export interface CardUserInformation {
   email: string;
   fullName: string;
   mobileNubmer: string;
+}
+
+export interface RevolvingLoanUserInformation {
+  fullName: string;
+  mobileNubmer: string;
+  email: string;
+  address: string;
 }
 
 export interface CreditCardList {

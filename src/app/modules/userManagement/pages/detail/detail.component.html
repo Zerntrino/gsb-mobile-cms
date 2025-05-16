@@ -47,12 +47,15 @@
         <div class="font-semibold">
           {{ user.creditCardUserInformation.address }}
         </div>
-        <div class="w-20 absolute top-4 right-0">
+        <a
+          class="w-20 absolute top-4 right-0"
+          [href]="'tel:' + user.creditCardUserInformation.mobileNubmer"
+        >
           <img
             class="w-12 h-12 rounded-full bg-pink-100 p-3"
             src="assets/icons/tel.svg"
           />
-        </div>
+        </a>
       </div>
 
       <div class="flex items-center -mx-2 z-10">
@@ -66,23 +69,26 @@
 
         <div class="text-sm text-gray-400 mt-4">เบอร์โทรศัพท์</div>
         <div class="font-semibold">
-          {{ user.creditCardUserInformation.mobileNubmer }}
+          {{ user.revolvingLoanUserInformation.mobileNubmer }}
         </div>
         <div class="h-4"></div>
         <div class="text-sm text-gray-400">อีเมล</div>
         <div class="font-semibold">
-          {{ user.creditCardUserInformation.email }}
+          {{ user.revolvingLoanUserInformation.email }}
         </div>
         <div class="text-sm text-gray-400 mt-4">ที่อยู่จัดส่งเอกสาร</div>
         <div class="font-semibold">
-          {{ user.creditCardUserInformation.address }}
+          {{ user.revolvingLoanUserInformation.address }}
         </div>
-        <div class="w-20 absolute top-4 right-0">
+        <a
+          class="w-20 absolute top-4 right-0 cursor-pointer"
+          [href]="'tel:' + user.revolvingLoanUserInformation.mobileNubmer"
+        >
           <img
             class="w-12 h-12 rounded-full bg-pink-100 p-3"
             src="assets/icons/tel.svg"
           />
-        </div>
+        </a>
       </div>
     </div>
 
