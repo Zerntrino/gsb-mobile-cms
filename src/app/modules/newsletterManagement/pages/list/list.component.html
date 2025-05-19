@@ -83,17 +83,17 @@
               <div
                 class="w-2 h-2 rounded-full"
                 [ngClass]="{
-                  'bg-green-500': item.isActive,
-                  'bg-gray-400': !item.isActive
+                  'bg-green-500': item.sendNotificationStatus == 1,
+                  'bg-gray-400': item.sendNotificationStatus == 2
                 }"
               ></div>
               <div
                 [ngClass]="{
-                  'text-gray-700': item.isActive,
-                  'text-gray-400': !item.isActive
+                  'text-gray-700': item.sendNotificationStatus == 1,
+                  'text-gray-400': item.sendNotificationStatus == 2
                 }"
               >
-                {{ item.isActive ? "รอส่ง" : "ส่งสำเร็จ" }}
+                {{ item.sendNotificationStatus == 2 ? "รอส่ง" : "ส่งสำเร็จ" }}
               </div>
             </div>
           </div>

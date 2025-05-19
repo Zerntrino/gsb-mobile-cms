@@ -8,4 +8,5 @@ export interface NewsLetter {
   isActive: boolean;
   isSendNotification: boolean;
   linkUrl: string;
+  sendNotificationStatus: number;
 }
