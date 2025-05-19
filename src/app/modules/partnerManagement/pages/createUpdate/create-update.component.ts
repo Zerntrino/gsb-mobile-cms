@@ -188,8 +188,8 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   back() {
-    this.router.navigate([
-      this.routeHistory.getPreviousUrl() || '/partner-management',
-    ]);
+    this.router.navigateByUrl(
+      this.routeHistory.getPreviousUrl() || '/partner-management'
+    );
   }
 }

@@ -117,21 +117,21 @@ export class ListComponent implements OnInit {
     this.redirect();
   }
   typeChange(e: Select2UpdateEvent): void {
-    if (this.type != e.value) {
+    if (this.type != e.value && e.value != undefined) {
       this.type = e.value;
       this.page = 1;
       this.redirect();
     }
   }
   actionChange(e: Select2UpdateEvent): void {
-    if (this.action != e.value) {
+    if (this.action != e.value && e.value != undefined) {
       this.action = e.value;
       this.page = 1;
       this.redirect();
     }
   }
   userGroupChange(e: Select2UpdateEvent): void {
-    if (this.userGroup != e.value) {
+    if (this.userGroup != e.value && e.value != undefined) {
       this.userGroup = e.value;
       this.page = 1;
       this.redirect();

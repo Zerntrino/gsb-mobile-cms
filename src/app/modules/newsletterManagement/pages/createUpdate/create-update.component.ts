@@ -224,8 +224,8 @@ export class CreateUpdateComponent implements OnInit {
   };
 
   back() {
-    this.router.navigate([
-      this.routeHistory.getPreviousUrl() || '/newsletter-management',
-    ]);
+    this.router.navigateByUrl(
+      this.routeHistory.getPreviousUrl() || '/newsletter-management'
+    );
   }
 }

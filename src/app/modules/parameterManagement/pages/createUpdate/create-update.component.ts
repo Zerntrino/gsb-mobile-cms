@@ -254,7 +254,10 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   mccChange(e: Select2UpdateEvent): void {
-    if (this.submitForm.get('mccCode')?.value != e.value) {
+    if (
+      this.submitForm.get('mccCode')?.value != e.value &&
+      e.value != undefined
+    ) {
       this.submitForm.get('mccCode')?.setValue((e.value as string[]) || []);
     }
   }
@@ -325,6 +328,8 @@ export class CreateUpdateComponent implements OnInit {
   };
 
   back() {
-    this.router.navigate([this.routeHistory.getPreviousUrl() || '/parameter']);
+    this.router.navigateByUrl(
+      this.routeHistory.getPreviousUrl() || '/parameter'
+    );
   }
 }

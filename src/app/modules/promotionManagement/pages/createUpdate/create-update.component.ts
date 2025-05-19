@@ -610,8 +610,8 @@ export class CreateUpdateComponent implements OnInit {
   };
 
   back() {
-    this.router.navigate([
-      this.routeHistory.getPreviousUrl() || '/promotion-management',
-    ]);
+    this.router.navigateByUrl(
+      this.routeHistory.getPreviousUrl() || '/promotion-management'
+    );
   }
 }

@@ -135,12 +135,14 @@ export class ListComponent implements OnInit {
 
   qChange(): void {
     this.page = 1;
+    console.log('q');
     this.redirect();
   }
   categoryChange(e: Select2UpdateEvent): void {
-    if (this.category != e.value) {
+    if (this.category != e.value && e.value != undefined) {
       this.category = e.value;
       this.page = 1;
+      console.log(`category:${this.category}:`);
       this.redirect();
     }
   }
@@ -148,6 +150,7 @@ export class ListComponent implements OnInit {
     if (this.type != e.value) {
       this.type = e.value;
       this.page = 1;
+      console.log('type');
       this.redirect();
     }
   }
@@ -155,20 +158,24 @@ export class ListComponent implements OnInit {
     if (this.status != e.value) {
       this.status = e.value;
       this.page = 1;
+      console.log('status');
       this.redirect();
     }
   }
   pageChange(p: number): void {
     this.page = p;
+    console.log('page');
     this.redirect();
   }
   pageSizeChange(s: number): void {
     this.pageSize = s;
     this.page = 1;
+    console.log('pageSize');
     this.redirect();
   }
 
   redirect() {
+    console.log('redirect');
     this.router.navigate(['/promotion-management'], {
       queryParams: {
         page: this.page,

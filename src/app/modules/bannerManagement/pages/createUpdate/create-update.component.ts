@@ -204,8 +204,8 @@ export class CreateUpdateComponent implements OnInit {
   };
 
   back() {
-    this.router.navigate([
-      this.routeHistory.getPreviousUrl() || '/banner-management',
-    ]);
+    this.router.navigateByUrl(
+      this.routeHistory.getPreviousUrl() || '/banner-management'
+    );
   }
 }

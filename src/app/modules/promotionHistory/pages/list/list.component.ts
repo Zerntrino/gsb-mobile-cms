@@ -105,7 +105,7 @@ export class ListComponent implements OnInit {
     // this.fetch();
   }
   typeChange(e: Select2UpdateEvent): void {
-    if (this.type != e.value) {
+    if (this.type != e.value && e.value != undefined) {
       this.type = e.value;
       this.page = 1;
       // this.fetch();

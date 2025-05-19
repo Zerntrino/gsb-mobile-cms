@@ -170,7 +170,7 @@ export class HighlightComponent implements OnInit {
     this.fetchPromotions();
   }
   cardChange(e: Select2UpdateEvent): void {
-    if (this.card != e.value) {
+    if (this.card != e.value && e.value != undefined) {
       this.card = e.value;
       this.fetch();
       this.fetchPromotions();

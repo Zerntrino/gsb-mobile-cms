@@ -109,7 +109,7 @@ export class ListComponent implements OnInit {
     this.redirect();
   }
   statusChange(e: Select2UpdateEvent): void {
-    if (this.status != e.value) {
+    if (this.status != e.value && e.value != undefined) {
       this.status = e.value;
       this.page = 1;
       this.redirect();
