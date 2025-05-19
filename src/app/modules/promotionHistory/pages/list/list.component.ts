@@ -11,6 +11,7 @@ import { PromotionService } from 'src/app/core/services/promotion.service';
 import { PromotionHistory } from 'src/app/core/models/promotion.model';
 import { find, get, pull } from 'lodash';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-promotion-history-list',
@@ -52,7 +53,8 @@ export class ListComponent implements OnInit {
   constructor(
     private router: Router,
     private promotionService: PromotionService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {}
 
   ngOnInit(): void {
@@ -128,9 +130,16 @@ export class ListComponent implements OnInit {
     this.redirect();
   }
   redirect() {
-    this._location.go(
-      `/promotion-history?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&type=${this.type}&date1[0]=${this.date1[0]}&date1[1]=${this.date1[1]}&date2[0]=${this.date2[0]}&date2[1]=${this.date2[1]}`
-    );
+    this.router.navigate(['/promotion-history'], {
+      queryParams: {
+        page: this.page,
+        pageSize: this.pageSize,
+        q: this.q,
+        type: this.type,
+        date1: this.date1,
+        date2: this.date2,
+      },
+    });
     // this.fetch();
   }
 

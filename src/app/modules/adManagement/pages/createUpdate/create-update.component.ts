@@ -12,6 +12,7 @@ import dayjs from 'dayjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-ad-management-create-update',
@@ -47,7 +48,8 @@ export class CreateUpdateComponent implements OnInit {
     activatedRoute: ActivatedRoute,
     private adService: AdService,
     private toastService: ToastService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
 
@@ -202,6 +204,8 @@ export class CreateUpdateComponent implements OnInit {
   };
 
   back() {
-    this._location.back();
+    this.router.navigate([
+      this.routeHistory.getPreviousUrl() || '/ad-management',
+    ]);
   }
 }

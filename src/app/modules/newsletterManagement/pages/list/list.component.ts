@@ -13,6 +13,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 import { NewsLetterService } from 'src/app/core/services/newsletter.service';
 import { NewsLetter } from 'src/app/core/models/newsletter.model';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-banner-management-list',
@@ -39,7 +40,8 @@ export class ListComponent implements OnInit {
     private router: Router,
     private newsletterService: NewsLetterService,
     private toastService: ToastService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {}
 
   ngOnInit(): void {
@@ -115,9 +117,15 @@ export class ListComponent implements OnInit {
   }
 
   redirect() {
-    this._location.go(
-      `/newsletter-management?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&date[0]=${this.date[0]}&date[1]=${this.date[1]}&status=${this.status}`
-    );
+    this.router.navigate(['/newsletter-management'], {
+      queryParams: {
+        page: this.page,
+        pageSize: this.pageSize,
+        q: this.q,
+        date: this.date,
+        status: this.status,
+      },
+    });
     this.fetch();
   }
 

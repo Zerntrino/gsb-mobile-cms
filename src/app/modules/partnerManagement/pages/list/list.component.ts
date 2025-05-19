@@ -11,6 +11,7 @@ import { PartnerService } from 'src/app/core/services/partner.service';
 import { Partner } from 'src/app/core/models/partner.model';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-partner-management-list',
@@ -37,7 +38,8 @@ export class ListComponent implements OnInit {
     private router: Router,
     private partnerService: PartnerService,
     private toastService: ToastService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {}
 
   ngOnInit(): void {
@@ -100,9 +102,14 @@ export class ListComponent implements OnInit {
   }
 
   redirect() {
-    this._location.go(
-      `/partner-management?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&status=${this.status}`
-    );
+    this.router.navigate(['/partner-management'], {
+      queryParams: {
+        page: this.page,
+        pageSize: this.pageSize,
+        q: this.q,
+        status: this.status,
+      },
+    });
     this.fetch();
   }
 

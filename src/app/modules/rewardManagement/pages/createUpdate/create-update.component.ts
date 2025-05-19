@@ -26,6 +26,7 @@ import { MCC } from 'src/app/core/models/parameter.model';
 import * as XLSX from 'xlsx';
 import { isArray } from 'lodash';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-reward-management-create-update',
@@ -143,7 +144,8 @@ export class CreateUpdateComponent implements OnInit {
     private cardService: CardService,
     private utilsService: UtilsService,
     private toastService: ToastService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
 
@@ -630,6 +632,8 @@ export class CreateUpdateComponent implements OnInit {
   };
 
   back() {
-    this._location.back();
+    this.router.navigate([
+      this.routeHistory.getPreviousUrl() || '/reward-management',
+    ]);
   }
 }

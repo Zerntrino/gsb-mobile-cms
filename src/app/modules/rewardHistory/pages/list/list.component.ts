@@ -11,6 +11,7 @@ import { find, get, pull } from 'lodash';
 import { RewardService } from 'src/app/core/services/reward.service';
 import { RewardHistory } from 'src/app/core/models/reward.model';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-reward-history-list',
@@ -61,7 +62,8 @@ export class ListComponent implements OnInit {
   constructor(
     private router: Router,
     private rewardService: RewardService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {}
 
   ngOnInit(): void {
@@ -165,9 +167,19 @@ export class ListComponent implements OnInit {
   }
 
   redirect() {
-    this._location.go(
-      `/reward-history?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&type=${this.type}&status=${this.status}&date1[0]=${this.date1[0]}&date1[1]=${this.date1[1]}&date2[0]=${this.date2[0]}&date2[1]=${this.date2[1]}&date3[0]=${this.date3[0]}&date3[1]=${this.date3[1]}&date4[0]=${this.date4[0]}&date4[1]=${this.date4[1]}`
-    );
+    this.router.navigate(['/reward-history'], {
+      queryParams: {
+        page: this.page,
+        pageSize: this.pageSize,
+        q: this.q,
+        type: this.type,
+        statu: this.status,
+        date1: this.date1,
+        date2: this.date2,
+        date3: this.date3,
+        date4: this.date4,
+      },
+    });
     // this.fetch();
   }
 

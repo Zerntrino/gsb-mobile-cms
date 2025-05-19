@@ -11,6 +11,7 @@ import { BannerService } from 'src/app/core/services/banner.service';
 import { Banner } from 'src/app/core/models/banner.model';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-banner-management-list',
@@ -37,7 +38,8 @@ export class ListComponent implements OnInit {
     private router: Router,
     private bannerService: BannerService,
     private toastService: ToastService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {}
 
   ngOnInit(): void {
@@ -98,9 +100,15 @@ export class ListComponent implements OnInit {
     this.redirect();
   }
   redirect() {
-    this._location.go(
-      `/banner-management?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&status=${this.status}`
-    );
+    this.router.navigate(['/banner-management'], {
+      queryParams: {
+        page: this.page,
+        pageSize: this.pageSize,
+        q: this.q,
+        status: this.status,
+      },
+    });
+
     this.fetch();
   }
 

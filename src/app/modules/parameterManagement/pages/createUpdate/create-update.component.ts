@@ -21,6 +21,7 @@ import { ParameterService } from 'src/app/core/services/parameter.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-parameter-management-create-update',
@@ -64,7 +65,8 @@ export class CreateUpdateComponent implements OnInit {
     private parameterService: ParameterService,
     private cardService: CardService,
     private toastService: ToastService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
     this.navItems[1].title =
@@ -323,6 +325,6 @@ export class CreateUpdateComponent implements OnInit {
   };
 
   back() {
-    this._location.back();
+    this.router.navigate([this.routeHistory.getPreviousUrl() || '/parameter']);
   }
 }

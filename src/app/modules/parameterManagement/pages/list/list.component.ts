@@ -12,6 +12,7 @@ import { ParameterService } from 'src/app/core/services/parameter.service';
 import { Installment } from 'src/app/core/models/parameter.model';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-reward-history-list',
@@ -39,7 +40,8 @@ export class ListComponent implements OnInit {
     private router: Router,
     private parameterService: ParameterService,
     private toastService: ToastService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {}
 
   ngOnInit(): void {
@@ -103,9 +105,14 @@ export class ListComponent implements OnInit {
     this.redirect();
   }
   redirect() {
-    this._location.go(
-      `/parameter?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&status=${this.status}`
-    );
+    this.router.navigate(['/parameter'], {
+      queryParams: {
+        page: this.page,
+        pageSize: this.pageSize,
+        q: this.q,
+        status: this.status,
+      },
+    });
     this.fetch();
   }
   dateFormat(d: string): string {

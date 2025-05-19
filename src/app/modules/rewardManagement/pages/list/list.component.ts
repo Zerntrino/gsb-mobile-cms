@@ -15,6 +15,7 @@ import { CategoryService } from 'src/app/core/services/category.service';
 import { Category } from 'src/app/core/models/category.model';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-reward-management-list',
@@ -59,7 +60,8 @@ export class ListComponent implements OnInit {
     private rewardService: RewardService,
     private categoryService: CategoryService,
     private toastService: ToastService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {}
 
   ngOnInit(): void {
@@ -166,9 +168,16 @@ export class ListComponent implements OnInit {
   }
 
   redirect() {
-    this._location.go(
-      `/reward-management?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&category=${this.category}&type=${this.type}&status=${this.status}`
-    );
+    this.router.navigate(['/reward-management'], {
+      queryParams: {
+        page: this.page,
+        pageSize: this.pageSize,
+        q: this.q,
+        category: this.category,
+        type: this.type,
+        status: this.status,
+      },
+    });
     this.fetch();
   }
 

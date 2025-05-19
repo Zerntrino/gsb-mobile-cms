@@ -11,6 +11,7 @@ import { find, get, pull } from 'lodash';
 import { AuditLog } from 'src/app/core/models/auditLog.model';
 import { AuditLogService } from 'src/app/core/services/auditLog.service';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-audit-log-list',
@@ -54,7 +55,8 @@ export class ListComponent implements OnInit {
   constructor(
     private router: Router,
     private auditLogService: AuditLogService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {}
 
   ngOnInit(): void {
@@ -152,9 +154,17 @@ export class ListComponent implements OnInit {
     this.redirect();
   }
   redirect() {
-    this._location.go(
-      `/audit-log?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&type=${this.type}&action=${this.action}&userGroup=${this.userGroup}&date[0]=${this.date[0]}&date[1]=${this.date[1]}`
-    );
+    this.router.navigate(['/audit-log'], {
+      queryParams: {
+        page: this.page,
+        pageSize: this.pageSize,
+        q: this.q,
+        type: this.type,
+        action: this.action,
+        userGroup: this.userGroup,
+        date: this.date,
+      },
+    });
     this.fetch();
   }
   selectIndexAllClick(v: boolean): void {

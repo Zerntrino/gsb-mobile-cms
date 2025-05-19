@@ -13,6 +13,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
 import { CategoryService } from 'src/app/core/services/category.service';
 import { Category } from 'src/app/core/models/category.model';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-ad-management-list',
@@ -59,7 +60,8 @@ export class ListComponent implements OnInit {
     private promotionService: PromotionService,
     private categoryService: CategoryService,
     private toastService: ToastService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {}
 
   ngOnInit(): void {
@@ -167,9 +169,16 @@ export class ListComponent implements OnInit {
   }
 
   redirect() {
-    this._location.go(
-      `/promotion-management?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&category=${this.category}&type=${this.type}&status=${this.status}`
-    );
+    this.router.navigate(['/promotion-management'], {
+      queryParams: {
+        page: this.page,
+        pageSize: this.pageSize,
+        q: this.q,
+        category: this.category,
+        type: this.type,
+        status: this.status,
+      },
+    });
     this.fetch();
   }
 

@@ -12,6 +12,7 @@ import { Category } from 'src/app/core/models/category.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-category-management-list',
@@ -48,7 +49,8 @@ export class ListComponent implements OnInit {
     private router: Router,
     private categoryService: CategoryService,
     private toastService: ToastService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {}
 
   ngOnInit(): void {
@@ -150,9 +152,16 @@ export class ListComponent implements OnInit {
     this.redirect;
   }
   redirect() {
-    this._location.go(
-      `/category-management?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&status=${this.status}&apply=${this.apply}`
-    );
+    this.router.navigate(['/category-management'], {
+      queryParams: {
+        page: this.page,
+        pageSize: this.pageSize,
+        q: this.q,
+        statu: this.status,
+        apply: this.apply,
+      },
+    });
+
     this.fetch();
   }
 

@@ -12,6 +12,7 @@ import { ParameterService } from 'src/app/core/services/parameter.service';
 import { InstallmentPlan, Plan } from 'src/app/core/models/parameter.model';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Location } from '@angular/common';
+import { RouteHistoryService } from 'src/app/core/services/history';
 
 @Component({
   selector: 'app-installment-plan-list',
@@ -77,7 +78,8 @@ export class InstallmentPlanListComponent implements OnInit {
     private router: Router,
     private parameterService: ParameterService,
     private toastService: ToastService,
-    private _location: Location
+    private _location: Location,
+    private routeHistory: RouteHistoryService
   ) {}
 
   ngOnInit(): void {
@@ -152,9 +154,15 @@ export class InstallmentPlanListComponent implements OnInit {
     this.redirect();
   }
   redirect() {
-    this._location.go(
-      `/parameter/installment-plan?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&status=${this.status}&month=${this.month}`
-    );
+    this.router.navigate(['/parameter/installment-plan'], {
+      queryParams: {
+        page: this.page,
+        pageSize: this.pageSize,
+        q: this.q,
+        status: this.status,
+        month: this.month,
+      },
+    });
     this.fetch();
   }
   dateFormat(d: string): string {
