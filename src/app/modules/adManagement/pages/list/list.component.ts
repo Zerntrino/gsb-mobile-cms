@@ -103,6 +103,7 @@ export class ListComponent implements OnInit {
     this._location.go(
       `/ad-management?page=${this.page}&pageSize=${this.pageSize}&q=${this.q}&status=${this.status}`
     );
+    this.fetch();
   }
 
   dateFormat(d: string): string {
