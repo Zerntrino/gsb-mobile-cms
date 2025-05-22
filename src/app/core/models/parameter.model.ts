@@ -16,6 +16,7 @@ export interface InstallmentPlan {
   id: number;
   month: string;
   name: string;
+  isAbroad: boolean;
   isActive: boolean;
   planInstallment: Plan[];
 }

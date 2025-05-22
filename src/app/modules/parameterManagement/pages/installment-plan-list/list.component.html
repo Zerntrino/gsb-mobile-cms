@@ -54,6 +54,7 @@
         <div class="table-row">
           <div class="table-cell text-center">#</div>
           <div class="table-cell">Installment Plan</div>
+          <div class="table-cell">รายการ</div>
           <div class="table-cell">จำนวนเดือน</div>
           <div class="table-cell">สถานะ</div>
           <div class="table-cell">&nbsp;</div>
@@ -63,6 +64,9 @@
         <div class="table-row" *ngFor="let item of list; let i = index">
           <div class="table-cell">{{ (page - 1) * pageSize + i + 1 }}</div>
           <div class="table-cell">{{ item.name }}</div>
+          <div class="table-cell">
+            {{ item.isAbroad ? "ใช้จ่ายในประเทศ" : "ใช้จ่ายต่างประเทศ" }}
+          </div>
           <div class="table-cell">{{ item.month }}</div>
           <div class="table-cell">
             <div class="flex flex-nowrap space-x-2 items-center">
@@ -156,6 +160,26 @@
             [(ngModel)]="plan.name"
             [disabled]="mode == 'view' || !!plan.id"
           />
+        </div>
+
+        <div class="px-6 py-4">
+          <div class="text-sm font-semibold">ใช้สำหรับรายการ</div>
+          <div class="flex space-x-4 mt-2">
+            <app-radiobox
+              name="date"
+              [value]="plan.isAbroad"
+              (valueUpdate)="plan.isAbroad = true"
+              [disabled]="mode == 'view'"
+              >ใช้จ่ายในประเทศ</app-radiobox
+            >
+            <app-radiobox
+              name="date"
+              [value]="!plan.isAbroad"
+              (valueUpdate)="plan.isAbroad = false"
+              [disabled]="mode == 'view'"
+              >ใช้จ่ายต่างประเทศ</app-radiobox
+            >
+          </div>
         </div>
 
         <div class="px-6 py-2 flex space-x-2">

@@ -63,7 +63,14 @@
               </div>
 
               <div class="border-t border-gray-100 py-2">
-                <div class="font-semibold text-sm">รายการผ่อนชำระ</div>
+                <div class="font-semibold text-sm">
+                  รายการผ่อนชำระ
+                  <span class="text-gray-500 font-normal"
+                    >({{
+                      installmentPlan.isAbroad ? "ในประเทศ" : "ต่างประเทศ"
+                    }})</span
+                  >
+                </div>
 
                 <div
                   class="my-2 flex space-x-4"
