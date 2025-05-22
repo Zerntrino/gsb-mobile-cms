@@ -69,7 +69,7 @@ export class InstallmentPlanListComponent implements OnInit {
   deleteId = 0;
   alertDeleteId = 0;
 
-  plan = { isAbroad: true } as InstallmentPlan;
+  plan = { isAbroad: false } as InstallmentPlan;
 
   showType = 'hide';
   mode = 'edit';
@@ -179,7 +179,7 @@ export class InstallmentPlanListComponent implements OnInit {
       JSON.stringify(
         d || {
           planInstallment: [],
-          isAbroad: true,
+          isAbroad: false,
         }
       )
     );

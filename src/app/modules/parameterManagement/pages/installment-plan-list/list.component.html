@@ -65,7 +65,7 @@
           <div class="table-cell">{{ (page - 1) * pageSize + i + 1 }}</div>
           <div class="table-cell">{{ item.name }}</div>
           <div class="table-cell">
-            {{ item.isAbroad ? "ใช้จ่ายในประเทศ" : "ใช้จ่ายต่างประเทศ" }}
+            {{ item.isAbroad ? "ใช้จ่ายต่างประเทศ" : "ใช้จ่ายในประเทศ" }}
           </div>
           <div class="table-cell">{{ item.month }}</div>
           <div class="table-cell">
@@ -167,15 +167,15 @@
           <div class="flex space-x-4 mt-2">
             <app-radiobox
               name="date"
-              [value]="plan.isAbroad"
-              (valueUpdate)="plan.isAbroad = true"
+              [value]="!plan.isAbroad"
+              (valueUpdate)="plan.isAbroad = false"
               [disabled]="mode == 'view'"
               >ใช้จ่ายในประเทศ</app-radiobox
             >
             <app-radiobox
               name="date"
-              [value]="!plan.isAbroad"
-              (valueUpdate)="plan.isAbroad = false"
+              [value]="plan.isAbroad"
+              (valueUpdate)="plan.isAbroad = true"
               [disabled]="mode == 'view'"
               >ใช้จ่ายต่างประเทศ</app-radiobox
             >
