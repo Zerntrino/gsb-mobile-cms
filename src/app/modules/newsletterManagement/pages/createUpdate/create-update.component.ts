@@ -169,6 +169,9 @@ export class CreateUpdateComponent implements OnInit {
 
       raw.sendNotificationDate = date.toISOString();
       raw.sendNotificationTime = undefined;
+    } else {
+      raw.sendNotificationDate = null;
+      raw.sendNotificationTime = undefined;
     }
 
     if (this.id == 'create') {
