@@ -27,6 +27,7 @@ import { Card } from 'src/app/core/models/card.model';
 export class CardDetailComponent implements OnInit {
   id: string = '';
   card: string = '';
+  cardRef: string = '';
   navItems = [
     { title: 'จัดการผู้ใช้บัตร', to: '/user-management' },
     { title: 'ข้อมูลผู้ใช้บัตร', to: '/user-management/' },
@@ -58,7 +59,9 @@ export class CardDetailComponent implements OnInit {
     const decodedId = atob(this.activatedRoute.snapshot.params['id']);
     this.id = decodedId;
 
-    this.card = this.activatedRoute.snapshot.params['card'];
+    const card = this.activatedRoute.snapshot.params['card'].split('-');
+    this.card = card[0];
+    this.cardRef = card[1];
     this.navItems[1].to = '/user-management/' + this.id;
 
     // this.userService.getUserProfile(this.id).subscribe(
@@ -80,7 +83,7 @@ export class CardDetailComponent implements OnInit {
     } else {
       this.user = (res?.data || {}) as User;
       this.cardS = (this.user.creditCardList.find(
-        (c) => c.accountNumber == this.card
+        (c) => c.accountNumber == this.card && c.cardRel == this.cardRef
       ) || {}) as CreditCardList;
 
       this.ref = this.getRef(

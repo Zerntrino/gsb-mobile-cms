@@ -110,7 +110,12 @@
       <div *ngFor="let c of user.creditCardList">
         <a
           [routerLink]="
-            '/user-management/card/' + encodedId + '/' + c.accountNumber
+            '/user-management/card/' +
+            encodedId +
+            '/' +
+            c.accountNumber +
+            '-' +
+            c.cardRel
           "
           class="border border-gray-100 rounded-md px-8 py-6 flex items-center space-x-6"
         >
