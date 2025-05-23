@@ -291,6 +291,7 @@ export class CreateUpdateComponent implements OnInit {
     const res = await this.parameterService
       .getInstallmentPlan(f?.id || 0)
       .toPromise();
+
     this.installmentPlan = res?.data as InstallmentPlan;
   }
 

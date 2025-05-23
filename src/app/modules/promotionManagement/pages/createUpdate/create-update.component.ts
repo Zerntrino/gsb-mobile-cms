@@ -138,9 +138,9 @@ export class CreateUpdateComponent implements OnInit {
 
   async ngOnInit() {
     await this.fetchCategory();
-    this.fetchType();
-    this.fetchShop();
-    this.fetchMcc();
+    await this.fetchType();
+    await this.fetchShop();
+    await this.fetchMcc();
     await this.fetchCard();
     this.fetch();
   }
@@ -184,6 +184,7 @@ export class CreateUpdateComponent implements OnInit {
           this.fileCodeLimitOrg = res.importCode?.length || res.limit || 0;
 
           this.imageBase64 = res.imageUrl;
+          return;
         },
         (error) => {
           console.log(error);
@@ -199,6 +200,7 @@ export class CreateUpdateComponent implements OnInit {
         this.promotionTypeOption = types.map((t) => {
           return { value: t.id, label: t.name } as Select2Option;
         });
+        return;
       },
       (error) => {
         console.log(error);
@@ -222,6 +224,7 @@ export class CreateUpdateComponent implements OnInit {
             return { value: c.id, label: c.name } as Select2Option;
           });
         this.categoryOption = cs;
+        return;
       },
       (error) => {
         console.log(error);
@@ -237,6 +240,7 @@ export class CreateUpdateComponent implements OnInit {
         this.shopOption = partners.map((c) => {
           return { value: c.id, label: c.name } as Select2Option;
         });
+        return;
       },
       (error) => {
         console.log(error);
@@ -254,6 +258,7 @@ export class CreateUpdateComponent implements OnInit {
             label: `${item.code} : ${item.name}`,
           } as Select2Option;
         });
+        return;
       },
       (error) => {
         console.log(error);
@@ -267,6 +272,7 @@ export class CreateUpdateComponent implements OnInit {
       (response) => {
         this.cards = (response.data as Card[]).filter((c) => c.isActive);
         this.cardIds = this.cards.map((c) => c.id);
+        return;
       },
       (error) => {
         console.log(error);
