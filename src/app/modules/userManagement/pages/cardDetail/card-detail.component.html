@@ -11,7 +11,10 @@
         <img class="w-20 shadow-lg" [src]="cardS.cardImageUrl" />
       </div>
       <div class="flex-1">
-        <div class="font-semibold">{{ cardS.cardNumber }}</div>
+        <div class="font-semibold">
+          {{ cardS.cardNumber }}
+          <span *ngIf="cardS.cardRel == 'S'"> (บัตรเสริม)</span>
+        </div>
         <div class="text-sm">{{ cardS.cardTypeFlag }}</div>
       </div>
       <!-- <div class="">

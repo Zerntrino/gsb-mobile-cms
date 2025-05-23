@@ -31,7 +31,8 @@ export class SearchComponent implements OnInit {
 
   async onSubmit() {
     const id = this.searchForm.get('id')?.value || '';
-
+    // Base64 encode the input ID
+    const encodedId = btoa(id);
     try {
       const res = await this.userService.getUser(id);
       if (res instanceof Error) {
@@ -39,7 +40,7 @@ export class SearchComponent implements OnInit {
         this.errorId = Math.random();
         this.error = 'ไม่พบข้อมูลที่ตรงกัน <br/> กรุณาตรวจสอบอีกครั้ง';
       } else {
-        this.router.navigate([`/user-management/${id}`]);
+        this.router.navigate([`/user-management/${encodedId}`]);
       }
     } catch (e) {
       this.errorId = Math.random();

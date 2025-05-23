@@ -13,6 +13,7 @@ import { NavItem } from 'src/app/modules/shared/components/nav/nav.component';
 })
 export class DetailComponent implements OnInit {
   id: string = '';
+  encodedId: string = '';
   navItems = [
     { title: 'จัดการผู้ใช้บัตร', to: '/user-management' },
     { title: 'ข้อมูลผู้ใช้บัตร', to: '' },
@@ -25,7 +26,9 @@ export class DetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private userService: UserService
   ) {
-    this.id = this.activatedRoute.snapshot.params['id'];
+    const decodedId = atob(this.activatedRoute.snapshot.params['id']);
+    this.id = decodedId;
+    this.encodedId = this.activatedRoute.snapshot.params['id'];
   }
 
   async fetch() {

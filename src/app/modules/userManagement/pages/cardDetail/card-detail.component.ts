@@ -55,7 +55,9 @@ export class CardDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private userService: UserService
   ) {
-    this.id = this.activatedRoute.snapshot.params['id'];
+    const decodedId = atob(this.activatedRoute.snapshot.params['id']);
+    this.id = decodedId;
+
     this.card = this.activatedRoute.snapshot.params['card'];
     this.navItems[1].to = '/user-management/' + this.id;
 
@@ -71,6 +73,7 @@ export class CardDetailComponent implements OnInit {
 
   async fetch() {
     console.log(this.card);
+    console.log(this.id);
     const res = await this.userService.getUser(this.id);
     if (res instanceof Error) {
       console.log(res);
