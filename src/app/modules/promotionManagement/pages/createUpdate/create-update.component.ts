@@ -232,9 +232,9 @@ export class CreateUpdateComponent implements OnInit {
     );
   }
 
-  fetchShop(): void {
+  async fetchShop() {
     let params = new HttpParams().append('page', 1).append('pageSize', 100);
-    this.partnerService.getList(params).subscribe(
+    await this.partnerService.getList(params).subscribe(
       (response) => {
         const partners = (response.data as Partner[]).filter((c) => c.isActive);
         this.shopOption = partners.map((c) => {
@@ -248,8 +248,8 @@ export class CreateUpdateComponent implements OnInit {
     );
   }
 
-  fetchMcc(): void {
-    this.parameterService.getMCCList().subscribe(
+  async fetchMcc() {
+    await this.parameterService.getMCCList().subscribe(
       (response) => {
         const mccs = response.data as MCC[];
         this.mccOption = mccs.map((item) => {
