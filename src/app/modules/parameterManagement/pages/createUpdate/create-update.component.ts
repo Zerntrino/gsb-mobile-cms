@@ -139,6 +139,7 @@ export class CreateUpdateComponent implements OnInit {
 
   async fetchInstallmentPlans() {
     let params = new HttpParams();
+    params = params.append('pageSize', '1000');
     await this.parameterService.getInstallmentPlanList(params).subscribe(
       (response) => {
         this.installmentPlans = response.data as InstallmentPlan[];
