@@ -26,6 +26,7 @@ import { Card } from 'src/app/core/models/card.model';
 })
 export class CardDetailComponent implements OnInit {
   id: string = '';
+  orgId: string = '';
   card: string = '';
   cardRef: string = '';
   navItems = [
@@ -56,13 +57,14 @@ export class CardDetailComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private userService: UserService
   ) {
+    this.orgId = this.activatedRoute.snapshot.params['id'];
     const decodedId = atob(this.activatedRoute.snapshot.params['id']);
     this.id = decodedId;
 
     const card = this.activatedRoute.snapshot.params['card'].split('-');
     this.card = card[0];
     this.cardRef = card[1];
-    this.navItems[1].to = '/user-management/' + this.id;
+    this.navItems[1].to = '/user-management/' + this.orgId;
 
     // this.userService.getUserProfile(this.id).subscribe(
     //   (response) => {
