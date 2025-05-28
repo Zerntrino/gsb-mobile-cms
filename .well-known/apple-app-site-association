@@ -1,0 +1,14 @@
+{
+  "applinks": {
+    "apps": [],
+    "details": [
+      {
+        "appID": "L679254MM2.com.ubakong.gsb.gsbmcc-uat",
+        "paths": [
+          "/register",
+          "/repayment"
+        ]
+      }
+    ]
+  }
+}

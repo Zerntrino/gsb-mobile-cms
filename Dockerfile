@@ -24,6 +24,7 @@ RUN chown -R nonroot:nonroot /var/run/
 COPY nginx.conf /etc/nginx/nginx.conf.template
 
 COPY --from=builder /app/dist/* /etc/nginx/html
+COPY --from=builder /app/.well-known/* /etc/nginx/html/.well-known/
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
