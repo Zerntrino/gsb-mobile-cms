@@ -30,7 +30,5 @@ EXPOSE 8080
 
 USER nonroot
 
-# Set the entrypoint script
-ENTRYPOINT ["start.sh"]
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["/app/start.sh"]
 
