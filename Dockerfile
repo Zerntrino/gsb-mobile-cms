@@ -23,6 +23,7 @@ COPY nginx.conf /etc/nginx/nginx.conf.template
 COPY .well-known/* /etc/nginx/html/.well-known/
 
 RUN chmod +x docker-entrypoint.sh
+RUN chmod +x start.sh
 
 # EXPOSE 80
 EXPOSE 8080
@@ -30,6 +31,6 @@ EXPOSE 8080
 USER nonroot
 
 # Set the entrypoint script
-ENTRYPOINT ["yarn prebuild; yarn build-prod; docker-entrypoint.sh;"]
+ENTRYPOINT ["start.sh"]
 CMD ["nginx", "-g", "daemon off;"]
 
