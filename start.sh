@@ -2,5 +2,6 @@
 set -e
 
 yarn prebuild
-yarn build-prod &
+(yarn build-prod | cp -r /app/dist/* /etc/nginx/html) &
+
 exec ./docker-entrypoint.sh
