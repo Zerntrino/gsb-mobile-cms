@@ -78,6 +78,19 @@ export class AuthService extends BaseService implements OnDestroy {
       );
   }
 
+  callback(code: string): Observable<Response<AppUserToken>> {
+    return this.http
+      .get<Response<AppUserToken>>(`/api/authen/callback?code=${code}`)
+      .pipe(
+        map((response) => {
+          if (response.data.token) {
+            this.onLogin(response.data);
+          }
+          return response;
+        })
+      );
+  }
+
   logout(returnUrl?: string): void {
     this.http
       .post(`/api/cms/signout`, {})
