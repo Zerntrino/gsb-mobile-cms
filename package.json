@@ -10,8 +10,8 @@
     "build-prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "prestart": "tsc tools/env-to-ts.ts",
-    "prebuild": "tsc tools/env-to-ts.ts"
+    "prestart": "node env-to-js.js",
+    "prebuild": "node env-to-js.js"
   },
   "private": true,
   "dependencies": {
