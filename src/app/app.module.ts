@@ -25,6 +25,8 @@ dayjs.extend(buddhistEra);
 
 import { environment } from '../environments/environment';
 
+console.log(process.env);
+
 const oktaAuth = new OktaAuth({
   // pkce: false,
   issuer: environment.OAUTH2_ISSUER || 'https://mfapwldev.gsb.or.th',
