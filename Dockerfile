@@ -22,8 +22,11 @@ RUN chown -R nonroot:nonroot /var/run/
 COPY nginx.conf /etc/nginx/nginx.conf.template
 COPY .well-known/* /etc/nginx/html/.well-known/
 
+
 RUN chmod +x docker-entrypoint.sh
 RUN chmod +x start.sh
+RUN chmod +x tools/env-to-ts.js
+RUN 
 
 # EXPOSE 80
 EXPOSE 8080
