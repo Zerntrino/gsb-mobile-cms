@@ -11,11 +11,9 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-builders/custom-webpack:browser",
+          "builder": "ngx-build-plus:browser",
           "options": {
-            "customWebpackConfig": {
-              "path": "./webpack.config.js"
-            },
+            "extraWebpackConfig": "webpack.extra.js",
             "outputPath": "dist/ghb-cms",
             "index": "src/index.html",
             "main": "src/main.ts",
