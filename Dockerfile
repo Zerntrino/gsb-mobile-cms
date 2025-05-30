@@ -15,6 +15,9 @@ RUN echo $OAUTH2_ISSUER
 RUN echo $OAUTH2_CLIENT_ID
 RUN echo $OAUTH2_REDIRECT_URI
 
+COPY docker-entrypoint.sh /docker-entrypoint.sh
+RUN chmod +x /docker-entrypoint.sh
+
 RUN yarn install --unsafe-perm
 RUN yarn prebuild
 RUN yarn build-prod
@@ -37,8 +40,7 @@ COPY nginx.conf /etc/nginx/nginx.conf.template
 COPY --from=builder /app/dist/* /etc/nginx/html
 COPY --from=builder /app/.well-known/* /etc/nginx/html/.well-known/
 
-COPY docker-entrypoint.sh /docker-entrypoint.sh
-RUN chmod +x /docker-entrypoint.sh
+
 
 # EXPOSE 80
 EXPOSE 8080
