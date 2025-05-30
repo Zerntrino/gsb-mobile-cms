@@ -9,9 +9,7 @@
     "build-dev": "ng build --configuration development",
     "build-prod": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test",
-    "prestart": "node env-to-js.js",
-    "prebuild": "node env-to-js.js"
+    "test": "ng test"
   },
   "private": true,
   "dependencies": {
