@@ -20,11 +20,10 @@ RUN echo $OAUTH2_ISSUER
 RUN echo $OAUTH2_CLIENT_ID
 RUN echo $OAUTH2_REDIRECT_URI
 
+# Set the entrypoint script
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
-
-# Set the entrypoint script
-CMD ["/docker-entrypoint.sh"]
+RUN "/docker-entrypoint.sh"
 
 RUN yarn install --unsafe-perm
 RUN yarn build-prod
