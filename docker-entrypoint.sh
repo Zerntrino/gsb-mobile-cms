@@ -8,4 +8,4 @@ envsubst '$OAUTH2_CLIENT_ID' < src/environments/environment.prod.ts
 envsubst '$OAUTH2_REDIRECT_URI' < src/environments/environment.prod.ts
 
 # Start Nginx
-exec "$@"
+# exec "$@"

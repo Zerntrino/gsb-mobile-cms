@@ -22,6 +22,7 @@ steps:
       - '--port'
       - '8080'
       - '--allow-unauthenticated'
+      - '--timeout=900'
     env:
       - 'CLOUDSDK_CORE_PROJECT=gsbcard'
       - 'CLOUDSDK_COMPUTE_ZONE=asia-southeast1-a'

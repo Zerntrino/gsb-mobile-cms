@@ -53,6 +53,4 @@ EXPOSE 8080
 
 USER nonroot
 
-
 CMD ["nginx", "-g", "daemon off;"]
-
