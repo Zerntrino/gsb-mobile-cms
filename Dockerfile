@@ -23,8 +23,6 @@ RUN echo $OAUTH2_REDIRECT_URI
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
-RUN cat src/environments/environment.prod.ts
-
 RUN yarn install --unsafe-perm
 RUN yarn build-prod
 
