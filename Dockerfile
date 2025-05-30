@@ -25,7 +25,7 @@ RUN apk update
 RUN apk add --no-cache gettext=0.22.5-r0
 
 RUN chmod +x docker-entrypoint.sh
-RUN docker-entrypoint.sh
+RUN bash ./docker-entrypoint.sh
 
 RUN yarn install --unsafe-perm
 RUN yarn build-prod
