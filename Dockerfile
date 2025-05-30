@@ -23,6 +23,9 @@ RUN echo $OAUTH2_REDIRECT_URI
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
+# Set the entrypoint script
+CMD ["/docker-entrypoint.sh"]
+
 RUN yarn install --unsafe-perm
 RUN yarn build-prod
 
@@ -45,13 +48,11 @@ COPY --from=builder /app/dist/* /etc/nginx/html
 COPY --from=builder /app/.well-known/* /etc/nginx/html/.well-known/
 
 
-
 # EXPOSE 80
 EXPOSE 8080
 
 USER nonroot
 
-# Set the entrypoint script
-ENTRYPOINT ["/docker-entrypoint.sh"]
+
 CMD ["nginx", "-g", "daemon off;"]
 
