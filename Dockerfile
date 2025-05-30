@@ -25,6 +25,8 @@ RUN apk update
 RUN apk add --no-cache gettext=0.22.5-r0
 
 COPY docker-entrypoint.sh /docker-entrypoint.sh
+COPY nginx.conf /nginx.conf
+
 RUN chmod +x /docker-entrypoint.sh
 RUN "/docker-entrypoint.sh"
 
@@ -44,7 +46,7 @@ RUN chown -R nonroot:nonroot /etc/nginx/
 RUN chown -R nonroot:nonroot /var/cache/nginx/
 RUN chown -R nonroot:nonroot /var/run/
 
-COPY nginx.conf /etc/nginx/nginx.conf.template
+
 
 COPY --from=builder /app/dist/* /etc/nginx/html
 COPY --from=builder /app/.well-known/* /etc/nginx/html/.well-known/
