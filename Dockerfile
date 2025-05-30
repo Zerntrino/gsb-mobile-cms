@@ -29,6 +29,17 @@ COPY --from=builder /app/.well-known/* /etc/nginx/html/.well-known/
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 RUN chmod +x /docker-entrypoint.sh
 
+# ENV
+ARG API_BACKEND=a
+ARG OAUTH2_ISSUER=b
+ARG OAUTH2_CLIENT_ID=c
+ARG OAUTH2_REDIRECT_URI=d
+
+RUN echo $API_BACKEND
+RUN echo $OAUTH2_ISSUER
+RUN echo $OAUTH2_CLIENT_ID
+RUN echo $OAUTH2_REDIRECT_URI
+
 # EXPOSE 80
 EXPOSE 8080
 
