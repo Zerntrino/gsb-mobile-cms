@@ -137,12 +137,12 @@ export class CreateUpdateComponent implements OnInit {
   }
 
   async ngOnInit() {
+    await this.fetchShop();
     await this.fetchCategory();
     await this.fetchType();
-    await this.fetchShop();
     await this.fetchMcc();
     await this.fetchCard();
-    this.fetch();
+    await this.fetch();
   }
 
   fetch(): void {
@@ -218,12 +218,11 @@ export class CreateUpdateComponent implements OnInit {
         const categories = (response.data as Category[]).filter(
           (c) => c.isActive
         );
-        const cs = categories
-          .filter((c) => c.isPromotion)
-          .map((c) => {
-            return { value: c.id, label: c.name } as Select2Option;
-          });
-        this.categoryOption = cs;
+        const cs = categories.filter((c) => c.isPromotion);
+        const css = cs.map((c) => {
+          return { value: c.id, label: c.name } as Select2Option;
+        });
+        this.categoryOption = css;
         return;
       },
       (error) => {
@@ -237,9 +236,11 @@ export class CreateUpdateComponent implements OnInit {
     await this.partnerService.getList(params).subscribe(
       (response) => {
         const partners = (response.data as Partner[]).filter((c) => c.isActive);
-        this.shopOption = partners.map((c) => {
+        const p = partners.map((c) => {
           return { value: c.id, label: c.name } as Select2Option;
         });
+        console.log(p);
+        this.shopOption = p;
         return;
       },
       (error) => {
