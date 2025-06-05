@@ -1,7 +1,7 @@
 steps:
   # Build the container image
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-f', 'Dockerfile', '-t', 'asia.gcr.io/$PROJECT_ID/gsb-cms-web:develop', '--build-arg', 'API_BACKEND=http://gsb-api.ubakong.com', '--build-arg', 'OAUTH2_ISSUER=https://mfapwldev.gsb.or.th', '--build-arg', 'OAUTH2_CLIENT_ID=0oa1uk5axxcJJh8mB1d8', '--build-arg', 'OAUTH2_REDIRECT_URI=http://gsb-api.ubakong.com/cms/auth/callback', '.']
+    args: ['build', '-f', 'Dockerfile', '-t', 'asia.gcr.io/$PROJECT_ID/gsb-cms-web:develop', '--build-arg', 'API_BACKEND=http://gsb-api.ubakong.com', '--build-arg', 'OAUTH2_ISSUER=https://mfapwldev.gsb.or.th', '--build-arg', 'OAUTH2_CLIENT_ID=0oa1uk5axxcJJh8mB1d8', '--build-arg', 'OAUTH2_REDIRECT_URI=https://gsbmycardsit.gsb.or.th/cms/auth/callback', '.']
   # Push the container image to Container Registry
   - name: 'gcr.io/cloud-builders/docker'
     args: ['push', 'asia.gcr.io/$PROJECT_ID/gsb-cms-web:develop']
