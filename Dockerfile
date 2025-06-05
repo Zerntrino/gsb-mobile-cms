@@ -13,7 +13,7 @@ COPY . .
 ENV API_BACKEND=http://gsb-api.ubakong.com
 ENV OAUTH2_ISSUER=https://mfapwldev.gsb.or.th
 ENV OAUTH2_CLIENT_ID=0oa1uk5axxcJJh8mB1d8
-ENV OAUTH2_REDIRECT_URI=http://gsb-api.ubakong.com/cms/auth/callback
+ENV OAUTH2_REDIRECT_URI=https://gsb-api.ubakong.com/cms/auth/callback
 
 # RUN echo $API_BACKEND
 # RUN echo $OAUTH2_ISSUER
