@@ -2,7 +2,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { ApiResponse, BaseService, Paginate } from './base.service';
-import { User, CardReward, CardPomition } from '../models/user.model';
+import { User, CardReward, CardPomition, Admin } from '../models/user.model';
 // import { createDecipheriv, randomBytes, createHash } from 'crypto';
 // import { createHash, createDecipheriv } from 'crypto-browserify';
 // import crypto from 'crypto-browserify';
@@ -158,5 +158,29 @@ export class UserService extends BaseService {
       .toPromise();
 
     return u;
+  }
+
+  getList(params?: HttpParams): Observable<ApiResponse<Admin[]>> {
+    return this.http.get<ApiResponse<Admin[]>>(`/api/cms/user`, {
+      params: params,
+    });
+  }
+  getListTotal(params?: HttpParams): Observable<ApiResponse<Paginate>> {
+    return this.http.get<ApiResponse<Paginate>>(`/api/cms/user/totalpage`, {
+      params: params,
+    });
+  }
+
+  get(id: string): Observable<ApiResponse<Admin>> {
+    return this.http.get<ApiResponse<Admin>>(`/api/cms/user/${id}`, {});
+  }
+  remove(id: string): Observable<ApiResponse<Admin>> {
+    return this.http.delete<ApiResponse<Admin>>(`/api/cms/user/${id}`, {});
+  }
+  create(object: object): Observable<ApiResponse<Admin>> {
+    return this.http.post<ApiResponse<Admin>>(`/api/cms/user`, object);
+  }
+  update(id: number, object: object): Observable<ApiResponse<Admin>> {
+    return this.http.put<ApiResponse<Admin>>(`/api/cms/user/${id}`, object);
   }
 }

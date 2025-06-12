@@ -1,0 +1,148 @@
+<div class="flex flex-col h-full">
+  <div class="flex items-center my-2 space-x-4">
+    <app-nav title="จัดการผู้ใช้งาน" class="flex-1"></app-nav>
+
+    <a (click)="createClick()"
+      ><button class="button">เพิ่มผู้ใช้งาน</button></a
+    >
+  </div>
+
+  <div class="flex-1 mx-w my-2 bg-white">
+    <div class="py-4 px-6 flex">
+      <div class="flex-1 flex relative">
+        <img
+          src="assets/icons/search.svg"
+          class="mx-auto w-6 absolute top-2 left-2"
+          alt=""
+        />
+        <input
+          class="input max-w-lg pl-10"
+          [(ngModel)]="q"
+          placeholder="ค้นหา: ผุ้ใช้งาน"
+          (ngModelChange)="qChange()"
+        />
+      </div>
+      <div class="flex-1"></div>
+      <div class="flex items-center space-x-2">
+        <div>ตำแหน่ง</div>
+        <select2
+          class="flex w-44"
+          [value]="position"
+          (update)="positionChange($event)"
+          [data]="positionOption"
+          placeholder="ตำแหน่ง : ทั้งหมด"
+        ></select2>
+      </div>
+      <div class="flex items-center space-x-2">
+        <div>สถานะ</div>
+        <select2
+          class="flex w-44"
+          [value]="status"
+          (update)="statusChange($event)"
+          [data]="statusOption"
+          placeholder="สถานะ : ทั้งหมด"
+        ></select2>
+      </div>
+    </div>
+
+    <div class="px-6 table w-full">
+      <div class="table-header-group">
+        <div class="table-row">
+          <div class="table-cell">#</div>
+          <div class="table-cell text-center">อีเมล</div>
+          <div class="table-cell">ชื่อผู้ใช้งาน</div>
+          <div class="table-cell text-center">Role</div>
+          <div class="table-cell">วันที่สร้าง</div>
+          <div class="table-cell">สถานะ</div>
+          <div class="table-cell w-8">&nbsp;</div>
+        </div>
+      </div>
+      <div class="table-row-group">
+        <div class="table-row" *ngFor="let item of list; let i = index">
+          <div class="table-cell">{{ (page - 1) * pageSize + i + 1 }}</div>
+          <div class="table-cell">{{ item.email }}</div>
+          <div class="table-cell">{{ item.userName }}</div>
+          <div class="table-cell capitalize">{{ item.position }}</div>
+          <div class="table-cell text-center">
+            {{ dateFormat(item.createdDate) }}
+          </div>
+          <div class="table-cell">
+            <div class="flex space-x-2 items-center">
+              <div
+                class="w-2 h-2 rounded-full"
+                [ngClass]="{
+                  'bg-green-500': item.isActive,
+                  'bg-gray-500': !item.isActive
+                }"
+              ></div>
+              <div>{{ item.isActive ? "แสดงผล" : "ไม่แสดงผล" }}</div>
+            </div>
+          </div>
+          <div class="table-cell text-center w-8">
+            <app-dropdown>
+              <div button>
+                <img src="assets/icons/option.svg" class="w-1 mx-auto" alt="" />
+              </div>
+              <div dropdown>
+                <a
+                  class="flex px-4 py-2"
+                  (click)="showDetailClick(item, false)"
+                >
+                  <div class="flex-1 cursor-pointer">ดูรายละเอียด</div>
+                  <img src="assets/icons/view.svg" class="w-6" alt="" />
+                </a>
+                <a
+                  class="flex px-4 py-2 cursor-pointer"
+                  (click)="showDetailClick(item, true)"
+                >
+                  <div class="flex-1">แก้ไขข้อมูล</div>
+                  <img src="assets/icons/edit.svg" class="w-6" alt="" />
+                </a>
+                <a
+                  class="flex px-4 py-2 cursor-pointer"
+                  (click)="deleteClick(item.id, item.isActive)"
+                >
+                  <div class="flex-1">ลบข้อมูล</div>
+                  <img src="assets/icons/remove.svg" class="w-6" alt="" />
+                </a>
+              </div>
+            </app-dropdown>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="text-center font-semibold py-6" *ngIf="q && !list.length">
+      ไม่พบข้อมูลรายการที่ค้นหา
+    </div>
+
+    <app-pagination
+      [page]="page"
+      [totalPage]="totalPage"
+      (pageSizeChange)="pageSizeChange($event)"
+      (pageChange)="pageChange($event)"
+    ></app-pagination>
+  </div>
+
+  <app-confirm
+    [(show)]="deleteId"
+    (confirm)="deleteConfirm(deleteId)"
+    description="คุณแน่ใจที่จะ<span class='text-primary underline'>ลบ</span>ข้อมูล<br/> ใช่หรือไม่ ?"
+  ></app-confirm>
+
+  <app-alert [(show)]="alertDeleteId">
+    <div class="text-center">
+      ข้อมูลของคุณกำลัง
+      <span class="text-primary">“Activate”</span> อยู่ในขณะนี้ <br />
+      กรุณาทำการ <span class="text-primary">“Inactivate”</span> ข้อมูล<br />
+      ก่อนที่จะลบรายการนี้
+    </div>
+  </app-alert>
+
+  <create-udpate-admin-management-dialog
+    [showDetail]="showDetail"
+    [detail]="detail"
+    (success)="showDetailSuccess()"
+    [mode]="showDetailMode"
+  ></create-udpate-admin-management-dialog>
+</div>

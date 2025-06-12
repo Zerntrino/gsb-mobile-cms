@@ -118,6 +118,12 @@ export class LayoutComponent implements OnDestroy, OnInit {
             to: '/parameter',
             active: this.url?.startsWith('/parameter'),
           } as LeftMenu,
+          {
+            title: 'จัดการผู้ใช้งาน',
+            icon: 'assets/icons/menus/user-menu.svg',
+            to: '/admin-management',
+            active: this.url?.startsWith('/admin-management'),
+          } as LeftMenu,
         ],
       } as LeftMenu,
       {

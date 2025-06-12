@@ -54,3 +54,12 @@ export interface CardPomition {
   promotionType: string;
   regisDate: string;
 }
+
+export interface Admin {
+  createdDate: string;
+  email: string;
+  id: number;
+  isActive: boolean;
+  position: string;
+  userName: string;
+}

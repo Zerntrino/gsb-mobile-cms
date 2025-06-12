@@ -23,6 +23,7 @@ import { TagComponent } from './components/tag/tag.component';
 import { ConfirmComponent } from './components/confirm/confirm.component';
 import { AlertComponent } from './components/alert/alert.component';
 import { CreateUpdateCategoryDialogComponent } from '../categoryManagement/dialogs/create-update-dialog/create-update-dialog.component';
+import { CreateUpdateadminDialogComponent } from '../adminManagement/dialogs/create-update-dialog/create-update-dialog.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { CreateUpdateCategoryDialogComponent } from '../categoryManagement/dialo
     AlertComponent,
     LoadingComponent,
     CreateUpdateCategoryDialogComponent,
+    CreateUpdateadminDialogComponent,
   ],
   imports: [
     CommonModule,
@@ -73,6 +75,7 @@ import { CreateUpdateCategoryDialogComponent } from '../categoryManagement/dialo
     AlertComponent,
     LoadingComponent,
     CreateUpdateCategoryDialogComponent,
+    CreateUpdateadminDialogComponent,
     AngularEditorModule,
   ],
 })

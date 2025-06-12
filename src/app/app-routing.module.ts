@@ -208,6 +208,21 @@ export const routes: Routes = [
     ],
   },
   {
+    path: 'admin-management',
+    component: LayoutComponent,
+    canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        loadChildren: () =>
+          import('./modules/adminManagement/admin-management.module').then(
+            (m) => m.AdminManagementModule
+          ),
+        data: { title: 'Admin' },
+      },
+    ],
+  },
+  {
     path: 'audit-log',
     component: LayoutComponent,
     canActivate: [AuthGuard],

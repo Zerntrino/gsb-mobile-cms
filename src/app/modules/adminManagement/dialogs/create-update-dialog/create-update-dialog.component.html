@@ -1,0 +1,119 @@
+<div class="">
+  <!-- modal -->
+  <div class="relative z-10 transition-all" [hidden]="showDetail == -1">
+    <div
+      class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity"
+    ></div>
+
+    <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
+      <div class="flex min-h-full items-center justify-center p-4">
+        <div class="w-full max-w-lg bg-white rounded-md overflow-hidden">
+          <div class="flex items-center mt-4 mb-2 border-b border-gray-100">
+            <div class="flex-1 py-2 px-6 font-semibold">
+              {{
+                showDetail == 0
+                  ? "เพิ่มผู้ใช้งาน"
+                  : mode == "view"
+                  ? "ผู้ใช้งาน"
+                  : "ผู้ใช้งาน"
+              }}
+            </div>
+            <div class="flex items-center space-x-2 text-sm px-4">
+              <div>สถานะ</div>
+              <app-toggle
+                [value]="createUpdateForm.get('isActive')?.value || false"
+                (valueUpdate)="
+                  createUpdateForm.get('isActive')?.setValue($event)
+                "
+                [disabled]="mode == 'view'"
+              ></app-toggle>
+              <div>
+                {{
+                  createUpdateForm.get("isActive")?.value
+                    ? "แสดงผล"
+                    : "ไม่แสดงผล"
+                }}
+              </div>
+            </div>
+          </div>
+
+          <form
+            [formGroup]="createUpdateForm"
+            (submit)="sf.form.valid && onCreateUpdateSubmit()"
+            #sf="ngForm"
+            class="flex flex-col h-full"
+          >
+            <div class="px-6 py-4">
+              <div class="relative">
+                <div class="text-sm">อีเมล</div>
+                <input
+                  class="input"
+                  name="email"
+                  formControlName="email"
+                  required
+                  placeholder="อีเมล"
+                  [disabled]="mode == 'view'"
+                />
+              </div>
+
+              <div class="my-4">
+                <div class="text-sm">ชื่อผู้ใช้งาน</div>
+                <input
+                  class="input"
+                  name="userName"
+                  formControlName="userName"
+                  required
+                  placeholder="ชื่อผู้ใช้งาน"
+                  [disabled]="mode == 'view'"
+                />
+              </div>
+
+              <div class="my-4">
+                <div class="text-sm">สถานะ</div>
+
+                <select2
+                  class="flex w-full"
+                  [value]="createUpdateForm.get('position')?.value || 0"
+                  (update)="positionChange($event)"
+                  [data]="positionOption"
+                  placeholder="เลือกตำแหน่ง"
+                  [disabled]="mode == 'view'"
+                ></select2>
+
+                {{ createUpdateForm.get("posion") }}
+              </div>
+            </div>
+
+            <div
+              class="px-4 py-4 flex justify-end space-x-4 border-t border-gray-100"
+            >
+              <button
+                class="button-default-border"
+                type="button"
+                (click)="cancelClick()"
+              >
+                ยกเลิก
+              </button>
+              <button
+                *ngIf="mode == 'view'"
+                class="button-dark w-auto px-6"
+                type="button"
+                (click)="edit()"
+              >
+                แก้ไข
+              </button>
+              <button
+                *ngIf="mode == 'edit'"
+                class="button w-auto px-6"
+                type="submit"
+                [disabled]="!createUpdateForm.valid"
+              >
+                {{ showDetail == 0 ? "เพิ่มผู้ใช้งาน" : "แก้ไขผู้ใช้งาน" }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
