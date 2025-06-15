@@ -34,17 +34,15 @@ export class CreateUpdateadminDialogComponent implements OnInit {
   @Input() mode = 'edit';
 
   createUpdateForm = new FormGroup({
-    userName: new FormControl(''),
     email: new FormControl(''),
-    position: new FormControl(''),
+    role: new FormControl(0),
     isActive: new FormControl(true),
-    // password: new FormControl(''),
   });
 
-  positionOption: Select2Option[] = [
-    { value: 'admin', label: 'Admin' },
-    { value: 'editor', label: 'Editor' },
-    { value: 'view', label: 'View' },
+  roleOption: Select2Option[] = [
+    { value: 1, label: 'Admin' },
+    { value: 2, label: 'Editor' },
+    { value: 3, label: 'View' },
   ];
 
   constructor(
@@ -63,11 +61,9 @@ export class CreateUpdateadminDialogComponent implements OnInit {
 
     if (this.detail) {
       this.createUpdateForm.setValue({
-        userName: this.detail.userName,
         email: this.detail.email,
-        position: this.detail.position,
+        role: this.detail.role,
         isActive: this.detail.isActive,
-        // password: this.detail.password,
       });
     }
   }
@@ -79,17 +75,16 @@ export class CreateUpdateadminDialogComponent implements OnInit {
   }
   showDetailClick(item: Admin) {
     this.createUpdateForm.setValue({
-      userName: item.userName,
       email: item.email,
-      position: item.position,
+      role: item.role,
       isActive: item.isActive,
     });
     this.showDetail = item.id || 0;
   }
 
-  positionChange(e: Select2UpdateEvent): void {
-    if (this.createUpdateForm.get('position')?.value != e.value && e.value) {
-      this.createUpdateForm.get('position')?.setValue(e.value as string);
+  roleChange(e: Select2UpdateEvent): void {
+    if (this.createUpdateForm.get('role')?.value != e.value && e.value) {
+      this.createUpdateForm.get('role')?.setValue(e.value as number);
     }
   }
 
@@ -100,7 +95,9 @@ export class CreateUpdateadminDialogComponent implements OnInit {
         .subscribe(
           (response) => {
             this.toastService.add('success', 'ทำรายการสำเร็จ');
-            this.fetch();
+            setTimeout(() => {
+              this.fetch();
+            }, 500);
           },
           (error) => {
             console.log(error);
@@ -113,7 +110,9 @@ export class CreateUpdateadminDialogComponent implements OnInit {
         .subscribe(
           (response) => {
             this.toastService.add('success', 'ทำรายการสำเร็จ');
-            this.fetch();
+            setTimeout(() => {
+              this.fetch();
+            }, 500);
           },
           (error) => {
             console.log(error);

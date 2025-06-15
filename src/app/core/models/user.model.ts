@@ -60,6 +60,5 @@ export interface Admin {
   email: string;
   id: number;
   isActive: boolean;
-  position: string;
-  userName: string;
+  role: number;
 }
