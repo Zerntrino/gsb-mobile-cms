@@ -26,7 +26,8 @@ export class LayoutComponent implements OnDestroy, OnInit {
     this.appUser = undefined;
     this.authService.appUser$.subscribe((appUser) => (this.appUser = appUser));
 
-    this.url = router.url;
+    const role = authService.getRole();
+
     this.leftMenus = [
       {
         title: 'เมนู',
@@ -144,6 +145,19 @@ export class LayoutComponent implements OnDestroy, OnInit {
         ],
       } as LeftMenu,
     ];
+
+    this.url = router.url;
+    if (role == 1) {
+      // Admin
+    } else if (role == 2) {
+      // Editor
+      this.leftMenus[3].items = this.leftMenus[3].items.slice(0, 3);
+    } else if (role == 3) {
+      // View
+      this.leftMenus[3].items = this.leftMenus[3].items.slice(0, 3);
+    } else {
+      this.leftMenus = [];
+    }
   }
 
   toggleLeftMenu(): void {

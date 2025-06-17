@@ -13,6 +13,7 @@ import { InstallmentPlan, Plan } from 'src/app/core/models/parameter.model';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Location } from '@angular/common';
 import { RouteHistoryService } from 'src/app/core/services/history';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-installment-plan-list',
@@ -20,6 +21,8 @@ import { RouteHistoryService } from 'src/app/core/services/history';
   styleUrls: ['./list.component.css'],
 })
 export class InstallmentPlanListComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
+
   navItems = [
     { title: 'จัดการการผ่อนชำระ', to: '/parameter' },
     { title: 'Installment Plan', to: '' },
@@ -79,7 +82,8 @@ export class InstallmentPlanListComponent implements OnInit {
     private parameterService: ParameterService,
     private toastService: ToastService,
     private _location: Location,
-    private routeHistory: RouteHistoryService
+    private routeHistory: RouteHistoryService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {

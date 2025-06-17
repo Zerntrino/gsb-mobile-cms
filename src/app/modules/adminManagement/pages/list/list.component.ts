@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
 import { RouteHistoryService } from 'src/app/core/services/history';
 import { UserService } from 'src/app/core/services/user.service';
 import { Admin } from 'src/app/core/models/user.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-partner-management-list',
@@ -21,6 +22,8 @@ import { Admin } from 'src/app/core/models/user.model';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
+
   q = '';
   status: Select2Value = '';
   statusOption: Select2Option[] = [
@@ -31,9 +34,9 @@ export class ListComponent implements OnInit {
   position: Select2Value = '';
   positionOption: Select2Option[] = [
     { value: '', label: 'ทั้งหมด' },
-    { value: 'admin', label: 'Admin' },
-    { value: 'editor', label: 'Editor' },
-    { value: 'view', label: 'View' },
+    { value: 1, label: 'Admin' },
+    { value: 2, label: 'Editor' },
+    { value: 3, label: 'View' },
   ];
   list: Admin[] = [];
   page = 1;
@@ -53,7 +56,8 @@ export class ListComponent implements OnInit {
     private userService: UserService,
     private toastService: ToastService,
     private _location: Location,
-    private routeHistory: RouteHistoryService
+    private routeHistory: RouteHistoryService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {

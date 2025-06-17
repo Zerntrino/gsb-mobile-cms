@@ -11,6 +11,7 @@ export interface AppUserToken {
   id: number;
   name: string;
   imageUrl: string;
+  role: string;
 }
 
 export enum UserPermission {

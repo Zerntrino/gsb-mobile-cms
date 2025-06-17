@@ -58,6 +58,10 @@ export class AuthService extends BaseService implements OnDestroy {
     return localStorage.getItem('token');
   }
 
+  getRole(): number | null {
+    return 3; //parseInt(localStorage.getItem('role') || '');
+  }
+
   ngOnDestroy(): void {
     window.removeEventListener('storage', this.storageEventListener.bind(this));
   }
@@ -106,6 +110,7 @@ export class AuthService extends BaseService implements OnDestroy {
     this.appUser.next(token);
     this.setUserStorage(token);
     this.setTokenStorage(token.token);
+    localStorage.setItem('role', token.role);
     // this.startTokenTimer();
     localStorage.setItem('login-event', 'login' + Math.random());
   }

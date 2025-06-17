@@ -87,6 +87,7 @@
                   <img src="assets/icons/view.svg" class="w-6" alt="" />
                 </a>
                 <a
+                  *ngIf="roleEditable"
                   [routerLink]="'/ad-management/' + item.id"
                   class="flex px-4 py-2"
                 >
@@ -94,6 +95,7 @@
                   <img src="assets/icons/edit.svg" class="w-6" alt="" />
                 </a>
                 <a
+                  *ngIf="roleEditable"
                   class="flex px-4 py-2 cursor-pointer"
                   (click)="deleteClick(item.id, item.isActive)"
                 >

@@ -13,6 +13,7 @@ import { Installment } from 'src/app/core/models/parameter.model';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Location } from '@angular/common';
 import { RouteHistoryService } from 'src/app/core/services/history';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-reward-history-list',
@@ -20,6 +21,8 @@ import { RouteHistoryService } from 'src/app/core/services/history';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
+
   q = '';
   status: Select2Value = '';
   statusOption: Select2Option[] = [
@@ -41,7 +44,8 @@ export class ListComponent implements OnInit {
     private parameterService: ParameterService,
     private toastService: ToastService,
     private _location: Location,
-    private routeHistory: RouteHistoryService
+    private routeHistory: RouteHistoryService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {

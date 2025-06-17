@@ -11,6 +11,7 @@ import { AdService } from 'src/app/core/services/ad.service';
 import dayjs from 'dayjs';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Location } from '@angular/common';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-ad-management-list',
@@ -18,6 +19,8 @@ import { Location } from '@angular/common';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
+
   q = '';
   status: Select2Value = '';
   statusOption: Select2Option[] = [
@@ -37,7 +40,8 @@ export class ListComponent implements OnInit {
     private router: Router,
     private adService: AdService,
     private toastService: ToastService,
-    private _location: Location
+    private _location: Location,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {

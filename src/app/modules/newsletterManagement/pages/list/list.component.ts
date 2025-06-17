@@ -14,6 +14,7 @@ import { NewsLetterService } from 'src/app/core/services/newsletter.service';
 import { NewsLetter } from 'src/app/core/models/newsletter.model';
 import { Location } from '@angular/common';
 import { RouteHistoryService } from 'src/app/core/services/history';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-banner-management-list',
@@ -21,6 +22,8 @@ import { RouteHistoryService } from 'src/app/core/services/history';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
+
   q = '';
   date = ['', ''];
   list: NewsLetter[] = [];
@@ -41,7 +44,8 @@ export class ListComponent implements OnInit {
     private newsletterService: NewsLetterService,
     private toastService: ToastService,
     private _location: Location,
-    private routeHistory: RouteHistoryService
+    private routeHistory: RouteHistoryService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
