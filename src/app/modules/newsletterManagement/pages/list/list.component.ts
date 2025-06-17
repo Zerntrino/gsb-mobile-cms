@@ -30,8 +30,8 @@ export class ListComponent implements OnInit {
   status: Select2Value = '';
   statusOption: Select2Option[] = [
     { value: '', label: 'ทั้งหมด' },
-    { value: 'true', label: 'แสดงผล' },
-    { value: 'false', label: 'ไม่แสดงผล' },
+    { value: '2', label: 'รอส่ง' },
+    { value: '1', label: 'ส่งสำเร็จ' },
   ];
 
   deleteId = 0;
@@ -71,7 +71,8 @@ export class ListComponent implements OnInit {
         .append('startDate', dayjs(this.date[0]).format('YYYY-MM-DDT00:00:00'))
         .append('endDate', dayjs(this.date[1]).format('YYYY-MM-DDT00:00:00'));
     }
-    if (this.status) params = params.append('status', this.status as string);
+    if (this.status)
+      params = params.append('sendNotificationStatus', this.status as string);
 
     this.newsletterService.getList(params).subscribe(
       (response) => {
