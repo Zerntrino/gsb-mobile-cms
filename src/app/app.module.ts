@@ -32,7 +32,7 @@ const oktaAuth = new OktaAuth({
   redirectUri:
     environment.OAUTH2_REDIRECT_URI ||
     'https://gsbmycardsit.gsb.or.th/cms/auth/callback', //window.location.origin + '/cms/auth/callback',
-  scopes: ['openid', 'profile', 'offline_access'],
+  scopes: ['openid', 'profile'],
   responseType: 'code',
 });
 
