@@ -1,0 +1,31 @@
+import { Component, OnInit, inject } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/core/services/auth.service';
+import { ToastService } from 'src/app/core/services/toast.service';
+
+import { OktaAuthStateService, OKTA_AUTH } from '@okta/okta-angular';
+import { AuthState } from '@okta/okta-auth-js';
+
+@Component({
+  selector: 'app-token',
+  templateUrl: './token.component.html',
+  styleUrls: ['./token.component.scss'],
+})
+export class TokenComponent implements OnInit {
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private toastService: ToastService
+  ) {}
+
+  page = 'callback';
+  private oktaAuth = inject(OKTA_AUTH);
+
+  error = '';
+
+  async ngOnInit() {
+    const accessToken = await this.oktaAuth.getAccessToken();
+    console.log(accessToken);
+  }
+}

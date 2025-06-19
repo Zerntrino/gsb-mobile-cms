@@ -1,0 +1,21 @@
+<div class="h-screen w-full auth-bg flex items-center justify-center">
+  <div class="w-full max-w-md bg-white rounded-xl py-4 px-8 shadow-lg mx-4">
+    <div>
+      <div class="flex justify-center my-6">
+        <img src="assets/images/logo_gsb.png" class="mx-auto w-56" alt="" />
+      </div>
+      <div class="text-xl font-semibold text-center my-4">
+        <span>เข้าสู่ระบบ CMS </span>
+        <span class="text-primary font-bold">My Card by GSB</span>
+      </div>
+
+      <h4 *ngIf="error" class="my-8 text-red-500">
+        {{ error }}
+      </h4>
+
+      <div class="w-full justify-center items-center flex my-4">
+        <a class="mb-6 button w-full" routerLink=""> กลับหน้าหลัก </a>
+      </div>
+    </div>
+  </div>
+</div>

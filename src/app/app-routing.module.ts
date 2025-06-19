@@ -4,12 +4,17 @@ import { LayoutComponent } from './modules/shared/pages/layout/layout.component'
 import { NgModule } from '@angular/core';
 import { AuthGuard } from './core/guards/auth.guard';
 import { APP_BASE_HREF } from '@angular/common';
+import { OktaAuthGuard, OktaCallbackComponent } from '@okta/okta-angular';
 
 export const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () =>
       import('./modules/auth/auth.module').then((m) => m.AuthModule),
+  },
+  {
+    path: 'auth/callback',
+    component: OktaCallbackComponent,
   },
   {
     path: '',

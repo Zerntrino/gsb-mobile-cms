@@ -59,6 +59,6 @@ export class LoginComponent implements OnInit {
   }
 
   oktaLogin(): void {
-    this.oktaAuth.signInWithRedirect({}); // originalUri: this.authService.getRedirectUrl(),
+    this.oktaAuth.signInWithRedirect({ originalUri: '/auth/token' });
   }
 }
