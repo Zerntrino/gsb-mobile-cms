@@ -26,9 +26,18 @@ export class TokenComponent implements OnInit {
 
   async ngOnInit() {
     const accessToken = await this.oktaAuth.getAccessToken();
-    const idToken = await this.oktaAuth.getIdToken()
+    // const idToken = await this.oktaAuth.getIdToken()
     console.log(accessToken);
-    console.log(idToken)
-
+    // console.log(idToken)
+    if (accessToken) {
+      const res = await  this.authService.loginOkta(accessToken)
+      if (res instanceof Error) {
+        this.error = 'ไม่สามารถเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง'
+      } else {
+       this.router.navigate(['/'])
+      }
+    } else {
+       this.error = 'ไม่สามารถเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง'
+    }
   }
 }
