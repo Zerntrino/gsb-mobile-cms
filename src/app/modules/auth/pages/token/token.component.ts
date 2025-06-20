@@ -26,6 +26,9 @@ export class TokenComponent implements OnInit {
 
   async ngOnInit() {
     const accessToken = await this.oktaAuth.getAccessToken();
+    const idToken = await this.oktaAuth.getIdToken()
     console.log(accessToken);
+    console.log(idToken)
+
   }
 }
