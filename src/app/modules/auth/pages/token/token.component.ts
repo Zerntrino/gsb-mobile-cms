@@ -30,14 +30,17 @@ export class TokenComponent implements OnInit {
     console.log(accessToken);
     // console.log(idToken)
     if (accessToken) {
-      const res = await  this.authService.loginOkta(accessToken)
-      if (res instanceof Error) {
-        this.error = 'ไม่สามารถเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง'
-      } else {
-       this.router.navigate(['/'])
-      }
+      this.authService.loginOkta(accessToken).subscribe(
+        (response) => {
+          this.router.navigate(['/']);
+        },
+        (error) => {
+          console.log(error);
+          this.error = 'ไม่สามารถเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง';
+        }
+      );
     } else {
-       this.error = 'ไม่สามารถเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง'
+      this.error = 'ไม่สามารถเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง';
     }
   }
 }
