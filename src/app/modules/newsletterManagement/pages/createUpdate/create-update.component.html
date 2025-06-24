@@ -117,6 +117,7 @@
                 formControlName="sendNotificationTime"
                 placeholder="12:00"
                 [owlDateTimeFilter]="startDateFilter"
+                [min]="today"
               />
               <img
                 [owlDateTimeTrigger]="time"

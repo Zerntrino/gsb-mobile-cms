@@ -18,7 +18,7 @@
         <input
           class="input max-w-lg pl-10"
           [(ngModel)]="q"
-          placeholder="ค้นหา: ผุ้ใช้งาน"
+          placeholder="ค้นหา: ผู้ใช้งาน"
           (ngModelChange)="qChange()"
         />
       </div>
@@ -50,7 +50,7 @@
         <div class="table-row">
           <div class="table-cell">#</div>
           <div class="table-cell text-center">อีเมล</div>
-          <div class="table-cell">ชื่อผู้ใช้งาน</div>
+
           <div class="table-cell text-center">Role</div>
           <div class="table-cell">วันที่สร้าง</div>
           <div class="table-cell">สถานะ</div>
@@ -64,7 +64,7 @@
 
           <div class="table-cell capitalize">
             {{
-              item.role == 1 ? "Admin" : item.role == 2 ? "editer" : "Viewer"
+              item.role == 1 ? "Admin" : item.role == 2 ? "Editor" : "Viewer"
             }}
           </div>
           <div class="table-cell text-center">

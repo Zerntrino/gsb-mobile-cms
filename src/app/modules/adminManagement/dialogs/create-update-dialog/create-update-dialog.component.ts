@@ -94,8 +94,8 @@ export class CreateUpdateadminDialogComponent implements OnInit {
         .create(this.createUpdateForm.getRawValue())
         .subscribe(
           (response) => {
-            this.toastService.add('success', 'ทำรายการสำเร็จ');
             setTimeout(() => {
+              this.toastService.add('success', 'ทำรายการสำเร็จ');
               this.fetch();
             }, 500);
           },
@@ -109,8 +109,8 @@ export class CreateUpdateadminDialogComponent implements OnInit {
         .update(this.showDetail, this.createUpdateForm.getRawValue())
         .subscribe(
           (response) => {
-            this.toastService.add('success', 'ทำรายการสำเร็จ');
             setTimeout(() => {
+              this.toastService.add('success', 'ทำรายการสำเร็จ');
               this.fetch();
             }, 500);
           },

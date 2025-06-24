@@ -36,7 +36,7 @@ export class ListComponent implements OnInit {
     { value: '', label: 'ทั้งหมด' },
     { value: 1, label: 'Admin' },
     { value: 2, label: 'Editor' },
-    { value: 3, label: 'View' },
+    { value: 3, label: 'Viewer' },
   ];
   list: Admin[] = [];
   page = 1;
@@ -82,8 +82,7 @@ export class ListComponent implements OnInit {
       .append('pageSize', this.pageSize);
     if (this.q) params = params.append('find', this.q);
     if (this.status) params = params.append('status', this.status as string);
-    if (this.position)
-      params = params.append('position', this.position as string);
+    if (this.position) params = params.append('role', this.position as string);
 
     this.userService.getList(params).subscribe(
       (response) => {
@@ -177,7 +176,9 @@ export class ListComponent implements OnInit {
     this.showDetail = 0;
   }
   showDetailSuccess() {
-    this.fetch();
-    this.showDetail = -1;
+    setTimeout(() => {
+      this.fetch();
+      this.showDetail = -1;
+    }, 500);
   }
 }
