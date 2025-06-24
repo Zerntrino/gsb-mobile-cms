@@ -22,7 +22,7 @@ export class TokenComponent implements OnInit {
   page = 'callback';
   private oktaAuth = inject(OKTA_AUTH);
 
-  error = '';
+  isError = false;
 
   async ngOnInit() {
     const accessToken = await this.oktaAuth.getAccessToken();
@@ -36,11 +36,11 @@ export class TokenComponent implements OnInit {
         },
         (error) => {
           console.log(error);
-          this.error = 'ไม่สามารถเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง';
+          this.isError = true;
         }
       );
     } else {
-      this.error = 'ไม่สามารถเข้าสู่ระบบ กรุณาลองใหม่อีกครั้ง';
+      this.isError = true;
     }
   }
 }
