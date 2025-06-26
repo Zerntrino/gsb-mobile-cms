@@ -33,7 +33,7 @@ export class ListComponent implements OnInit {
   ];
   position: Select2Value = '';
   positionOption: Select2Option[] = [
-    { value: '', label: 'ทั้งหมด' },
+    { value: 0, label: 'ทั้งหมด' },
     { value: 1, label: 'Admin' },
     { value: 2, label: 'Editor' },
     { value: 3, label: 'Viewer' },
@@ -113,7 +113,7 @@ export class ListComponent implements OnInit {
     }
   }
   positionChange(e: Select2UpdateEvent): void {
-    if (this.status != e.value && e.value != undefined) {
+    if (this.position != e.value && e.value != undefined) {
       this.position = e.value;
       this.page = 1;
       this.redirect();
