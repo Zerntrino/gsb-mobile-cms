@@ -27,6 +27,9 @@ export class LayoutComponent implements OnDestroy, OnInit {
     this.authService.appUser$.subscribe((appUser) => (this.appUser = appUser));
 
     const role = authService.getRole();
+    this.url = router.url;
+    console.log('Current URL:', this.url);
+    console.log(this.url?.startsWith('/admin-management'));
 
     this.leftMenus = [
       {
@@ -146,7 +149,6 @@ export class LayoutComponent implements OnDestroy, OnInit {
       // } as LeftMenu,
     ];
 
-    this.url = router.url;
     if (role == 1) {
       // Admin
     } else if (role == 2) {
