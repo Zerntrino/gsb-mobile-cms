@@ -50,7 +50,7 @@ export class HighlightComponent implements OnInit {
     );
   }
   async fetchAll() {
-    let params = new HttpParams().append('page', 1).append('pageSize', 20);
+    let params = new HttpParams().append('page', 1).append('pageSize', 100000);
     if (this.q) params = params.append('find', this.q);
     await this.bannerService.getList(params).subscribe(
       (response) => {
