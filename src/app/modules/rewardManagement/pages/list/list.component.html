@@ -4,7 +4,7 @@
     <a routerLink="/reward-management/highlight"
       ><button class="button-dark">จัดการไฮไลท์รีวอร์ด</button></a
     >
-    <a routerLink="/reward-management/create"
+    <a *ngIf="roleEditable" routerLink="/reward-management/create"
       ><button class="button">สร้างรีวอร์ด</button></a
     >
   </div>

@@ -15,6 +15,7 @@ import { RewardService } from 'src/app/core/services/reward.service';
 import { CardService } from 'src/app/core/services/card.service';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Card } from 'src/app/core/models/card.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-reward-management-highlight',
@@ -22,6 +23,7 @@ import { Card } from 'src/app/core/models/card.model';
   styleUrls: ['./highlight.component.css'],
 })
 export class HighlightComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
   navItems = [
     {
       title: 'จัดการรีวอร์ด/เลือกไฮไลท์ : รีวอร์ด',
@@ -58,7 +60,8 @@ export class HighlightComponent implements OnInit {
     private router: Router,
     private rewardService: RewardService,
     private cardService: CardService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private authService: AuthService
   ) {}
 
   async ngOnInit() {

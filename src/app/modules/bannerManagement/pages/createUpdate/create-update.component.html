@@ -160,7 +160,7 @@
         </button></a
       >
       <button
-        *ngIf="mode == 'view'"
+        *ngIf="mode == 'view' && roleEditable"
         class="button-dark w-auto px-6"
         type="button"
         (click)="edit()"

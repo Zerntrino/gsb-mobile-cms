@@ -179,6 +179,7 @@
         ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
       >
       <button
+        *ngIf="roleEditable"
         type="submit"
         [disabled]="!submitForm.valid"
         class="button w-auto px-6"

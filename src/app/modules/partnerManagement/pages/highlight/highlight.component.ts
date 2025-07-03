@@ -11,6 +11,7 @@ import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Partner } from 'src/app/core/models/partner.model';
 import { PartnerService } from 'src/app/core/services/partner.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-partner-management-highlight',
@@ -18,6 +19,7 @@ import { PartnerService } from 'src/app/core/services/partner.service';
   styleUrls: ['./highlight.component.css'],
 })
 export class HighlightComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
   navItems = [
     { title: 'จัดการพาร์ทเนอร์', to: '/partner-management' },
     { title: 'เลือกไฮไลท์ : พาร์ทเนอร์', to: '' },
@@ -31,7 +33,8 @@ export class HighlightComponent implements OnInit {
   constructor(
     private router: Router,
     private partnerService: PartnerService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private authService: AuthService
   ) {}
 
   async ngOnInit() {

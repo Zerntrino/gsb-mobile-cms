@@ -15,6 +15,7 @@ import { Card } from 'src/app/core/models/card.model';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Category } from 'src/app/core/models/category.model';
 import { CategoryService } from 'src/app/core/services/category.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-promotion-management-highlight',
@@ -22,6 +23,7 @@ import { CategoryService } from 'src/app/core/services/category.service';
   styleUrls: ['./highlight.component.css'],
 })
 export class HighlightComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
   navItems = [
     { title: 'จัดการโปรโมชัน', to: '/promotion-management' },
     { title: 'เลือกไฮไลท์ : โปรโมชัน', to: '' },
@@ -45,7 +47,8 @@ export class HighlightComponent implements OnInit {
     private promotionService: PromotionService,
     private cardService: CardService,
     private categoryService: CategoryService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private authService: AuthService
   ) {}
 
   async ngOnInit() {

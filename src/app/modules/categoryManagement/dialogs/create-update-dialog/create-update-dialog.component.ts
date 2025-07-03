@@ -18,6 +18,7 @@ import { CategoryService } from 'src/app/core/services/category.service';
 import { Category } from 'src/app/core/models/category.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'create-udpate-category-management-dialog',
@@ -25,6 +26,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
   styleUrls: ['./create-update-dialog.component.css'],
 })
 export class CreateUpdateCategoryDialogComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
   @Input() showDetail = -1;
   @Input() detail?: Category;
   @Output() success = new EventEmitter<number>();
@@ -47,7 +49,8 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
   constructor(
     private router: Router,
     private categoryService: CategoryService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {

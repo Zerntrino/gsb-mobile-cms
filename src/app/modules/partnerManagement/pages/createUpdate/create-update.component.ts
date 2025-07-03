@@ -16,6 +16,7 @@ import { Partner } from 'src/app/core/models/partner.model';
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { Location } from '@angular/common';
 import { RouteHistoryService } from 'src/app/core/services/history';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-partner-management-create-update',
@@ -23,6 +24,7 @@ import { RouteHistoryService } from 'src/app/core/services/history';
   styleUrls: ['./create-update.component.css'],
 })
 export class CreateUpdateComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
   id = 'create';
   navItems = [
     { title: 'จัดการพาร์ทเนอร์', to: '/partner-management' },
@@ -52,7 +54,8 @@ export class CreateUpdateComponent implements OnInit {
     private toastService: ToastService,
     private utilsService: UtilsService,
     private _location: Location,
-    private routeHistory: RouteHistoryService
+    private routeHistory: RouteHistoryService,
+    private authService: AuthService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
 

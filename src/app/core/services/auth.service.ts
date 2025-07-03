@@ -83,13 +83,15 @@ export class AuthService extends BaseService implements OnDestroy {
   }
   loginOkta(token: string): Observable<Response<AppUserToken>> {
     return this.http
-      .post<Response<AppUserToken>>(`/api/authen/okta/callback`, {
-        
-      }, {
-        headers: {
-          Authorization: `Bearer ${token}`
+      .post<Response<AppUserToken>>(
+        `/api/authen/okta/callback`,
+        {},
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
-      })
+      )
       .pipe(
         map((response) => {
           if (response.data.token) {

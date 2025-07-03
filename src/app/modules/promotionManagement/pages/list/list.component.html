@@ -4,7 +4,7 @@
     <a routerLink="/promotion-management/highlight"
       ><button class="button-dark">จัดการไฮไลท์โปรโมชัน</button></a
     >
-    <a routerLink="/promotion-management/create"
+    <a *ngIf="roleEditable" routerLink="/promotion-management/create"
       ><button class="button">สร้างโปรโมชัน</button></a
     >
   </div>

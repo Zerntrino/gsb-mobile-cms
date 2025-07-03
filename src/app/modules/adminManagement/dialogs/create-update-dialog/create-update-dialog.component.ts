@@ -20,6 +20,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { Admin } from 'src/app/core/models/user.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'create-udpate-admin-management-dialog',
@@ -27,6 +28,7 @@ import { Admin } from 'src/app/core/models/user.model';
   styleUrls: ['./create-update-dialog.component.css'],
 })
 export class CreateUpdateadminDialogComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
   @Input() showDetail = -1;
   @Input() detail?: Admin;
   @Output() success = new EventEmitter<number>();
@@ -48,7 +50,8 @@ export class CreateUpdateadminDialogComponent implements OnInit {
   constructor(
     private router: Router,
     private userService: UserService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {

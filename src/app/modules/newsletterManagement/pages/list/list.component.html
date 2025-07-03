@@ -2,7 +2,7 @@
   <div class="flex items-center my-2 space-x-4">
     <app-nav title="จัดการการแจ้งเตือน" class="flex-1"></app-nav>
 
-    <a routerLink="/newsletter-management/create"
+    <a *ngIf="roleEditable" routerLink="/newsletter-management/create"
       ><button class="button">สร้างการแจ้งเตือน</button></a
     >
   </div>

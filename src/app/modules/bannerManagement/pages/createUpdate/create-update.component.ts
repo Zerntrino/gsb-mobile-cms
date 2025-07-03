@@ -13,6 +13,7 @@ import { Banner } from 'src/app/core/models/banner.model';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { Location } from '@angular/common';
 import { RouteHistoryService } from 'src/app/core/services/history';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-banner-management-create-update',
@@ -20,6 +21,7 @@ import { RouteHistoryService } from 'src/app/core/services/history';
   styleUrls: ['./create-update.component.css'],
 })
 export class CreateUpdateComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
   id = 'create';
   navItems = [
     { title: 'จัดการแบนเนอร์', to: '/banner-management' },
@@ -49,7 +51,8 @@ export class CreateUpdateComponent implements OnInit {
     private bannerService: BannerService,
     private toastService: ToastService,
     private _location: Location,
-    private routeHistory: RouteHistoryService
+    private routeHistory: RouteHistoryService,
+    private authService: AuthService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
 

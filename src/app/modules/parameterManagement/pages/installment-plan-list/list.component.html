@@ -4,7 +4,7 @@
       <app-nav title="Installment Plan" [items]="navItems" class=""></app-nav>
     </div>
 
-    <a
+    <a *ngIf="roleEditable"
       ><button class="button" (click)="createPlanClick()">
         สร้าง Installment Plan
       </button></a
@@ -254,7 +254,7 @@
             ยกเลิก
           </button>
           <button
-            *ngIf="mode == 'view'"
+            *ngIf="mode == 'view' && roleEditable"
             class="button-dark"
             (click)="editItemClick()"
           >

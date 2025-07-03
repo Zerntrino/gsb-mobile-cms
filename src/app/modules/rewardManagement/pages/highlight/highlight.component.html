@@ -6,7 +6,9 @@
       class="flex-1"
     ></app-nav>
 
-    <a><button class="button" (click)="show()">เลือกรายการ</button></a>
+    <a *ngIf="roleEditable"
+      ><button class="button" (click)="show()">เลือกรายการ</button></a
+    >
   </div>
 
   <div class="flex space-x-2 items-center">
@@ -188,7 +190,11 @@
     <a routerLink="/reward-management"
       ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
     >
-    <button class="button w-auto px-6" (click)="submitClick()">
+    <button
+      *ngIf="roleEditable"
+      class="button w-auto px-6"
+      (click)="submitClick()"
+    >
       บันทึกไฮไลท์รีวอร์ด
     </button>
   </div>

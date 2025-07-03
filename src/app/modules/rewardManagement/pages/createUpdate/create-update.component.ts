@@ -27,6 +27,7 @@ import * as XLSX from 'xlsx';
 import { isArray } from 'lodash';
 import { Location } from '@angular/common';
 import { RouteHistoryService } from 'src/app/core/services/history';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-reward-management-create-update',
@@ -34,6 +35,7 @@ import { RouteHistoryService } from 'src/app/core/services/history';
   styleUrls: ['./create-update.component.css'],
 })
 export class CreateUpdateComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
   @ViewChild('inputCode', { static: false })
   inputCode: ElementRef | undefined;
 
@@ -145,7 +147,8 @@ export class CreateUpdateComponent implements OnInit {
     private utilsService: UtilsService,
     private toastService: ToastService,
     private _location: Location,
-    private routeHistory: RouteHistoryService
+    private routeHistory: RouteHistoryService,
+    private authService: AuthService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
 

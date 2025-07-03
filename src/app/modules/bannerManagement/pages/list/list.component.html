@@ -4,7 +4,7 @@
     <a routerLink="/banner-management/highlight"
       ><button class="button-dark">จัดการไฮไลท์แบนเนอร์</button></a
     >
-    <a routerLink="/banner-management/create"
+    <a *ngIf="roleEditable" routerLink="/banner-management/create"
       ><button class="button">สร้างแบนเนอร์</button></a
     >
   </div>
