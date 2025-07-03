@@ -4,7 +4,7 @@
     <a routerLink="/partner-management/highlight"
       ><button class="button-dark">จัดการไฮไลท์พาร์ทเนอร์</button></a
     >
-    <a routerLink="/partner-management/create"
+    <a *ngIf="roleEditable" routerLink="/partner-management/create"
       ><button class="button">เพิ่มพาร์ทเนอร์</button></a
     >
   </div>

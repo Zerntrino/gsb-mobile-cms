@@ -17,6 +17,7 @@ import { ParameterService } from 'src/app/core/services/parameter.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-privilege-management-list',
@@ -24,6 +25,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
   styleUrls: ['./list.component.css'],
 })
 export class ListComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
   id = 0;
 
   refs: CardRef[] = [];
@@ -54,7 +56,8 @@ export class ListComponent implements OnInit {
     activatedRoute: ActivatedRoute,
     private cardService: CardService,
     private utilsService: UtilsService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {

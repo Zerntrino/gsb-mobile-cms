@@ -11,6 +11,7 @@ import { BannerService } from 'src/app/core/services/banner.service';
 import { Banner } from 'src/app/core/models/banner.model';
 import { CdkDragDrop, moveItemInArray } from '@angular/cdk/drag-drop';
 import { ToastService } from 'src/app/core/services/toast.service';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-banner-management-highlight',
@@ -18,6 +19,7 @@ import { ToastService } from 'src/app/core/services/toast.service';
   styleUrls: ['./highlight.component.css'],
 })
 export class HighlightComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
   navItems = [
     { title: 'จัดการแบนเนอร์', to: '/banner-management' },
     { title: 'เลือกไฮไลท์ : แบนเนอร์', to: '' },
@@ -31,7 +33,8 @@ export class HighlightComponent implements OnInit {
   constructor(
     private router: Router,
     private bannerService: BannerService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private authService: AuthService
   ) {}
 
   async ngOnInit() {

@@ -18,6 +18,7 @@ import {
 import { ToastService } from 'src/app/core/services/toast.service';
 import { CardService } from 'src/app/core/services/card.service';
 import { Card } from 'src/app/core/models/card.model';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-parameter-setting',
@@ -25,6 +26,7 @@ import { Card } from 'src/app/core/models/card.model';
   styleUrls: ['./setting.component.css'],
 })
 export class ParameterSettingComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
   navItems = [
     { title: 'จัดการการผ่อนชำระ', to: '/parameter' },
     { title: 'ตั้งค่า', to: '' },
@@ -57,7 +59,8 @@ export class ParameterSettingComponent implements OnInit {
     private router: Router,
     private parameterService: ParameterService,
     private cardService: CardService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {

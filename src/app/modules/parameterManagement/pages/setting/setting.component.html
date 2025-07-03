@@ -132,7 +132,7 @@
             <div class="table-cell">
               <div class="space-x-2 justify-end flex">
                 <button
-                  *ngIf="!item.isEditing"
+                  *ngIf="!item.isEditing && roleEditable"
                   (click)="editMinimum(item)"
                   class="button-border text-sm w-20 px-3 py-2"
                 >
@@ -149,7 +149,7 @@
                   ยกเลิก
                 </button>
                 <button
-                  *ngIf="item.isEditing"
+                  *ngIf="item.isEditing && roleEditable"
                   (click)="item.isEditing = false; updateMinimum(item)"
                   class="button text-sm w-20 px-3 py-2"
                 >

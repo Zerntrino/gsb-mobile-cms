@@ -127,7 +127,7 @@
       >
 
       <button
-        *ngIf="mode == 'view'"
+        *ngIf="mode == 'view' && roleEditable"
         class="button-dark w-auto px-6"
         type="button"
         (click)="edit()"
@@ -135,7 +135,7 @@
         แก้ไข
       </button>
       <button
-        *ngIf="mode == 'edit'"
+        *ngIf="mode == 'edit' && roleEditable"
         class="button w-auto px-6"
         type="submit"
         [disabled]="!submitForm.valid"

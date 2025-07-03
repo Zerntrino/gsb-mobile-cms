@@ -1,7 +1,7 @@
 <div class="flex flex-col h-full">
   <div class="flex items-center my-2">
     <app-nav title="จัดการโฆษณา" class="flex-1"></app-nav>
-    <a routerLink="/ad-management/create"
+    <a *ngIf="roleEditable" routerLink="/ad-management/create"
       ><button class="button">สร้างโฆษณา</button></a
     >
   </div>

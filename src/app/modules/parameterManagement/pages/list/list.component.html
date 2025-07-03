@@ -10,7 +10,7 @@
     <a routerLink="/parameter/installment-plan"
       ><button class="button-dark">Installment Plan</button></a
     >
-    <a routerLink="/parameter/create"
+    <a *ngIf="roleEditable" routerLink="/parameter/create"
       ><button class="button">เพิ่มพารามิเตอร์</button></a
     >
   </div>

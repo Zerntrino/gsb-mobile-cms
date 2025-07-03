@@ -6,7 +6,7 @@
       class="flex-1"
     ></app-nav>
 
-    <a
+    <a *ngIf="roleEditable"
       ><button class="button" (click)="showSelectClick()">
         เลือกรายการ
       </button></a
@@ -153,7 +153,11 @@
     <a routerLink="/banner-management"
       ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
     >
-    <button class="button w-auto px-6" (click)="confirmClick()">
+    <button
+      *ngIf="roleEditable"
+      class="button w-auto px-6"
+      (click)="confirmClick()"
+    >
       บันทึกไฮไลท์แบนเนอร์
     </button>
   </div>

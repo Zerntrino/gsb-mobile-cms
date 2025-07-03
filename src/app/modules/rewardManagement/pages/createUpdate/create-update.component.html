@@ -35,6 +35,7 @@
               <div class="flex">
                 <div class="flex-1 text-sm">หมวดหมู่</div>
                 <div
+                  *ngIf="roleEditable"
                   class="text-primary text-sm underline cursor-pointer"
                   [ngClass]="{
                     'text-primary cursor-pointer': !(
@@ -706,7 +707,7 @@
         </button></a
       >
       <button
-        *ngIf="mode == 'view'"
+        *ngIf="mode == 'view' && roleEditable"
         class="button-dark w-auto px-6"
         type="button"
         (click)="edit()"
@@ -714,7 +715,7 @@
         แก้ไข
       </button>
       <button
-        *ngIf="mode == 'edit'"
+        *ngIf="mode == 'edit' && roleEditable"
         class="button w-auto px-6"
         type="submit"
         [disabled]="

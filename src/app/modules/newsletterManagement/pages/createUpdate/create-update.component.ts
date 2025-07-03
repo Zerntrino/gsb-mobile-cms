@@ -18,6 +18,7 @@ import { CardService } from 'src/app/core/services/card.service';
 import { Card } from 'src/app/core/models/card.model';
 import { Location } from '@angular/common';
 import { RouteHistoryService } from 'src/app/core/services/history';
+import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
   selector: 'app-banner-management-create-update',
@@ -25,6 +26,7 @@ import { RouteHistoryService } from 'src/app/core/services/history';
   styleUrls: ['./create-update.component.css'],
 })
 export class CreateUpdateComponent implements OnInit {
+  roleEditable = [1, 2].includes(this.authService.getRole() || 0);
   id = 'create';
   navItems = [
     { title: 'จัดการการแจ้งเตือน', to: '/newsletter-management' },
@@ -63,7 +65,8 @@ export class CreateUpdateComponent implements OnInit {
     private toastService: ToastService,
     private utilsService: UtilsService,
     private _location: Location,
-    private routeHistory: RouteHistoryService
+    private routeHistory: RouteHistoryService,
+    private authService: AuthService
   ) {
     this.id = activatedRoute.snapshot.params['id'];
 

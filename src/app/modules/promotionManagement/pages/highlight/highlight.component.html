@@ -6,7 +6,9 @@
       class="flex-1"
     ></app-nav>
 
-    <a><button class="button" (click)="show()">เลือกรายการ</button></a>
+    <a *ngIf="roleEditable"
+      ><button class="button" (click)="show()">เลือกรายการ</button></a
+    >
   </div>
   <div class="px-4">
     <div class="flex items-center space-x-2">
@@ -197,7 +199,11 @@
     <a routerLink="/promotion-management"
       ><button class="button-default-border w-auto px-6">ยกเลิก</button></a
     >
-    <button class="button w-auto px-6" (click)="submitClick()">
+    <button
+      *ngIf="roleEditable"
+      class="button w-auto px-6"
+      (click)="submitClick()"
+    >
       บันทึกไฮไลท์โปรโมชัน
     </button>
   </div>
