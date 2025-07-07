@@ -35,3 +35,7 @@
 .editor-tag input:focus {
     outline: none;
 }
+
+.editor-tag.disabled {
+    background: #f3f4f6;
+}

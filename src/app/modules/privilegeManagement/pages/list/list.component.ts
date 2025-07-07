@@ -49,7 +49,11 @@ export class ListComponent implements OnInit {
   fileErrorId = 0;
   fileError = '';
 
-  editorConfig = this.utilsService.editorConfig;
+  editorConfig = {
+    ...this.utilsService.editorConfig,
+    editable: this.roleEditable,
+    showToolbar: this.roleEditable,
+  };
 
   constructor(
     private router: Router,
@@ -70,6 +74,10 @@ export class ListComponent implements OnInit {
     this.cardService.getList(params).subscribe(
       (response) => {
         this.cards = response.data as Card[];
+
+        if (!this.roleEditable) {
+          this.selectCard(this.cards[0] || {});
+        }
       },
       (error) => {}
     );

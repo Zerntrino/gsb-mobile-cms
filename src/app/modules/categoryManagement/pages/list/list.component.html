@@ -1,7 +1,9 @@
 <div class="flex flex-col h-full">
   <div class="flex items-center my-2">
     <app-nav title="จัดการหมวดหมู่" class="flex-1"></app-nav>
-    <a (click)="createClick()"><button class="button">เพิ่มหมวดหมู่</button></a>
+    <a *ngIf="roleEditable" (click)="createClick()"
+      ><button class="button">เพิ่มหมวดหมู่</button></a
+    >
   </div>
 
   <div class="flex-1 mx-w my-2 bg-white">
