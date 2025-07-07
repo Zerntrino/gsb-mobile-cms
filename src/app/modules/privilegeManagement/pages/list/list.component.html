@@ -6,6 +6,7 @@
       <app-toggle
         [value]="submitForm.get('isActive')?.value || false"
         (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
+        [disabled]="!roleEditable"
       ></app-toggle>
       <div>
         {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
@@ -67,6 +68,7 @@
                 (update)="refChange($event)"
                 [data]="typeOption"
                 placeholder="ประเภทบัตร"
+                [disabled]="!roleEditable"
               ></select2>
               <input
                 *ngIf="id"
@@ -96,6 +98,7 @@
                   name="description"
                   formControlName="description"
                   [config]="editorConfig"
+                  [disabled]="!roleEditable"
                 ></angular-editor>
               </div>
             </div>
@@ -106,6 +109,7 @@
                 [value]="submitForm.get('tags')?.value || []"
                 (valueUpdate)="tagsChange($event)"
                 placeholder="ข้อมูลที่เกี่ยวข้อง"
+                [disabled]="!roleEditable"
               ></app-tag>
             </div>
           </div>

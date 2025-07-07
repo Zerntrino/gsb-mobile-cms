@@ -1,5 +1,9 @@
 <div [formGroup]="form">
-  <div class="editor-tag" (click)="focusTagInput()">
+  <div
+    class="editor-tag"
+    (click)="focusTagInput()"
+    [ngClass]="{ disabled: disabled }"
+  >
     <span class="tag-item" *ngFor="let tag of value">
       {{ tag }}
       <span class="remove-tag" (click)="removeTag(tag)">×</span>

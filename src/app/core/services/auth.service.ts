@@ -59,7 +59,7 @@ export class AuthService extends BaseService implements OnDestroy {
   }
 
   getRole(): number | null {
-    return parseInt(localStorage.getItem('role') || '');
+    return parseInt(localStorage.getItem('role') || ''); // 3
   }
 
   ngOnDestroy(): void {

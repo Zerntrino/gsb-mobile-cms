@@ -21,7 +21,7 @@
           <div class="table-cell text-center">โลโก้</div>
           <div class="table-cell">พาร์ทเนอร์</div>
           <div class="table-cell text-center">วันที่สร้าง</div>
-          <div class="table-cell">ลบ</div>
+          <div class="table-cell" *ngIf="roleEditable">ลบ</div>
         </div>
       </div>
       <div
@@ -54,7 +54,7 @@
             {{ dateFormat(item.createdAt) }}
           </div>
 
-          <div class="table-cell text-center">
+          <div *ngIf="roleEditable" class="table-cell text-center">
             <img
               src="assets/icons/delete.svg"
               class="mx-auto cursor-pointer"

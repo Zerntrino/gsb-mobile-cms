@@ -34,7 +34,7 @@
           <div class="table-cell">ชื่อโปรโมชัน</div>
           <div class="table-cell">วันที่แสดง</div>
           <div class="table-cell">วันที่สิ้นสุด</div>
-          <div class="table-cell">ลบ</div>
+          <div *ngIf="roleEditable" class="table-cell">ลบ</div>
         </div>
       </div>
 
@@ -65,7 +65,7 @@
             {{ dateFormat(item.startDate) }}
           </div>
           <div class="table-cell">{{ dateFormat(item.endDate) }}</div>
-          <div class="table-cell text-center">
+          <div *ngIf="roleEditable" class="table-cell text-center">
             <img
               src="assets/icons/delete.svg"
               class="mx-auto cursor-pointer"
