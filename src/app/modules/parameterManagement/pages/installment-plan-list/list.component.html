@@ -187,6 +187,7 @@
         <div class="px-6 py-2 flex space-x-2">
           <div class="font-semibold">รายการผ่อนชำระ</div>
           <div
+            *ngIf="roleEditable"
             class="text-primary underline cursor-pointer"
             (click)="mode != 'view' && addPlan()"
           >
@@ -233,7 +234,7 @@
               min="1"
             />
           </div>
-          <div class="px-2 py-2">
+          <div class="px-2 py-2" *ngIf="roleEditable">
             <img
               src="assets/icons/remove.svg"
               class="w-6 cursor-pointer mt-8"

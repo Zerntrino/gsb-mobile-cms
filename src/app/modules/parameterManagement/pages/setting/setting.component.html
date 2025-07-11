@@ -48,7 +48,7 @@
             <div class="table-cell text-center">#</div>
             <div class="table-cell">ประเภทบัตร</div>
             <div class="table-cell">MCC Code</div>
-            <div class="table-cell">เพิ่มรายการ</div>
+            <div class="table-cell" *ngIf="roleEditable">เพิ่มรายการ</div>
           </div>
         </div>
         <div class="table-row-group">
@@ -68,7 +68,7 @@
               </div>
             </div>
 
-            <div class="table-cell">
+            <div class="table-cell" *ngIf="roleEditable">
               <button
                 class="button-dark text-sm w-20 px-3 py-2"
                 (click)="show(item)"
@@ -105,7 +105,7 @@
             <div class="table-cell text-right">
               ยอดใช้จ่ายขั้นต่ำ (ต่อเซลล์สลิป)
             </div>
-            <div class="table-cell text-right">คำสั่ง</div>
+            <div class="table-cell text-right" *ngIf="roleEditable">คำสั่ง</div>
           </div>
         </div>
         <div class="table-row-group">
@@ -129,7 +129,7 @@
                 />
               </div>
             </div>
-            <div class="table-cell">
+            <div class="table-cell" *ngIf="roleEditable">
               <div class="space-x-2 justify-end flex">
                 <button
                   *ngIf="!item.isEditing && roleEditable"

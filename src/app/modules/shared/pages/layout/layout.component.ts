@@ -153,10 +153,10 @@ export class LayoutComponent implements OnDestroy, OnInit {
       // Admin
     } else if (role == 2) {
       // Editor
-      this.leftMenus[3].items = this.leftMenus[3].items.slice(0, 3);
+      this.leftMenus[3].items = this.leftMenus[3].items.slice(0, 4);
     } else if (role == 3) {
       // View
-      this.leftMenus[3].items = this.leftMenus[3].items.slice(0, 3);
+      this.leftMenus[3].items = this.leftMenus[3].items.slice(0, 4);
     } else {
       this.leftMenus = [];
     }
