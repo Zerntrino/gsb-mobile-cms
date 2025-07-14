@@ -82,8 +82,9 @@ export class HighlightComponent implements OnInit {
     params = params.append('cardId', this.card as string);
     await this.promotionService.getList(params).subscribe(
       (response) => {
+        const useds = this.list.map((l) => l.id);
         this.promotions = (response.data as Promotion[]).filter(
-          (p) => p.isActive
+          (p) => p.isActive && !useds.includes(p.id)
         );
       },
       (error) => {
