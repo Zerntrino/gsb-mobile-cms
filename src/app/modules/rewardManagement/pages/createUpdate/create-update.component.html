@@ -212,7 +212,7 @@
                   formControlName="productId"
                   class="input"
                   placeholder="รหัสสินค้า"
-                  [disabled]="id != 'create'"
+                  [disabled]="mode == 'view'"
                 />
               </div>
               <div class="flex-1 mt-4">
@@ -222,7 +222,7 @@
                   formControlName="productDescription"
                   class="input"
                   placeholder="รายละเอียดสินค้า"
-                  [disabled]="id != 'create'"
+                  [disabled]="mode == 'view'"
                 />
               </div>
             </div>
