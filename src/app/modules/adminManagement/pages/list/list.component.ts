@@ -174,6 +174,8 @@ export class ListComponent implements OnInit {
 
   createClick(): void {
     this.showDetail = 0;
+    this.showDetailMode = 'create';
+    this.detail = { email: '', role: 0, isActive: true } as Admin;
   }
   showDetailSuccess() {
     setTimeout(() => {

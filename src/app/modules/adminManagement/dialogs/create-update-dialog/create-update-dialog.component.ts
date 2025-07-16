@@ -58,23 +58,38 @@ export class CreateUpdateadminDialogComponent implements OnInit {
     this.fetch();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (this.mode == 'view') this.createUpdateForm.disable();
-    else this.createUpdateForm.enable();
+  ngOnChanges(changes: SimpleChanges): void {
+    console.log(changes['mode']);
 
-    if (this.detail) {
-      this.createUpdateForm.setValue({
-        email: this.detail.email,
-        role: this.detail.role,
-        isActive: this.detail.isActive,
-      });
+    if (changes['mode']) {
+      if (changes['mode'].currentValue === 'view') {
+        console.log('disable');
+        this.createUpdateForm.disable();
+      } else {
+        this.createUpdateForm.enable();
+      }
+
+      if (this.detail) {
+        this.createUpdateForm.setValue({
+          email: this.detail.email,
+          role: this.detail.role,
+          isActive: this.detail.isActive,
+        });
+        this.createUpdateForm.enable();
+      }
     }
   }
 
   fetch(): void {}
 
   createClick(): void {
+    console.log('createClick');
     this.showDetail = 0;
+    this.createUpdateForm.setValue({
+      email: '',
+      role: 0,
+      isActive: true,
+    });
   }
   showDetailClick(item: Admin) {
     this.createUpdateForm.setValue({

@@ -103,7 +103,7 @@
                 แก้ไข
               </button>
               <button
-                *ngIf="mode == 'edit'"
+                *ngIf="mode != 'view'"
                 class="button w-auto px-6"
                 type="submit"
                 [disabled]="!createUpdateForm.valid"
