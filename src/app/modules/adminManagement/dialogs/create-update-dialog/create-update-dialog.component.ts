@@ -35,6 +35,8 @@ export class CreateUpdateadminDialogComponent implements OnInit {
 
   @Input() mode = 'edit';
 
+  isEditing = false;
+
   createUpdateForm = new FormGroup({
     email: new FormControl(''),
     role: new FormControl(0),
@@ -64,10 +66,18 @@ export class CreateUpdateadminDialogComponent implements OnInit {
     if (changes['mode']) {
       if (changes['mode'].currentValue === 'view') {
         console.log('disable');
-        this.createUpdateForm.disable();
+        // this.createUpdateForm.disable();
       } else {
-        this.createUpdateForm.enable();
+        // this.createUpdateForm.enable();
       }
+
+      if (changes['mode'].currentValue === 'create') {
+        this.createUpdateForm.get('email')?.enable();
+      } else {
+        this.createUpdateForm.get('email')?.disable();
+      }
+
+      this.isEditing = false;
     }
 
     if (this.detail) {
@@ -147,6 +157,8 @@ export class CreateUpdateadminDialogComponent implements OnInit {
 
   edit() {
     this.mode = 'edit';
-    this.createUpdateForm.enable();
+    this.isEditing = true;
+    // this.createUpdateForm.get('email')?.enable();
+    // this.createUpdateForm.enable();
   }
 }
