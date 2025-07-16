@@ -68,15 +68,14 @@ export class CreateUpdateadminDialogComponent implements OnInit {
       } else {
         this.createUpdateForm.enable();
       }
+    }
 
-      if (this.detail) {
-        this.createUpdateForm.setValue({
-          email: this.detail.email,
-          role: this.detail.role,
-          isActive: this.detail.isActive,
-        });
-        this.createUpdateForm.enable();
-      }
+    if (this.detail) {
+      this.createUpdateForm.setValue({
+        email: this.detail.email,
+        role: this.detail.role,
+        isActive: this.detail.isActive,
+      });
     }
   }
 
