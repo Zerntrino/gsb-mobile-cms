@@ -224,8 +224,8 @@ export class CreateUpdateComponent implements OnInit {
 
           this.imageBase64 = res.imageUrl;
 
-          // this.submitForm.get('productId')?.disable();
-          // this.submitForm.get('productDescription')?.disable();
+          this.submitForm.get('productId')?.disable();
+          this.submitForm.get('productDescription')?.disable();
         },
         (error) => {
           console.log(error);
