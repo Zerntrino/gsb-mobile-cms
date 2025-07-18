@@ -603,6 +603,9 @@ export class CreateUpdateComponent implements OnInit {
   edit() {
     this.mode = 'edit';
     this.submitForm.enable();
+    this.submitForm.get('productId')?.disable();
+    this.submitForm.get('productDescription')?.disable();
+
     this.editorConfig.editable = true;
     this.navItems[1].title = 'แก้ไขรีวอร์ด';
   }
