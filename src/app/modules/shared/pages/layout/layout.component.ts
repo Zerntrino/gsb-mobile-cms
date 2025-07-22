@@ -155,7 +155,7 @@ export class LayoutComponent implements OnDestroy, OnInit {
       // Editor
       this.leftMenus[3].items = this.leftMenus[3].items.slice(0, 4);
     } else if (role == 3) {
-      // View
+      // Viewer
       this.leftMenus[3].items = this.leftMenus[3].items.slice(0, 4);
     } else {
       this.leftMenus = [];

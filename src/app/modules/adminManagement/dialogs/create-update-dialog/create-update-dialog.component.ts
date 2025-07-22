@@ -46,7 +46,7 @@ export class CreateUpdateadminDialogComponent implements OnInit {
   roleOption: Select2Option[] = [
     { value: 1, label: 'Admin' },
     { value: 2, label: 'Editor' },
-    { value: 3, label: 'View' },
+    { value: 3, label: 'Viewer' },
   ];
 
   constructor(
