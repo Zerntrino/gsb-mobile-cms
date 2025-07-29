@@ -35,7 +35,7 @@ export class AuthService extends BaseService implements OnDestroy {
         this.onLogout('');
       }
       if (event.key === 'login-event') {
-        // this.stopTokenTimer();
+        this.stopTokenTimer();
         this.http
           .get<ApiResponse<AppUserToken>>(`/api/me`)
           .subscribe((response) => {
@@ -131,15 +131,19 @@ export class AuthService extends BaseService implements OnDestroy {
     this.setUserStorage(token);
     this.setTokenStorage(token.token);
     localStorage.setItem('role', token.role);
-    // this.startTokenTimer();
+    this.startTokenTimer();
     localStorage.setItem('login-event', 'login' + Math.random());
+
+    // test refresh token
+
+    this.refreshToken();
   }
 
   onLogout(returnUrl?: string): void {
     this.appUser.next({} as AppUserToken);
     this.clearUserStorage();
     this.clearTokenStorage();
-    // this.stopTokenTimer();
+    this.stopTokenTimer();
     if (returnUrl) {
       this.router.navigate([this.getLoginUrl()], {
         queryParams: { returnUrl },
@@ -151,20 +155,23 @@ export class AuthService extends BaseService implements OnDestroy {
   }
 
   refreshToken(): Observable<ApiResponse<AppUserToken>> {
-    const refreshToken = localStorage.getItem('refresh_token');
+    const refreshToken = this.getToken(); //localStorage.getItem('refresh_token');
     if (!refreshToken) {
       this.clearTokenStorage();
     }
     return this.http
-      .post<ApiResponse<AppUserToken>>(`/api/cms/token`, {
-        refresh_token: refreshToken,
+      .post<ApiResponse<AppUserToken>>(`/api/cms/refresh`, {
+        token: refreshToken,
+        headers: {
+          Authorization: `Bearer ${refreshToken}`,
+        },
       })
       .pipe(
         map((response) => {
           if (response.success) {
             const userToken = response.data as AppUserToken;
             this.setTokenStorage(userToken.token);
-            // this.startTokenTimer();
+            this.startTokenTimer();
           }
           return response;
         })
@@ -202,27 +209,27 @@ export class AuthService extends BaseService implements OnDestroy {
     // localStorage.removeItem('refresh_token');
   }
 
-  // private getTokenRemainingTime(): number {
-  //   const accessToken = localStorage.getItem('access_token');
-  //   if (!accessToken) {
-  //     return 0;
-  //   }
-  //   const jwtToken = JSON.parse(atob(accessToken.split('.')[1]));
-  //   const expires = new Date(jwtToken.exp * 1000);
-  //   return expires.getTime() - Date.now();
-  // }
+  private getTokenRemainingTime(): number {
+    const accessToken = this.getToken();
+    if (!accessToken) {
+      return 0;
+    }
+    const jwtToken = JSON.parse(atob(accessToken.split('.')[1]));
+    const expires = new Date(jwtToken.exp * 1000);
+    return expires.getTime() - Date.now();
+  }
 
-  // private startTokenTimer(): void {
-  //   const timeout = this.getTokenRemainingTime();
-  //   this.timer = of(true)
-  //     .pipe(
-  //       delay(timeout),
-  //       tap(() => this.refreshToken().subscribe())
-  //     )
-  //     .subscribe();
-  // }
+  private startTokenTimer(): void {
+    const timeout = this.getTokenRemainingTime();
+    this.timer = of(true)
+      .pipe(
+        delay(timeout),
+        tap(() => this.refreshToken().subscribe())
+      )
+      .subscribe();
+  }
 
-  // private stopTokenTimer(): void {
-  //   this.timer?.unsubscribe();
-  // }
+  private stopTokenTimer(): void {
+    this.timer?.unsubscribe();
+  }
 }

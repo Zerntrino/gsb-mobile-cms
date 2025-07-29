@@ -33,7 +33,6 @@ export class CustomInterceptor implements HttpInterceptor {
     // console.log('environment.apiUrl', environment.apiUrl);
     // console.log('accessToken', accessToken);
 
-
     if (accessToken && request.url != '/api/authen/okta/callback') {
       request = request.clone({
         setHeaders: { Authorization: `Bearer ${accessToken}` },
