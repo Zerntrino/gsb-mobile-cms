@@ -164,12 +164,17 @@ export class AuthService extends BaseService implements OnDestroy {
     console.log('Refreshing token:', refreshToken);
 
     return this.http
-      .post<ApiResponse<AppUserToken>>(`/api/cms/refresh`, {
-        token: refreshToken,
-        headers: {
-          Authorization: `Bearer ${refreshToken}`,
+      .post<ApiResponse<AppUserToken>>(
+        `/api/cms/refresh`,
+        {
+          token: refreshToken,
         },
-      })
+        {
+          headers: {
+            Authorization: `Bearer ${refreshToken}`,
+          },
+        }
+      )
       .pipe(
         map((response) => {
           console.log('Refresh token response:', response);
