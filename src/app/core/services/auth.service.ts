@@ -128,6 +128,8 @@ export class AuthService extends BaseService implements OnDestroy {
   }
 
   onLogin(token: AppUserToken): void {
+    console.log('User logged in:', token);
+
     this.appUser.next(token);
     this.setUserStorage(token);
     this.setTokenStorage(token.token);
@@ -221,6 +223,7 @@ export class AuthService extends BaseService implements OnDestroy {
 
   private startTokenTimer(): void {
     const timeout = this.getTokenRemainingTime();
+    console.log('timeout', timeout);
     this.timer = of(true)
       .pipe(
         delay(timeout),
