@@ -74,6 +74,7 @@ export class AuthService extends BaseService implements OnDestroy {
       })
       .pipe(
         map((response) => {
+          console.log('Login response:', response);
           if (response.data.token) {
             this.onLogin(response.data);
           }
