@@ -134,8 +134,7 @@ export class AuthService extends BaseService implements OnDestroy {
     this.startTokenTimer();
     localStorage.setItem('login-event', 'login' + Math.random());
 
-    // test refresh token
-
+    // test refresh toke
     this.refreshToken();
   }
 
