@@ -161,6 +161,8 @@ export class AuthService extends BaseService implements OnDestroy {
     if (!refreshToken) {
       this.clearTokenStorage();
     }
+    console.log('Refreshing token:', refreshToken);
+
     return this.http
       .post<ApiResponse<AppUserToken>>(`/api/cms/refresh`, {
         token: refreshToken,
@@ -170,6 +172,7 @@ export class AuthService extends BaseService implements OnDestroy {
       })
       .pipe(
         map((response) => {
+          console.log('Refresh token response:', response);
           if (response.success) {
             const userToken = response.data as AppUserToken;
             this.setTokenStorage(userToken.token);
@@ -217,7 +220,7 @@ export class AuthService extends BaseService implements OnDestroy {
       return 0;
     }
     const jwtToken = JSON.parse(atob(accessToken.split('.')[1]));
-    const expires = new Date(jwtToken.exp * 1000);
+    const expires = new Date(jwtToken.tokenexp * 1000);
     return expires.getTime() - Date.now();
   }
 
