@@ -52,6 +52,8 @@ export class AuthService extends BaseService implements OnDestroy {
     this.appUser.next(this.appUserDataStorage);
     this.appUser$ = this.appUser.asObservable();
     window.addEventListener('storage', this.storageEventListener.bind(this));
+
+    this.startTokenTimer();
   }
 
   getToken(): string | null {
@@ -138,7 +140,7 @@ export class AuthService extends BaseService implements OnDestroy {
     localStorage.setItem('login-event', 'login' + Math.random());
 
     // test refresh toke
-    this.refreshToken();
+    // this.refreshToken();
   }
 
   onLogout(returnUrl?: string): void {
@@ -156,36 +158,60 @@ export class AuthService extends BaseService implements OnDestroy {
     localStorage.setItem('logout-event', 'logout' + Math.random());
   }
 
-  refreshToken(): Observable<ApiResponse<AppUserToken>> {
+  async refreshToken() {
     const refreshToken = this.getToken(); //localStorage.getItem('refresh_token');
     if (!refreshToken) {
       this.clearTokenStorage();
     }
     console.log('Refreshing token:', refreshToken);
 
-    return this.http
-      .post<ApiResponse<AppUserToken>>(
-        `/api/cms/refresh`,
-        {
-          token: refreshToken,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${refreshToken}`,
+    try {
+      const res = await this.http
+        .post<Response<AppUserToken>>(
+          `/api/cms/refresh`,
+          {
+            token: refreshToken,
           },
-        }
-      )
-      .pipe(
-        map((response) => {
-          console.log('Refresh token response:', response);
-          if (response.success) {
-            const userToken = response.data as AppUserToken;
-            this.setTokenStorage(userToken.token);
-            this.startTokenTimer();
+          {
+            headers: {
+              Authorization: `Bearer ${refreshToken}`,
+            },
           }
-          return response;
-        })
-      );
+        )
+        .pipe(
+          catchError((error) => {
+            this.onLogout();
+            return of({ success: false, data: null });
+          })
+        )
+        .subscribe((response) => {
+          if (response.data?.token) {
+            this.setTokenStorage(response.data.token);
+            this.startTokenTimer();
+            this.setUserStorage(response.data);
+          } else {
+            this.onLogout();
+          }
+          return response.data;
+        });
+
+      return res;
+    } catch (error) {
+      this.onLogout();
+      return null;
+    }
+
+    // .pipe(
+    //   map((response) => {
+    //     console.log('Refresh token response:', response);
+    //     if (response.data) {
+    //       const userToken = response.data as AppUserToken;
+    //       this.setTokenStorage(userToken.token);
+    //       this.startTokenTimer();
+    //     }
+    //     return response;
+    //   })
+    // );
   }
 
   get appUserDataStorage(): AppUserToken {
@@ -230,12 +256,12 @@ export class AuthService extends BaseService implements OnDestroy {
   }
 
   private startTokenTimer(): void {
-    const timeout = this.getTokenRemainingTime();
+    const timeout = this.getTokenRemainingTime() - 1000; // /30 for test 20 seconds
     console.log('timeout', timeout);
     this.timer = of(true)
       .pipe(
         delay(timeout),
-        tap(() => this.refreshToken().subscribe())
+        tap(() => this.refreshToken())
       )
       .subscribe();
   }

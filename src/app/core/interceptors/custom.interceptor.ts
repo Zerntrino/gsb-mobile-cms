@@ -43,6 +43,7 @@ export class CustomInterceptor implements HttpInterceptor {
         if (err.status === 401) {
           this.authService.onLogout();
         }
+
         const error = (err && err.error && err.error.message) || err.statusText;
         return throwError(error);
       }),
