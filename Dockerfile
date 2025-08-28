@@ -10,9 +10,9 @@ COPY . .
 # ARG OAUTH2_CLIENT_ID=
 # ARG OAUTH2_REDIRECT_URI=
 
-ENV API_BACKEND=http://gsbmycarduat.gsb.or.th
+ENV API_BACKEND=http://gsbmycard.gsb.or.th
 ENV OAUTH2_ISSUER=https://mfapwl.gsb.or.th
-ENV OAUTH2_CLIENT_ID=0oa1xhec60fKaz4NY1d8
+ENV OAUTH2_CLIENT_ID=0oa1xqec2w7jyv8pa1d8
 ENV OAUTH2_REDIRECT_URI=https://gsbmycard.gsb.or.th/cms/auth/callback
 
 # RUN echo $API_BACKEND
