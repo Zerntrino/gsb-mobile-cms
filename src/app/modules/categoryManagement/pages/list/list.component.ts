@@ -184,7 +184,9 @@ export class ListComponent implements OnInit {
     else this.showDetailMode = 'view';
   }
   showDetailSuccess() {
-    this.fetch();
+    setTimeout(() => {
+      this.fetch();
+    }, 500);
     this.showDetail = -1;
   }
 

@@ -142,7 +142,6 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
         .subscribe(
           (response) => {
             this.toastService.add('success', 'ทำรายการสำเร็จ');
-            this.fetch();
           },
           (error) => {
             console.log(error);
@@ -155,7 +154,6 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
         .subscribe(
           (response) => {
             this.toastService.add('success', 'ทำรายการสำเร็จ');
-            this.fetch();
           },
           (error) => {
             console.log(error);
@@ -164,7 +162,7 @@ export class CreateUpdateCategoryDialogComponent implements OnInit {
         );
     }
 
-    this.success.emit(0);
+    this.success.emit(1);
   }
 
   cancelClick() {
