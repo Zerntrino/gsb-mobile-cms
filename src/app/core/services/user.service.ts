@@ -8,6 +8,7 @@ import { User, CardReward, CardPomition, Admin } from '../models/user.model';
 // import crypto from 'crypto-browserify';
 // import * as crypto from 'crypto';
 import * as crypto from 'crypto-js';
+import { environment } from '../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -17,7 +18,7 @@ export class UserService extends BaseService {
     super();
   }
 
-  appId = '9df6dceb';
+  appId = environment.XAPPID || '9df6dceb';
   salt = this.generateSalt();
 
   generateSalt(byteLength = 8): string {
