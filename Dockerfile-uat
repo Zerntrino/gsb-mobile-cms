@@ -12,7 +12,7 @@ COPY . .
 
 ENV API_BACKEND=http://gsbmycarduat.gsb.or.th
 ENV OAUTH2_ISSUER=https://mfapwldev.gsb.or.th
-ENV OAUTH2_CLIENT_ID=0oa1uk5axxcJJh8mB1d8
+ENV OAUTH2_CLIENT_ID=9df6dceb
 ENV OAUTH2_REDIRECT_URI=https://gsbmycarduat.gsb.or.th/cms/auth/callback
 
 # RUN echo $API_BACKEND
