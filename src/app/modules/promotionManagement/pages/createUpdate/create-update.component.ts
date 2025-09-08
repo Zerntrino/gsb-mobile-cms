@@ -441,9 +441,8 @@ export class CreateUpdateComponent implements OnInit {
               'ไม่สามารถอัพโหลดไฟล์ได้ <br/> กรุณาตรวจสอบขนาด ความกวาง x ความสูง อีกครั้ง';
             return;
           }
-
-          this.imageBase64.push(reader.result?.toString() || '');
-          this.image.push(file);
+          this.imageBase64 = [reader.result?.toString() || ''];
+          this.image = [file];
         };
         img.src = URL.createObjectURL(file);
       };

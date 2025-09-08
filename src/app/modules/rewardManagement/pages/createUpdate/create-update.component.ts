@@ -459,8 +459,8 @@ export class CreateUpdateComponent implements OnInit {
             return;
           }
 
-          this.imageBase64.push(reader.result?.toString() || '');
-          this.images.push(file);
+          this.imageBase64 = [reader.result?.toString() || ''];
+          this.images = [file];
           this.submitForm.get('imageUrl')?.setValue(this.imageBase64 || []);
         };
         img.src = URL.createObjectURL(file);
