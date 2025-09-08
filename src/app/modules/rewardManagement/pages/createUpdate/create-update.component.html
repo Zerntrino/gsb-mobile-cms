@@ -34,7 +34,7 @@
             <div>
               <div class="flex">
                 <div class="flex-1 text-sm">หมวดหมู่</div>
-                <div
+                <!-- <div
                   *ngIf="roleEditable"
                   class="text-primary text-sm underline cursor-pointer"
                   [ngClass]="{
@@ -50,7 +50,7 @@
                   "
                 >
                   เพิ่มหมวดหมู่
-                </div>
+                </div> -->
               </div>
 
               <select2
@@ -85,7 +85,7 @@
               </div>
             </div>
 
-            <div>
+            <!-- <div>
               <div class="text-sm">ข้อมูลที่เกี่ยวข้อง</div>
               <app-tag
                 [value]="submitForm.get('aboutIt')?.value || []"
@@ -94,7 +94,7 @@
                 placeholder="ข้อมูลที่เกี่ยวข้อง"
                 [disabled]="mode == 'view'"
               ></app-tag>
-            </div>
+            </div> -->
             <div class="relative">
               <div class="text-sm">วันที่แสดง</div>
               <input
