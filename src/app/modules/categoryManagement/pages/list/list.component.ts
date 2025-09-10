@@ -153,10 +153,12 @@ export class ListComponent implements OnInit {
   pageSizeChange(s: number): void {
     this.pageSize = s;
     this.page = 1;
-    this.redirect;
+    console.log('pageSize', this.pageSize);
+    this.redirect();
   }
   redirect() {
-    this.router.navigate(['/category-management'], {
+    console.log('redirect');
+    this.router.navigate(['/promotion-management'], {
       queryParams: {
         page: this.page,
         pageSize: this.pageSize,
@@ -165,7 +167,6 @@ export class ListComponent implements OnInit {
         apply: this.apply,
       },
     });
-
     this.fetch();
   }
 
