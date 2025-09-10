@@ -158,7 +158,7 @@ export class ListComponent implements OnInit {
   }
   redirect() {
     console.log('redirect');
-    this.router.navigate(['/promotion-management'], {
+    this.router.navigate(['/category-management'], {
       queryParams: {
         page: this.page,
         pageSize: this.pageSize,
