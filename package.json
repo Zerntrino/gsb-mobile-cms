@@ -1,6 +1,6 @@
 {
   "name": "ghb-cms",
-  "version": "1.0 (19)",
+  "version": "1.0 (20)",
   "scripts": {
     "ng": "ng",
     "dev": "ng serve --proxy-config src/proxy.conf.json",
