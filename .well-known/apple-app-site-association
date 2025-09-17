@@ -3,7 +3,7 @@
     "apps": [],
     "details": [
       {
-        "appID": "J88QXZ7C6C.com.gsb.mycard.delta",
+        "appID": "$APPLE_APP_ID",
         "paths": [
           "/register",
           "/repayment"

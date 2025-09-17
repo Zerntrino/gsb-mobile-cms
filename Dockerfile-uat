@@ -9,17 +9,22 @@ COPY . .
 # ARG OAUTH2_ISSUER=
 # ARG OAUTH2_CLIENT_ID=
 # ARG OAUTH2_REDIRECT_URI=
+# ARG XAPPID=
+# ARG APPLE_APP_ID=
 
 ENV API_BACKEND=http://gsbmycarduat.gsb.or.th
 ENV OAUTH2_ISSUER=https://mfapwldev.gsb.or.th
 ENV OAUTH2_CLIENT_ID=0oa1uk5axxcJJh8mB1d8
 ENV OAUTH2_REDIRECT_URI=https://gsbmycarduat.gsb.or.th/cms/auth/callback
 ENV XAPPID=9df6dceb
+ENV APPLE_APP_ID=L679254MM2.com.ubakong.gsb.gsbmcc-uat
 
 # RUN echo $API_BACKEND
 # RUN echo $OAUTH2_ISSUER
 # RUN echo $OAUTH2_CLIENT_ID
 # RUN echo $OAUTH2_REDIRECT_URI
+# RUN echo $XAPPID
+# RUN echo $APPLE_APP_ID
 
 # Install gettext
 RUN apk update
