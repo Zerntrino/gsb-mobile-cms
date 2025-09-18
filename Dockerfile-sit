@@ -45,15 +45,14 @@ RUN apk add --no-cache gettext=0.22.5-r0
 RUN addgroup -S nonroot \
     && adduser -S nonroot -G nonroot
 
-RUN chown -R nonroot:nonroot /etc/nginx/
-RUN chown -R nonroot:nonroot /var/cache/nginx/
-RUN chown -R nonroot:nonroot /var/run/
-
 COPY --from=builder /app/nginx.default.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=builder /app/dist/* /etc/nginx/html
 COPY --from=builder /app/.well-known/* /etc/nginx/html/.well-known/
 
+RUN chown -R nonroot:nonroot /etc/nginx/
+RUN chown -R nonroot:nonroot /var/cache/nginx/
+RUN chown -R nonroot:nonroot /var/run/
 
 # EXPOSE 80
 EXPOSE 8080
