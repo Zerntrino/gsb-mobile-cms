@@ -5,6 +5,15 @@
       {
         "appID": "J88QXZ7C6C.com.gsb.mycard.delta",
         "paths": [
+          "/",
+          "/register",
+          "/repayment"
+        ]
+      },
+      {
+        "appID": "L679254MM2.com.ubakong.gsb.gsbmcc-uat",
+        "paths": [
+          "/",
           "/register",
           "/repayment"
         ]
