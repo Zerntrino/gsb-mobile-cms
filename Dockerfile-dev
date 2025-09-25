@@ -9,17 +9,22 @@ COPY . .
 # ARG OAUTH2_ISSUER=
 # ARG OAUTH2_CLIENT_ID=
 # ARG OAUTH2_REDIRECT_URI=
+# ARG XAPPID=
+# ARG APPLE_APP_ID=
 
 ENV API_BACKEND=http://gsb-api.ubakong.com
 ENV OAUTH2_ISSUER=https://mfapwldev.gsb.or.th
 ENV OAUTH2_CLIENT_ID=0oa1uk5axxcJJh8mB1d8
 ENV OAUTH2_REDIRECT_URI=https://gsbmycardsit.gsb.or.th/cms/auth/callback
 ENV XAPPID=9df6dceb
+ENV APPLE_APP_ID=L679254MM2.com.ubakong.gsb.gsbmcc-uat
 
 # RUN echo $API_BACKEND
 # RUN echo $OAUTH2_ISSUER
 # RUN echo $OAUTH2_CLIENT_ID
 # RUN echo $OAUTH2_REDIRECT_URI
+# RUN echo $XAPPID
+# RUN echo $APPLE_APP_ID
 
 # Install gettext
 RUN apk update
@@ -40,15 +45,16 @@ RUN apk add --no-cache gettext=0.22.5-r0
 RUN addgroup -S nonroot \
     && adduser -S nonroot -G nonroot
 
-RUN chown -R nonroot:nonroot /etc/nginx/
-RUN chown -R nonroot:nonroot /var/cache/nginx/
-RUN chown -R nonroot:nonroot /var/run/
-
 COPY --from=builder /app/nginx.default.conf /etc/nginx/conf.d/default.conf
 
 COPY --from=builder /app/dist/* /etc/nginx/html
 COPY --from=builder /app/.well-known/* /etc/nginx/html/.well-known/
 
+COPY --from=builder /app/other/* /etc/nginx/html/other/
+
+RUN chown -R nonroot:nonroot /etc/nginx/
+RUN chown -R nonroot:nonroot /var/cache/nginx/
+RUN chown -R nonroot:nonroot /var/run/
 
 # EXPOSE 80
 EXPOSE 8080

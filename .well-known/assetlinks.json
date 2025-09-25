@@ -1,9 +1,42 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target" : { "namespace": "android_app", "package_name": "com.ubakong.gsb.gsbmcc.uat",
-               "sha256_cert_fingerprints": ["64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0"] }
-},{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target" : { "namespace": "android_app", "package_name": "com.ubakong.gsb.gsbmcc",
-               "sha256_cert_fingerprints": ["64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0"] }
-}]
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ubakong.gsb.gsbmcc.uat",
+      "sha256_cert_fingerprints": [
+        "64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.ubakong.gsb.gsbmcc",
+      "sha256_cert_fingerprints": [
+        "64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.gsb.mycard.delta",
+      "sha256_cert_fingerprints": [
+        "64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0"
+      ]
+    }
+  },
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.gsb.mycard",
+      "sha256_cert_fingerprints": [
+        "64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0"
+      ]
+    }
+  }
+]
