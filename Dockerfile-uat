@@ -50,6 +50,8 @@ COPY --from=builder /app/nginx.default.conf /etc/nginx/conf.d/default.conf
 COPY --from=builder /app/dist/* /etc/nginx/html
 COPY --from=builder /app/.well-known/* /etc/nginx/html/.well-known/
 
+COPY --from=builder /app/other/* /etc/nginx/html/other/
+
 RUN chown -R nonroot:nonroot /etc/nginx/
 RUN chown -R nonroot:nonroot /var/cache/nginx/
 RUN chown -R nonroot:nonroot /var/run/
