@@ -1,6 +1,6 @@
 {
   "/api": {
-    "target": "https://gsb-cms-web-dev-krgx6bbcma-as.a.run.app",
+    "target": "http://gsb-api.ubakong.com",
     "secure": false,
     "changeOrigin": true,
     "pathRewrite": {

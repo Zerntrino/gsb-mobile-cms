@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   Select2Option,
@@ -12,7 +12,13 @@ import { AngularEditorConfig } from '@kolkov/angular-editor';
 import { UtilsService } from 'src/app/core/services/utils.service';
 import { NewsLetterService } from 'src/app/core/services/newsletter.service';
 import { NewsLetter } from 'src/app/core/models/newsletter.model';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import {
+  AbstractControl,
+  FormControl,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { ToastService } from 'src/app/core/services/toast.service';
 import { CardService } from 'src/app/core/services/card.service';
 import { Card } from 'src/app/core/models/card.model';
@@ -40,7 +46,8 @@ export class CreateUpdateComponent implements OnInit {
     description: new FormControl('', [Validators.required]),
     sendNotificationDate: new FormControl(''),
     sendNotificationTime: new FormControl<string | undefined | Date>(
-      new Date(new Date().setHours(this.today.getHours() + 1, 0, 0))
+      new Date(new Date().setHours(this.today.getHours() + 1, 0, 0)),
+      [this.minuteStepValidator]
     ),
     // condition: new FormControl(''),
     isActive: new FormControl(true),
@@ -228,6 +235,42 @@ export class CreateUpdateComponent implements OnInit {
     }
     return diff >= 0;
   };
+
+  startTimeFilter(e: Date | null): boolean {
+    const date = dayjs(e);
+    const c = dayjs();
+    const diff = date.diff(c, 'day');
+
+    if (diff < 0) {
+      return false;
+    }
+
+    return true;
+  }
+
+  startTimeChange(e: Date | null) {
+    console.log(e);
+  }
+
+  minuteStepValidator(control: AbstractControl): ValidationErrors | null {
+    const value = control.value;
+    if (!value) return null;
+
+    const date = new Date(value);
+    const minutes = date.getMinutes();
+
+    console.log(minutes);
+
+    if (minutes % 10 === 0) {
+      return null;
+    } else {
+      control.setValue(
+        new Date(date.setMinutes(Math.round(minutes / 10) * 10, 0, 0))
+      );
+    }
+
+    return { invalidMinute: true };
+  }
 
   back() {
     this.router.navigateByUrl(
