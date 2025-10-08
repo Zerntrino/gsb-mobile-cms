@@ -86,7 +86,7 @@
               *ngIf="!submitForm.get('isSendNotification')?.value"
               class="relative mt-2 mb-6"
             >
-              <div class="text-sm">วันที่แสดง</div>
+              <div class="text-sm">วันและเวลาที่แสดง</div>
               <input
                 class="input"
                 [owlDateTime]="date"
@@ -101,16 +101,17 @@
                 src="assets/icons/calendar.svg"
                 class="absolute bottom-2 right-2 w-6 cursor-pointer"
               />
-              <owl-date-time #date pickerType="calendar"></owl-date-time>
+              <owl-date-time #date [stepMinute]="10"></owl-date-time>
+              <!-- pickerType="calendar" -->
             </div>
 
-            <div
+            <!-- <div
               *ngIf="!submitForm.get('isSendNotification')?.value"
               class="relative mt-2 mb-6"
             >
               <div class="text-sm">เวลาที่แสดง</div>
               <input
-                class="input"
+                class="input disabled-input"
                 [owlDateTime]="time"
                 [owlDateTimeTrigger]="time"
                 name="sendNotificationTime"
@@ -129,8 +130,9 @@
                 pickerType="timer"
                 [stepMinute]="10"
                 (afterPickerOpen)="setHourMinute()"
+                (onchange)="setHourMinute()"
               ></owl-date-time>
-            </div>
+            </div> -->
 
             <div class="my-2">
               <!-- <app-checkbox

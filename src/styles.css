@@ -107,3 +107,17 @@ select2  {
     opacity: 50%;
 } */
 
+
+.owl-dt-timer-input, .owl-dt-timer-content {
+    pointer-events: none !important;
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+.disabled-input {
+    user-select: none !important;
+    -webkit-user-select: none !important;
+}
+.owl-dt-inline-container,
+.owl-dt-popup-container {
+        border-radius: 6px;
+}
