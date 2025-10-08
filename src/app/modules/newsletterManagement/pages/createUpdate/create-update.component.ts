@@ -1,5 +1,5 @@
 import { HttpParams } from '@angular/common/http';
-import { Component, OnInit, SimpleChanges } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   Select2Option,
@@ -136,6 +136,24 @@ export class CreateUpdateComponent implements OnInit {
     }
   }
 
+  setHourMinute() {
+    const tt =
+      this.submitForm.get('sendNotificationTime')?.value?.toString() || '';
+    const t = new Date(tt);
+    const input = document.querySelector<HTMLElement>('.owl-dt-timer');
+    if (input) {
+      const hour = input.children[0]?.children[1]
+        ?.children[0] as HTMLInputElement;
+      hour.value = t.getHours().toString().padStart(2, '0');
+      hour.dispatchEvent(new Event('input'));
+
+      const minute = input.children[1]?.children[2]
+        ?.children[0] as HTMLInputElement;
+      minute.value = t.getMinutes().toString().padStart(2, '0');
+      minute.dispatchEvent(new Event('input'));
+    }
+  }
+
   isSendNotificationChange(event: boolean) {
     this.submitForm.get('isSendNotification')?.setValue(event);
     if (event) {
@@ -174,7 +192,7 @@ export class CreateUpdateComponent implements OnInit {
     if (raw.sendNotificationDate && raw.sendNotificationTime) {
       const date = new Date(raw.sendNotificationDate);
       const time = new Date(raw.sendNotificationTime);
-      date.setHours(time.getHours() + 7);
+      date.setHours(time.getHours() + 7 * 2);
       date.setMinutes(time.getMinutes());
 
       raw.sendNotificationDate = date.toISOString();
