@@ -70,6 +70,8 @@ export class CreateUpdateComponent implements OnInit {
     cardId: new FormControl<number[]>([], [Validators.required]),
     coverImageUrl: new FormControl(''),
     imageUrl: new FormControl<string[]>([]),
+    productId: new FormControl(''),
+    productDescription: new FormControl(''),
   });
 
   coverImageBase64 = '';
@@ -179,6 +181,8 @@ export class CreateUpdateComponent implements OnInit {
             cardId: res.cardId,
             coverImageUrl: res.coverUrl,
             imageUrl: res.imageUrl,
+            productId: res.productId || '',
+            productDescription: res.productDescription || '',
           });
 
           if (res?.importCodeFileName?.length)
@@ -584,6 +588,7 @@ export class CreateUpdateComponent implements OnInit {
   edit() {
     this.mode = 'edit';
     this.submitForm.enable();
+    this.submitForm.get('productId')?.disable();
     this.editorConfig.editable = true;
     this.navItems[1].title = 'แก้ไขโปรโมชัน';
   }

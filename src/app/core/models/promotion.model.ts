@@ -50,6 +50,9 @@ export interface Promotion {
   limitPerCardDay: number;
   card_id: number[];
   cardId: number[];
+
+  productId: string;
+  productDescription: string;
 }
 
 export interface PromotionHistory {
