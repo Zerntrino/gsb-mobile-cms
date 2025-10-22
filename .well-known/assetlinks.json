@@ -5,7 +5,8 @@
       "namespace": "android_app",
       "package_name": "com.ubakong.gsb.gsbmcc.uat",
       "sha256_cert_fingerprints": [
-        "64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0"
+        "64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0",
+        "DA:13:1B:AD:C2:1F:2B:85:BB:80:22:00:E4:3A:F2:CE:22:96:56:85:16:7C:EC:0C:39:AE:C9:0D:D6:30:85:9C"
       ]
     }
   },
@@ -15,7 +16,8 @@
       "namespace": "android_app",
       "package_name": "com.ubakong.gsb.gsbmcc",
       "sha256_cert_fingerprints": [
-        "64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0"
+        "64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0",
+        "DA:13:1B:AD:C2:1F:2B:85:BB:80:22:00:E4:3A:F2:CE:22:96:56:85:16:7C:EC:0C:39:AE:C9:0D:D6:30:85:9C"
       ]
     }
   },
@@ -25,7 +27,8 @@
       "namespace": "android_app",
       "package_name": "com.gsb.mycard.delta",
       "sha256_cert_fingerprints": [
-        "64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0"
+        "64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0",
+        "DA:13:1B:AD:C2:1F:2B:85:BB:80:22:00:E4:3A:F2:CE:22:96:56:85:16:7C:EC:0C:39:AE:C9:0D:D6:30:85:9C"
       ]
     }
   },
@@ -35,7 +38,8 @@
       "namespace": "android_app",
       "package_name": "com.gsb.mycard",
       "sha256_cert_fingerprints": [
-        "64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0"
+        "64:AF:E5:56:72:E0:90:09:0E:A0:96:B4:F8:2B:38:7F:E4:8B:47:FA:B6:4F:73:11:8D:20:0A:B7:1E:A6:3C:B0",
+        "DA:13:1B:AD:C2:1F:2B:85:BB:80:22:00:E4:3A:F2:CE:22:96:56:85:16:7C:EC:0C:39:AE:C9:0D:D6:30:85:9C"
       ]
     }
   }
