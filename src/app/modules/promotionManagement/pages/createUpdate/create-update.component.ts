@@ -185,8 +185,11 @@ export class CreateUpdateComponent implements OnInit {
             productDescription: res.productDescription || '',
           });
 
-          if (res?.importCodeFileName?.length)
+          if (res?.importCodeFileName?.length) {
             this.submitForm.get('limit')?.disable();
+          }
+
+          this.submitForm.get('productId')?.disable();
 
           this.fileCodeLimitOrg = res.importCode?.length || res.limit || 0;
 

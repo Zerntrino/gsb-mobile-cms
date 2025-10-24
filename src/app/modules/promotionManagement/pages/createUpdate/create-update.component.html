@@ -165,14 +165,14 @@
               ></select2>
             </div>
 
-            <div>
+            <div *ngIf="submitForm.get('typeId')?.value">
               <div class="text-sm">รหัสโปรโมชัน</div>
               <input
                 class="input"
                 name="productId"
                 formControlName="productId"
                 placeholder="รหัสโปรโมชัน"
-                [disabled]="id != 'create'"
+                [disabled]="id != 'create' || id != 'create'"
                 maxlength="5"
                 pattern="[A-Za-z0-9]{0,5}"
               />
