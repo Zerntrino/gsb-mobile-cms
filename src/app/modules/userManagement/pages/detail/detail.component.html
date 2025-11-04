@@ -4,14 +4,9 @@
   <div *ngIf="user?.responseCode" class="flex-1 my-2 bg-white px-4 py-4">
     <div class="font-semibold">ข้อมูลผู้ใช้บัตร</div>
     <div class="my-4 flex relative">
-      <div
-        class="flex-1 rounded-lg border border-primary border-opacity-20 px-6 py-6 text-center"
-      >
+      <div class="flex-1 rounded-lg border border-primary border-opacity-20 px-6 py-6 text-center">
         <div class="mx-auto flex justify-center mb-4">
-          <img
-            class="w-20 h-20 rounded-full bg-pink-100 p-4"
-            src="assets/icons/user.svg"
-          />
+          <img class="w-20 h-20 rounded-full bg-pink-100 p-4" src="assets/icons/user.svg" />
         </div>
 
         <div class="text-sm text-gray-400">ชื่อ - นามสกุล</div>
@@ -29,27 +24,25 @@
         <img class="w-6 h-6" src="assets/icons/chain.svg" />
       </div>
 
-      <div
-        class="flex-1 rounded-lg border border-primary border-opacity-20 px-6 py-6 relative border-dashed"
-      >
+      <div class="flex-1 rounded-lg border border-primary border-opacity-20 px-6 py-6 relative border-dashed">
         <div class="text-sm text-primary font-semibold">ข้อมูลบัตรเครดิต</div>
 
         <div class="text-sm text-gray-400 mt-4">เบอร์โทรศัพท์</div>
         <div class="font-semibold">
-          {{ user.creditCardUserInformation.mobileNubmer }}
+          {{ user.creditCardUserInformation?.mobileNubmer || '-' }}
         </div>
         <div class="h-4"></div>
         <div class="text-sm text-gray-400">อีเมล</div>
         <div class="font-semibold">
-          {{ user.creditCardUserInformation.email }}
+          {{ user.creditCardUserInformation?.email || '-' }}
         </div>
         <div class="text-sm text-gray-400 mt-4">ที่อยู่จัดส่งเอกสาร</div>
         <div class="font-semibold">
-          {{ user.creditCardUserInformation.address }}
+          {{ user.creditCardUserInformation.address || '-' }}
         </div>
         <!-- <a
           class="w-20 absolute top-4 right-0"
-          [href]="'tel:' + user.creditCardUserInformation.mobileNubmer"
+          [href]="'tel:' + user.creditCardUserInformation?.mobileNubmer || '-'"
         >
           <img
             class="w-12 h-12 rounded-full bg-pink-100 p-3"
@@ -62,29 +55,27 @@
         <img class="w-6 h-6" src="assets/icons/chain.svg" />
       </div>
 
-      <div
-        class="flex-1 rounded-lg border border-primary border-opacity-20 px-6 py-6 relative border-dashed"
-      >
+      <div class="flex-1 rounded-lg border border-primary border-opacity-20 px-6 py-6 relative border-dashed">
         <div class="text-sm text-primary font-semibold">
           ข้อมูลสินเชื่อบัตรเงินสด
         </div>
 
         <div class="text-sm text-gray-400 mt-4">เบอร์โทรศัพท์</div>
         <div class="font-semibold">
-          {{ user.revolvingLoanUserInformation.mobileNubmer }}
+          {{ user.revolvingLoanUserInformation?.mobileNubmer || '-' }}
         </div>
         <div class="h-4"></div>
         <div class="text-sm text-gray-400">อีเมล</div>
         <div class="font-semibold">
-          {{ user.revolvingLoanUserInformation.email }}
+          {{ user.revolvingLoanUserInformation?.email || '-' }}
         </div>
         <div class="text-sm text-gray-400 mt-4">ที่อยู่จัดส่งเอกสาร</div>
         <div class="font-semibold">
-          {{ user.revolvingLoanUserInformation.address }}
+          {{ user.revolvingLoanUserInformation?.address || '-' }}
         </div>
         <!-- <a
           class="w-20 absolute top-4 right-0 cursor-pointer"
-          [href]="'tel:' + user.revolvingLoanUserInformation.mobileNubmer"
+          [href]="'tel:' + user.revolvingLoanUserInformation?.mobileNubmer || '-'"
         >
           <img
             class="w-12 h-12 rounded-full bg-pink-100 p-3"
@@ -108,17 +99,14 @@
 
     <div class="space-y-2">
       <div *ngFor="let c of user.creditCardList">
-        <a
-          [routerLink]="
+        <a [routerLink]="
             '/user-management/card/' +
             encodedId +
             '/' +
             c.accountNumber +
             '-' +
             c.cardRel
-          "
-          class="border border-gray-100 rounded-md px-8 py-6 flex items-center space-x-6"
-        >
+          " class="border border-gray-100 rounded-md px-8 py-6 flex items-center space-x-6">
           <div class="">
             <img class="w-20 shadow-lg" [src]="c.cardImageUrl" />
           </div>
