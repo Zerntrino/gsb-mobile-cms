@@ -1,25 +1,13 @@
 <div class="h-full">
-  <form
-    [formGroup]="submitForm"
-    (submit)="onSubmit()"
-    #sf="ngForm"
-    class="flex flex-col h-full"
-  >
+  <form [formGroup]="submitForm" (submit)="onSubmit()" #sf="ngForm" class="flex flex-col h-full">
     <div class="flex items-center my-2">
-      <app-nav
-        title="จัดการรีวอร์ด"
-        [items]="navItems"
-        class="flex-1"
-      ></app-nav>
+      <app-nav title="จัดการรีวอร์ด" [items]="navItems" class="flex-1"></app-nav>
       <div class="flex items-center space-x-2 text-sm">
         <div>สถานะ</div>
-        <app-toggle
-          [value]="submitForm.get('isActive')?.value || false"
-          (valueUpdate)="submitForm.get('isActive')?.setValue($event)"
-          [disabled]="
+        <app-toggle [value]="submitForm.get('isActive')?.value || false"
+          (valueUpdate)="submitForm.get('isActive')?.setValue($event)" [disabled]="
             mode == 'view' || dateBeforeNow(submitForm.get('endDate')?.value)
-          "
-        ></app-toggle>
+          "></app-toggle>
         <div>
           {{ submitForm.get("isActive")?.value ? "แสดงผล" : "ไม่แสดงผล" }}
         </div>
@@ -53,35 +41,20 @@
                 </div> -->
               </div>
 
-              <select2
-                class="flex w-full"
-                [value]="submitForm.get('categoryId')?.value || 0"
-                (update)="categoryChange($event)"
-                [data]="categoryOption"
-                placeholder="เลือกหมวดหมู่"
-                [disabled]="mode == 'view' || id != 'create'"
-              ></select2>
+              <select2 class="flex w-full" [value]="submitForm.get('categoryId')?.value || 0"
+                (update)="categoryChange($event)" [data]="categoryOption" placeholder="เลือกหมวดหมู่"
+                [disabled]="mode == 'view' || id != 'create'"></select2>
             </div>
             <div class="">
               <div class="text-sm">หัวข้อ</div>
-              <input
-                class="input"
-                name="name"
-                formControlName="name"
-                placeholder="หัวข้อ"
-              />
+              <input class="input" name="name" formControlName="name" placeholder="หัวข้อ" />
             </div>
 
             <div>
               <div class="text-sm">รายละเอียด</div>
               <div>
-                <angular-editor
-                  placeholder="รายละเอียด"
-                  minHeight="180"
-                  name="description"
-                  formControlName="description"
-                  [config]="editorConfig"
-                ></angular-editor>
+                <angular-editor placeholder="รายละเอียด" minHeight="180" name="description"
+                  formControlName="description" [config]="editorConfig"></angular-editor>
               </div>
             </div>
 
@@ -97,55 +70,25 @@
             </div> -->
             <div class="relative">
               <div class="text-sm">วันที่แสดง</div>
-              <input
-                class="input"
-                [owlDateTime]="startDate"
-                [owlDateTimeTrigger]="startDate"
-                name="startDate"
-                formControlName="startDate"
-                placeholder="วว/ดด/ปปปป"
-                [disabled]="id != 'create'"
-                [readOnly]="id != 'create'"
-                [owlDateTimeFilter]="startDateFilter"
-              />
-              <img
-                [owlDateTimeTrigger]="startDate"
-                src="assets/icons/calendar.svg"
-                class="absolute bottom-2 right-2 w-6 cursor-pointer"
-              />
-              <owl-date-time
-                #startDate
-                [disabled]="id != 'create'"
-                pickerType="calendar"
-              ></owl-date-time>
+              <input class="input" [owlDateTime]="startDate" [owlDateTimeTrigger]="startDate" name="startDate"
+                formControlName="startDate" placeholder="วว/ดด/ปปปป" [disabled]="id != 'create'"
+                [readOnly]="id != 'create'" [owlDateTimeFilter]="startDateFilter" />
+              <img [owlDateTimeTrigger]="startDate" src="assets/icons/calendar.svg"
+                class="absolute bottom-2 right-2 w-6 cursor-pointer" />
+              <owl-date-time #startDate [disabled]="id != 'create'" pickerType="calendar"></owl-date-time>
             </div>
             <div class="relative">
               <div class="text-sm">วันที่สิ้นสุด</div>
-              <input
-                class="input"
-                [owlDateTime]="endDate"
-                [owlDateTimeTrigger]="endDate"
-                name="endDate"
-                formControlName="endDate"
-                placeholder="วว/ดด/ปปปป"
-                [owlDateTimeFilter]="endDateFilter"
-              />
-              <img
-                [owlDateTimeTrigger]="endDate"
-                src="assets/icons/calendar.svg"
-                class="absolute bottom-2 right-2 w-6 cursor-pointer"
-              />
+              <input class="input" [owlDateTime]="endDate" [owlDateTimeTrigger]="endDate" name="endDate"
+                formControlName="endDate" placeholder="วว/ดด/ปปปป" [owlDateTimeFilter]="endDateFilter" />
+              <img [owlDateTimeTrigger]="endDate" src="assets/icons/calendar.svg"
+                class="absolute bottom-2 right-2 w-6 cursor-pointer" />
               <owl-date-time #endDate pickerType="calendar"></owl-date-time>
             </div>
             <div class="flex space-x-2">
-              <app-checkbox
-                [value]="submitForm.get('isNotification')?.value || false"
-                (valueUpdate)="
+              <app-checkbox [value]="submitForm.get('isNotification')?.value || false" (valueUpdate)="
                   submitForm.get('isNotification')?.setValue($event)
-                "
-                [disabled]="mode == 'view' || id != 'create'"
-                >ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-checkbox
-              >
+                " [disabled]="mode == 'view' || id != 'create'">ส่งการแจ้งเตือนเมื่อถึงวันแสดงผล</app-checkbox>
             </div>
           </div>
         </div>
@@ -155,14 +98,9 @@
           <div class="border border-gray-100 rounded-md p-6 space-y-4">
             <div>
               <div class="text-sm">ประเภทการแลกคะแนน</div>
-              <select2
-                class="flex w-full"
-                [value]="submitForm.get('typeId')?.value || 0"
-                (update)="promotionTypeChange($event)"
-                [data]="promotionTypeOption"
-                placeholder="เลือกประเภทการแลกคะแนน"
-                [disabled]="mode == 'view' || id != 'create'"
-              ></select2>
+              <select2 class="flex w-full" [value]="submitForm.get('typeId')?.value || 0"
+                (update)="promotionTypeChange($event)" [data]="promotionTypeOption" placeholder="เลือกประเภทการแลกคะแนน"
+                [disabled]="mode == 'view' || id != 'create'"></select2>
             </div>
 
             <!-- <div *ngIf="submitForm.get('typeId')?.value == 2">
@@ -207,23 +145,13 @@
             <div *ngIf="submitForm.get('typeId')?.value">
               <div class="flex-1">
                 <div class="text-sm">รหัสสินค้า</div>
-                <input
-                  name="productId"
-                  formControlName="productId"
-                  class="input"
-                  placeholder="รหัสสินค้า"
-                  [disabled]="id != 'create'"
-                />
+                <input name="productId" formControlName="productId" class="input" placeholder="รหัสสินค้า"
+                  [disabled]="id != 'create'" maxlength="5" pattern="[A-Za-z0-9]{0,5}" />
               </div>
               <div class="flex-1 mt-4">
                 <div class="text-sm">รายละเอียดสินค้า</div>
-                <input
-                  name="productDescription"
-                  formControlName="productDescription"
-                  class="input"
-                  placeholder="รายละเอียดสินค้า"
-                  [disabled]="id != 'create'"
-                />
+                <input name="productDescription" formControlName="productDescription" class="input"
+                  placeholder="รายละเอียดสินค้า" [disabled]="id != 'create'" />
               </div>
             </div>
 
@@ -243,75 +171,42 @@
               <div class="my-4 flex space-x-4">
                 <div class="flex-1">
                   <div class="text-sm">คะแนนที่ใช้แลก</div>
-                  <input
-                    name="point"
-                    formControlName="point"
-                    class="input text-right"
-                    placeholder="คะแนนที่ใช้แลก"
-                    [disabled]="mode == 'view' || id != 'create'"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="point" formControlName="point" class="input text-right" placeholder="คะแนนที่ใช้แลก"
+                    [disabled]="mode == 'view' || id != 'create'" type="number" min="0" />
                 </div>
                 <div class="flex-1">
                   <div class="text-sm">คะแนนที่ได้รับ</div>
-                  <input
-                    name="mPoint"
-                    formControlName="mPoint"
-                    class="input text-right"
-                    placeholder="คะแนนที่ได้รับ"
-                    [disabled]="mode == 'view'"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="mPoint" formControlName="mPoint" class="input text-right" placeholder="คะแนนที่ได้รับ"
+                    [disabled]="mode == 'view'" type="number" min="0" />
                 </div>
               </div>
             </div>
 
-            <div
-              *ngIf="submitForm.get('typeId')?.value == 4"
-              class="border rounded-md border-gray-100 px-4 py-4 space-y-4"
-            >
+            <div *ngIf="submitForm.get('typeId')?.value == 4"
+              class="border rounded-md border-gray-100 px-4 py-4 space-y-4">
               <div>
                 <div class="text-sm">ประเภท Code</div>
-                <select2
-                  class="flex w-full"
-                  [value]="submitForm.get('generateType')?.value || []"
-                  (update)="generateTypeChange($event)"
-                  [data]="codeTypeOption"
-                  placeholder="เลือกประเภท Code"
-                  [disabled]="mode == 'view'"
-                ></select2>
+                <select2 class="flex w-full" [value]="submitForm.get('generateType')?.value || []"
+                  (update)="generateTypeChange($event)" [data]="codeTypeOption" placeholder="เลือกประเภท Code"
+                  [disabled]="mode == 'view'"></select2>
               </div>
               <div *ngIf="submitForm.get('generateType')?.value == 1">
                 <div class="text-sm">Prefix code</div>
-                <input
-                  class="input"
-                  name="prefixCode"
-                  formControlName="prefixCode"
-                  placeholder="Prefix code"
-                  [disabled]="mode == 'view'"
-                  maxlength="5"
-                  pattern="[A-Za-z0-9]{0,5}"
-                />
+                <input class="input" name="prefixCode" formControlName="prefixCode" placeholder="Prefix code"
+                  [disabled]="mode == 'view'" maxlength="5" pattern="[A-Za-z0-9]{0,5}" />
                 <div class="text-sm text-gray-400">
                   ประกอบด้วย Prefix 5 หลัก (ตัวเลขหรือตัวอักษร)
                 </div>
               </div>
 
               <div *ngIf="submitForm.get('generateType')?.value == 2">
-                <button
-                  class="button-border text-center flex items-center justify-center space-x-4 w-full"
-                  type="button"
-                  (click)="inputCode.click()"
-                  [disabled]="mode == 'view'"
-                >
+                <button class="button-border text-center flex items-center justify-center space-x-4 w-full"
+                  type="button" (click)="inputCode.click()" [disabled]="mode == 'view'">
                   <img src="assets/icons/document.svg" class="w-6" />
                   <div>นำเข้าเอกสาร</div>
                 </button>
 
-                <div
-                  *ngFor="
+                <div *ngFor="
                     let file of fileCodeName
                       ? submitForm.get('importCodeFileName')?.value?.length
                         ? [
@@ -321,29 +216,17 @@
                         : [fileCodeName]
                       : submitForm.get('importCodeFileName')?.value;
                     let i = index
-                  "
-                  class="my-2 px-4 py-2 border border-gray-100 rounded-md flex items-center space-x-4 max-w-full"
-                >
+                  " class="my-2 px-4 py-2 border border-gray-100 rounded-md flex items-center space-x-4 max-w-full">
                   <img src="assets/icons/xls.svg" class="w-6" />
                   <div class="flex-1 text-gray-400 text-sm truncate">
                     {{ file }}
                   </div>
-                  <div
-                    *ngIf="fileCodeName == file"
-                    class="cursor-pointer"
-                    (click)="removeFileCode()"
-                  >
+                  <div *ngIf="fileCodeName == file" class="cursor-pointer" (click)="removeFileCode()">
                     <img src="assets/icons/x.svg" class="w-6" />
                   </div>
                 </div>
 
-                <input
-                  type="file"
-                  class="hidden"
-                  accept=".xls,.xlsx"
-                  #inputCode
-                  (change)="inputCodeChange($event)"
-                />
+                <input type="file" class="hidden" accept=".xls,.xlsx" #inputCode (change)="inputCodeChange($event)" />
               </div>
             </div>
 
@@ -351,15 +234,8 @@
               <div class="my-4 flex space-x-4">
                 <div class="flex-1">
                   <div class="text-sm">คะแนนที่ใช้แลก</div>
-                  <input
-                    name="point"
-                    formControlName="point"
-                    class="input text-right"
-                    placeholder="คะแนนที่ใช้แลก"
-                    [disabled]="mode == 'view' || id != 'create'"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="point" formControlName="point" class="input text-right" placeholder="คะแนนที่ใช้แลก"
+                    [disabled]="mode == 'view' || id != 'create'" type="number" min="0" />
                 </div>
               </div>
             </div>
@@ -368,50 +244,26 @@
               <div class="my-2 flex space-x-4">
                 <div class="flex-1">
                   <div class="text-sm">คะแนนที่ใช้แลก (คะแนน)</div>
-                  <input
-                    name="point"
-                    formControlName="point"
-                    class="input text-right"
-                    placeholder="คะแนนที่ใช้แลก (คะแนน)"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="point" formControlName="point" class="input text-right"
+                    placeholder="คะแนนที่ใช้แลก (คะแนน)" type="number" min="0" />
                 </div>
                 <div class="flex-1">
                   <div class="text-sm">เครดิตเงินคืน (บาท)</div>
-                  <input
-                    name="creditCashBack"
-                    formControlName="creditCashBack"
-                    class="input text-right"
-                    placeholder="เครดิตเงินคืน (บาท)"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="creditCashBack" formControlName="creditCashBack" class="input text-right"
+                    placeholder="เครดิตเงินคืน (บาท)" type="number" min="0" />
                 </div>
               </div>
 
               <div class="my-2 flex space-x-4">
                 <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/ตลอดรายการ</div>
-                  <input
-                    name="limit"
-                    formControlName="limit"
-                    class="input text-right"
-                    placeholder="จำกัดสิทธิ์/ตลอดรายการ"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="limit" formControlName="limit" class="input text-right"
+                    placeholder="จำกัดสิทธิ์/ตลอดรายการ" type="number" min="0" />
                 </div>
                 <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/บัตร</div>
-                  <input
-                    name="limitPerCard"
-                    formControlName="limitPerCard"
-                    class="input text-right"
-                    placeholder="จำกัดสิทธิ์/บัตร"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="limitPerCard" formControlName="limitPerCard" class="input text-right"
+                    placeholder="จำกัดสิทธิ์/บัตร" type="number" min="0" />
                 </div>
               </div>
               <div class="text-sm text-primary">
@@ -423,50 +275,26 @@
               <div class="my-2 flex space-x-4">
                 <div class="flex-1">
                   <div class="text-sm">คะแนนที่ใช้แลก (คะแนน)</div>
-                  <input
-                    name="point"
-                    formControlName="point"
-                    class="input text-right"
-                    placeholder="คะแนนที่ใช้แลก (คะแนน)"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="point" formControlName="point" class="input text-right"
+                    placeholder="คะแนนที่ใช้แลก (คะแนน)" type="number" min="0" />
                 </div>
                 <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/ตลอดรายการ</div>
-                  <input
-                    name="limit"
-                    formControlName="limit"
-                    class="input text-right"
-                    placeholder="จำกัดสิทธิ์/ตลอดรายการ"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="limit" formControlName="limit" class="input text-right"
+                    placeholder="จำกัดสิทธิ์/ตลอดรายการ" type="number" min="0" />
                 </div>
               </div>
 
               <div class="my-2 flex space-x-4">
                 <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/บัตร</div>
-                  <input
-                    name="limitPerCard"
-                    formControlName="limitPerCard"
-                    class="input text-right"
-                    placeholder="จำกัดสิทธิ์/บัตร"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="limitPerCard" formControlName="limitPerCard" class="input text-right"
+                    placeholder="จำกัดสิทธิ์/บัตร" type="number" min="0" />
                 </div>
                 <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/ต่อเดือน</div>
-                  <input
-                    name="limitPerMonth"
-                    formControlName="limitPerMonth"
-                    class="input text-right"
-                    placeholder="จำกัดสิทธิ์/ต่อเดือน"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="limitPerMonth" formControlName="limitPerMonth" class="input text-right"
+                    placeholder="จำกัดสิทธิ์/ต่อเดือน" type="number" min="0" />
                 </div>
               </div>
               <div class="text-sm text-primary">
@@ -478,48 +306,26 @@
               <div class="my-2 flex space-x-4">
                 <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/ตลอดรายการ</div>
-                  <input
-                    name="limit"
-                    formControlName="limit"
-                    class="input text-right"
-                    placeholder="จำกัดสิทธิ์/ตลอดรายการ"
-                  />
+                  <input name="limit" formControlName="limit" class="input text-right"
+                    placeholder="จำกัดสิทธิ์/ตลอดรายการ" />
                 </div>
                 <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/ต่อเดือน</div>
-                  <input
-                    name="limitPerMonth"
-                    formControlName="limitPerMonth"
-                    class="input text-right"
-                    placeholder="จำกัดสิทธิ์/ต่อเดือน"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="limitPerMonth" formControlName="limitPerMonth" class="input text-right"
+                    placeholder="จำกัดสิทธิ์/ต่อเดือน" type="number" min="0" />
                 </div>
               </div>
 
               <div class="my-2 flex space-x-4">
                 <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/บัตร/ต่อเดือน</div>
-                  <input
-                    name="limitPerCardPerMonth"
-                    formControlName="limitPerCardPerMonth"
-                    class="input text-right"
-                    placeholder="จำกัดสิทธิ์/บัตร/ต่อเดือน"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="limitPerCardPerMonth" formControlName="limitPerCardPerMonth" class="input text-right"
+                    placeholder="จำกัดสิทธิ์/บัตร/ต่อเดือน" type="number" min="0" />
                 </div>
                 <div class="flex-1">
                   <div class="text-sm">จำกัดสิทธิ์/บัตร/ต่อวัน</div>
-                  <input
-                    name="limitPerCardDay"
-                    formControlName="limitPerCardPerDay"
-                    class="input text-right"
-                    placeholder="จำกัดสิทธิ์/บัตร/ต่อวัน"
-                    type="number"
-                    min="0"
-                  />
+                  <input name="limitPerCardDay" formControlName="limitPerCardPerDay" class="input text-right"
+                    placeholder="จำกัดสิทธิ์/บัตร/ต่อวัน" type="number" min="0" />
                 </div>
               </div>
               <div class="text-sm text-primary">
@@ -527,46 +333,31 @@
               </div>
             </div>
 
-            <div
-              *ngIf="(submitForm.get('typeId')?.value || 0) > 0"
-              class="my-2"
-            >
+            <div *ngIf="(submitForm.get('typeId')?.value || 0) > 0" class="my-2">
               <div class="mb-2">ประเภทบัตรสำหรับเครดิตเงินคืน</div>
               <div class="flex flex-wrap -mx-1">
                 <div class="p-1 w-full">
-                  <div
-                    class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-2"
-                  >
+                  <div class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-2">
                     <img src="assets/icons/cards/visa.svg" class="w-8" />
                     <div class="flex-1 text-sm">GSB ทุกประเภท</div>
-                    <app-checkbox
-                      [value]="
+                    <app-checkbox [value]="
                         submitForm.get('cardId')?.value?.length ==
                         cardIds.length
-                      "
-                      (valueUpdate)="
+                      " (valueUpdate)="
                         submitForm
                           .get('cardId')
                           ?.setValue($event ? cardIds : [])
-                      "
-                      [disabled]="mode == 'view'"
-                    ></app-checkbox>
+                      " [disabled]="mode == 'view'"></app-checkbox>
                   </div>
                 </div>
 
                 <div class="p-1 w-1/2" *ngFor="let card of cards">
-                  <div
-                    class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-2"
-                  >
+                  <div class="px-4 py-2 bg-pink-100 rounded-md flex items-center space-x-2">
                     <img [src]="card.imageUrl" class="w-8" />
                     <div class="flex-1 text-sm truncate">{{ card.name }}</div>
-                    <app-checkbox
-                      [value]="
+                    <app-checkbox [value]="
                         submitForm.get('cardId')?.value?.includes(card.id)
-                      "
-                      (valueUpdate)="updateCard($event, card.id)"
-                      [disabled]="mode == 'view'"
-                    ></app-checkbox>
+                      " (valueUpdate)="updateCard($event, card.id)" [disabled]="mode == 'view'"></app-checkbox>
                   </div>
                 </div>
               </div>
@@ -579,58 +370,35 @@
           <div class="border border-gray-100 rounded-md p-6 pb-12">
             <div class="text-sm">รูปภาพหน้าปก</div>
             <div class="px-6">
-              <div
-                *ngIf="!(coverImageBase64 || submitForm.get('coverUrl')?.value)"
-                class="w-full mt-6 aspect-w-3 aspect-h-2 flex justify-center items-center rounded-md bg-gray-300"
-              >
+              <div *ngIf="!(coverImageBase64 || submitForm.get('coverUrl')?.value)"
+                class="w-full mt-6 aspect-w-3 aspect-h-2 flex justify-center items-center rounded-md bg-gray-300">
                 <img src="assets/icons/img.svg" class="w-11 mx-auto" />
               </div>
 
-              <div
-                class="relative"
-                *ngIf="coverImageBase64 || submitForm.get('coverUrl')?.value"
-              >
-                <img
-                  *ngIf="mode != 'view'"
-                  class="w-16 h-16 absolute top-0 right-0 z-10 cursor-pointer"
-                  style="right: 0"
-                  src="assets/icons/x-circle.svg"
-                  (click)="
+              <div class="relative" *ngIf="coverImageBase64 || submitForm.get('coverUrl')?.value">
+                <img *ngIf="mode != 'view'" class="w-16 h-16 absolute top-0 right-0 z-10 cursor-pointer"
+                  style="right: 0" src="assets/icons/x-circle.svg" (click)="
                     coverImageBase64 = '';
                     submitForm.get('coverUrl')?.setValue('')
-                  "
-                />
+                  " />
                 <div
-                  class="w-full mt-6 aspect-w-3 aspect-h-2 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
-                >
-                  <img
-                    class="w-full h-full object-cover"
-                    [src]="
+                  class="w-full mt-6 aspect-w-3 aspect-h-2 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden">
+                  <img class="w-full h-full object-cover" [src]="
                       coverImageBase64 || submitForm.get('coverUrl')?.value
-                    "
-                  />
+                    " />
                 </div>
               </div>
 
-              <input
-                type="file"
-                class="hidden"
-                accept="application/image"
-                #inputImage
-                (change)="inputFileChange($event)"
-              />
+              <input type="file" class="hidden" accept="application/image" #inputImage
+                (change)="inputFileChange($event)" />
 
               <div class="my-4 text-center text-gray-400 text-sm">
                 เลือกรูปภาพที่ใช้เป็น Banner ( ขนาด 1179 x 834 .png )
               </div>
 
               <div class="flex justify-center">
-                <button
-                  class="button-border text-center flex items-center justify-center space-x-4"
-                  type="button"
-                  (click)="inputImage.click()"
-                  [disabled]="mode == 'view'"
-                >
+                <button class="button-border text-center flex items-center justify-center space-x-4" type="button"
+                  (click)="inputImage.click()" [disabled]="mode == 'view'">
                   <img src="assets/icons/upload.svg" class="w-6" />
                   <div>อัปโหลดไฟล์รูปภาพ</div>
                 </button>
@@ -638,56 +406,32 @@
 
               <div class="text-sm mt-6">รูปภาพเนื้อหา</div>
               <div *ngIf="imageBase64?.length" class="flex flex-wrap mt-6">
-                <div
-                  class="relative p-1"
-                  *ngFor="let img of imageBase64; let i = index"
-                >
-                  <img
-                    *ngIf="mode != 'view'"
-                    class="w-16 h-16 absolute top-0 right-0 z-10 cursor-pointer"
-                    style="right: 0"
-                    src="assets/icons/x-circle.svg"
-                    (click)="removeImg(i)"
-                  />
-                  <div
-                    class="w-32 h-20 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden"
-                  >
+                <div class="relative p-1" *ngFor="let img of imageBase64; let i = index">
+                  <img *ngIf="mode != 'view'" class="w-16 h-16 absolute top-0 right-0 z-10 cursor-pointer"
+                    style="right: 0" src="assets/icons/x-circle.svg" (click)="removeImg(i)" />
+                  <div class="w-32 h-20 flex justify-center items-center rounded-md bg-gray-300 overflow-hidden">
                     <img [src]="img" class="w-full mx-auto cursor-pointer" />
                   </div>
                 </div>
               </div>
               <div *ngIf="!imageBase64?.length" class="flex flex-wrap mt-6">
                 <div class="relative p-1">
-                  <div
-                    class="w-32 h-20 flex justify-center items-center rounded-md bg-gray-300"
-                  >
-                    <img
-                      src="assets/icons/img.svg"
-                      class="w-11 mx-auto cursor-pointer"
-                    />
+                  <div class="w-32 h-20 flex justify-center items-center rounded-md bg-gray-300">
+                    <img src="assets/icons/img.svg" class="w-11 mx-auto cursor-pointer" />
                   </div>
                 </div>
               </div>
 
-              <input
-                type="file"
-                class="hidden"
-                accept="application/image"
-                #inputImage2
-                (change)="inputFile2Change($event)"
-              />
+              <input type="file" class="hidden" accept="application/image" #inputImage2
+                (change)="inputFile2Change($event)" />
 
               <div class="my-4 text-center text-gray-400 text-sm">
                 เลือกรูปภาพที่ใช้เป็น Banner ( ขนาด 1179 x 834 .png )
               </div>
 
               <div class="flex justify-center">
-                <button
-                  class="button-border text-center flex items-center justify-center space-x-4"
-                  type="button"
-                  (click)="inputImage2.click()"
-                  [disabled]="mode == 'view'"
-                >
+                <button class="button-border text-center flex items-center justify-center space-x-4" type="button"
+                  (click)="inputImage2.click()" [disabled]="mode == 'view'">
                   <img src="assets/icons/upload.svg" class="w-6" />
                   <div>อัปโหลดไฟล์รูปภาพ</div>
                 </button>
@@ -698,27 +442,14 @@
       </div>
     </div>
 
-    <div
-      class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2"
-    >
-      <a (click)="back()"
-        ><button class="button-default-border w-auto px-6" type="button">
+    <div class="sticky bottom-0 px-6 py-6 box-shadow-bottom bg-white flex justify-end space-x-4 -mx-4 -my-2">
+      <a (click)="back()"><button class="button-default-border w-auto px-6" type="button">
           ยกเลิก
-        </button></a
-      >
-      <button
-        *ngIf="mode == 'view' && roleEditable"
-        class="button-dark w-auto px-6"
-        type="button"
-        (click)="edit()"
-      >
+        </button></a>
+      <button *ngIf="mode == 'view' && roleEditable" class="button-dark w-auto px-6" type="button" (click)="edit()">
         แก้ไข
       </button>
-      <button
-        *ngIf="mode == 'edit' && roleEditable"
-        class="button w-auto px-6"
-        type="submit"
-        [disabled]="
+      <button *ngIf="mode == 'edit' && roleEditable" class="button w-auto px-6" type="submit" [disabled]="
           !submitForm.get('categoryId')?.value ||
           !submitForm.get('name')?.value ||
           !submitForm.get('description')?.value ||
@@ -730,17 +461,14 @@
           !(submitForm.get('imageUrl')?.value || imageBase64) ||
           !submitForm.get('productId')?.value ||
           !submitForm.get('productDescription')?.value
-        "
-      >
+        ">
         {{ id == "create" ? "สร้างรีวอร์ด" : "บันทึกรีวอร์ด" }}
       </button>
     </div>
   </form>
 
-  <create-udpate-category-management-dialog
-    [showDetail]="showDetail"
-    (success)="createCategorySuccess()"
-  ></create-udpate-category-management-dialog>
+  <create-udpate-category-management-dialog [showDetail]="showDetail"
+    (success)="createCategorySuccess()"></create-udpate-category-management-dialog>
 
   <app-alert [(show)]="fileErrorId">
     <div class="text-center" [innerHTML]="fileError"></div>
