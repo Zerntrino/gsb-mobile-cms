@@ -106,7 +106,7 @@
             <div *ngIf="submitForm.get('typeId')?.value">
               <div class="text-sm">รหัสโปรโมชัน</div>
               <input class="input" name="productId" formControlName="productId" placeholder="รหัสโปรโมชัน"
-                [disabled]="id != 'create' || id != 'create'" maxlength="4" pattern="[A-Za-z0-9]{0,5}" />
+                [disabled]="id != 'create' || id != 'create'" maxlength="5" pattern="[A-Za-z0-9]{0,5}" />
             </div>
 
             <div *ngIf="[1, 2, 3].includes(submitForm.get('typeId')?.value || 0)">
