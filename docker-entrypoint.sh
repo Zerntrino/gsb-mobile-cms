@@ -9,3 +9,5 @@ envsubst '$APPLE_APP_ID' < .well-known/apple-app-site-association-template > .we
 envsubst '$OAUTH2_ISSUER $OAUTH2_CLIENT_ID $OAUTH2_REDIRECT_URI $XAPPID' < src/environments/environment-template.prod.ts > src/environments/environment.prod.ts
 
 exec "$@"
+
+# yarn start

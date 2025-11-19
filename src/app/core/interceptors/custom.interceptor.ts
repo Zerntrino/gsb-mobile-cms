@@ -16,7 +16,7 @@ export class CustomInterceptor implements HttpInterceptor {
   constructor(
     private authService: AuthService,
     private readonly spinnerService: SpinnerService
-  ) {}
+  ) { }
 
   intercept(
     request: HttpRequest<unknown>,
