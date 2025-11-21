@@ -19,7 +19,7 @@
     "@angular/compiler": "^14.0.0",
     "@angular/core": "^14.0.0",
     "@angular/forms": "^14.0.0",
-    "@angular/localize": "^14.3.0",
+    "@angular/localize": "^16.0.6",
     "@angular/platform-browser": "^14.0.0",
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
@@ -37,7 +37,7 @@
     "rxjs": "~7.5.0",
     "ts-node": "^10.9.2",
     "tslib": "^2.3.0",
-    "xlsx": "^0.18.4",
+    "xlsx": "^0.18.1",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
