@@ -64,7 +64,7 @@ export class ListComponent implements OnInit {
     private rewardService: RewardService,
     private _location: Location,
     private routeHistory: RouteHistoryService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     this.page = Number(
@@ -216,11 +216,7 @@ export class ListComponent implements OnInit {
     // Create a CSV file and allow the user to download it
     let blob = new Blob([csvData], { type: 'text/csv' });
     let url = window.URL.createObjectURL(blob);
-    let a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
+    window.URL.revokeObjectURL(url);
   }
   jsonToCsv(jsonData: RewardHistory[]) {
     let csv = '';
