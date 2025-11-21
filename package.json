@@ -24,8 +24,8 @@
     "@angular/platform-browser-dynamic": "^14.0.0",
     "@angular/router": "^14.0.0",
     "@kolkov/angular-editor": "^3.0.0-beta.0",
-    "@okta/okta-angular": "^6.4.0",
-    "@okta/okta-auth-js": "^7.8.0",
+    "@okta/okta-angular": "^6.5.1",
+    "@okta/okta-auth-js": "^7.14.0",
     "@types/crypto-js": "^4.2.2",
     "@types/lodash": "^4.17.0",
     "crypto-js": "^4.2.0",
@@ -37,7 +37,7 @@
     "rxjs": "~7.5.0",
     "ts-node": "^10.9.2",
     "tslib": "^2.3.0",
-    "xlsx": "^0.18.1",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
