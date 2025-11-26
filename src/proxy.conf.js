@@ -1,6 +1,6 @@
 module.exports = {
     "/api": {
-        target: process.env.API_BACKEND || "http://gsb-api.ubakong.com",
+        target: process.env.API_BACKEND,
         secure: false,
         changeOrigin: true,
         "pathRewrite": {

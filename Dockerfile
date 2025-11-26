@@ -20,12 +20,12 @@ RUN chown -R nonroot:nonroot /app
 # ARG APPLE_APP_ID=
 
 # PROD
-ENV API_BACKEND=http://gsbmycard.gsb.or.th
-ENV OAUTH2_ISSUER=https://mfapwl.gsb.or.th
-ENV OAUTH2_CLIENT_ID=0oa1xqec2w7jyv8pa1d8
-ENV OAUTH2_REDIRECT_URI=https://gsbmycard.gsb.or.th/cms/auth/callback
-ENV XAPPID=93b81b99
-ENV APPLE_APP_ID=J88QXZ7C6C.com.gsb.mycard.delta
+# ENV API_BACKEND=http://gsbmycard.gsb.or.th
+# ENV OAUTH2_ISSUER=https://mfapwl.gsb.or.th
+# ENV OAUTH2_CLIENT_ID=0oa1xqec2w7jyv8pa1d8
+# ENV OAUTH2_REDIRECT_URI=https://gsbmycard.gsb.or.th/cms/auth/callback
+# ENV XAPPID=93b81b99
+# ENV APPLE_APP_ID=J88QXZ7C6C.com.gsb.mycard.delta
 
 # UAT
 # ENV API_BACKEND=http://gsbmycarduat.gsb.or.th
@@ -44,12 +44,12 @@ ENV APPLE_APP_ID=J88QXZ7C6C.com.gsb.mycard.delta
 # ENV APPLE_APP_ID=L679254MM2.com.ubakong.gsb.gsbmcc-uat
 
 # DEV
-# ENV API_BACKEND=http://gsb-api.ubakong.com
-# ENV OAUTH2_ISSUER=https://mfapwldev.gsb.or.th
-# ENV OAUTH2_CLIENT_ID=0oa1uk5axxcJJh8mB1d8
-# ENV OAUTH2_REDIRECT_URI=https://gsbmycardsit.gsb.or.th/cms/auth/callback
-# ENV XAPPID=9df6dceb
-# ENV APPLE_APP_ID=L679254MM2.com.ubakong.gsb.gsbmcc-uat
+ENV API_BACKEND=http://gsb-api.ubakong.com
+ENV OAUTH2_ISSUER=https://mfapwldev.gsb.or.th
+ENV OAUTH2_CLIENT_ID=0oa1uk5axxcJJh8mB1d8
+ENV OAUTH2_REDIRECT_URI=https://gsbmycardsit.gsb.or.th/cms/auth/callback
+ENV XAPPID=9df6dceb
+ENV APPLE_APP_ID=L679254MM2.com.ubakong.gsb.gsbmcc-uat
 
 # RUN echo $API_BACKEND
 # RUN echo $OAUTH2_ISSUER

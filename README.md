@@ -34,3 +34,5 @@ push to branch develop to build with cloud build
 docker build -t gsb-cms --no-cache .
 
 docker run --rm -it -p 8080:8080 -e OAUTH2_ISSUER=AAA -e OAUTH2_CLIENT_ID=aaa gsb-cms
+
+docker run --rm -it -p 8080:8080 gsb-cms
