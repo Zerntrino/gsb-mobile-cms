@@ -46,7 +46,6 @@ import { CreateUpdateadminDialogComponent } from '../adminManagement/dialogs/cre
   imports: [
     CommonModule,
     RouterModule,
-    RouterOutlet,
     HttpClientModule,
     Select2Module,
     FormsModule,
@@ -79,4 +78,4 @@ import { CreateUpdateadminDialogComponent } from '../adminManagement/dialogs/cre
     AngularEditorModule,
   ],
 })
-export class SharedModule {}
+export class SharedModule { }

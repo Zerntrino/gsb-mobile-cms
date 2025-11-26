@@ -1,8 +1,15 @@
-FROM node:20-alpine3.20 AS builder
+# FROM node:24.11.1-alpine3.22 AS builder
+FROM node:18 as build
 
 WORKDIR /app
 
+# RUN addgroup -S nonroot \
+#     && adduser -S nonroot -G nonroot
+RUN groupadd -r nonroot && useradd -r -g nonroot nonroot
+
 COPY . .
+
+RUN chown -R nonroot:nonroot /app
 
 # ENV
 # ARG API_BACKEND=
@@ -52,39 +59,47 @@ ENV APPLE_APP_ID=J88QXZ7C6C.com.gsb.mycard.delta
 # RUN echo $APPLE_APP_ID
 
 # Install gettext
-RUN apk update
-RUN apk add --no-cache gettext=0.22.5-r0
+# RUN apk update
+# RUN apk add --no-cache gettext=0.24.1-r0
+RUN apt-get update && apt-get install -y gettext
 
 RUN chmod +x docker-entrypoint.sh
-RUN ./docker-entrypoint.sh
 
-RUN yarn install --unsafe-perm
-RUN yarn build-prod
+# RUN yarn install --unsafe-perm
 
-# FROM nginx:1.26.3-alpine3.20
-FROM nginx:1.29.3-alpine3.22-slim
+# RUN yarn build-prod
 
-# Install gettext
-RUN apk update
-RUN apk add --no-cache gettext=0.22.5-r0
-
-RUN addgroup -S nonroot \
-    && adduser -S nonroot -G nonroot
-
-COPY --from=builder /app/nginx.default.conf /etc/nginx/conf.d/default.conf
-
-COPY --from=builder /app/dist/* /etc/nginx/html
-COPY --from=builder /app/.well-known/* /etc/nginx/html/.well-known/
-
-COPY --from=builder /app/other/* /etc/nginx/html/other/
-
-RUN chown -R nonroot:nonroot /etc/nginx/
-RUN chown -R nonroot:nonroot /var/cache/nginx/
-RUN chown -R nonroot:nonroot /var/run/
-
-# EXPOSE 80
 EXPOSE 8080
 
 USER nonroot
 
-CMD ["nginx", "-g", "daemon off;"]
+CMD [ "./docker-entrypoint.sh" ]
+
+
+# # FROM nginx:1.26.3-alpine3.20
+# FROM nginx:1.29.3-alpine3.22-slim
+
+# # Install gettext
+# RUN apk update
+# RUN apk add --no-cache gettext=0.22.5-r0
+
+# RUN addgroup -S nonroot \
+#     && adduser -S nonroot -G nonroot
+
+# COPY --from=builder /app/nginx.default.conf /etc/nginx/conf.d/default.conf
+
+# COPY --from=builder /app/dist/* /etc/nginx/html
+# COPY --from=builder /app/.well-known/* /etc/nginx/html/.well-known/
+
+# COPY --from=builder /app/other/* /etc/nginx/html/other/
+
+# RUN chown -R nonroot:nonroot /etc/nginx/
+# RUN chown -R nonroot:nonroot /var/cache/nginx/
+# RUN chown -R nonroot:nonroot /var/run/
+
+# # EXPOSE 80
+# EXPOSE 8080
+
+# USER nonroot
+
+# CMD ["nginx", "-g", "daemon off;"]

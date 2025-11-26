@@ -20,7 +20,9 @@
             "tsConfig": "tsconfig.app.json",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/other",
+              "src/.well-known"
             ],
             "styles": [
               "src/styles.css",
@@ -46,7 +48,7 @@
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
+                  "with": "src/environments/environment.ts"
                 }
               ],
               "outputHashing": "all"
@@ -64,6 +66,10 @@
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "host": "0.0.0.0",
+            "port": 8080
+          },
           "configurations": {
             "production": {
               "browserTarget": "ghb-cms:build:production"
@@ -89,7 +95,9 @@
             "karmaConfig": "karma.conf.js",
             "assets": [
               "src/favicon.ico",
-              "src/assets"
+              "src/assets",
+              "src/other",
+              "src/.well-known"
             ],
             "styles": [
               "src/styles.css"

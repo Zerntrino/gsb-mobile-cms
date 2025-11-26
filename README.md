@@ -29,3 +29,8 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 ## Deploy Dev
 
 push to branch develop to build with cloud build
+
+# Docker
+docker build -t gsb-cms --no-cache .
+
+docker run --rm -it -p 8080:8080 -e OAUTH2_ISSUER=AAA -e OAUTH2_CLIENT_ID=aaa gsb-cms
